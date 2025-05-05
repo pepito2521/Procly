@@ -16,6 +16,7 @@ h1, h2, h3 {
     font-weight: 600;
     font-size: 2rem; 
     line-height: 1.2;
+    color: #55625D;
 }
 
 p {
@@ -23,6 +24,7 @@ p {
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.6;
+    color: #55625D;
 }
 
 small {
@@ -30,6 +32,7 @@ small {
     font-weight: 400;
     font-size: 0.875rem; 
     line-height: 1.4;
+    color: #55625D;
 }
 
 /* BOTON */
@@ -87,11 +90,15 @@ small {
   }
   
   .navbar-logo img {
-    height: 40px; /* Ajustá según el tamaño real del logo */
+    height: 50px; 
   }
 
+  .navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 
-  /* Menú de navegación */
   .navbar-links {
     list-style: none;
     display: flex;
@@ -99,14 +106,15 @@ small {
   }
   
   .navbar-links a {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.6;
     text-decoration: none;
     color: #55625D;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
     transition: color 0.3s ease;
   }
   
   .navbar-links a:hover {
-    color: #508991; /* Color al hacer hover */
+    color: #508991;
   }
