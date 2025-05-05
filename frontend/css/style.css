@@ -61,3 +61,41 @@ small {
     cursor: not-allowed;       
     opacity: 0.7;              
   }
+
+  /* NAVBAR */
+  
+  .navbar-container {
+    width: calc(100vw - 48px);
+    height: 64px;
+    margin: 24px auto 0 auto;
+    padding: 0 1rem;         
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F4F3EE;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Contenedor del logo */
+  .navbar-logo img {
+    height: 40px; /* Ajustá según el tamaño real del logo */
+  }
+  
+  /* Menú de navegación */
+  .navbar-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    color: #55625D;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-links a:hover {
+    color: #508991; /* Color al hacer hover */
+  }

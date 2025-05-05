@@ -1,16 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Procly</title>
-</head>
-<body>
-    
-</body>
-</html>
-
-<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -20,6 +8,17 @@
 </head>
 
 <body>
+
+    <div id="navbar-placeholder"></div>
+
+    <script>
+      fetch("../components/navbar.html")
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById("navbar-placeholder").innerHTML = data;
+        });
+    </script>
+
 
 <img src="../assets/icons/user.svg" alt="Icono de usuario" width="32" height="32">
 
