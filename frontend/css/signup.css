@@ -1,0 +1,81 @@
+.signup-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F4F3EE;
+  }
+
+  /* FORMULARIO SIGN-UP */
+
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    width: 320px;
+    padding:2.5rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .signup-form img {
+    height: 80px; 
+  }
+  
+  
+  .signup-form h1 {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #55625D;
+  }
+  
+  .text-input {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .text-input label {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 0.25rem;
+    color: #55625D;
+  }
+  
+  .text-input input {
+    height: 40px;
+    padding: 0 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+  
+  .signup-links {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 0.7rem; 
+    line-height: 1.4;
+    color: #55625D;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .signup-links a {
+    color: #55625D;
+    text-decoration: none;
+  }
+  
+  .signup-links a:hover {
+    text-decoration: underline;
+    color: #508991;
+  }

@@ -30,7 +30,7 @@ p {
 small {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    font-size: 0.875rem; 
+    font-size: 0.7rem; 
     line-height: 1.4;
     color: #55625D;
 }
@@ -48,7 +48,6 @@ small {
     transition: all 0.3s ease;  
   }
   
-
   .btn:hover {
     background-color: #44504B; 
   }
