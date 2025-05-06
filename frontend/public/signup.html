@@ -19,39 +19,50 @@
                 <img src="../assets/img/Logo 1.png" alt="Logo de la empresa" />
                 <h1>Crear Cuenta</h1>
             </div>
+
+            <div class="input-grid">
+
+                <div class="text-input">
+                    <label for="firstname">Nombre</label>
+                    <input type="text" id="firstname" name="firstname" placeholder="Tu nombre de usuario" />
+                </div>
+
+                <div class="text-input">
+                    <label for="lastname">Apellido</label>
+                    <input type="text" id="lastname" name="lastname" placeholder="Tu apellido de usuario" />
+                </div>
+
+                <div class="text-input">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Tu mail de usuario" />
+                </div>
+
+                <div class="text-input">
+                    <label for="cuit">CUIT</label>
+                    <input type="text" inputmode="numeric" name="cuit" maxlength="11" pattern="\d{11}" placeholder="Ingresa el CUIT de tu empresa"/>
+                </div>
+        
+                <div class="text-input">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" placeholder="Tu contraseña" />
+                </div>
+
+                <div class="text-input">
+                    <label for="password-check">Repetir</label>
+                    <input type="password" id="password-check" name="password-check" placeholder="Repetir contraseña" />
+                </div>
+
+
+            </div>
+
+            <div class="terms-conditions">
+                <label>
+                    <input type="checkbox" name="terms" required>
+                    <small> Acepto los <a href="/terminos-y-condiciones.html" target="_blank">Términos y Condiciones</a> y la <a href="/politica-de-privacidad.html" target="_blank">Política de Privacidad</a>.</small>
+                </label>
+            </div>
     
-            <div class="text-input">
-                <label for="firstname">Nombre</label>
-                <input type="text" id="firstname" name="firstname" placeholder="Tu nombre de usuario" />
-            </div>
-
-            <div class="text-input">
-                <label for="lastname">Apellido</label>
-                <input type="text" id="lastname" name="lastname" placeholder="Tu apellido de usuario" />
-            </div>
-
-            <div class="text-input">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Tu mail de usuario" />
-            </div>
-
-            <div class="text-input">
-                <label for="cuit">CUIT</label>
-                <input type="text" inputmode="numeric" name="cuit" maxlength="11" pattern="\d{11}" placeholder="Ingresa el CUIT de tu empresa"/>
-            </div>
-    
-            <div class="text-input">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" placeholder="Tu contraseña" />
-            </div>
-
-            <div class="text-input">
-                <label for="password-check">Repetir</label>
-                <input type="password" id="password-check" name="password-check" placeholder="Repetir contraseña" />
-            </div>
-            
-    
-            <button class="btn">Ingresar</button>
+            <button class="btn">Registrarse</button>
 
             <div class="signup-links">
                 <small>¿Ya tienes cuenta? <a href="index.html">Ingresar</a></small>

@@ -14,7 +14,7 @@
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
-    width: 320px;
+    width: 640px;
     padding:2.5rem;
     background-color: white;
     border-radius: 8px;
@@ -32,6 +32,16 @@
     font-size: 1.5rem;
     font-weight: 500;
     color: #090B0A;
+  }
+
+  .input-grid {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    width: 100%;
+
+
   }
   
   .text-input {
@@ -76,6 +86,16 @@
   }
   
   .signup-links a:hover {
+    text-decoration: underline;
+    color: #508991;
+  }
+
+  .terms-conditions a{
+    color: #55625D;
+    text-decoration: none;
+  }
+
+  .terms-conditions a:hover {
     text-decoration: underline;
     color: #508991;
   }
