@@ -13,10 +13,10 @@ body {
 
 h1, h2, h3 {
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 2rem; 
+    font-weight: 500;
+    font-size: 1.5rem; 
     line-height: 1.2;
-    color: #55625D;
+    color: #090B0A;
 }
 
 p {

@@ -29,9 +29,9 @@
   .signup-form h1 {
     text-align: center;
     font-family: 'Inter', sans-serif;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #55625D;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #090B0A;
   }
   
   .text-input {
