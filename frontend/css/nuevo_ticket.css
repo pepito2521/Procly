@@ -1,0 +1,36 @@
+.formulario-ticket {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .formulario-ticket label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .formulario-ticket input,
+  .formulario-ticket textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+  }
+  
+  .formulario-ticket button {
+    align-self: flex-start;
+    padding: 0.75rem 1.5rem;
+    background-color: #55625D;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .formulario-ticket button:hover {
+    background-color: #3f4e48;
+  }

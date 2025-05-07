@@ -3,18 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - PROCLY</title>
+  <title>Nuevo Ticket</title>
   <link rel="stylesheet" href="../css/style.css" />
   <link rel="stylesheet" href="../css/nuevo_ticket.css">
 </head>
 
 <body>
 
+  <div id="navbar-placeholder"></div>
 
-<div id="navbar-placeholder"></div>
+  <div class="mis-tickets-container">
+    <h2>Crear nuevo ticket</h2>
+    <form class="formulario-ticket" action="/ruta/del/backend" method="POST">
+      <label for="asunto">Asunto</label>
+      <input type="text" id="asunto" name="asunto" required />
+
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" name="descripcion" rows="5" required></textarea>
+
+      <label for="email">Tu correo electrónico</label>
+      <input type="email" id="email" name="email" required />
+
+      <button type="submit">Enviar ticket</button>
+    </form>
+  </div>
 
 
-    <script src="../js/nuevo_ticket.js"></script>
+  <script src="../js/nuevo_ticket.js"></script>
 </body>
 
 
