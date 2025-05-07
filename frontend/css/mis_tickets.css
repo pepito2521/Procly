@@ -13,10 +13,17 @@
     border-collapse: collapse;
   }
   
-  .tabla-tickets th, .tabla-tickets td {
+  .tabla-tickets th {
     height: 40px;
     text-align: left;
     border-bottom: 1px solid #F4F3EE;
+  }
+  
+  .tabla-tickets td {
+    background-color: #FAFAFA;
+    height: 40px;
+    text-align: left;
+    border-bottom: 1px solid #FAFAFA;
   }
   
 
