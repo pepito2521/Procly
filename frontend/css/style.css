@@ -120,7 +120,12 @@ small {
     color: #508991;
   }
 
+  .navbar-links a.active {
+    color: #508991;
+    font-weight: 450;
+  }
+
   .navbar-links li {
     display: flex;
-    align-items: center; /* Centra verticalmente los <a> dentro del li */
+    align-items: center;
   }
