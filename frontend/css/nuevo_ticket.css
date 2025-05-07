@@ -1,6 +1,8 @@
 .formulario-ticket {
     display: flex;
     flex-direction: column;
+    width: calc(100vw - 48px);
+    padding: 0 1rem;
     gap: 1rem;
     margin-top: 1rem;
   }
@@ -12,7 +14,7 @@
   
   .formulario-ticket input,
   .formulario-ticket textarea {
-    padding: 0.75rem;
+    padding: 0rem;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-family: 'Inter', sans-serif;

@@ -29,3 +29,9 @@
   .tabla-tickets tr:hover {
     background-color: #FAFAFA;
   }
+
+  .th-flex {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
