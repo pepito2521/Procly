@@ -102,6 +102,7 @@ small {
     list-style: none;
     display: flex;
     gap: 1.5rem;
+    padding: 1rem;
   }
   
   .navbar-links a {
@@ -109,6 +110,7 @@ small {
     font-weight: 400;
     font-size: 1rem;
     line-height: 1.6;
+    align-items: center;
     text-decoration: none;
     color: #55625D;
     transition: color 0.3s ease;
@@ -116,4 +118,9 @@ small {
   
   .navbar-links a:hover {
     color: #508991;
+  }
+
+  .navbar-links li {
+    display: flex;
+    align-items: center; /* Centra verticalmente los <a> dentro del li */
   }
