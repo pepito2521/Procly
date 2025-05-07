@@ -1,0 +1,45 @@
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* para dejar espacio al navbar */
+    background-color: #F4F3EE;
+    padding: 2rem;
+  }
+  
+  .success-content {
+    text-align: center;
+    background-color: white;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    max-width: 480px;
+    width: 100%;
+  }
+  
+  .success-content h1 {
+    font-size: 1.5rem;
+    color: #3F4E48;
+    margin-top: 1rem;
+  }
+  
+  .success-content p {
+    margin: 1rem 0;
+    color: #333;
+  }
+  
+  .success-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #3F847D;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .success-btn:hover {
+    background-color: #356a66;
+  }
