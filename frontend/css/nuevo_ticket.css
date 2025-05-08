@@ -1,38 +1,86 @@
-.formulario-ticket {
+.nuevo-ticket-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: #F4F3EE;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+  .formulario-container h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #222;
+  }
+
+  .formulario-ticket {
     display: flex;
     flex-direction: column;
-    width: calc(100vw - 48px);
-    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  .form-row {
+    display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    flex-wrap: wrap;
   }
-  
-  .formulario-ticket label {
-    font-weight: 500;
-    color: #333;
+
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
-  
-  .formulario-ticket input,
-  .formulario-ticket textarea {
-    padding: 0rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+
+  .form-group label {
+    display: flex;   
     font-family: 'Inter', sans-serif;
+    align-items: center;
     font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 0.25rem;
+    color: #55625D;
   }
+
+  .form-group input,
+  .form-group textarea {
+    height: 40px;
+    color: #333;
+    background-color: #fff;
+    padding: 0 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
   
-  .formulario-ticket button {
-    align-self: flex-start;
-    padding: 0.75rem 1.5rem;
-    background-color: #55625D;
+  .form-group input[type="file"] {
+    padding: 0.5rem 0;
+  }
+
+  .form-group.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    align-self: center;
+    padding: 0.8rem 2rem;
+    background-color: #3F4E48;
     color: white;
     border: none;
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
+    font-weight: 600;
     transition: background-color 0.2s;
   }
-  
-  .formulario-ticket button:hover {
-    background-color: #3f4e48;
+
+  .submit-btn:hover {
+    background-color: #2e3c36;
   }
