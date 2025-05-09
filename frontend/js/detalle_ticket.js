@@ -1,20 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // CARGA NAVBAR
+    // INSERTAR NAVBAR EN LA PAGINA
     fetch("../components/navbar.html")
       .then(res => res.text())
       .then(html => {
         document.getElementById("navbar-placeholder").innerHTML = html;
+  
+        // 🔥 RESALTAR NAVBAR-LINK ACTIVO (DENTRO del .then)
+        const currentPage = window.location.pathname.split("/").pop();
+        const links = document.querySelectorAll(".navbar-links a");
+  
+        links.forEach(link => {
+          const href = link.getAttribute("href");
+          if (
+            href.includes(currentPage) ||
+            (currentPage === "detalle_ticket.html" && href.includes("mis_tickets.html"))
+          ) {
+            link.classList.add("active");
+          }
+        });
       });
   
-    // OBTIENE ID DEL TICKET DESDE LA URL
+    // OBTENER ID DEL TICKET DESDE LA URL
     const params = new URLSearchParams(window.location.search);
     const ticketId = params.get("id");
   
-    // MUESTRA EL TICKET ID
+    // MOSTRAR TICKET ID
     document.getElementById("ticket-id").textContent = ticketId;
   
-    // Simular datos (reemplazar por Supabase luego)
+    // DATOS FAKE (para simular)
     const datosFake = {
       TK001: { nombre: "Pedro Marcenaro", estado: "Abierto" },
       TK002: { nombre: "María López", estado: "En progreso" },
