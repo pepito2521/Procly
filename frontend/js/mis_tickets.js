@@ -19,9 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const tbody = document.getElementById("tabla-tickets-body");
 
       const datosFake = [
-        { id: "TK001", nombre: "Pedro Marcenaro", estado: "Abierto" },
-        { id: "TK002", nombre: "María López", estado: "En progreso" },
-        { id: "TK003", nombre: "Juan Pérez", estado: "Cerrado" },
+        { id: "TK001", nombre: "Termos de agua para evento corporativo", estado: "En progreso" },
+        { id: "TK002", nombre: "Stikers logo de la empresa", estado: "Entregado" },
+        { id: "TK003", nombre: "Smart TV 50 pulgadas para sala de reuniones", estado: "Cancelado" },
       ];
 
       datosFake.forEach(ticket => {
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         fila.innerHTML = `
           <td>${ticket.id}</td>
           <td>${ticket.nombre}</td>
-          <td>${ticket.estado}</td>
+          <td> <span class="estado-badge ${ticket.estado.toLowerCase().replace(' ', '-')}">${ticket.estado}</span></td>
           <td><a href="#">Ver</a></td>
         `;
         tbody.appendChild(fila);
