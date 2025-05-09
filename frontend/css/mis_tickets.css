@@ -11,25 +11,27 @@
   .tabla-tickets table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
   }
   
   .tabla-tickets th {
     height: 40px;
-    text-align: left;
+    padding: 0rem 1rem;
+    text-align: center;
     border-bottom: 1px solid #F4F3EE;
+    background-color: #F4F3EE;
+    color: #55625D;
+    font-weight: 500;
+    vertical-align: middle;
   }
   
   .tabla-tickets td {
     background-color: #FAFAFA;
+    padding: 0rem 1rem;
     height: 40px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #FAFAFA;
-  }
-  
-  .tabla-tickets th {
-    background-color: #F4F3EE;
-    color: #55625D;
-    font-weight: 500;
+    vertical-align: middle;
   }
   
   .tabla-tickets tr:hover {
@@ -39,34 +41,77 @@
   .th-flex {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
   }
 
+  .tabla-tickets th:nth-child(2) .th-flex {
+    justify-content: flex-start;
+  }
 
-    /* ESTILO DE LA COLUMNA DE STATUS*/
+  /* Ancho personalizado por columna (por orden) */
+.tabla-tickets th:nth-child(1),
+.tabla-tickets td:nth-child(1) {
+  width: 10%; /* Ticket ID */
+}
 
-    .estado-badge {
-      display: inline-block;
-      padding: 0.25rem 1rem;
-      height: 1rem;
-      line-height: 1rem; 
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: white;
-      text-align: center;
-      min-width: 100px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
+.tabla-tickets th:nth-child(2),
+.tabla-tickets td:nth-child(2) {
+  width: 65%; /* Nombre */
+  text-align: left;
+}
+
+.tabla-tickets th:nth-child(3),
+.tabla-tickets td:nth-child(3) {
+  width: 20%; /* Estado */
+}
+
+.tabla-tickets th:nth-child(4),
+.tabla-tickets td:nth-child(4) {
+  width: 5%; /* Ver icono */
+}
+
+/* ICONO DE LA COLUMNA VER */
+
+.ver-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ver-icono svg {
+  width: 26px;
+  height: 26px;
+}
+
+.ver-icono svg:hover {
+  transform: scale(1.1);
+}
+
+/* ESTILO DE LA COLUMNA DE STATUS*/
+
+.estado-badge {
+  display: inline-block;
+  padding: 0.25rem 1rem;
+  height: 1rem;
+  line-height: 1rem; 
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: white;
+  text-align: center;
+  min-width: 100px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
     
-    .estado-badge.en-progreso {
-      background-color: #F49F0A;
-    }
+.estado-badge.en-progreso {
+  background-color: #F49F0A;
+}
     
-    .estado-badge.cancelado {
-      background-color: #A22C29;
-    }
+.estado-badge.cancelado {
+  background-color: #A22C29;
+}
     
-    .estado-badge.entregado {
-      background-color: #3E8914;
-    }
+.estado-badge.entregado {
+  background-color: #3E8914;
+}
