@@ -11,6 +11,12 @@
     box-sizing: border-box;
     z-index: -1;
   }
+
+  .espaciado {
+    margin-top: 1rem;
+    display: inline-block;
+  }
+  
   
   .success-content {
     text-align: center;
@@ -22,29 +28,11 @@
     width: 100%;
   }
   
-  .success-content h1 {
-    font-size: 1.5rem;
-    color: #3F4E48;
-    margin-top: 1rem;
-  }
-  
-  .success-content p {
-    margin: 1rem 0;
-    color: #333;
-  }
-  
-  .success-btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #3F847D;
-    color: white;
+  .success-content a{
     text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
-  }
-  
-  .success-btn:hover {
-    background-color: #356a66;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    padding: 0.75rem 1.5rem;
   }
