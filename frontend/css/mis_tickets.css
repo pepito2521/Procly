@@ -1,17 +1,26 @@
 .mis-tickets-container {
     width: calc(100vw - 48px);
     margin: 24px auto 24px auto;
-    padding: 0 1rem;
+    padding: 0;
     background-color: #F4F3EE;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     font-family: 'Inter', sans-serif;
   }
   
+  .tabla-tickets {
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #FAFAFA;
+    }
+
   .tabla-tickets table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    background-color: #FAFAFA;
+    border-radius: 8px;
+    overflow: hidden;
   }
   
   .tabla-tickets th {
@@ -49,7 +58,9 @@
     justify-content: flex-start;
   }
 
-  /* Ancho personalizado por columna (por orden) */
+
+  /* ANCHO PERSONALZIADO POR COLUMNA (NTH-CHILD) */
+
 .tabla-tickets th:nth-child(1),
 .tabla-tickets td:nth-child(1) {
   width: 10%; /* Ticket ID */
@@ -71,6 +82,7 @@
   width: 5%; /* Ver icono */
 }
 
+
 /* ICONO DE LA COLUMNA VER */
 
 .ver-icono {
@@ -87,6 +99,7 @@
 .ver-icono svg:hover {
   transform: scale(1.1);
 }
+
 
 /* ESTILO DE LA COLUMNA DE STATUS*/
 
@@ -115,3 +128,5 @@
 .estado-badge.entregado {
   background-color: #3E8914;
 }
+
+
