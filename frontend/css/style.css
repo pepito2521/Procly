@@ -86,8 +86,7 @@ small {
   .navbar-container {
     width: calc(100vw - 48px);
     height: 64px;
-    margin: 24px auto 0 auto;
-    padding: 0 1rem;         
+    margin: 24px auto 0 auto;      
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -97,13 +96,15 @@ small {
   }
   
   .navbar-logo img {
-    height: 50px; 
+    height: 50px;
+    padding-left: 1rem;
   }
 
   .navbar-user {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding-right: 1rem;
   }
 
   .navbar-links {
