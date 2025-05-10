@@ -2,7 +2,7 @@
     width: calc(100vw - 48px);
     margin: 24px auto 24px auto;
     padding: 0;
-    background-color: #F4F3EE;
+    background-color: white;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     font-family: 'Inter', sans-serif;
@@ -11,14 +11,14 @@
   .tabla-tickets {
     border-radius: 8px;
     overflow: hidden;
-    background-color: #FAFAFA;
+    background-color: white;
     }
 
   .tabla-tickets table {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    background-color: #FAFAFA;
+    background-color: white;
     border-radius: 8px;
     overflow: hidden;
   }
@@ -28,18 +28,19 @@
     padding: 0rem 1rem;
     text-align: center;
     border-bottom: 1px solid #F4F3EE;
-    background-color: #F4F3EE;
-    color: #55625D;
-    font-weight: 500;
+    background-color: white;
+    color: #090B0A;
+    font-weight: 400;
     vertical-align: middle;
   }
   
+  
   .tabla-tickets td {
-    background-color: #FAFAFA;
+    background-color: white;
     padding: 0rem 1rem;
     height: 40px;
+    font-weight: 300;
     text-align: center;
-    border-bottom: 1px solid #FAFAFA;
     vertical-align: middle;
   }
   
