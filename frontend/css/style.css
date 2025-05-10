@@ -87,7 +87,7 @@ small {
     width: calc(100vw - 48px);
     height: 64px;
     margin: 24px auto 0 auto;
-    padding: 0;         
+    padding: 0 1rem;         
     display: flex;
     align-items: center;
     justify-content: space-between;
