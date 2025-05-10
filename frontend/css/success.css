@@ -1,10 +1,15 @@
-.success-container {
+  .success-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #F4F3EE;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 80px); /* para dejar espacio al navbar */
-    background-color: #F4F3EE;
-    padding: 2rem;
+    box-sizing: border-box;
+    z-index: -1;
   }
   
   .success-content {
