@@ -34,15 +34,6 @@ p {
     color: #55625D;
 }
 
-a {
-  all: unset;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #55625D;
-  cursor: pointer;
-}
 small {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
@@ -161,7 +152,7 @@ small {
 
 .dropdown-menu {
   position: absolute;
-  top: 64px; /* altura del navbar */
+  top: 96px;
   right: 16px;
   background-color: #F4F3EE;
   border: 1px solid #ccc;
@@ -172,20 +163,25 @@ small {
 }
 
 .dropdown-menu ul {
-  list-style: none;
+  list-style:none;
   margin: 0;
   padding: 0;
 }
 
 .dropdown-menu li a {
   display: block;
-  padding: 0.3rem 1.25rem;
+  padding: 0.3rem 1.6rem;
   text-decoration: none;
-  color: #55625D;
+  color: #605562;
   font-weight: 400;
 }
 
 .dropdown-menu li a:hover {
   background-color: white;
   border-radius: 8px;
+}
+
+.svg-text {
+  display: flex;
+  align-items: center;
 }
