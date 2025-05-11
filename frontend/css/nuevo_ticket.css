@@ -1,9 +1,9 @@
 .nuevo-ticket-container {
     max-width: 900px;
-    margin: 40px auto;
+    margin: 24px auto;
     background-color: #F4F3EE;
-    padding: 2rem;
-    border-radius: 12px;
+    padding: 2rem 0;
+    border-radius: 8px;
 }
 
   .formulario-container h1 {
@@ -23,13 +23,21 @@
   .form-row {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
   }
 
   .form-group {
     flex: 1;
     display: flex;
     flex-direction: column;
+  }
+
+  /* FILA 1: NOMBRE Y CANTIDAD */
+
+  .form-group.nombre {
+    flex: 4;
+  }
+  .form-group.cantidad {
+    flex: 1;
   }
 
   .form-group label {
@@ -45,6 +53,8 @@
 
   .form-group input,
   .form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
     height: 40px;
     color: #333;
     background-color: #fff;
@@ -83,4 +93,16 @@
 
   .submit-btn:hover {
     background-color: #2e3c36;
+  }
+
+  .form-group label .required {
+    color: #A22C29;
+    font-weight: bold;
+  }
+
+  .form-group.checkbox label {
+    margin: 0;
+    flex: 1;
+    font-size: 1rem;
+    color: #55625D;
   }

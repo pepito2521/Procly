@@ -19,35 +19,35 @@
     <form class="formulario-ticket" action="/ruta/del/backend" method="POST">
 
       <div class="form-row">
-        <div class="form-group">
-          <label for="nombre">Nombre*</label>
+        <div class="form-group nombre">
+          <label for="nombre">Nombre<span class="required">*</span></label>
           <input type="text" id="nombre" name="nombre" required />
         </div>
 
-        <div class="form-group">
-          <label for="cantidad">Cantidad*</label>
-          <input type="number" id="cantidad" name="cantidad" required />
+        <div class="form-group cantidad">
+          <label for="cantidad">Cantidad<span class="required">*</span></label>
+          <input type="number" id="cantidad" name="cantidad" required value="1" />
         </div>
       </div>
 
       <div class="form-group">
-        <label for="descripcion">Descripción*</label>
+        <label for="descripcion">Descripción<span class="required">*</span></label>
         <textarea id="descripcion" name="descripcion" rows="3" required></textarea>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="direccion">Dirección de Entrega*</label>
+          <label for="direccion">Dirección de Entrega<span class="required">*</span></label>
           <input type="text" id="direccion" name="direccion" required />
         </div>
 
         <div class="form-group">
-          <label for="fecha">Fecha de Entrega*</label>
+          <label for="fecha">Fecha de Entrega<span class="required">*</span></label>
           <input type="date" id="fecha" name="fecha" required />
         </div>
 
         <div class="form-group">
-          <label for="budget">Budget Max.*</label>
+          <label for="budget">Budget Max.<span class="required">*</span></label>
           <input type="number" id="budget" name="budget" required />
         </div>
       </div>
@@ -64,7 +64,7 @@
 
       <div class="form-group checkbox">
         <input type="checkbox" id="confirm" name="confirm" required />
-        <label for="confirm">Confirmo haber leído y aceptado el guideline de compras no estratégicas</label>
+        <label for="confirm"><small>Confirmo haber leído y aceptado el guideline de compras no estratégicas</small></label>
       </div>
 
       <button type="submit" class="submit-btn">Crear Ticket</button>
