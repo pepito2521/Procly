@@ -139,3 +139,35 @@ small {
     display: flex;
     align-items: center;
   }
+
+  /* DROPDOWN MENU */
+  
+.dropdown-menu {
+  position: absolute;
+  top: 64px; /* altura del navbar */
+  right: 16px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: none;
+  z-index: 1000;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
+  color: #090B0A;
+  font-weight: 400;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #F4F3EE;
+}
