@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+function inicializarDropdownNavbar() {
     const dotsIcon = document.querySelector('.navbar-user img[alt="Icono tres puntos"]');
     const dropdown = document.getElementById('dropdown-menu');
   
@@ -12,4 +12,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', () => {
       dropdown.style.display = 'none';
     });
-  });
+  }
