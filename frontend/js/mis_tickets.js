@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(data => {
       document.getElementById("navbar-placeholder").innerHTML = data;
 
+      const script = document.createElement("script");
+      script.src = "../js/navbar.js";
+      script.onload = () => {
+        console.log("navbar.js cargado");
+      };
+      document.body.appendChild(script);
+
       // RESALTAR NAVBAR-LINK ACTIVO
       const currentPage = window.location.pathname.split("/").pop();
       const links = document.querySelectorAll(".navbar-links a");
