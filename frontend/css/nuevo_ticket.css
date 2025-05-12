@@ -31,6 +31,14 @@
     flex-direction: column;
   }
 
+  .form-group-checkbox {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+
   /* FILA 1: NOMBRE Y CANTIDAD */
 
   .form-group.nombre {
@@ -71,11 +79,19 @@
     padding: 0.5rem 0;
   }
 
-  .form-group.checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
+  .form-group.checkbox label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #55625D;
+    margin: 0;
+    white-space: normal;
+  }
+
+  .form-group.checkbox small {
+    white-space: nowrap;
+    color: #55625D;
   }
 
   .submit-btn {
@@ -98,11 +114,4 @@
   .form-group label .required {
     color: #A22C29;
     font-weight: bold;
-  }
-
-  .form-group.checkbox label {
-    margin: 0;
-    flex: 1;
-    font-size: 1rem;
-    color: #55625D;
   }

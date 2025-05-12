@@ -14,6 +14,7 @@
 
 
   <main class="nuevo-ticket-container">
+
     <h1>Comienza a comprar</h1>
     <p>Ingresa los detalles de lo que necesitas y nosotros nos ocupamos del resto!</p>
     <form class="formulario-ticket" action="/ruta/del/backend" method="POST">
@@ -62,13 +63,16 @@
         <input type="file" id="adjuntos" name="adjuntos" />
       </div>
 
-      <div class="form-group checkbox">
+      <div class="form-group-checkbox">
         <input type="checkbox" id="confirm" name="confirm" required />
-        <label for="confirm"><small>Confirmo haber leído y aceptado el guideline de compras no estratégicas</small></label>
+        <label for="confirm">
+          <small>Confirmo haber leído y aceptado el guideline de compras no estratégicas</small>
+        </label>
       </div>
 
       <button type="submit" class="submit-btn">Crear Ticket</button>
     </form>
+
   </main>
 
 
