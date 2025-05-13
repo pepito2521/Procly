@@ -179,23 +179,27 @@
   to   { opacity: 1; }
 }
 
+
+
+/* BOTONES DE PASO ENTRE STEPS*/
+
 .next-btn,
 .prev-btn {
   margin: 1rem 0.5rem 0 0;
   padding: 0.6rem 1.5rem;
-  background-color: #508991;
-  color: #fff;
+  background-color: transparent;
+  color:white;
   border: none;
-  border-radius: 5px;
+  border-radius: 1rem;
   font-size: 1rem;
   cursor: pointer;
   font-weight: 500;
-  transition: background 0.2s;
+  transition: all 0.3s ease;
 }
 
 .next-btn:hover,
 .prev-btn:hover {
-  background-color: #3F4E48;
+  background-color: #44504B;
 }
 
 
