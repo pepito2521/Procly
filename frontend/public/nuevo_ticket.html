@@ -17,32 +17,56 @@
 
     <h1>Comienza a comprar</h1>
     <p>Ingresa los detalles de lo que necesitas y nosotros nos ocupamos del resto!</p>
-    <form class="formulario-ticket" id="multiStepForm" action="/ruta/del/backend" method="POST">
+    
 
+    <!-- MULTISTEP FORM: PROGRESS BAR -->
+    <div class="progressbar-flex">
+      <div class="progressbar-circles">
+        <div class="progressbar-step">
+          <span class="progressbar-circle" id="circle-1">1</span>
+        </div>
+        <div class="progressbar-line"></div>
+        <div class="progressbar-step">
+          <span class="progressbar-circle" id="circle-2">2</span>
+        </div>
+        <div class="progressbar-line"></div>
+        <div class="progressbar-step">
+          <span class="progressbar-circle" id="circle-3">3</span>
+        </div>
+      </div>
+    </div>
+
+    <form class="formulario-ticket" id="multiStepForm" action="/ruta/del/backend" method="POST">
       <!-- MULTISTEP FORM: PASO 1 -->
       <div class="form-step" id="step-1">
         <div class="form-row">
-          <div class="form-group nombre">
+          <div class="form-group nombre" style="flex:4;">
             <label for="nombre">Nombre<span class="required">*</span></label>
             <input type="text" id="nombre" name="nombre" required />
+          </div>
+          <div class="form-group cantidad" style="flex:1;">
+            <label for="cantidad">Cantidad<span class="required">*</span></label>
+            <div class="input-wrapper">
+              <input type="number" id="cantidad" name="cantidad" required value="1" />
+            </div>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group categoria">
-            <label for="categoria">Categoría<span class="required">*</span></label>
-            <div class="select-wrapper">
-              <select id="categoria" name="categoria" required>
-                <option value="">Selecciona una categoría</option>
-                <option value="tecnologia">Tecnología</option>
-                <option value="oficina">Oficina</option>
-                <option value="servicios">Servicios</option>
-                <option value="otros">Otros</option>
-              </select>
+            <label>Categoría<span class="required">*</span></label>
+            <div class="categoria-options">
+              <input type="radio" id="cat-tecnologia" name="categoria" value="tecnologia" required>
+              <label for="cat-tecnologia" class="categoria-btn">Tecnología</label>
+
+              <input type="radio" id="cat-oficina" name="categoria" value="oficina">
+              <label for="cat-oficina" class="categoria-btn">Oficina</label>
+
+              <input type="radio" id="cat-servicios" name="categoria" value="servicios">
+              <label for="cat-servicios" class="categoria-btn">Servicios</label>
+
+              <input type="radio" id="cat-otros" name="categoria" value="otros">
+              <label for="cat-otros" class="categoria-btn">Otros</label>
             </div>
-          </div>
-          <div class="form-group cantidad">
-            <label for="cantidad">Cantidad<span class="required">*</span></label>
-            <input type="number" id="cantidad" name="cantidad" required value="1" />
           </div>
         </div>
         <div class="form-group">
