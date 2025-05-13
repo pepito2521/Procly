@@ -31,15 +31,18 @@
     flex-direction: column;
   }
 
- 
-  /* FILA 1: NOMBRE Y CANTIDAD */
+   /* STEP 1 - FILA 2 : CATEGORIA Y CANTIDAD */
 
-  .form-group.nombre {
-    flex: 4;
+  .form-group.categoria {
+    flex: 1;
   }
+
   .form-group.cantidad {
     flex: 1;
   }
+
+
+
 
   .form-group label {
     display: flex;   
@@ -168,4 +171,8 @@
   display: flex;
   justify-content: center;
   gap: 1rem;
+}
+
+.form-step .form-row {
+  margin-bottom: 1.5rem;
 }
