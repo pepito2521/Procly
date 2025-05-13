@@ -55,17 +55,35 @@
           <div class="form-group categoria">
             <label>Categoría<span class="required">*</span></label>
             <div class="categoria-options">
-              <input type="radio" id="cat-tecnologia" name="categoria" value="tecnologia" required>
-              <label for="cat-tecnologia" class="categoria-btn">Tecnología</label>
+              <input type="radio" id="cat-producto" name="categoria" value="producto" required>
+              <label for="cat-producto" class="categoria-btn">Producto</label>
 
-              <input type="radio" id="cat-oficina" name="categoria" value="oficina">
-              <label for="cat-oficina" class="categoria-btn">Oficina</label>
+              <input type="radio" id="cat-servicio" name="categoria" value="servicio">
+              <label for="cat-servicio" class="categoria-btn">Servicio</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group sub-categoria">
+            <label>Sub-Categoría<span class="required">*</span></label>
+            <div class="categoria-options">
+              <input type="radio" id="subcat-it" name="subcategoria" value="IT" required>
+              <label for="subcat-it" class="categoria-btn">IT</label>
 
-              <input type="radio" id="cat-servicios" name="categoria" value="servicios">
-              <label for="cat-servicios" class="categoria-btn">Servicios</label>
+              <input type="radio" id="subcat-merch" name="subcategoria" value="Merch">
+              <label for="subcat-merch" class="categoria-btn">Merch</label>
 
-              <input type="radio" id="cat-otros" name="categoria" value="otros">
-              <label for="cat-otros" class="categoria-btn">Otros</label>
+              <input type="radio" id="subcat-catering" name="subcategoria" value="Catering">
+              <label for="subcat-catering" class="categoria-btn">Catering</label>
+
+              <input type="radio" id="subcat-eventos" name="subcategoria" value="Eventos">
+              <label for="subcat-eventos" class="categoria-btn">Eventos</label>
+
+              <input type="radio" id="subcat-facilities" name="subcategoria" value="Facilities">
+              <label for="subcat-facilities" class="categoria-btn">Facilities</label>
+
+              <input type="radio" id="subcat-otros" name="subcategoria" value="Otros">
+              <label for="subcat-otros" class="categoria-btn">Otros</label>
             </div>
           </div>
         </div>
@@ -95,21 +113,18 @@
 
       <!-- MULTISTEP FORM: PASO 2 -->
       <div class="form-step" id="step-2" style="display:none;">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="direccion">Dirección de Entrega<span class="required">*</span></label>
-            <input type="text" id="direccion" name="direccion" required />
-          </div>
-          <div class="form-group">
-            <label for="fecha">Fecha de Entrega<span class="required">*</span></label>
-            <input type="date" id="fecha" name="fecha" required />
-          </div>
-          <div class="form-group">
-            <label for="budget">Budget Max.<span class="required">*</span></label>
-            <input type="number" id="budget" name="budget" required />
-          </div>
+        <div class="form-group">
+          <label for="direccion">Dirección de Entrega<span class="required">*</span></label>
+          <input type="text" id="direccion" name="direccion" required />
         </div>
-
+        <div class="form-group">
+          <label for="fecha">Fecha de Entrega<span class="required">*</span></label>
+          <input type="date" id="fecha" name="fecha" required />
+        </div>
+        <div class="form-group">
+          <label for="budget">Budget Max.<span class="required">*</span></label>
+          <input type="number" id="budget" name="budget" required />
+        </div>
         <div class="button-group">
           <button type="button" class="prev-btn" aria-label="Anterior">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-chevron-left" viewBox="0 0 16 16">
