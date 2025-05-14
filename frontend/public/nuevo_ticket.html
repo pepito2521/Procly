@@ -39,9 +39,25 @@
     <form class="formulario-ticket" id="multiStepForm" action="/ruta/del/backend" method="POST">
       
       <!-- MULTISTEP FORM: PASO 1 -->
-      <div class="step-title"> 
-        <h2>Paso 1: Datos Generales</h2>
+
+      <div class="step-title-container active">
+        
+        <div class="step-title"> 
+          <h2>Paso 1: Datos Generales</h2>
+        </div>
+
+        <div class="nav-arrows">
+          <svg class="chevron-right bi bi-chevron-right" width="26" height="26" fill="#7D8491" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+          </svg>
+          <svg class="chevron-down bi bi-chevron-down" width="26" height="26" fill="#7D8491" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+          </svg>
+        </div>
       </div>
+
+
+
       <div class="form-step" id="step-1">
         <div class="form-row">
           <div class="form-group">
@@ -108,20 +124,24 @@
       </div>
 
       <!-- MULTISTEP FORM: PASO 2 -->
-      <div class="step-title"> 
-        <h2>Paso 2: Datos de Entrega</h2>
+
+      <div class="step-title-container">
+        <div class="step-title"> 
+          <h2>Paso 2: Datos de Entrega</h2>
+        </div>
+
+        <div class="nav-arrows">
+          <svg class="chevron-right bi bi-chevron-right" width="26" height="26" fill="#7D8491" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+          </svg>
+          <svg class="chevron-down bi bi-chevron-down" width="26" height="26" fill="#7D8491" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+          </svg>
+        </div>
       </div>
 
       <div class="form-step" id="step-2" style="display:none;">
 
-        <div class="button-group">
-          <button type="button" class="prev-btn" aria-label="Anterior">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-chevron-left" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
-            </svg>
-            <small>Anterior</small>
-          </button>
-        </div>
         <div class="form-row">
           <div class="form-group">
             <label for="direccion">Dirección<span class="required">*</span></label>
@@ -152,19 +172,24 @@
       </div>
 
       <!-- MULTISTEP FORM: PASO 3 -->
-      <div class="step-title"> 
-        <h2>Paso 3: Datos Adicionales</h2>
+      
+      <div class="step-title-container">
+        <div class="step-title"> 
+          <h2>Paso 3: Datos Adicionales</h2>
+        </div>
+
+        <div class="nav-arrows">
+          <svg class="chevron-right bi bi-chevron-right" width="26" height="26" fill="#7D8491" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+          </svg>
+          <svg class="chevron-down bi bi-chevron-down" width="26" height="26" fill="#7D8491" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+          </svg>
+        </div>
       </div>
+      
       <div class="form-step" id="step-3" style="display:none;">
 
-        <div class="button-group">
-          <button type="button" class="prev-btn" aria-label="Anterior">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="#090B0A" class="bi bi-chevron-left" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
-            </svg>
-            <small>Anterior</small>
-          </button>
-        </div>
         <div class="form-group">
           <label for="link">Links<small>(opcional)</small></label>
           <input type="url" id="link" name="link" />

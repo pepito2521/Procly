@@ -55,6 +55,15 @@ document.addEventListener("DOMContentLoaded", () => {
       step.style.display = i === index ? 'block' : 'none';
     });
     updateProgressBar(index);
+
+    const stepTitles = document.querySelectorAll('.step-title-container');
+    stepTitles.forEach((el, idx) => {
+      if (idx === index) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    });
   }
 
   document.querySelectorAll('.next-btn').forEach(btn => {
@@ -77,4 +86,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Inicializa el primer paso
   showStep(currentStep);
+});
+
+
+// FUNCIONALIDAD DE MOSTRAR / OCULTAR BLOQUES AL CLIC EN LAS FLECHAS DEL TÍTULO DE PASO
+
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("chevron-down")) {
+    const stepContainer = e.target.closest(".step-title-container");
+    const formStep = stepContainer.nextElementSibling;
+    formStep.style.display = "none";
+    stepContainer.classList.remove("active");
+  }
+
+  if (e.target.classList.contains("chevron-right")) {
+    const stepContainer = e.target.closest(".step-title-container");
+    const formStep = stepContainer.nextElementSibling;
+    formStep.style.display = "block";
+    stepContainer.classList.add("active");
+
+    // Scroll suave al paso activado
+    formStep.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 });
