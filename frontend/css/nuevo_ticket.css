@@ -20,9 +20,17 @@
     gap: 1rem;
   }
 
+  .form-step {
+    display: none;
+    animation: slideInRight 0.8s;
+  }
+
   .form-row {
     display: flex;
     gap: 1rem;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 1.5rem;
   }
 
   .form-group {
@@ -30,21 +38,6 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-  }
-
-  .form-step .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-  }
-  
-  .form-step .form-row {
-    margin-bottom: 1.5rem;
-  }
-
-  .form-step {
-    display: none;
-    animation: fadeIn 0.3s;
   }
   
   .form-step .form-group {
@@ -54,6 +47,49 @@
   .form-step .form-group:last-child {
     margin-bottom: 0;
   }
+
+  .form-group label {
+    min-width: 120px;
+    margin-bottom: 0;
+    text-align: right;
+    display: flex;   
+    font-family: 'Inter', sans-serif;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #55625D;
+  }
+
+  .form-group input {
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #090B0A;
+    background-color: white;
+    padding: 0 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  
+/* EFETO DE TRANSICION ENTRE STEPS */
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
 
 /* STEP 1 - FILA 1 : NOMBRE Y CANTIDAD */
 
@@ -88,50 +124,12 @@
     border-color: #508991;
   }
   
-  .form-group label {
-    min-width: 120px;
-    margin-bottom: 0;
-    text-align: right;
-    display: flex;   
-    font-family: 'Inter', sans-serif;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
-    color: #55625D;
-  }
 
-  .form-group input,
-  .form-group textarea {
-    flex: 1;
-    width: 100%;
-    box-sizing: border-box;
-    height: 40px;
-    color: #090B0A;
-    background-color: white;
-    padding: 0 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-    
-  }
-
-  
   .form-group input[type="file"] {
     padding: 0.5rem 0;
   }
 
-  .form-group.checkbox label {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.4;
-    color: #55625D;
-    margin: 0;
-    white-space: normal;
-  }
+
 
 
   /* FILA : CHECKBOX GUIDELINE */
@@ -158,11 +156,27 @@
     color: #55625D;
   }
 
+  .form-group.checkbox label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #55625D;
+    margin: 0;
+    white-space: normal;
+  }
+
+
+
+
   .form-group label .required {
     color: #A22C29;
     font-weight: bold;
   }
 
+  .form-group.cantidad label {
+    min-width: 90px;
+  }
 
 
 .form-step:target,
@@ -170,14 +184,17 @@
   display: block;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
+
 
 
 
 /* BOTONES DE PASO ENTRE STEPS & SUBMIT*/
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
 
 .next-btn,
 .prev-btn {
@@ -204,12 +221,6 @@
 .next-btn:hover p,
 .prev-btn:hover p{
   color: #090B0A;
-}
-
-.button-group {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
 }
 
 .prev-btn[disabled] ,
@@ -241,6 +252,8 @@
 .submit-btn:hover {
   background-color: #44504B; 
 }
+
+
 
 /* PROGRESS BAR */
 
@@ -302,12 +315,8 @@
   background: #3E8914;
 }
 
-.form-step .form-group {
-  margin-bottom: 1.5rem;
-}
 
-.form-step .form-group:last-child {
-  margin-bottom: 0;
-}
+
+
 
 
