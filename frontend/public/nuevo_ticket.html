@@ -39,56 +39,61 @@
     <form class="formulario-ticket" id="multiStepForm" action="/ruta/del/backend" method="POST">
       
       <!-- MULTISTEP FORM: PASO 1 -->
+
+      <h2>Paso 1: Datos Generales</h2>
+      
       <div class="form-step" id="step-1">
         <div class="form-row">
-          <div class="form-group" style="flex:2;">
+          <div class="form-group">
             <label for="nombre">Nombre<span class="required">*</span></label>
             <input type="text" id="nombre" name="nombre" required />
           </div>
-          <div class="form-group" style="flex:1;">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
             <label for="cantidad">Cantidad<span class="required">*</span></label>
             <input type="number" id="cantidad" name="cantidad" required value="1" />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group categoria">
-            <label>Categoría<span class="required">*</span></label>
-            <div class="categoria-options">
-              <input type="radio" id="cat-producto" name="categoria" value="producto" required>
-              <label for="cat-producto" class="categoria-btn">Producto</label>
-
-              <input type="radio" id="cat-servicio" name="categoria" value="servicio">
-              <label for="cat-servicio" class="categoria-btn">Servicio</label>
+            <label for="categoria">Categoría<span class="required">*</span></label>
+            <div class="select-wrapper">
+              <select id="categoria" name="categoria" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="producto">Producto</option>
+                <option value="servicio">Servicio</option>
+              </select>
+              <svg class="chevron-down" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#508991" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group sub-categoria">
-            <label>Sub-Categoría<span class="required">*</span></label>
-            <div class="categoria-options">
-              <input type="radio" id="subcat-it" name="subcategoria" value="IT" required>
-              <label for="subcat-it" class="categoria-btn">IT</label>
-
-              <input type="radio" id="subcat-merch" name="subcategoria" value="Merch">
-              <label for="subcat-merch" class="categoria-btn">Merch</label>
-
-              <input type="radio" id="subcat-catering" name="subcategoria" value="Catering">
-              <label for="subcat-catering" class="categoria-btn">Catering</label>
-
-              <input type="radio" id="subcat-eventos" name="subcategoria" value="Eventos">
-              <label for="subcat-eventos" class="categoria-btn">Eventos</label>
-
-              <input type="radio" id="subcat-facilities" name="subcategoria" value="Facilities">
-              <label for="subcat-facilities" class="categoria-btn">Facilities</label>
-
-              <input type="radio" id="subcat-otros" name="subcategoria" value="Otros">
-              <label for="subcat-otros" class="categoria-btn">Otros</label>
+            <label for="subcategoria">Sub-Categoría<span class="required">*</span></label>
+            <div class="select-wrapper">
+              <select id="subcategoria" name="subcategoria" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="IT">IT</option>
+                <option value="Merch">Merch</option>
+                <option value="Catering">Catering</option>
+                <option value="Eventos">Eventos</option>
+                <option value="Facilities">Facilities</option>
+                <option value="Otros">Otros</option>
+              </select>
+              <svg class="chevron-down" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#508991" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="descripcion">Descripción<span class="required">*</span></label>
-          <input type="text" id="descripcion" name="descripcion" required>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="descripcion">Descripción<span class="required">*</span></label>
+            <input type="text" id="descripcion" name="descripcion" required>
+          </div>
         </div>
 
         <div class="button-group">
@@ -109,18 +114,27 @@
       </div>
 
       <!-- MULTISTEP FORM: PASO 2 -->
+
+      <h2>Paso 2: Datos de Entrega</h2>
+
       <div class="form-step" id="step-2" style="display:none;">
-        <div class="form-group">
-          <label for="direccion">Dirección de Entrega<span class="required">*</span></label>
-          <input type="text" id="direccion" name="direccion" required />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="direccion">Dirección<span class="required">*</span></label>
+            <input type="text" id="direccion" name="direccion" required />
+          </div>
         </div>
-        <div class="form-group">
-          <label for="fecha">Fecha de Entrega<span class="required">*</span></label>
-          <input type="date" id="fecha" name="fecha" required />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fecha">Fecha<span class="required">*</span></label>
+            <input type="date" id="fecha" name="fecha" required />
+          </div>
         </div>
-        <div class="form-group">
-          <label for="budget">Budget Max.<span class="required">*</span></label>
-          <input type="number" id="budget" name="budget" required />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="budget">Budget Max.<span class="required">*</span></label>
+            <input type="number" id="budget" name="budget" required />
+          </div>
         </div>
         <div class="button-group">
           <button type="button" class="prev-btn" aria-label="Anterior">
@@ -140,9 +154,11 @@
 
       <!-- MULTISTEP FORM: PASO 3 -->
 
+      <h2>Paso 3: Datos Adicionales</h2>
+
       <div class="form-step" id="step-3" style="display:none;">
         <div class="form-group">
-          <label for="link">Link de Referencia<small>(opcional)</small></label>
+          <label for="link">Links<small>(opcional)</small></label>
           <input type="url" id="link" name="link" />
         </div>
         <div class="form-group">
