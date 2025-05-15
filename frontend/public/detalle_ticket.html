@@ -10,22 +10,67 @@
 
 <body>
 
-    <div id="navbar-placeholder"></div>
+  <div id="navbar-placeholder"></div>
+  
+  <main class="detalle-ticket-container">
+
+    <h1>Detalle del Ticket</h1>
+      <div id="ticket-info">
+        <p><strong>ID:</strong> <span id="ticket-id">Cargando...</span></p>
+        <p><strong>Nombre:</strong> <span id="ticket-nombre">Cargando...</span></p>
+        <p><strong>Estado:</strong> <span id="ticket-estado">Cargando...</span></p>
+        <!-- Agregá más campos si querés -->
+      </div>
     
-    <main class="detalle-ticket-container">
-        <h1>Detalle del Ticket</h1>
-        <div id="ticket-info">
-          <p><strong>ID:</strong> <span id="ticket-id">Cargando...</span></p>
-          <p><strong>Nombre:</strong> <span id="ticket-nombre">Cargando...</span></p>
-          <p><strong>Estado:</strong> <span id="ticket-estado">Cargando...</span></p>
-          <!-- Agregá más campos si querés -->
+    <div class="progressbar-flex">
+      <div class="progressbar-circles">
+        <div class="progressbar-step" id="step-creado">
+          <span class="progressbar-circle">
+            <i class="bi bi-check-circle"></i>
+          </span>
+          <small>Creado</small>
         </div>
-    </main>
+        <div class="progressbar-line"></div>
+    
+        <div class="progressbar-step" id="step-proceso">
+          <span class="progressbar-circle">
+            <i class="bi bi-gear"></i>
+          </span>
+          <small>En Proceso</small>
+        </div>
+        <div class="progressbar-line"></div>
+    
+        <div class="progressbar-step" id="step-propuestas">
+          <span class="progressbar-circle">
+            <i class="bi bi-grid-3x3-gap"></i>
+          </span>
+          <small>Propuestas</small>
+        </div>
+        <div class="progressbar-line"></div>
+    
+        <div class="progressbar-step" id="step-camino">
+          <span class="progressbar-circle">
+            <i class="bi bi-truck"></i>
+          </span>
+          <small>En Camino</small>
+        </div>
+        <div class="progressbar-line"></div>
+    
+        <div class="progressbar-step" id="step-entregado">
+          <span class="progressbar-circle">
+            <i class="bi bi-box-seam"></i>
+          </span>
+          <small>Entregado</small>
+        </div>
+      </div>
+    </div>
+
+  </main>
 
 
 
-    <script src="../js/detalle_ticket.js"></script>
-    <script src="../js/navbar.js"></script>
+  <script src="../js/detalle_ticket.js"></script>
+  <script src="../js/navbar.js"></script>
 </body>
 
 

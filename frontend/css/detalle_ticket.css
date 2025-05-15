@@ -1,0 +1,70 @@
+
+.detalle-ticket-container {
+    width: calc(100vw - 48px);
+    margin: 24px auto 24px auto;
+    padding: 0 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* PROGRESS BAR */
+
+.progressbar-flex {
+    width: 90%;
+    margin: 2.5rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .progressbar-circles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .progressbar-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .progressbar-circle {
+    width: 2.1em;
+    height: 2.1em;
+    border-radius: 50%;
+    background: #EAEAEA;
+    color: #605562;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.1em;
+    border: 2px solid #EAEAEA;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+  }
+  
+  .progressbar-step.active .progressbar-circle {
+    background: #7D8491;
+    color: white;
+    border: 2px solid #7D8491;
+  }
+  
+  .progressbar-step.completed .progressbar-circle {
+    background: #3E8914;
+    color: white;
+    border: 2px solid #3E8914;
+  }
+  
+  .progressbar-line {
+    flex: 1;
+    height: 4px;
+    background: #EAEAEA;
+    border-radius: 2px;
+    margin: 0 2rem;
+  }
+  
+  .progressbar-line.completed {
+    background: #3E8914;
+  }
