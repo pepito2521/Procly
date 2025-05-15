@@ -236,7 +236,7 @@ input[type="number"] {
 
 .button-group {
   display: flex;
-  justify-content: right;
+  justify-content: center;
 }
 
 .next-btn,
