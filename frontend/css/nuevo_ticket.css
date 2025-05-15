@@ -154,44 +154,22 @@
 
 
 
-/* STEP1 / FILA 2: CATEGORIA */
-  .categoria-options {
-    display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
-  
-  .categoria-options input[type="radio"] {
-    display: none;
-  }
-  
-  .categoria-btn {
-    padding: 0.5rem 1.2rem;
-    border: 1.5px solid #508991;
-    border-radius: 20px;
-    background: #fff;
-    color: #508991;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, border 0.2s;
-    user-select: none;
-  }
-  
-  .categoria-options input[type="radio"]:checked + .categoria-btn {
-    background: #508991;
-    color: #fff;
-    border-color: #508991;
-  }
-  
+/* ROW: ATTACHMENTS */
 
-  .form-group input[type="file"] {
-    padding: 0.5rem 0;
-  }
+.form-group input[type="file"] {
+  height: 40px;
+  padding: 0 0.75rem;
+  font-size: 1rem;
+  line-height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Inter', sans-serif;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
 
 
-
-
-  /* FILA : CHECKBOX GUIDELINE */
+/* ROW: CHECKBOX GUIDELINE */
 
   .form-group-checkbox {
     text-align: center;
@@ -387,6 +365,34 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
+}
+
+/* ICONOS DENTRO DE LOS INPUTS*/
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  padding-left: 0.5rem;
+  width: 100%;
+}
+
+.input-with-icon svg {
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+.input-with-icon input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  height: 40px;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  font-family: 'Inter', sans-serif;
 }
 
 
