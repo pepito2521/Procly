@@ -4,8 +4,12 @@ const path = require('path')
 
 const PORT = process.env.PORT || 3000;
 
-// SERVIR ARCHIVOS ESTATICOS DE FRONTEND/PUBLIC
+// SERVIR ARCHIVOS ESTATICOS DE FRONTEND (HTML/CSS/JS)
 app.use(express.static(path.join(__dirname, '../frontend/public')));
+app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
+app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
+
+
 
 
 // REDIRIGIR LA RAÍZ AL INDEX.HTML
