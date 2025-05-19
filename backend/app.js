@@ -16,4 +16,8 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// RUTAS DE AUTENTICACIÓN
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
+
 module.exports = app;
