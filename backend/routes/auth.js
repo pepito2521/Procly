@@ -2,15 +2,40 @@ const express = require('express');
 const router = express.Router();
 const supabase = require('../config/supabase');
 
-// 1. SIGNUP - Registrar nuevo usuario
+// 1. SIGNUP
 router.post('/signup', async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, firstname, lastname, cuit } = req.body;
 
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  // PASO 1: crear usuario en Supabase Auth
+  const { data: authData, error: authError } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
-  if (error) return res.status(400).json({ error: error.message });
+  if (authError) {
+    return res.status(400).json({ error: authError.message });
+  }
 
-  return res.status(201).json({ message: 'Usuario registrado correctamente', data });
+  const userId = authData.user?.id;
+
+  // PASO 2: guardar datos adicionales en public.profiles
+  const { error: profileError } = await supabase
+    .from('profiles')
+    .insert([
+      {
+        id: userId, 
+        firstname,
+        lastname,
+        cuit,
+        role: 'user', 
+      },
+    ]);
+
+  if (profileError) {
+    return res.status(500).json({ error: 'Error al crear perfil de usuario' });
+  }
+
+  return res.status(201).json({ message: 'Usuario y perfil creados exitosamente' });
 });
 
 // 2. LOGIN - Iniciar sesión
