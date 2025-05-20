@@ -13,7 +13,8 @@ router.post('/signup', async (req, res) => {
   });
 
   if (authError) {
-    return res.status(400).json({ error: authError.message });
+    console.error('Error de Supabase:', authError);
+    return res.status(400).json({ error: `Error: ${authError.message}` });
   }
 
   const userId = authData.user?.id;
