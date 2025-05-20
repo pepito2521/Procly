@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const supabase = require('../config/supabase');
+const { supabase, supabaseService } = require('../config/supabase');
 
 // 1. SIGNUP
 router.post('/signup', async (req, res) => {
@@ -20,7 +20,7 @@ router.post('/signup', async (req, res) => {
   const userId = authData.user?.id;
 
   // PASO 2: guardar datos adicionales en public.profiles
-  const { error: profileError } = await supabase
+  const { error: profileError } = await supabaseService
     .from('profiles')
     .insert([
       {
