@@ -4,7 +4,7 @@ const { supabase, supabaseService } = require('../config/supabase');
 
 // 1. SIGNUP
 router.post('/signup', async (req, res) => {
-  const { email, password, firstname, lastname, cuit } = req.body;
+  const { email, password, nombre, apellido, empresa_id } = req.body;
 
   // PASO 1: crear usuario en Supabase Auth
   const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -25,9 +25,9 @@ router.post('/signup', async (req, res) => {
     .insert([
       {
         id: userId, 
-        nombre: firstname,
-        apellido: lastname,
-        empresa_id: cuit,
+        nombre: nombre,
+        apellido: apellido,
+        empresa_id: empresa_id,
         role: 'user', 
       },
     ]);
