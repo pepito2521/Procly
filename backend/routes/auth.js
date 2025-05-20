@@ -24,9 +24,9 @@ router.post('/signup', async (req, res) => {
     .insert([
       {
         id: userId, 
-        firstname,
-        lastname,
-        cuit,
+        nombre: firstname,
+        apellido: lastname,
+        empresa_id: cuit,
         role: 'user', 
       },
     ]);
@@ -63,7 +63,7 @@ router.post('/recover-password', async (req, res) => {
   const { email } = req.body;
 
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: 'http://localhost:3000/auth/update-password'
+    redirectTo: 'https://procly.onrender.com/auth/update-password'
   });
 
   if (error) return res.status(400).json({ error: error.message });
