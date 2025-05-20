@@ -51,9 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
           email: email.value,
           password: password.value,
-          firstname: firstname.value,
-          lastname: lastname.value,
-          cuit: cuit.value
+          nombre: firstname.value,
+          apellido: lastname.value,
+          empresa_id: cuit.value
         })
       });
 
