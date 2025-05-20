@@ -33,8 +33,9 @@ router.post('/signup', async (req, res) => {
     ]);
 
   if (profileError) {
-    return res.status(500).json({ error: 'Error al crear perfil de usuario' });
+    return res.status(500).json({ error: `Error al crear perfil de usuario: ${profileError.message}` });
   }
+  
 
   return res.status(201).json({ message: 'Usuario y perfil creados exitosamente' });
 });
