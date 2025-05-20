@@ -60,8 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('Cuenta creada exitosamente ✅');
-        window.location.href = '/public/success_signup.html';
+        window.location.href = '/success_signup.html';
       } else {
         alert(`Error: ${result.error}`);
       }
