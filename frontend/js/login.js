@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
   
         if (response.ok) {
-          alert('Login exitoso ✅');
-          window.location.href = '/public/nuevo_ticket.html';
+          window.location.href = '/nuevo_ticket.html';
         } else {
           alert(`Error: ${result.error}`);
         }
