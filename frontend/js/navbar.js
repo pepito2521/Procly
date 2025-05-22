@@ -1,18 +1,28 @@
 import { supabase } from './supabaseClient.js';
 
+export async function cargarNavbar() {
+  const placeholder = document.getElementById("navbar-placeholder");
+  if (!placeholder) return;
+
+  const res = await fetch("../components/navbar.html");
+  const html = await res.text();
+  placeholder.innerHTML = html;
+
+  inicializarDropdownNavbar();
+  inicializarLogout();
+}
+
 function inicializarDropdownNavbar() {
-  const dotsIcon = document.querySelector('.navbar-user img[alt="Icono tres puntos"]');
+  const dotsIcon = document.getElementById('menu-toggle');
   const dropdown = document.getElementById('dropdown-menu');
 
   if (!dotsIcon || !dropdown) return;
 
-  // MOSTRAR/OCULTAR EL DROPDOWN
   dotsIcon.addEventListener('click', (e) => {
     e.stopPropagation();
     dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
   });
 
-  // OCULTAR DROPDOWN AL HACER CLIC FUERA
   document.addEventListener('click', () => {
     dropdown.style.display = 'none';
   });
@@ -21,22 +31,18 @@ function inicializarDropdownNavbar() {
 function inicializarLogout() {
   const logoutBtn = document.getElementById("logout-btn");
 
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
+  if (!logoutBtn) return;
 
-      const { error } = await supabase.auth.signOut();
+  logoutBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-      if (error) {
-        alert("Error al cerrar sesión: " + error.message);
-      } else {
-        window.location.href = "/index.html";
-      }
-    });
-  }
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      alert("Error al cerrar sesión: " + error.message);
+    } else {
+      window.location.href = "/index.html";
+    }
+  });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  inicializarDropdownNavbar();
-  inicializarLogout();
-});

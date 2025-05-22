@@ -275,8 +275,12 @@
 
 
   <script src="/js/nuevo_ticket.js"></script>
-  <script type="module" src="/js/navbar.js"></script>
+  <script type="module">
+    import { cargarNavbar } from './js/navbar.js';
+    cargarNavbar();
+  </script>
 </body>
 
 
 </html>
+
