@@ -1,73 +1,62 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-  // INSERTAR NAVBAR EN LA PAGINA
-
+  // Cargar el navbar
   fetch("../components/navbar.html")
-  .then(res => res.text())
-  .then(data => {
-    document.getElementById("navbar-placeholder").innerHTML = data;
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
 
-    const script = document.createElement("script");
-    script.src = "../js/navbar.js";
-    script.onload = () => {
-      inicializarDropdownNavbar();
-    };
-    document.body.appendChild(script);
-    
-  // RESALTAR NAVBAR-LINK ACTIVO
+      const script = document.createElement("script");
+      script.src = "../js/navbar.js";
+      script.type = "module";
+      script.onload = () => {
+        inicializarDropdownNavbar();
+        inicializarLogout();
+      };
+      document.body.appendChild(script);
+
+      // ✅ RESALTAR NAVBAR-LINK ACTIVO
       const currentPage = window.location.pathname.split("/").pop();
       const links = document.querySelectorAll(".navbar-links a");
-    
+
       links.forEach(link => {
         if (link.getAttribute("href").includes(currentPage)) {
           link.classList.add("active");
-          }
-        });
+        }
       });
+    });
 
-  // MULTI-STEP FORM
-  const steps = document.querySelectorAll('.form-step');
+  // MULTISTEP FORM
+  const steps = document.querySelectorAll(".form-step");
+  const progressBar = document.getElementById("progressBar");
+  const prevBtn = document.getElementById("prevBtn");
   let currentStep = 0;
-
-  function updateProgressBar(step) {
-    const steps = document.querySelectorAll('.progressbar-step');
-    const lines = document.querySelectorAll('.progressbar-line');
-    steps.forEach((el, idx) => {
-      el.classList.remove('active', 'completed');
-      if (idx < step) {
-        el.classList.add('completed');
-      } else if (idx === step) {
-        el.classList.add('active');
-      }
-    });
-    // Resalta solo las líneas anteriores al paso actual
-    lines.forEach((line, idx) => {
-      if (idx < step) {
-        line.classList.add('completed');
-      } else {
-        line.classList.remove('completed');
-      }
-    });
-  }
 
   function showStep(index) {
     steps.forEach((step, i) => {
-      step.style.display = i === index ? 'block' : 'none';
-    });
-    updateProgressBar(index);
-
-    const stepTitles = document.querySelectorAll('.step-title-container');
-    stepTitles.forEach((el, idx) => {
-      if (idx === index) {
-        el.classList.add('active');
-      } else {
-        el.classList.remove('active');
+      step.style.display = i === index ? "block" : "none";
+      step.classList.remove("slide-in");
+      if (i === index) {
+        void step.offsetWidth; // reflow para reiniciar animación
+        step.classList.add("slide-in");
       }
     });
+
+    updateProgress(index);
+    currentStep = index;
   }
 
-  document.querySelectorAll('.next-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+  function updateProgress(step) {
+    const percentage = (step + 1) * 20;
+    if (progressBar) {
+      progressBar.style.width = `${percentage}%`;
+    }
+    if (prevBtn) {
+      prevBtn.style.display = step === 0 ? "none" : "inline-block";
+    }
+  }
+
+  document.querySelectorAll(".next-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
       if (currentStep < steps.length - 1) {
         currentStep++;
         showStep(currentStep);
@@ -75,8 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document.querySelectorAll('.prev-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+  document.querySelectorAll(".prev-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
       if (currentStep > 0) {
         currentStep--;
         showStep(currentStep);
@@ -84,31 +73,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Inicializa el primer paso
+  // Mostrar el primer paso
   showStep(currentStep);
-});
 
+// ✅ Selección de categoría: activar y avanzar a paso 2 con delay
+const categoriaCards = document.querySelectorAll(".categoria-card");
 
-// FUNCIONALIDAD DE MOSTRAR / OCULTAR BLOQUES AL CLIC EN LAS FLECHAS DEL TÍTULO DE PASO
+categoriaCards.forEach(card => {
+  card.addEventListener("click", () => {
+    // Remover clases activas anteriores
+    categoriaCards.forEach(c => c.classList.remove("selected"));
 
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("chevron-down")) {
-    const stepContainer = e.target.closest(".step-title-container");
-    const formStep = stepContainer.nextElementSibling;
-    formStep.style.display = "none";
-    stepContainer.classList.remove("active");
-  }
+    // Marcar actual como seleccionada
+    card.classList.add("selected");
 
-  if (e.target.classList.contains("chevron-right")) {
-    const stepContainer = e.target.closest(".step-title-container");
-    const formStep = stepContainer.nextElementSibling;
-    formStep.style.display = "block";
-    stepContainer.classList.add("active");
+    // Guardar la categoría si querés
+    const categoriaSeleccionada = card.dataset.categoria;
+    console.log("Seleccionaste:", categoriaSeleccionada);
 
-    // Scroll suave al paso activado
-    formStep.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
+    // Avanzar automáticamente al paso 2 con 1 segundo de delay
+    if (currentStep === 0) {
+      setTimeout(() => {
+        currentStep++;
+        showStep(currentStep);
+      }, 500);
+    }
+  });
+  });
 });

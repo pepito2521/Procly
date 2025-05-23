@@ -13,222 +13,113 @@
 
   <div id="navbar-placeholder"></div>
 
-
   <main class="nuevo-ticket-container">
-
     <h1>Comienza a comprar</h1>
     <p>Ingresa los detalles de lo que necesitas y nosotros nos ocupamos del resto!</p>
-    
 
-    <!-- MULTISTEP FORM: PROGRESS BAR -->
-    <div class="progressbar-flex">
-      <div class="progressbar-circles">
-        <div class="progressbar-step">
-          <span class="progressbar-circle" id="circle-1">1</span>
-        </div>
-        <div class="progressbar-line"></div>
-        <div class="progressbar-step">
-          <span class="progressbar-circle" id="circle-2">2</span>
-        </div>
-        <div class="progressbar-line"></div>
-        <div class="progressbar-step">
-          <span class="progressbar-circle" id="circle-3">3</span>
-        </div>
-      </div>
-    </div>
-
-    <form class="formulario-ticket" id="multiStepForm" action="/ruta/del/backend" method="POST">
-      
-      <!-- MULTISTEP FORM: PASO 1 -->
-      <div class="form-step" id="step-1">
-        <div class="step-title-container"> 
-          <h2>Paso 1: Datos Generales</h2>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="nombre">Nombre<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-card-text" viewBox="0 0 16 16">
-                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8m0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"/>
-              </svg>
-              <input type="text" id="nombre" name="nombre" required />
-            </div>
+    <!-- CONTENEDOR MULTISTEP -->
+    <form class="formulario-ticket" id="multiStepForm">
+      <!-- STEP 1: Selección de categoría -->
+      <section class="form-step" id="step-1">
+        <h2>¿Que tipo de producto/servicio necesitas comprar?</h2>
+        <div class="categoria-grid">
+          <div class="categoria-card" data-categoria="IT">
+            <div class="categoria-icono">IT</div>
+          </div>
+          <div class="categoria-card" data-categoria="Software">
+            <div class="categoria-icono">Software</div>
+          </div>
+          <div class="categoria-card" data-categoria="Merchandising">
+            <div class="categoria-icono">Merchandising</div>
+          </div>
+          <div class="categoria-card" data-categoria="Supplies">
+            <div class="categoria-icono">Supplies</div>
+          </div>
+          <div class="categoria-card" data-categoria="Eventos">
+            <div class="categoria-icono">Eventos</div>
+          </div>
+          <div class="categoria-card" data-categoria="Catering">
+            <div class="categoria-icono">Catering</div>
+          </div>
+          <div class="categoria-card" data-categoria="Otros">
+            <div class="categoria-icono">Otros</div>
+          </div>
+          <div class="categoria-card" data-categoria="Otros2">
+            <div class="categoria-icono">Otros2</div>
           </div>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="cantidad">Cantidad<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-hash" viewBox="0 0 16 16">
-                <path d="M8.39 12.648a1 1 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1 1 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.51.51 0 0 0-.523-.516.54.54 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532s.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531s.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
-              </svg>
-              <input type="number" id="cantidad" name="cantidad" required value="1" />
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="descripcion">Descripción<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-pen" viewBox="0 0 16 16">
-                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-              </svg>
-              <input type="text" id="descripcion" name="descripcion" required>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="budget">Budget Max.<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-currency-dollar" viewBox="0 0 16 16">
-                <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
-              </svg>
-              <input type="number" id="budget" name="budget" required />
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group categoria">
-            <label for="categoria">Categoría<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-tag" viewBox="0 0 16 16">
-                <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0"/>
-                <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1m0 5.586 7 7L13.586 9l-7-7H2z"/>
-              </svg>
-              <div class="select-wrapper">
-                <select id="categoria" name="categoria" required>
-                  <option value="" disabled selected>Selecciona una opción</option>
-                  <option value="producto">Producto</option>
-                  <option value="servicio">Servicio</option>
-                </select>
-                <svg class="chevron-down" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#508991" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group sub-categoria">
-            <label for="subcategoria">Sub-Categoría<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-tags" viewBox="0 0 16 16">
-                <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
-                <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
-              </svg>
-              <div class="select-wrapper">
-                <select id="subcategoria" name="subcategoria" required>
-                  <option value="" disabled selected>Selecciona una opción</option>
-                  <option value="IT">IT</option>
-                  <option value="Merch">Merch</option>
-                  <option value="Catering">Catering</option>
-                  <option value="Eventos">Eventos</option>
-                  <option value="Facilities">Facilities</option>
-                  <option value="Otros">Otros</option>
-                </select>
-                <svg class="chevron-down" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#508991" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="button-group">
-          <button type="button" class="next-btn" aria-label="Siguiente">
-            <small>Siguiente</small>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-chevron-right" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-            </svg>
-          </button>
+          <button type="button" class="next-btn">Siguiente</button>
         </div>
-        
-      </div>
+      </section>
 
-      <!-- MULTISTEP FORM: PASO 2 -->
-      <div class="form-step" id="step-2" style="display:none;">
-
-        <div class="step-title-container"> 
-          <h2>Paso 2: Datos de Entrega</h2>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="direccion">Dirección<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-geo" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.3 1.3 0 0 0-.37.265.3.3 0 0 0-.057.09V14l.002.008.016.033a.6.6 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.6.6 0 0 0 .146-.15l.015-.033L12 14v-.004a.3.3 0 0 0-.057-.09 1.3 1.3 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465s-2.462-.172-3.34-.465c-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411"/>
-              </svg>
-              <input type="text" id="direccion" name="direccion" required />
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="fecha">Fecha<span class="required">*</span></label>
-            <div class="input-with-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-calendar4" viewBox="0 0 16 16">
-                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-              </svg>
-              <input type="date" id="fecha" name="fecha" required />
-            </div>
-          </div>
-        </div>
-        
-        <div class="button-group">
-          <button type="button" class="next-btn" aria-label="Siguiente">
-            <small>Siguiente</small>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-chevron-right" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- MULTISTEP FORM: PASO 3 -->
-      <div class="form-step" id="step-3" style="display:none;">
-        <div class="step-title-container"> 
-          <h2>Paso 3: Datos Adicionales</h2>
-        </div>
-        <div class="form-group">
-          <label for="link">Links<small>(opcional)</small></label>
-          <div class="input-with-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-link-45deg" viewBox="0 0 16 16">
-              <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
-              <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
-            </svg>
-            <input type="url" id="link" name="link" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="adjuntos">Adjuntos <small>(opcional)</small></label>
-          <div class="input-with-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" class="bi bi-paperclip" viewBox="0 0 16 16">
-              <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0z"/>
-            </svg>
-            <input type="file" id="adjuntos" name="adjuntos" />
-          </div>
-        </div>
-        <div class="form-group-checkbox">
-          <input type="checkbox" id="confirm" name="confirm" required />
-          <label for="confirm">
-            <small>Confirmo haber leído y aceptado el <a href="#">Guideline</a> de compras no estratégicas</small>
+      <!-- STEP 2: Descripción y adjunto -->
+      <section class="form-step" id="step-2" style="display:none">
+        <h2>Ingresa una breve descripción de lo que necesitas comprar</h2>
+        <textarea name="descripcion" rows="4" required></textarea>
+        <div class="adjunto-container">
+          <label for="adjunto">
+            <span>📎</span>
+            <input type="file" id="adjunto" name="adjunto">
           </label>
         </div>
-
-        <div class="submit-btn-container">
-          <button type="submit" class="submit-btn">Crear Ticket</button>
+        <div class="button-group">
+          <button type="button" class="prev-btn">Volver</button>
+          <button type="button" class="next-btn">Siguiente</button>
         </div>
-        
-      </div>
-    </form>
+      </section>
 
+      <!-- STEP 3: Presupuesto -->
+      <section class="form-step" id="step-3" style="display:none">
+        <h2>¿Tenés un límite de plata para gastar?</h2>
+        <div class="presupuesto-opciones">
+          <label><input type="radio" name="limite" value="si"> Si</label>
+          <label><input type="radio" name="limite" value="no"> No</label>
+        </div>
+        <div class="presupuesto-input">
+          <label>Indica tu presupuesto</label>
+          <input type="number" name="presupuesto" />
+        </div>
+        <div class="button-group">
+          <button type="button" class="prev-btn">Volver</button>
+          <button type="button" class="next-btn">Siguiente</button>
+        </div>
+      </section>
+
+      <!-- STEP 4: Datos de entrega -->
+      <section class="form-step" id="step-4" style="display:none">
+        <h2>Completa los datos de entrega</h2>
+        <input type="text" name="direccion_entrega" placeholder="Dirección de Entrega" required>
+        <input type="date" name="fecha_entrega" required>
+        <div class="button-group">
+          <button type="button" class="prev-btn">Volver</button>
+          <button type="submit" class="submit-btn">Crear Ticket!</button>
+        </div>
+      </section>
+
+      <!-- STEP 5: Confirmación -->
+      <section class="form-step" id="step-5" style="display:none">
+        <h2>Comienza a comprar</h2>
+        <div class="icono-confirmacion">
+          <span style="font-size: 5rem; color: green;">✔</span>
+          <p style="color: green; font-weight: bold;">Creado!</p>
+        </div>
+      </section>
+
+       
+
+    </form>
+         <!-- PROGRESS BAR + BOTÓN VOLVER -->
+         <div class="progress-bar-container">
+          <button type="button" class="prev-btn" id="prevBtn" style="display: none;">
+            ← Volver
+          </button>
+          <div class="progress-bar-outer">
+            <div class="progress-bar-inner" id="progressBar"></div>
+          </div>
+        </div>
   </main>
+
 
 
 

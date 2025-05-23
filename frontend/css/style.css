@@ -91,7 +91,7 @@ small {
     align-items: center;
     justify-content: space-between;
     background-color: #F4F3EE;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.10);
     border-radius: 5px;
   }
   
