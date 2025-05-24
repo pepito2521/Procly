@@ -53,10 +53,11 @@
       <!-- STEP 2: Descripción y adjunto -->
       <section class="form-step" id="step-2" style="display:none">
         <h2>Ingresa una breve descripción de lo que necesitas comprar</h2>
-        <textarea name="descripcion" rows="4" required></textarea>
-        <div class="adjunto-container">
+        <div class="form-group">
+          <textarea name="descripcion" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
           <label for="adjunto">
-            <span>📎</span>
             <input type="file" id="adjunto" name="adjunto">
           </label>
         </div>
@@ -69,11 +70,11 @@
       <!-- STEP 3: Presupuesto -->
       <section class="form-step" id="step-3" style="display:none">
         <h2>¿Tenés un límite de plata para gastar?</h2>
-        <div class="presupuesto-opciones">
+        <div class="form-group">
           <label><input type="radio" name="limite" value="si"> Si</label>
           <label><input type="radio" name="limite" value="no"> No</label>
         </div>
-        <div class="presupuesto-input">
+        <div class="form-group">
           <label>Indica tu presupuesto</label>
           <input type="number" name="presupuesto" />
         </div>
@@ -86,8 +87,10 @@
       <!-- STEP 4: Datos de entrega -->
       <section class="form-step" id="step-4" style="display:none">
         <h2>Completa los datos de entrega</h2>
-        <input type="text" name="direccion_entrega" placeholder="Dirección de Entrega" required>
-        <input type="date" name="fecha_entrega" required>
+        <div class="form-group">
+          <input type="text" name="direccion_entrega" placeholder="Dirección de Entrega" required>
+          <input type="date" name="fecha_entrega" required>
+        </div>
         <div class="button-group">
           <button type="button" class="prev-btn">Volver</button>
           <button type="submit" class="submit-btn">Crear Ticket!</button>
@@ -105,15 +108,17 @@
 
       
     </form>
+
         <!-- PROGRESS BAR + BOTÓN VOLVER -->
     <div class="progress-bar-container">
-      <div class="progress-bar-outer">
-        <div class="progress-bar-inner" id="progressBar"></div>
-      </div>
       <button type="button" class="prev-btn" id="prevBtn" style="display: none;">
         ← Volver
       </button>
-    </div> 
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" id="progressBar"></div>
+      </div>
+    </div>
+    
   </main>
 
 
