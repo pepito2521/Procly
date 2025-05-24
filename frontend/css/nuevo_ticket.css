@@ -29,9 +29,11 @@
 
 
 .form-step {
-  display: none;
+  display:block;
   flex-direction: column;
   animation: slideInLeft 0.5s ease-out;
+  width: 100%;
+  max-width: 100%;
 }
 
 .form-step h2 {
@@ -43,21 +45,14 @@
   color: #222;
 }
 
-
-.form-row {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: start;
-  margin-bottom: 1.5rem;
-}
-
 .form-group {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 3rem;
-  width: 500px;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .form-step .form-group {
@@ -144,19 +139,6 @@
   animation: slideInLeft 0.5s ease-out;
 }
 
-
-/* ROW: BUDGET MAX */
-
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
 
 /* ROW: ATTACHMENTS */
 
@@ -279,15 +261,18 @@ input[type="number"] {
 
 .next-btn,
 .prev-btn {
+  width: 100%;
+  max-width: 100%;
+  height: 40px;
+  line-height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  background-color: #09090b;
   gap: 0.2rem;
-  margin:  0;
-  padding: 0;
-  background-color: transparent;
-  color:#090B0A;
+  color: white;
   border: none;
-  border-radius: 1rem;
+  border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   font-weight: 500;
@@ -296,7 +281,7 @@ input[type="number"] {
 
 .next-btn:hover,
 .prev-btn:hover {
-  transform: scale(1.1)
+  background-color: #44504B;
 }
 
 .next-btn:hover p,
