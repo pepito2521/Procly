@@ -1,3 +1,6 @@
+let progressBar;
+let prevBtn;
+
 document.addEventListener("DOMContentLoaded", () => {
   // Cargar el navbar
   fetch("../components/navbar.html")
@@ -27,8 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // MULTISTEP FORM
   const steps = document.querySelectorAll(".form-step");
-  const progressBar = document.getElementById("progressBar");
-  const prevBtn = document.getElementById("prevBtn");
+  progressBar = document.getElementById("progressBar");
+  prevBtn = document.getElementById("prevBtn");
   let currentStep = 0;
 
   function showStep(index) {
@@ -36,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
       step.style.display = i === index ? "block" : "none";
       step.classList.remove("slide-in");
       if (i === index) {
-        void step.offsetWidth; // reflow para reiniciar animación
+        void step.offsetWidth;
         step.classList.add("slide-in");
       }
     });

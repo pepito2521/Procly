@@ -318,7 +318,7 @@ input[type="number"] {
 /* PROGRESS BAR */
 
 .progress-bar-container {
-  display: flex;
+  display: flex !important;
   align-items: center;
   gap: 1rem;
   margin: 2rem 0;
