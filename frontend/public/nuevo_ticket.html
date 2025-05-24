@@ -1,129 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuevo Ticket</title>
-  <link rel="icon" href="/assets/img/favicon.png" type="image/png" />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/nuevo_ticket.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuevo Ticket</title>
+    <link rel="icon" href="/assets/img/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/nuevo_ticket.css">
+  </head>
 
-<body>
+  <body>
+    <div id="navbar-placeholder"></div>
+    
+    <main class="nuevo-ticket-container">
+      <h1>Comienza a comprar</h1>
 
-  <div id="navbar-placeholder"></div>
+      <!-- CONTENEDOR MULTISTEP -->
+      <form class="formulario-ticket" id="multiStepForm">
+        <!-- STEP 1: Selección de categoría -->
+        <section class="form-step" id="step-1">
+          <h2>¿Que tipo de producto/servicio necesitas comprar?</h2>
+          <div class="categoria-grid">
+            <div class="categoria-card" data-categoria="IT">
+              <div class="categoria-icono">IT</div>
+            </div>
+            <div class="categoria-card" data-categoria="Software">
+              <div class="categoria-icono">Software</div>
+            </div>
+            <div class="categoria-card" data-categoria="Merchandising">
+              <div class="categoria-icono">Merchandising</div>
+            </div>
+            <div class="categoria-card" data-categoria="Supplies">
+              <div class="categoria-icono">Supplies</div>
+            </div>
+            <div class="categoria-card" data-categoria="Eventos">
+              <div class="categoria-icono">Eventos</div>
+            </div>
+            <div class="categoria-card" data-categoria="Catering">
+              <div class="categoria-icono">Catering</div>
+            </div>
+            <div class="categoria-card" data-categoria="Otros">
+              <div class="categoria-icono">Otros</div>
+            </div>
+            <div class="categoria-card" data-categoria="Otros2">
+              <div class="categoria-icono">Otros2</div>
+            </div>
+          </div>
+        </section>
 
-  <main class="nuevo-ticket-container">
-    <h1>Comienza a comprar</h1>
-    <p>Ingresa los detalles de lo que necesitas y nosotros nos ocupamos del resto!</p>
-
-    <!-- CONTENEDOR MULTISTEP -->
-    <form class="formulario-ticket" id="multiStepForm">
-      <!-- STEP 1: Selección de categoría -->
-      <section class="form-step" id="step-1">
-        <h2>¿Que tipo de producto/servicio necesitas comprar?</h2>
-        <div class="categoria-grid">
-          <div class="categoria-card" data-categoria="IT">
-            <div class="categoria-icono">IT</div>
-          </div>
-          <div class="categoria-card" data-categoria="Software">
-            <div class="categoria-icono">Software</div>
-          </div>
-          <div class="categoria-card" data-categoria="Merchandising">
-            <div class="categoria-icono">Merchandising</div>
-          </div>
-          <div class="categoria-card" data-categoria="Supplies">
-            <div class="categoria-icono">Supplies</div>
-          </div>
-          <div class="categoria-card" data-categoria="Eventos">
-            <div class="categoria-icono">Eventos</div>
-          </div>
-          <div class="categoria-card" data-categoria="Catering">
-            <div class="categoria-icono">Catering</div>
-          </div>
-          <div class="categoria-card" data-categoria="Otros">
-            <div class="categoria-icono">Otros</div>
-          </div>
-          <div class="categoria-card" data-categoria="Otros2">
-            <div class="categoria-icono">Otros2</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- STEP 2: Descripción y adjunto -->
-      <section class="form-step" id="step-2" style="display:none">
-        <h2>Ingresa una breve descripción de lo que necesitas comprar</h2>
-        <div class="form-group">
-          <textarea name="descripcion" rows="4" required></textarea>
-        </div>
-        <div class="form-group">
-          <label for="adjunto">
+        <!-- STEP 2: Descripción y adjunto -->
+        <section class="form-step" id="step-2" style="display:none">
+          <h2>Ingresa una breve descripción de lo que necesitas comprar</h2>
+          <div class="form-group">
+            <textarea type="text" name="descripcion" rows="4" required></textarea>
             <input type="file" id="adjunto" name="adjunto">
-          </label>
-        </div>
-        <div class="button-group">
-          <button type="button" class="next-btn">Siguiente</button>
-        </div>
-      </section>
+          </div>
+          
+          <div class="button-group">
+            <button type="button" class="next-btn">Siguiente</button>
+          </div>
+        </section>
 
-      <!-- STEP 3: Presupuesto -->
-      <section class="form-step" id="step-3" style="display:none">
-        <h2>¿Tenés un límite de plata para gastar?</h2>
-        <div class="form-group">
-          <label><input type="radio" name="limite" value="si"> Si</label>
-          <label><input type="radio" name="limite" value="no"> No</label>
-        </div>
-        <div class="form-group">
-          <label>Indica tu presupuesto</label>
-          <input type="number" name="presupuesto" />
-        </div>
-        <div class="button-group">
-          <button type="button" class="next-btn">Siguiente</button>
-        </div>
-      </section>
+        <!-- STEP 3: Presupuesto -->
+        <section class="form-step" id="step-3" style="display:none">
+          <h2>¿Tenés un límite de plata para gastar?</h2>
+          <div class="form-group">
+            <label><input type="radio" name="limite" value="si"> Si</label>
+            <label><input type="radio" name="limite" value="no"> No</label>
+          </div>
+          <div class="form-group">
+            <label>Indica tu presupuesto</label>
+            <input type="number" name="presupuesto" />
+          </div>
+          <div class="button-group">
+            <button type="button" class="next-btn">Siguiente</button>
+          </div>
+        </section>
 
-      <!-- STEP 4: Datos de entrega -->
-      <section class="form-step" id="step-4" style="display:none">
-        <h2>Completa los datos de entrega</h2>
-        <div class="form-group">
-          <input type="text" name="direccion_entrega" placeholder="Dirección de Entrega" required>
-          <input type="date" name="fecha_entrega" required>
-        </div>
-        <div class="button-group">
-          <button type="submit" class="submit-btn">Crear Ticket!</button>
-        </div>
-      </section>
+        <!-- STEP 4: Datos de entrega -->
+        <section class="form-step" id="step-4" style="display:none">
+          <h2>Completa los datos de entrega</h2>
+          <div class="form-group">
+            <input type="text" name="direccion_entrega" placeholder="Dirección de Entrega" required>
+            <input type="date" name="fecha_entrega" required>
+          </div>
+          <div class="button-group">
+            <button type="submit" class="submit-btn">Crear Ticket!</button>
+          </div>
+        </section>
 
-      <!-- STEP 5: Confirmación -->
-      <section class="form-step" id="step-5" style="display:none">
-        <h2>Comienza a comprar</h2>
-        <div class="icono-confirmacion">
-          <span style="font-size: 5rem; color: green;">✔</span>
-          <p style="color: green; font-weight: bold;">Creado!</p>
+        <!-- STEP 5: Confirmación -->
+        <section class="form-step" id="step-5" style="display:none">
+          <h2>Comienza a comprar</h2>
+          <div class="icono-confirmacion">
+            <span style="font-size: 5rem; color: green;">✔</span>
+            <p style="color: green; font-weight: bold;">Creado!</p>
+          </div>
+        </section>
+
+        
+      </form>
+
+          <!-- PROGRESS BAR + BOTÓN VOLVER -->
+      <div class="progress-bar-container">
+        <button type="button" class="prev-btn" id="prevBtn" style="display: none;">
+          ← Volver
+        </button>
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="progressBar"></div>
         </div>
-      </section>
-
-      
-    </form>
-
-        <!-- PROGRESS BAR + BOTÓN VOLVER -->
-    <div class="progress-bar-container">
-      <button type="button" class="prev-btn" id="prevBtn" style="display: none;">
-        ← Volver
-      </button>
-      <div class="progress-bar-outer">
-        <div class="progress-bar-inner" id="progressBar"></div>
       </div>
-    </div>
-  </main>
+    </main>
 
 
-  <script src="../js/nuevo_ticket.js"></script>
-  <script type="module">
-    import { cargarNavbar } from './js/navbar.js';
-    cargarNavbar();
-  </script>
-</body>
+    <script src="../js/nuevo_ticket.js"></script>
+    <script type="module">
+      import { cargarNavbar } from './js/navbar.js';
+      cargarNavbar();
+    </script>
+  </body>
 
 
 </html>
