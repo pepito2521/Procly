@@ -2,7 +2,7 @@ let progressBar;
 let prevBtn;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Cargar el navbar
+  // CARGAR NAVBAR
   fetch("../components/navbar.html")
     .then(res => res.text())
     .then(data => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
       document.body.appendChild(script);
 
-      // ✅ RESALTAR NAVBAR-LINK ACTIVO
+      // RESALTAR NAVBAR-LINK ACTIVO
       const currentPage = window.location.pathname.split("/").pop();
       const links = document.querySelectorAll(".navbar-links a");
 
@@ -79,22 +79,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mostrar el primer paso
   showStep(currentStep);
 
-  // ✅ Selección de categoría: activar y avanzar a paso 2 con delay
+
+  // STEP 1: CATEGORIA
   const categoriaCards = document.querySelectorAll(".categoria-card");
 
   categoriaCards.forEach(card => {
     card.addEventListener("click", () => {
-      // Remover clases activas anteriores
       categoriaCards.forEach(c => c.classList.remove("selected"));
-
-      // Marcar actual como seleccionada
       card.classList.add("selected");
-
-      // Guardar la categoría si querés
       const categoriaSeleccionada = card.dataset.categoria;
       console.log("Seleccionaste:", categoriaSeleccionada);
-
-      // Avanzar automáticamente al paso 2 con 1 segundo de delay
       if (currentStep === 0) {
         setTimeout(() => {
           currentStep++;
@@ -104,16 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     });
 
-      // ✅ Selección de límite de presupuesto (step 3)
+  // STEP 3: PRESUPUESTO
   const radiosLimite = document.querySelectorAll('input[name="limite"]');
+  const presupuestoInputGroup = document.getElementById("presupuestoInputGroup");
 
   radiosLimite.forEach(radio => {
     radio.addEventListener("change", () => {
-      // Sacar la clase 'selected' de todas las tarjetas
       document.querySelectorAll('.opcion-card').forEach(card => card.classList.remove('selected'));
-
-      // Agregar la clase 'selected' a la tarjeta activa
-      radio.closest('.opcion-card').classList.add('selected');
+      const card = radio.closest('.opcion-card');
+      if (card) card.classList.add('selected');
+      if (radio.value === "si" && radio.checked) {
+        presupuestoInputGroup.style.display = "block";
+      } else if (radio.value === "no" && radio.checked) {
+        presupuestoInputGroup.style.display = "none";
+      }
     });
   });
 
