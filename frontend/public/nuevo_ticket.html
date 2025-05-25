@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nuevo Ticket</title>
     <link rel="icon" href="/assets/img/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/nuevo_ticket.css">
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/nuevo_ticket.css">
   </head>
 
   <body>
@@ -64,10 +64,17 @@
         <!-- STEP 3: Presupuesto -->
         <section class="form-step" id="step-3" style="display:none">
           <h2>¿Tenés un límite de plata para gastar?</h2>
-          <div class="form-group">
-            <label><input type="radio" name="limite" value="si"> Si</label>
-            <label><input type="radio" name="limite" value="no"> No</label>
+          <div class="presupuesto-opciones">
+            <label class="opcion-card">
+              <input type="radio" name="limite" value="si" />
+              <span>Sí</span>
+            </label>
+            <label class="opcion-card">
+              <input type="radio" name="limite" value="no" />
+              <span>No</span>
+            </label>
           </div>
+          
           <div class="form-group">
             <label>Indica tu presupuesto</label>
             <input type="number" name="presupuesto" />
@@ -113,7 +120,7 @@
     </main>
 
 
-    <script src="/js/nuevo_ticket.js"></script>
+    <script src="../js/nuevo_ticket.js"></script>
     <script type="module">
       import { cargarNavbar } from './js/navbar.js';
       cargarNavbar();

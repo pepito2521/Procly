@@ -79,28 +79,42 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mostrar el primer paso
   showStep(currentStep);
 
-// ✅ Selección de categoría: activar y avanzar a paso 2 con delay
-const categoriaCards = document.querySelectorAll(".categoria-card");
+  // ✅ Selección de categoría: activar y avanzar a paso 2 con delay
+  const categoriaCards = document.querySelectorAll(".categoria-card");
 
-categoriaCards.forEach(card => {
-  card.addEventListener("click", () => {
-    // Remover clases activas anteriores
-    categoriaCards.forEach(c => c.classList.remove("selected"));
+  categoriaCards.forEach(card => {
+    card.addEventListener("click", () => {
+      // Remover clases activas anteriores
+      categoriaCards.forEach(c => c.classList.remove("selected"));
 
-    // Marcar actual como seleccionada
-    card.classList.add("selected");
+      // Marcar actual como seleccionada
+      card.classList.add("selected");
 
-    // Guardar la categoría si querés
-    const categoriaSeleccionada = card.dataset.categoria;
-    console.log("Seleccionaste:", categoriaSeleccionada);
+      // Guardar la categoría si querés
+      const categoriaSeleccionada = card.dataset.categoria;
+      console.log("Seleccionaste:", categoriaSeleccionada);
 
-    // Avanzar automáticamente al paso 2 con 1 segundo de delay
-    if (currentStep === 0) {
-      setTimeout(() => {
-        currentStep++;
-        showStep(currentStep);
-      }, 500);
-    }
+      // Avanzar automáticamente al paso 2 con 1 segundo de delay
+      if (currentStep === 0) {
+        setTimeout(() => {
+          currentStep++;
+          showStep(currentStep);
+        }, 500);
+      }
+    });
+    });
+
+      // ✅ Selección de límite de presupuesto (step 3)
+  const radiosLimite = document.querySelectorAll('input[name="limite"]');
+
+  radiosLimite.forEach(radio => {
+    radio.addEventListener("change", () => {
+      // Sacar la clase 'selected' de todas las tarjetas
+      document.querySelectorAll('.opcion-card').forEach(card => card.classList.remove('selected'));
+
+      // Agregar la clase 'selected' a la tarjeta activa
+      radio.closest('.opcion-card').classList.add('selected');
+    });
   });
-  });
+
 });
