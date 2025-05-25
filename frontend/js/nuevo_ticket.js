@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // MULTISTEP FORM
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
-  prevBtn = document.getElementById("prevBtn");
+  prevBtn = document.getElementById("progressBarBtn");
   let currentStep = 0;
 
   function showStep(index) {
@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateProgress(step) {
     const percentage = (step + 1) * 20;
+    console.log("Avanzaste al step", step, "- % barra:", percentage);
     if (progressBar) {
       progressBar.style.width = `${percentage}%`;
     }
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  document.querySelectorAll(".prev-btn").forEach(btn => {
+  document.querySelectorAll(".progress-bar-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       if (currentStep > 0) {
         currentStep--;
