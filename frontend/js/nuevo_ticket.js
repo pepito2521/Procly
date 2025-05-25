@@ -44,7 +44,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // Actualiza barra de progreso
     updateProgress(index);
+
+    // Mostrar u ocultar botón "Volver"
+    if (prevBtn) {
+      if (index === 0) {
+        prevBtn.classList.add("hidden");
+      } else {
+        prevBtn.classList.remove("hidden");
+      }
+    }
+    
+
     currentStep = index;
   }
 
@@ -53,9 +65,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Avanzaste al step", step, "- % barra:", percentage);
     if (progressBar) {
       progressBar.style.width = `${percentage}%`;
-    }
-    if (prevBtn) {
-      prevBtn.style.display = step === 0 ? "none" : "inline-block";
     }
   }
 
@@ -80,8 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mostrar el primer paso
   showStep(currentStep);
 
-
-  // STEP 1: CATEGORIA
+  // STEP 1: CATEGORÍA
   const categoriaCards = document.querySelectorAll(".categoria-card");
 
   categoriaCards.forEach(card => {
@@ -90,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.add("selected");
       const categoriaSeleccionada = card.dataset.categoria;
       console.log("Seleccionaste:", categoriaSeleccionada);
+
       if (currentStep === 0) {
         setTimeout(() => {
           currentStep++;
@@ -97,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 500);
       }
     });
-    });
+  });
 
   // STEP 3: PRESUPUESTO
   const radiosLimite = document.querySelectorAll('input[name="limite"]');
@@ -108,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll('.opcion-card').forEach(card => card.classList.remove('selected'));
       const card = radio.closest('.opcion-card');
       if (card) card.classList.add('selected');
+
       if (radio.value === "si" && radio.checked) {
         presupuestoInputGroup.style.display = "block";
       } else if (radio.value === "no" && radio.checked) {
