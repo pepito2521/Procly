@@ -60,12 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateProgress(step) {
-    const percentage = (step + 1) * 20;
+    const percentage = (step / (steps.length - 1)) * 100;
     console.log("Avanzaste al step", step, "- % barra:", percentage);
     if (progressBar) {
       progressBar.style.width = `${percentage}%`;
     }
   }
+  
 
   document.querySelectorAll(".next-btn").forEach(btn => {
     btn.addEventListener("click", () => {
