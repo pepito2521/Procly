@@ -1,5 +1,7 @@
 let progressBar;
 let prevBtn;
+let prevBtnContainer;
+let currentStep = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
   // CARGAR NAVBAR
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
   prevBtn = document.getElementById("progressBarBtn");
-  let currentStep = 0;
+  prevBtnContainer = document.querySelector(".progress-bar-btn-container");
 
   function showStep(index) {
     steps.forEach((step, i) => {
@@ -44,20 +46,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Actualiza barra de progreso
     updateProgress(index);
+    currentStep = index;
 
-    // Mostrar u ocultar botón "Volver"
-    if (prevBtn) {
+    // ✅ OPCIÓN B: Mostrar u ocultar botón "Volver" con add/remove
+    if (prevBtnContainer) {
       if (index === 0) {
-        prevBtn.classList.add("hidden");
+        prevBtnContainer.classList.add("hidden");
       } else {
-        prevBtn.classList.remove("hidden");
+        prevBtnContainer.classList.remove("hidden");
       }
     }
-    
-
-    currentStep = index;
   }
 
   function updateProgress(step) {
@@ -85,9 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
-  // Mostrar el primer paso
-  showStep(currentStep);
 
   // STEP 1: CATEGORÍA
   const categoriaCards = document.querySelectorAll(".categoria-card");
@@ -126,4 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Mostrar el primer paso
+  showStep(currentStep);
 });
