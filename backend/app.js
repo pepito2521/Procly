@@ -20,4 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 const authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
+// RUTAS DE TICKETS
+const ticketRoutes = require('./routes/tickets');
+app.use('/tickets', ticketRoutes);
+
+
 module.exports = app;
