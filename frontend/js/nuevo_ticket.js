@@ -2,6 +2,7 @@ let progressBar;
 let prevBtn;
 let prevBtnContainer;
 let currentStep = 0;
+let categoriaSeleccionada = ''; 
 
 document.addEventListener("DOMContentLoaded", () => {
   // CARGAR NAVBAR
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.addEventListener("click", () => {
       categoriaCards.forEach(c => c.classList.remove("selected"));
       card.classList.add("selected");
-      const categoriaSeleccionada = card.dataset.categoria;
+      categoriaSeleccionada = card.dataset.categoria;
       console.log("Seleccionaste:", categoriaSeleccionada);
 
       if (currentStep === 0) {
@@ -125,4 +126,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mostrar el primer paso
   showStep(currentStep);
+
+
+
+  
+  document.getElementById('multiStepForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+  
+    const form = e.target;
+    const formData = new FormData(form);
+  
+    const body = {
+      categoria: categoriaSeleccionada,
+      descripcion: formData.get('descripcion'),
+      presupuesto: formData.get('presupuesto'),
+      limite: formData.get('limite'),
+      direccion_id: formData.get('direccion_entrega'), // por ahora texto
+      fecha_entrega: formData.get('fecha_entrega'),
+      archivo_url: null // si implementás upload, podés cambiar esto
+    };
+  
+    try {
+      const res = await fetch('http://localhost:3000/tickets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        console.log('Ticket creado con éxito:', data);
+        currentStep++;
+        showStep(currentStep); // muestra step-5
+      } else {
+        alert('Error al crear el ticket: ' + data.error);
+      }
+    } catch (err) {
+      console.error('Error al enviar el ticket:', err);
+      alert('Error de red al crear el ticket');
+    }
+  });
+
 });
