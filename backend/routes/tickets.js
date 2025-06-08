@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { crearTicket } = require('../controllers/ticketsController');
+const { 
+    crearTicket,
+    obtenerDirecciones 
+} = require('../controllers/ticketsController');
 
-// Ruta para crear un nuevo ticket
+// RUTAS
+router.get('/direcciones', obtenerDirecciones);
 router.post('/', crearTicket);
 
 module.exports = router;

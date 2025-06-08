@@ -87,6 +87,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  async function cargarDirecciones() {
+    try {
+      const res = await fetch('http://localhost:3000/tickets/direcciones');
+      const data = await res.json();
+  
+      if (res.ok) {
+        const select = document.getElementById('direccion_entrega');
+        data.direcciones.forEach(dir => {
+          const option = document.createElement('option');
+          option.value = dir.id;
+          option.textContent = dir.direccion;
+          select.appendChild(option);
+        });
+      } else {
+        console.error('Error al traer direcciones:', data.error);
+      }
+    } catch (err) {
+      console.error('Error al cargar direcciones:', err);
+    }
+  }
+  
+
   // STEP 1: CATEGORÍA
   const categoriaCards = document.querySelectorAll(".categoria-card");
 
@@ -127,9 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mostrar el primer paso
   showStep(currentStep);
 
+  // Cargar direcciones desde el backend
+  cargarDirecciones();
 
 
-  
   document.getElementById('multiStepForm').addEventListener('submit', async function (e) {
     e.preventDefault();
   

@@ -90,7 +90,9 @@
         <section class="form-step" id="step-4" style="display:none">
           <h2>Completa los datos de entrega</h2>
           <div class="form-group">
-            <input type="text" name="direccion_entrega" placeholder="Dirección de Entrega" required>
+            <select name="direccion_entrega" id="direccionSelect" required>
+              <option value="">Seleccioná una dirección</option>
+            </select>            
             <input type="date" name="fecha_entrega" required>
           </div>
           <div class="button-group">
