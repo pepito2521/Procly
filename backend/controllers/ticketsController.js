@@ -19,7 +19,7 @@ exports.crearTicket = async (req, res) => {
     const { data: perfil, error: errorPerfil } = await supabase
       .from('profiles')
       .select('empresa_id')
-      .eq('id', user_id)
+      .eq('profile_id', user_id)
       .single();
 
     if (errorPerfil) throw errorPerfil;
@@ -56,7 +56,7 @@ exports.obtenerDirecciones = async (req, res) => {
       const { data: perfil, error: errorPerfil } = await supabase
         .from('profiles')
         .select('empresa_id')
-        .eq('id', user_id)
+        .eq('profile_id', user_id)
         .single();
   
       if (errorPerfil) throw errorPerfil;
