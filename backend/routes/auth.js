@@ -48,7 +48,11 @@ router.post('/login', async (req, res) => {
 
   if (error) return res.status(401).json({ error: error.message });
 
-  return res.status(200).json({ message: 'Login exitoso', data });
+  return res.status(200).json({
+    message: 'Login exitoso',
+    session: data.session,
+    user: data.user,
+  });
 });
 
 // 3. LOGOUT - Cerrar sesión

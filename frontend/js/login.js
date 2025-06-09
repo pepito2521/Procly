@@ -18,12 +18,15 @@ document.addEventListener('DOMContentLoaded', () => {
   
         const result = await response.json();
   
-        if (response.ok) {
+        if (response.ok && result.session?.access_token) {
           localStorage.setItem('supabaseToken', result.session.access_token);
           window.location.href = '/nuevo_ticket.html';
         } else {
-          alert(`Error: ${result.error}`);
+          const mensaje = result.error || 'Credenciales inválidas o formato inesperado.';
+          alert(`Error: ${mensaje}`);
+          console.error('Respuesta inválida:', result);
         }
+        
       } catch (error) {
         alert('Error al conectar con el servidor.');
         console.error(error);
