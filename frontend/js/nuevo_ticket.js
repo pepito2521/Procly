@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const select = document.getElementById('direccion_entrega');
         data.forEach(dir => {
           const option = document.createElement('option');
-          option.value = dir.id;
+          option.value = dir.direccion_id;
           option.textContent = dir.direccion;
           select.appendChild(option);
         });
