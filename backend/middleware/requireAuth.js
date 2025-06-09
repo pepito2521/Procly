@@ -1,4 +1,9 @@
-const { supabase } = require('../config/supabase');
+const { createClient } = require('@supabase/supabase-js');
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
 
 module.exports = async function requireAuth(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -15,6 +20,6 @@ module.exports = async function requireAuth(req, res, next) {
     return res.status(401).json({ error: 'Token inválido o expirado' });
   }
 
-  req.user = data.user; // esto hace disponible req.user.id
+  req.user = data.user;
   next();
 };
