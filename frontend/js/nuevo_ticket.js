@@ -163,4 +163,52 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   cargarDirecciones();
+
+  document.getElementById('multiStepForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+  
+    const form = e.target;
+    const formData = new FormData(form);
+  
+    const body = {
+      categoria: categoriaSeleccionada,
+      descripcion: formData.get('descripcion'),
+      presupuesto: formData.get('presupuesto'),
+      limite: formData.get('limite'),
+      direccion_id: formData.get('direccion_entrega'),
+      fecha_entrega: formData.get('fecha_entrega'),
+      archivo_url: null // por ahora
+    };
+  
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      alert('Token de autenticación no encontrado');
+      return;
+    }
+  
+    try {
+      const res = await fetch('https://procly.onrender.com/tickets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
+      });
+  
+      const data = await res.json();
+  
+      if (res.ok) {
+        console.log('✅ Ticket creado con éxito:', data);
+        currentStep++;
+        showStep(currentStep);
+      } else {
+        alert('❌ Error al crear el ticket: ' + data.error);
+      }
+    } catch (err) {
+      console.error('⚠️ Error al enviar el ticket:', err);
+      alert('Error de red al crear el ticket');
+    }
+  });
+  
 });
