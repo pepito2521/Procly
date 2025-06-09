@@ -1,5 +1,6 @@
 const { supabase } = require('../config/supabase');
 
+
 // CREAR TICKET
 exports.crearTicket = async (req, res) => {
   try {

@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     try {
-      const res = await fetch('http://localhost:3000/tickets/direcciones', {
+      const res = await fetch('https://procly.onrender.com/tickets/direcciones', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`

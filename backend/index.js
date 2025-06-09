@@ -13,8 +13,6 @@ app.use('/components', express.static(path.join(__dirname, '../frontend/componen
 
 
 
-
-
 // REDIRIGIR LA RAÍZ AL INDEX.HTML
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
