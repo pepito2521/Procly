@@ -14,9 +14,8 @@ exports.crearTicket = async (req, res) => {
       archivo_url
     } = req.body;
 
-    const user_id = req.user?.id || req.body.user_id; // según si tenés auth
+    const user_id = req.user?.id || req.body.user_id;
 
-    // Buscar la empresa_id del usuario (desde profiles)
     const { data: perfil, error: errorPerfil } = await supabase
       .from('profiles')
       .select('empresa_id')
@@ -51,8 +50,9 @@ exports.crearTicket = async (req, res) => {
 exports.obtenerDirecciones = async (req, res) => {
     try {
       const user_id = req.user?.id || req.query.user_id;
+
+      console.log('🧪 [DEBUG] ID del usuario autenticado:', user_id);
   
-      // Buscar empresa_id del usuario
       const { data: perfil, error: errorPerfil } = await supabase
         .from('profiles')
         .select('empresa_id')
@@ -61,7 +61,6 @@ exports.obtenerDirecciones = async (req, res) => {
   
       if (errorPerfil) throw errorPerfil;
   
-      // Traer direcciones asociadas a esa empresa
       const { data: direcciones, error } = await supabase
         .from('direcciones_entrega')
         .select('*')
