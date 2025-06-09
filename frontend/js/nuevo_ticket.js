@@ -87,28 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  async function cargarDirecciones() {
-    try {
-      const res = await fetch('http://localhost:3000/tickets/direcciones');
-      const data = await res.json();
-  
-      if (res.ok) {
-        const select = document.getElementById('direccion_entrega');
-        data.direcciones.forEach(dir => {
-          const option = document.createElement('option');
-          option.value = dir.id;
-          option.textContent = dir.direccion;
-          select.appendChild(option);
-        });
-      } else {
-        console.error('Error al traer direcciones:', data.error);
-      }
-    } catch (err) {
-      console.error('Error al cargar direcciones:', err);
-    }
-  }
-  
-
   // STEP 1: CATEGORÍA
   const categoriaCards = document.querySelectorAll(".categoria-card");
 
@@ -149,48 +127,40 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mostrar el primer paso
   showStep(currentStep);
 
-  // Cargar direcciones desde el backend
-  cargarDirecciones();
+  // DIRECCIONES DE ENTREGA POR USUARIO
 
-
-  document.getElementById('multiStepForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+  async function cargarDirecciones() {
+    const token = localStorage.getItem('supabaseToken');
   
-    const form = e.target;
-    const formData = new FormData(form);
-  
-    const body = {
-      categoria: categoriaSeleccionada,
-      descripcion: formData.get('descripcion'),
-      presupuesto: formData.get('presupuesto'),
-      limite: formData.get('limite'),
-      direccion_id: formData.get('direccion_entrega'), // por ahora texto
-      fecha_entrega: formData.get('fecha_entrega'),
-      archivo_url: null // si implementás upload, podés cambiar esto
-    };
+    if (!token) {
+      console.error('Token no encontrado. El usuario no está autenticado.');
+      return;
+    }
   
     try {
-      const res = await fetch('http://localhost:3000/tickets', {
-        method: 'POST',
+      const res = await fetch('http://localhost:3000/tickets/direcciones', {
+        method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
+          'Authorization': `Bearer ${token}`
+        }
       });
   
       const data = await res.json();
   
       if (res.ok) {
-        console.log('Ticket creado con éxito:', data);
-        currentStep++;
-        showStep(currentStep); // muestra step-5
+        const select = document.getElementById('direccion_entrega');
+        data.forEach(dir => {
+          const option = document.createElement('option');
+          option.value = dir.id;
+          option.textContent = dir.direccion;
+          select.appendChild(option);
+        });
       } else {
-        alert('Error al crear el ticket: ' + data.error);
+        console.error('Error al traer direcciones:', data.error);
       }
     } catch (err) {
-      console.error('Error al enviar el ticket:', err);
-      alert('Error de red al crear el ticket');
+      console.error('Error al cargar direcciones:', err);
     }
-  });
-
+  }
+  cargarDirecciones();
 });

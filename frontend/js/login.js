@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
   
         if (response.ok) {
+          localStorage.setItem('supabaseToken', result.session.access_token);
           window.location.href = '/nuevo_ticket.html';
         } else {
           alert(`Error: ${result.error}`);
