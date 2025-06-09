@@ -14,6 +14,14 @@ exports.crearTicket = async (req, res) => {
       archivo_url
     } = req.body;
 
+    // 🔍 DEBUG
+    console.log('🧪 [DEBUG] Body que se envía:', req.body);
+
+    // 🔒 Validación crítica
+    if (!direccion_id) {
+      return res.status(400).json({ error: 'Falta el campo direccion_id' });
+    }
+
     const user_id = req.user?.id || req.body.user_id;
 
     const { data: perfil, error: errorPerfil } = await supabase
