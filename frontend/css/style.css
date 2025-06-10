@@ -30,8 +30,13 @@ p {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 1rem;
-    line-height: 1.6;
-    color: #55625D;
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    font-size: 1rem;
+    color: #6B7280;
 }
 
 small {
@@ -130,14 +135,14 @@ small {
   .navbar-links a {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.125rem;
+    line-height: 1.5;
     align-items: center;
     text-decoration: none;
-    color: #55625D;
+    color: #1F2937;
     transition: color 0.3s ease;
   }
-  
+
   .navbar-links a:hover {
     color: #508991;
   }
