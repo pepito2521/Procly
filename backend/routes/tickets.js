@@ -9,6 +9,7 @@ const requireAuth = require('../middleware/requireAuth');
 
 // RUTAS
 router.get('/direcciones', requireAuth, obtenerDirecciones);
-router.post('/', crearTicket);
+router.post('/', requireAuth, crearTicket);
+
 
 module.exports = router;
