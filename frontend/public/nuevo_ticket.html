@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nuevo Ticket</title>
     <link rel="icon" href="../assets/img/favicon2.png" type="image/png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/nuevo_ticket.css">
   </head>
@@ -93,7 +94,7 @@
             <select name="direccion_entrega" id="direccion_entrega" required>
               <option value="">Seleccioná una dirección</option>
             </select>                        
-            <input type="date" name="fecha_entrega" required>
+            <input type="text" id="fecha_entrega" name="fecha_entrega" placeholder="Seleccioná una fecha" required>
           </div>
           <div class="button-group">
             <button type="submit" class="submit-btn">Crear Ticket!</button>
@@ -140,6 +141,7 @@
 
 
     <script src="/js/nuevo_ticket.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
     <script type="module">
       import { cargarNavbar } from './js/navbar.js';
       cargarNavbar();

@@ -211,4 +211,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
+  flatpickr("#fecha_entrega", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    locale: "es"
+  });  
+  
 });
