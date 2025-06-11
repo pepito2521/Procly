@@ -86,12 +86,18 @@ exports.obtenerTickets = async (req, res) => {
   
       const { data, error } = await supabase
         .from('tickets')
-        .select('ticket_id, descripcion, estado')
+        .select('ticket_id, descripcion, estado_ticket')
         .eq('user_id', user_id);
   
       if (error) throw error;
+
+          // Renombramos estado_ticket a estado para el frontend
+    const tickets = data.map(t => ({
+        ...t,
+        estado: t.estado_ticket
+      }));
   
-      res.json(data);
+      res.json(tickets);
     } catch (err) {
       console.error('Error al obtener tickets:', err.message);
       res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
