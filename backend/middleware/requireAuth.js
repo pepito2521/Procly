@@ -21,5 +21,6 @@ module.exports = async function requireAuth(req, res, next) {
   }
 
   req.user = data.user;
+  console.log("🧪 Usuario autenticado:", data.user.id);
   next();
 };
