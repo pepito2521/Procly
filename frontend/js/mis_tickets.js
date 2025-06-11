@@ -22,12 +22,19 @@ async function cargarTickets() {
 
     const tickets = await res.json();
 
+    // 👉 PUNTO 1: Ver qué datos devuelve el backend
+    console.log("✅ Tickets obtenidos del backend:", tickets);
+
     if (!Array.isArray(tickets)) {
       console.error('Respuesta inesperada:', tickets);
       return;
     }
 
     const tbody = document.getElementById("tabla-tickets-body");
+
+    // 👉 PUNTO 2: Verificar si el tbody fue encontrado correctamente
+    console.log("✅ Elemento tbody encontrado:", tbody);
+
     tbody.innerHTML = "";
 
     tickets.forEach(ticket => {
