@@ -14,14 +14,6 @@ exports.crearTicket = async (req, res) => {
       archivo_url
     } = req.body;
 
-    // 🔍 DEBUG
-    console.log('🧪 [DEBUG] Body que se envía:', req.body);
-
-    // 🔒 Validación crítica
-    if (!direccion_id) {
-      return res.status(400).json({ error: 'Falta el campo direccion_id' });
-    }
-
     const user_id = req.user?.id || req.body.user_id;
 
     const { data: perfil, error: errorPerfil } = await supabase
@@ -81,5 +73,28 @@ exports.obtenerDirecciones = async (req, res) => {
       console.error('Error al obtener direcciones:', err.message);
       res.status(500).json({ error: 'No se pudieron cargar las direcciones', detalle: err.message });
     }
-  };
+};
+
+// OBTENER TICKETS DEL USUARIO AUTENTICADO
+exports.obtenerTickets = async (req, res) => {
+    try {
+      const user_id = req.user?.id;
+  
+      if (!user_id) {
+        return res.status(401).json({ error: 'Usuario no autenticado' });
+      }
+  
+      const { data, error } = await supabase
+        .from('tickets')
+        .select('ticket_id, descripcion, estado')
+        .eq('user_id', user_id);
+  
+      if (error) throw error;
+  
+      res.json(data);
+    } catch (err) {
+      console.error('Error al obtener tickets:', err.message);
+      res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
+    }
+};
   
