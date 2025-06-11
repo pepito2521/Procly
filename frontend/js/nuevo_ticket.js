@@ -50,14 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress(index);
     currentStep = index;
 
-    // ✅ OPCIÓN B: Mostrar u ocultar botón "Volver" con add/remove
+    // Mostrar u ocultar botón "Volver"
     if (prevBtnContainer) {
-      if (index === 0) {
+      if (index === 0 || index === steps.length - 1) {
         prevBtnContainer.classList.add("hidden");
       } else {
         prevBtnContainer.classList.remove("hidden");
       }
     }
+
+    // Ocultar la barra de progreso en el último paso
+    const progressBarContainer = document.querySelector(".progress-bar-container");
+    if (index === steps.length - 1) {
+      progressBarContainer.style.display = "none";
+    } else {
+      progressBarContainer.style.display = "flex";
+    }
+
   }
 
   function updateProgress(step) {
@@ -124,10 +133,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Mostrar el primer paso
   showStep(currentStep);
 
-  // DIRECCIONES DE ENTREGA POR USUARIO
+  // STEP 4: DIRECCION DE ENTREGA Y FECHA
+
+  // Direccion de entrega segun usuario
 
   async function cargarDirecciones() {
     const token = localStorage.getItem('supabaseToken');
@@ -164,6 +174,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   cargarDirecciones();
 
+  // Date Picker
+  flatpickr("#fecha_entrega", {
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    locale: "es"
+  });
+
+
+  // STEP FINAL: CREAR TICKET
   document.getElementById('multiStepForm').addEventListener('submit', async function (e) {
     e.preventDefault();
   
@@ -177,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
       limite: formData.get('limite'),
       direccion_id: formData.get('direccion_entrega'),
       fecha_entrega: formData.get('fecha_entrega'),
-      archivo_url: null // por ahora
+      archivo_url: null
     };
   
     const token = localStorage.getItem('supabaseToken');
@@ -210,11 +229,5 @@ document.addEventListener("DOMContentLoaded", () => {
       alert('Error de red al crear el ticket');
     }
   });
-  
-  flatpickr("#fecha_entrega", {
-    dateFormat: "Y-m-d",
-    minDate: "today",
-    locale: "es"
-  });  
   
 });
