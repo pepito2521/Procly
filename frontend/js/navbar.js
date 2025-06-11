@@ -10,8 +10,10 @@ export async function cargarNavbar() {
 
   inicializarDropdownNavbar();
   inicializarLogout();
+  resaltarLinkActivo();
 }
 
+// FUNCION: INCIIALIZAR DROPDOWN
 function inicializarDropdownNavbar() {
   const dotsIcon = document.getElementById('menu-toggle');
   const dropdown = document.getElementById('dropdown-menu');
@@ -28,6 +30,7 @@ function inicializarDropdownNavbar() {
   });
 }
 
+// FUNCION: INICIALIZAR LOGOUT
 function inicializarLogout() {
   const logoutBtn = document.getElementById("logout-btn");
 
@@ -45,4 +48,17 @@ function inicializarLogout() {
     }
   });
 }
+
+// FUNCION: RESALTAR LINK ACTIVO
+function resaltarLinkActivo() {
+  const currentPage = window.location.pathname.split("/").pop();
+  const links = document.querySelectorAll(".navbar-links a");
+
+  links.forEach(link => {
+    if (link.getAttribute("href").includes(currentPage)) {
+      link.classList.add("active");
+    }
+  });
+}
+
 
