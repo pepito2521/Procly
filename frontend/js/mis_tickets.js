@@ -22,9 +22,6 @@ async function cargarTickets() {
 
     const tickets = await res.json();
 
-    // 👉 PUNTO 1: Ver qué datos devuelve el backend
-    console.log("✅ Tickets obtenidos del backend:", tickets);
-
     if (!Array.isArray(tickets)) {
       console.error('Respuesta inesperada:', tickets);
       return;
@@ -32,18 +29,38 @@ async function cargarTickets() {
 
     const tbody = document.getElementById("tabla-tickets-body");
 
-    // 👉 PUNTO 2: Verificar si el tbody fue encontrado correctamente
-    console.log("✅ Elemento tbody encontrado:", tbody);
-
     tbody.innerHTML = "";
 
+    if (tickets.length === 0) {
+      const filaVacia = document.createElement("tr");
+      filaVacia.innerHTML = `
+        <td colspan="4" style="text-align:center; padding: 1rem; color: #999;">
+          Todavía no creaste ningún ticket.
+        </td>
+      `;
+      tbody.appendChild(filaVacia);
+      return;
+    }
+
+
+    const estadoClase = {
+      "Creado": "creado",
+      "En proceso": "en-progreso",
+      "En camino": "en-camino",
+      "Entregado": "entregado",
+      "Revisar": "revisar",
+      "Cancelado": "cancelado"
+    };
+
+
     tickets.forEach(ticket => {
+      const claseEstado = estadoClase[ticket.estado] || "creado"; 
       const fila = document.createElement("tr");
       fila.innerHTML = `
         <td>${ticket.ticket_id}</td>
         <td>${ticket.descripcion}</td>
         <td>
-          <span class="estado-badge ${ticket.estado.toLowerCase().replace(/\s/g, "-")}">
+          <span class="estado-badge ${claseEstado}">
             ${ticket.estado}
           </span>
         </td>

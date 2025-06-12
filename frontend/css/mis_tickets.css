@@ -18,34 +18,31 @@
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
+  }
+  
+  .tabla-tickets th,
+  .tabla-tickets td {
+    padding: 0.75rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
   }
   
   .tabla-tickets th {
-    height: 40px;
-    padding: 0rem 1rem;
-    text-align: center;
-    border-bottom: 1px solid #F4F3EE;
-    background-color: white;
-    color: #090B0A;
-    font-weight: 400;
-    vertical-align: middle;
+    background-color: #FAFAFA;
+    font-weight: 500;
+    color: #333;
   }
-  
   
   .tabla-tickets td {
     background-color: white;
-    padding: 0rem 1rem;
-    height: 40px;
-    font-weight: 300;
-    text-align: center;
-    vertical-align: middle;
+    font-weight: 400;
+    color: #222;
   }
   
   .tabla-tickets tr:hover {
-    background-color: #FAFAFA;
+    background-color: #f9f9f9;
   }
 
   .th-flex {
@@ -60,32 +57,38 @@
   }
 
 
-  /* ANCHO PERSONALZIADO POR COLUMNA (NTH-CHILD) */
+/* COLUMNAS PERSONALIZADAS */
 
 .tabla-tickets th:nth-child(1),
 .tabla-tickets td:nth-child(1) {
-  width: 10%; /* Ticket ID */
+  width: 15%;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tabla-tickets th:nth-child(2),
 .tabla-tickets td:nth-child(2) {
-  width: 65%; /* Nombre */
+  width: 55%;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tabla-tickets th:nth-child(3),
 .tabla-tickets td:nth-child(3) {
-  width: 20%; /* Estado */
+  width: 20%;
 }
 
 .tabla-tickets th:nth-child(4),
 .tabla-tickets td:nth-child(4) {
-  width: 5%; /* Ver icono */
+  width: 10%;
 }
 
 
-/* ICONO DE LA COLUMNA VER */
-
+/* ICONO DE VER */
 .ver-icono {
   display: inline-flex;
   align-items: center;
@@ -93,41 +96,51 @@
 }
 
 .ver-icono svg {
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
+  transition: transform 0.2s ease;
 }
 
 .ver-icono svg:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 
-/* ESTILO DE LA COLUMNA DE STATUS*/
+/* ESTADOS */
 
 .estado-badge {
   display: inline-block;
-  padding: 0.25rem 1rem;
-  height: 1rem;
-  line-height: 1rem; 
+  padding: 0.3rem 1rem;
   border-radius: 999px;
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: white;
   text-align: center;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
   min-width: 100px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
-    
+
+.estado-badge.creado {
+  background-color: #6C63FF;
+}
+
 .estado-badge.en-progreso {
   background-color: #F49F0A;
 }
-    
-.estado-badge.cancelado {
-  background-color: #A22C29;
+
+.estado-badge.en-camino {
+  background-color: #00A9A5;
 }
-    
+
 .estado-badge.entregado {
   background-color: #3E8914;
 }
 
+.estado-badge.revisar {
+  background-color: #1E6091;
+}
+
+.estado-badge.cancelado {
+  background-color: #A22C29;
+}
 
