@@ -79,6 +79,8 @@ exports.obtenerDirecciones = async (req, res) => {
 exports.obtenerTickets = async (req, res) => {
     try {
       const user_id = req.user?.id;
+
+      console.log("🧪 [DEBUG] ID del usuario autenticado:", user_id);
   
       if (!user_id) {
         return res.status(401).json({ error: 'Usuario no autenticado' });
@@ -90,7 +92,9 @@ exports.obtenerTickets = async (req, res) => {
         .eq('user_id', user_id);
   
       if (error) throw error;
-      
+
+      console.log("🧪 [DEBUG] Tickets obtenidos:", data);
+
       res.json(data);
 
     } catch (err) {
