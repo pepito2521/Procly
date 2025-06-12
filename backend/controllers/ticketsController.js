@@ -79,27 +79,29 @@ exports.obtenerDirecciones = async (req, res) => {
 exports.obtenerTickets = async (req, res) => {
     try {
       const user_id = req.user?.id;
-
+  
       console.log("🧪 [DEBUG] ID del usuario autenticado:", user_id);
+      console.log("🧪 [DEBUG] typeof user_id:", typeof user_id);
   
       if (!user_id) {
         return res.status(401).json({ error: 'Usuario no autenticado' });
       }
   
+      // Paso 2: usar `.filter()` y hacer trim por las dudas
       const { data, error } = await supabase
         .from('tickets')
         .select('ticket_id, descripcion, estado')
-        .eq('user_id', user_id);
+        .filter('user_id', 'eq', user_id.trim());
   
       if (error) throw error;
-
+  
       console.log("🧪 [DEBUG] Tickets obtenidos:", data);
-
+  
       res.json(data);
-
     } catch (err) {
       console.error('Error al obtener tickets:', err.message);
       res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
     }
-};
+  };
+  
   
