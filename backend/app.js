@@ -1,28 +1,34 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
 
-// ENV
 dotenv.config();
 
-// INIT APP
 const app = express();
 
-// MIDDLEWARES
+// 🔐 Middlewares
 app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    credentials: true
-  }));
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// RUTAS DE AUTENTICACIÓN
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
+// 🚀 Rutas backend
+app.use('/auth', require('./routes/auth'));
+app.use('/tickets', require('./routes/tickets'));
 
-// RUTAS DE TICKETS
-const ticketRoutes = require('./routes/tickets');
-app.use('/tickets', ticketRoutes);
+// 🌐 Archivos estáticos del frontend
+app.use(express.static(path.join(__dirname, '../frontend/public')));
+app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
+app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
+app.use('/assets', express.static(path.join(__dirname, '../frontend/assets')));
+app.use('/components', express.static(path.join(__dirname, '../frontend/components')));
 
+// ⚠️ Fallback para SPA (Single Page Application)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
+});
 
 module.exports = app;
