@@ -39,11 +39,16 @@ exports.crearTicket = async (req, res) => {
 
     if (error) throw error;
 
+    console.log('🧪 [DEBUG CREACIÓN] user_id insertado en ticket:', user_id);
+    console.log('🧪 [DEBUG GET] user_id autenticado:', req.user?.id);
+
     res.status(201).json({ message: 'Ticket creado con éxito' });
   } catch (err) {
     console.error('Error al crear ticket:', err.message);
     res.status(500).json({ error: 'No se pudo crear el ticket', detalle: err.message });
   }
+  
+
 };
 
 // OBTENER DIRECCIONES SEGUN USUARIO
