@@ -249,22 +249,36 @@ small {
 
  /* BOTON FLOTANTE WHATSAPP */
 
-.whatsapp-float {
+ .whatsapp-float {
   position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 999;
-  background-color: transparent;
-  box-shadow: none;
-  transition: transform 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
 .whatsapp-float img {
   width: 56px;
   height: 56px;
-  border-radius: 50%;
 }
 
-.whatsapp-float:hover {
-  transform: scale(1.1);
+.whatsapp-hover-text {
+  opacity: 0;
+  transform: translateX(5px);
+  background-color: #25D366;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: sans-serif;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.whatsapp-float:hover .whatsapp-hover-text {
+  opacity: 1;
+  transform: translateX(0);
 }
