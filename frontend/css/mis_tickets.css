@@ -121,7 +121,7 @@
 }
 
 .estado-badge.creado {
-  background-color: #508991;
+  background-color: #F49F0A;
 }
 
 .estado-badge.en-progreso {
@@ -129,7 +129,7 @@
 }
 
 .estado-badge.en-camino {
-  background-color: #00A9A5;
+  background-color: #F49F0A;
 }
 
 .estado-badge.entregado {
@@ -137,7 +137,7 @@
 }
 
 .estado-badge.revisar {
-  background-color: #1E6091;
+  background-color: #F49F0A;
 }
 
 .estado-badge.cancelado {
