@@ -1,3 +1,5 @@
+import { cargarNavbar } from './navbar.js';
+
 let progressBar;
 let prevBtn;
 let prevBtnContainer;
@@ -5,31 +7,7 @@ let currentStep = 0;
 let categoriaSeleccionada = ''; 
 
 document.addEventListener("DOMContentLoaded", () => {
-  // CARGAR NAVBAR
-  fetch("../components/navbar.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
-
-      const script = document.createElement("script");
-      script.src = "../js/navbar.js";
-      script.type = "module";
-      script.onload = () => {
-        inicializarDropdownNavbar();
-        inicializarLogout();
-      };
-      document.body.appendChild(script);
-
-      // RESALTAR NAVBAR-LINK ACTIVO
-      const currentPage = window.location.pathname.split("/").pop();
-      const links = document.querySelectorAll(".navbar-links a");
-
-      links.forEach(link => {
-        if (link.getAttribute("href").includes(currentPage)) {
-          link.classList.add("active");
-        }
-      });
-    });
+  cargarNavbar();
 
   // MULTISTEP FORM
   const steps = document.querySelectorAll(".form-step");
@@ -229,5 +207,5 @@ document.addEventListener("DOMContentLoaded", () => {
       alert('Error de red al crear el ticket');
     }
   });
-  
+
 });
