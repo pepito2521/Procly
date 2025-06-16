@@ -255,8 +255,7 @@ small {
   right: 20px;
   z-index: 999;
   background-color: transparent;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: none;
   transition: transform 0.2s ease-in-out;
 }
 
