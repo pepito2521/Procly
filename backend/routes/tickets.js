@@ -3,7 +3,8 @@ const router = express.Router();
 const { 
     crearTicket,
     obtenerDirecciones,
-    obtenerTickets
+    obtenerTickets,
+    obtenerTicketPorId
 } = require('../controllers/ticketsController');
 const requireAuth = require('../middleware/requireAuth');
 
@@ -12,5 +13,6 @@ const requireAuth = require('../middleware/requireAuth');
 router.get('/direcciones', requireAuth, obtenerDirecciones);
 router.post('/', requireAuth, crearTicket);
 router.get('/', requireAuth, obtenerTickets);
+router.get('/:id', requireAuth, obtenerTicketPorId);
 
 module.exports = router;

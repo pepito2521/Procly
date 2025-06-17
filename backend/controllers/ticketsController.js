@@ -92,7 +92,6 @@ exports.obtenerTickets = async (req, res) => {
         return res.status(401).json({ error: 'Usuario no autenticado' });
       }
   
-      // Paso 2: usar `.filter()` y hacer trim por las dudas
       const { data, error } = await supabase
         .from('tickets')
         .select('ticket_id, descripcion, estado')
@@ -108,5 +107,29 @@ exports.obtenerTickets = async (req, res) => {
       res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
     }
   };
+
+
+  // OBTENER TICKET POR ID
+exports.obtenerTicketPorId = async (req, res) => {
+try {
+    const ticketId = req.params.id;
+    const userId = req.user.id;
+
+    const { data: ticket, error } = await supabase
+    .from('tickets')
+    .select('*')
+    .eq('ticket_id', ticketId)
+    .eq('user_id', userId)
+    .single();
+
+    if (error) throw error;
+
+    res.json(ticket);
+} catch (err) {
+    console.error("Error al obtener el ticket:", err.message);
+    res.status(500).json({ error: 'No se pudo obtener el ticket', detalle: err.message });
+}
+};
+
   
   
