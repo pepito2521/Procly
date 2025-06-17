@@ -24,7 +24,7 @@ router.post('/signup', async (req, res) => {
     .from('profiles')
     .insert([
       {
-        id: userId, 
+        profile_id: userId, 
         nombre: nombre,
         apellido: apellido,
         empresa_id: empresa_id,
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
     const { data: perfil, error: perfilError } = await supabaseService
       .from('profiles')
       .select('role')
-      .eq('id', userId)
+      .eq('profile_id', userId)
       .single();
   
     if (perfilError) {
