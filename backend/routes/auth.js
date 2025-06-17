@@ -28,7 +28,7 @@ router.post('/signup', async (req, res) => {
         nombre: nombre,
         apellido: apellido,
         empresa_id: empresa_id,
-        role: 'user', 
+        role: 'usuario', 
       },
     ]);
 
