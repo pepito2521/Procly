@@ -3,6 +3,9 @@ const router = express.Router();
 const { supabase, supabaseService } = require('../config/supabase');
 
 // 1. SIGNUP
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 router.post('/signup', async (req, res) => {
   const { email, password, nombre, apellido, empresa_id } = req.body;
 
@@ -18,6 +21,7 @@ router.post('/signup', async (req, res) => {
   }
 
   const userId = authData.user?.id;
+  await delay(1000); // 1 segundo
 
   // PASO 2: guardar datos adicionales en public.profiles
   const { error: profileError } = await supabaseService
