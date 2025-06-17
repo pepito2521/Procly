@@ -1,70 +1,98 @@
-
+/* CONTENEDOR PRINCIPAL */
 .detalle-ticket-container {
-    width: calc(100vw - 48px);
-    margin: 24px auto 24px auto;
-    padding: 0 2rem;
-    font-family: 'Inter', sans-serif;
+  width: calc(100vw - 48px);
+  margin: 24px auto;
+  padding: 0 2rem;
+  font-family: 'Inter', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  max-width: 1200px;
 }
 
+/* COLUMNA IZQUIERDA: BARRA DE PROGRESO */
+.progreso-ticket {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-/* PROGRESS BAR */
+/* PASOS DEL PROGRESSBAR */
+.paso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+  text-align: center;
+}
 
-.progressbar-flex {
-    width: 90%;
-    margin: 2.5rem auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.paso-activo {
+  opacity: 1;
+}
+
+.paso .icono {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.paso-activo .icono {
+  background-color: #2e7d32;
+  color: white;
+}
+
+/* LÍNEA ENTRE PASOS */
+.linea-vertical {
+  width: 4px;
+  height: 40px;
+  background-color: #ddd;
+  margin: 0 auto;
+}
+
+/* COLUMNA DERECHA: DETALLES */
+.detalle-ticket-info {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+.detalle-ticket-info h2 {
+  margin-top: 0;
+  color: #2f3e46;
+}
+
+.detalle-ticket-info p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+/* ESTILO PARA INFORMACIÓN DESTACADA */
+.info-destacada {
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .detalle-ticket-container {
+    grid-template-columns: 1fr;
   }
-  
-  .progressbar-circles {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+  .progreso-ticket, .detalle-ticket-info {
     width: 100%;
   }
-  
-  .progressbar-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .progressbar-circle {
-    width: 2.1em;
-    height: 2.1em;
-    border-radius: 50%;
-    background: #EAEAEA;
-    color: #605562;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 1.1em;
-    border: 2px solid #EAEAEA;
-    transition: background 0.2s, color 0.2s, border 0.2s;
-  }
-  
-  .progressbar-step.active .progressbar-circle {
-    background: #7D8491;
-    color: white;
-    border: 2px solid #7D8491;
-  }
-  
-  .progressbar-step.completed .progressbar-circle {
-    background: #3E8914;
-    color: white;
-    border: 2px solid #3E8914;
-  }
-  
-  .progressbar-line {
-    flex: 1;
-    height: 4px;
-    background: #EAEAEA;
-    border-radius: 2px;
-    margin: 0 2rem;
-  }
-  
-  .progressbar-line.completed {
-    background: #3E8914;
-  }
+}

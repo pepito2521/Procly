@@ -6,73 +6,58 @@
   <title>Detalle Ticket</title>
   <link rel="shortcut icon" href="/assets/img/favicon_procly.ico" type="image/x-icon" />
   <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/detalle_ticket.css">
+  <link rel="stylesheet" href="/css/detalle_ticket.css" />
 </head>
-
 <body>
-
   <div id="navbar-placeholder"></div>
-  
-  <main class="detalle-ticket-container">
 
-    <h1>Detalle del Ticket</h1>
-      <div id="ticket-info">
-        <p><strong>ID:</strong> <span id="ticket-id">Cargando...</span></p>
-        <p><strong>Nombre:</strong> <span id="ticket-nombre">Cargando...</span></p>
-        <p><strong>Estado:</strong> <span id="ticket-estado">Cargando...</span></p>
-        <p><strong>Presupuesto:</strong> <span id="ticket-presupuesto">Cargando...</span></p>
-        <p><strong>Fecha Entrega:</strong> <span id="ticket-fecha">Cargando...</span></p>
-        
-      </div>
-    
-    <div class="progressbar-flex">
-      <div class="progressbar-circles">
-        <div class="progressbar-step" id="step-creado">
-          <span class="progressbar-circle">
-            <i class="bi bi-check-circle"></i>
-          </span>
-          <small>Creado</small>
+  <main class="ticket-main">
+    <div class="ticket-columna-izquierda">
+      <div class="progreso-vertical">
+        <div class="paso" id="paso-creado">
+          <span class="icono-circle">✅</span>
+          <p>Creado</p>
         </div>
-        <div class="progressbar-line"></div>
-    
-        <div class="progressbar-step" id="step-proceso">
-          <span class="progressbar-circle">
-            <i class="bi bi-gear"></i>
-          </span>
-          <small>En Proceso</small>
+        <div class="linea-vertical"></div>
+
+        <div class="paso" id="paso-proceso">
+          <span class="icono-circle">⚙️</span>
+          <p>En Proceso</p>
         </div>
-        <div class="progressbar-line"></div>
-    
-        <div class="progressbar-step" id="step-propuestas">
-          <span class="progressbar-circle">
-            <i class="bi bi-grid-3x3-gap"></i>
-          </span>
-          <small>Propuestas</small>
+        <div class="linea-vertical"></div>
+
+        <div class="paso" id="paso-propuestas">
+          <span class="icono-circle">📄</span>
+          <p>Propuestas</p>
         </div>
-        <div class="progressbar-line"></div>
-    
-        <div class="progressbar-step" id="step-camino">
-          <span class="progressbar-circle">
-            <i class="bi bi-truck"></i>
-          </span>
-          <small>En Camino</small>
+        <div class="linea-vertical"></div>
+
+        <div class="paso" id="paso-camino">
+          <span class="icono-circle">🚚</span>
+          <p>En Camino</p>
         </div>
-        <div class="progressbar-line"></div>
-    
-        <div class="progressbar-step" id="step-entregado">
-          <span class="progressbar-circle">
-            <i class="bi bi-box-seam"></i>
-          </span>
-          <small>Entregado</small>
+        <div class="linea-vertical"></div>
+
+        <div class="paso" id="paso-entregado">
+          <span class="icono-circle">📦</span>
+          <p>Entregado</p>
         </div>
       </div>
     </div>
 
+    <div class="ticket-columna-derecha">
+      <div id="detalle-dinamico">
+        <!-- Contenido dinámico según el estado -->
+        <h2>Seguimiento del Ticket:</h2>
+        <div id="contenido-estado"></div>
+      </div>
+    </div>
   </main>
 
   <a href="https://wa.me/34643615319" class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
     <img src="/assets/img/whatsapp2.svg" alt="WhatsApp" />
   </a>
+
   <script type="module" src="/js/detalle_ticket.js"></script>
 </body>
 </html>
