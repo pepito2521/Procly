@@ -8,37 +8,17 @@ export async function cargarNavbar() {
   const html = await res.text();
   placeholder.innerHTML = html;
 
-  inicializarDropdownNavbar();
-  inicializarLogout();
+  inicializarLogoutDirecto();
   resaltarLinkActivo();
 }
 
-// FUNCION: INCIIALIZAR DROPDOWN
-function inicializarDropdownNavbar() {
-  const dotsIcon = document.getElementById('menu-toggle');
-  const dropdown = document.getElementById('dropdown-menu');
+// FUNCION: INICIALIZAR LOGOUT DESDE ICONO
+function inicializarLogoutDirecto() {
+  const logoutIcon = document.getElementById("logout-direct");
 
-  if (!dotsIcon || !dropdown) return;
+  if (!logoutIcon) return;
 
-  dotsIcon.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-  });
-
-  document.addEventListener('click', () => {
-    dropdown.style.display = 'none';
-  });
-}
-
-// FUNCION: INICIALIZAR LOGOUT
-function inicializarLogout() {
-  const logoutBtn = document.getElementById("logout-btn");
-
-  if (!logoutBtn) return;
-
-  logoutBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
-
+  logoutIcon.addEventListener("click", async () => {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
