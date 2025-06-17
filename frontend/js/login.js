@@ -20,7 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (response.ok && result.session?.access_token) {
           localStorage.setItem('supabaseToken', result.session.access_token);
-          window.location.href = '/nuevo_ticket.html';
+          if (result.redirectTo) {
+            window.location.href = result.redirectTo;
+          } else {
+            alert('No se encontró una URL de redirección');
+          }
         } else {
           const mensaje = result.error || 'Credenciales inválidas o formato inesperado.';
           alert(`Error: ${mensaje}`);

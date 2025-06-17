@@ -42,18 +42,45 @@ router.post('/signup', async (req, res) => {
 
 // 2. LOGIN - Iniciar sesión
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  if (error) return res.status(401).json({ error: error.message });
-
-  return res.status(200).json({
-    message: 'Login exitoso',
-    session: data.session,
-    user: data.user,
+    const { email, password } = req.body;
+  
+    const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password });
+  
+    if (loginError) return res.status(401).json({ error: loginError.message });
+  
+    const userId = loginData.user?.id;
+  
+    // Traer el perfil para conocer el rol
+    const { data: perfil, error: perfilError } = await supabaseService
+      .from('profiles')
+      .select('role')
+      .eq('id', userId)
+      .single();
+  
+    if (perfilError) {
+      console.error('Error al obtener el perfil del usuario:', perfilError.message);
+      return res.status(500).json({ error: 'No se pudo obtener el rol del usuario' });
+    }
+  
+    let redirectUrl;
+    switch (perfil.role) {
+      case 'admin':
+        redirectUrl = '/menu_admin.html';
+        break;
+      case 'proclier':
+        redirectUrl = '/menu_proclier.html';
+        break;
+      default:
+        redirectUrl = '/nuevo_ticket.html';
+    }
+  
+    return res.status(200).json({
+      message: 'Login exitoso',
+      session: loginData.session,
+      user: loginData.user,
+      redirectTo: redirectUrl
+    });
   });
-});
 
 // 3. LOGOUT - Cerrar sesión
 router.post('/logout', async (req, res) => {
