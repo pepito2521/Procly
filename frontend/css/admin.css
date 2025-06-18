@@ -1,8 +1,9 @@
 main {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-    font-family: 'Inter', sans-serif;
+    padding: 40px 20px;
+    min-height: calc(100vh - 64px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   h1 {
@@ -111,20 +112,20 @@ main {
 
     /* CONTENEDORES MENU ADMINISTRADOR*/
 
-  .admin-card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-    padding: 40px 20px;
-  }
+    .admin-card-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+        max-width: 880px;
+        width: 100%;
+    }
   
   .admin-card {
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
     padding: 32px 24px;
-    width: 320px;
+    width: 400px;
     max-width: 100%;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -173,21 +174,6 @@ main {
     content: "•";
     margin-right: 8px;
     color: #2c7a7b;
-  }
-  
-  .admin-card a {
-    display: inline-block;
-    padding: 10px 16px;
-    border: 1px solid #2c7a7b;
-    border-radius: 8px;
-    color: #2c7a7b;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .admin-card a:hover {
-    background-color: #e6fffa;
   }
   
   .admin-card-icon-circle {
