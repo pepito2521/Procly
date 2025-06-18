@@ -148,20 +148,13 @@ small {
     padding-left: 1rem;
   }
 
-  .navbar-user {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-right: 1rem;
-  }
-
-  .navbar-user img[alt="Icono tres puntos"] {
-    cursor: pointer;
+  .logout-icon {
     transition: transform 0.2s ease;
   }
-
-  .navbar-user img[alt="Icono tres puntos"]:hover {
-    transform: scale(1.1);
+  
+  .logout-icon:hover {
+    transform: scale(1.05);
+    opacity: 0.85;
   }
 
   .navbar-links {
