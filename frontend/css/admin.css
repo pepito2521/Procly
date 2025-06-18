@@ -190,3 +190,18 @@ main {
     background-color: #e6fffa;
   }
   
+  .admin-card-icon-circle {
+    background-color: #edf4f4;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .admin-card-icon {
+    width: 40px;
+    height: 40px;
+  }
