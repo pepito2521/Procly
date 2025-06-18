@@ -6,16 +6,55 @@
   <title>Menu Administrador</title>
   <link rel="shortcut icon" href="/assets/img/favicon_procly.ico" type="image/x-icon" />
   <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/menu_admin.css">
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
 
 <body>
 
   <div id="navbar-placeholder"></div>
 
-<main>
-  <h1> Este es el menu de administrador</h1>
-</main>
+  <main>
+    <div class="admin-card-container">
+  
+      <div class="admin-card">
+        <img src="/assets/img/dashboard-icon.svg" alt="Dashboard" class="admin-card-icon" />
+        <h2>Dashboard</h2>
+        <p>Visualizá la actividad de tu empresa en tiempo real.</p>
+        <ul>
+          <li>KPIs por usuario</li>
+          <li>Tickets por estado</li>
+          <li>Volumen por proveedor</li>
+        </ul>
+        <a href="/admin/dashboard.html">+ Ir al Dashboard</a>
+      </div>
+  
+      <div class="admin-card">
+        <img src="/assets/img/usuarios-icon.svg" alt="Gestionar Usuarios" class="admin-card-icon" />
+        <h2>Gestionar Usuarios</h2>
+        <p>Controlá el acceso y los permisos de tu equipo.</p>
+        <ul>
+          <li>Agregar / bloquear usuarios</li>
+          <li>Asignar roles</li>
+          <li>Limitar presupuestos</li>
+        </ul>
+        <a href="/admin/usuarios.html">+ Gestionar Usuarios</a>
+      </div>
+  
+      <div class="admin-card">
+        <img src="/assets/img/recomendar-icon.svg" alt="Recomendar Empresa" class="admin-card-icon" />
+        <h2>Recomendar Empresa</h2>
+        <p>Ayudanos a ampliar nuestra red de proveedores confiables.</p>
+        <ul>
+          <li>Formulario simple</li>
+          <li>Validación interna</li>
+          <li>Integración rápida</li>
+        </ul>
+        <a href="/admin/recomendar_empresa.html">+ Recomendar</a>
+      </div>
+  
+    </div>
+  </main>
+  
 
   <a href="https://wa.me/34643615319" class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
     <img src="/assets/img/whatsapp2.svg" alt="WhatsApp" />
