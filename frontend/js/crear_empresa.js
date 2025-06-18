@@ -1,4 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { cargarNavbarProclier } from './navbar.js';
+
+document.addEventListener("DOMContentLoaded", () => {
+  cargarNavbarProclier();
+  
     const form = document.getElementById('form-crear-empresa');
   
     form.addEventListener('submit', async (e) => {

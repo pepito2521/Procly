@@ -1,5 +1,5 @@
-import { cargarNavbar } from './navbar.js';
+import { cargarNavbarProclier } from './navbar.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-  cargarNavbar();
+  cargarNavbarProclier();
 });
