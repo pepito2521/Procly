@@ -7,7 +7,7 @@ dotenv.config();
 
 const app = express();
 
-// 🔐 Middlewares
+// 🔐 MIDDLEWARES
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true
@@ -15,20 +15,21 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 🚀 Rutas backend
+// 🚀 RUTAS BACKEND
 app.use('/auth', require('./routes/auth'));
 app.use('/tickets', require('./routes/tickets'));
 
-// 🌐 Archivos estáticos del frontend
+// 🌐 ARCHIVOS ESTATICOS DEL FRONTEND
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
 app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
 app.use('/assets', express.static(path.join(__dirname, '../frontend/assets')));
 app.use('/components', express.static(path.join(__dirname, '../frontend/components')));
 
-// ⚠️ Fallback para SPA (Single Page Application)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/public/index.html'));
-});
+// ⚠️ FALLBACK
+app.use((req, res) => {
+    res.status(404).sendFile(path.join(__dirname, '../frontend/public/404.html'));
+  });
+  
 
 module.exports = app;
