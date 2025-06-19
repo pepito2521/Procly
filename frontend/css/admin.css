@@ -116,7 +116,7 @@ main {
     .admin-card-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 50px;
+        gap: 32px;
         max-width: 1000px;
         width: 100%;
     }
@@ -140,7 +140,7 @@ main {
   .admin-card-icon {
     width: 32px;
     height: 32px;
-    margin: 0 auto 16px;
+    margin: 0;
   }
   
   .admin-card h2 {
@@ -227,11 +227,3 @@ main {
     color: #0f2e2e;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
-
-  .desktop-icon {
-    background-image: url('/assets/icons/desktop.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-  }
-  
