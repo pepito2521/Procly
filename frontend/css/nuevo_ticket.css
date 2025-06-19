@@ -23,13 +23,14 @@
 }
 
 .formulario-ticket {
+  width: calc(100vw - 48px);
+  margin: 24px auto 0 auto;  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 100%;
   padding: 0rem;
-  background-color: white;
   border-radius: 8px;
 }
 
@@ -217,7 +218,7 @@
 
 .categoria-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
   width: 100%;
   justify-items: center;
