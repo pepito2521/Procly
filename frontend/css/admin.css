@@ -4,6 +4,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
   }
   
   h1 {
@@ -115,7 +116,7 @@ main {
     .admin-card-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 64px;
+        gap: 50px;
         max-width: 1000px;
         width: 100%;
     }
@@ -124,7 +125,7 @@ main {
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-    padding: 32px 24px;
+    padding: 24px 20px;
     width: 400px;
     max-width: 100%;
     text-align: center;
@@ -137,8 +138,8 @@ main {
   }
   
   .admin-card-icon {
-    width: 64px;
-    height: 64px;
+    width: 32px;
+    height: 32px;
     margin: 0 auto 16px;
   }
   
@@ -179,9 +180,9 @@ main {
   .admin-card-icon-circle {
     background-color: #edf4f4;
     border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 16px;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,3 +227,11 @@ main {
     color: #0f2e2e;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   }
+
+  .desktop-icon {
+    background-image: url('/assets/icons/desktop.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+  
