@@ -39,16 +39,4 @@ function inicializarLogoutDirecto() {
   });
 }
 
-// FUNCION: RESALTAR LINK ACTIVO
-function resaltarLinkActivo() {
-  const currentPage = window.location.pathname.split("/").pop();
-  const links = document.querySelectorAll(".navbar-links a");
-
-  links.forEach(link => {
-    if (link.getAttribute("href").includes(currentPage)) {
-      link.classList.add("active");
-    }
-  });
-}
-
 
