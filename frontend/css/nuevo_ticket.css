@@ -217,44 +217,56 @@
 
 .categoria-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  width: 100%;
   justify-items: center;
-  padding: 1rem 0;
+  padding: 2rem 0;
 }
 
 .categoria-card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-  text-align: center;
-  width: 120px;
-  height: 120px;
-  padding: 1rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  cursor: pointer;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 260px;
+  min-height: 260px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-align: center;
+  gap: 0.75rem;
 }
 
 .categoria-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
 .categoria-card.selected {
-  border: 1px solid #e0e0e0;
-  box-shadow: 0px 0px 10px rgba(80, 137, 145, 0.3);
+  border: 1px solid #3E8914;
+  box-shadow: 0 0 0 2px rgba(62, 137, 20, 0.3);
 }
 
-.categoria-icono {
-  font-size: 0.8rem;
-  color: #333;
-  font-weight: 300;
-  margin-top: auto;
-  margin-bottom: auto;
+.admin-card-icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #F1F5F9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
+
+.admin-card-icon {
+  width: 32px;
+  height: 32px;
+}
+
 
 /* STEP 3: PRESUPUESTO */
 
