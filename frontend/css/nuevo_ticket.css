@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 90%;
+  width: 85%;
   margin: 24px auto;
   background-color:transparent;
   padding: 0;
@@ -83,15 +83,17 @@
   height: 40px;
   line-height: 40px;
   width: 100%;
-  padding: 0 0.75rem;
+  padding: 1.5rem;
   box-sizing: border-box;
   color: #090B0A;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
+  resize: none;
+  border-radius: 20px;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group textarea {
@@ -102,11 +104,13 @@
   box-sizing: border-box;
   color: #090B0A;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
+  resize: none;
+  border-radius: 20px;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group select {
