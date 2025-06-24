@@ -1,9 +1,17 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
 .nuevo-ticket-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 90%;
   margin: 24px auto;
   background-color:transparent;
   padding: 0;
@@ -223,7 +231,7 @@
   gap: 2rem;
   width: 100%;
   justify-items: center;
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .categoria-card {
