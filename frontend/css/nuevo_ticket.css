@@ -148,28 +148,6 @@
 }
 
 
-/* ROW: ATTACHMENTS */
-
-.form-group input[type="file"] {
-  height: 40px;
-  padding: 1.5rem;
-  font-size: 1rem;
-  line-height: 40px;
-  border: none;
-  resize: none;
-  border-radius: 20px;
-  font-family: 'Inter', sans-serif;
-  background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.hidden {
-  display: none !important;
-}
-
-
-
 /* ROW: CHECKBOX GUIDELINE */
 
 .form-group-checkbox {
@@ -355,6 +333,38 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.custom-file-upload {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload label {
+  display: inline-block;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: white;
+  color: #55625D;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-file-upload label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
 
 /* STEP 5: TICKET CREADO */
 
