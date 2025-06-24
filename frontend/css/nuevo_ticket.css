@@ -274,17 +274,18 @@
 
 .opcion-card {
   flex: 1;
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: none;
+  resize: none;
   height: 40px;
   padding: 0 1.5rem;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   font-weight: 500;
   background-color: white;
 }
