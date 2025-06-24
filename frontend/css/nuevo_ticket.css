@@ -141,17 +141,17 @@
   align-items: center;
 }
 
-/* Color gris cuando está en estado inválido (placeholder visible) */
+.form-group select:hover,
+.form-group select:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
 .form-group select:invalid {
-  color: #9CA3AF; /* gris placeholder tipo Tailwind gray-400 */
+  color: #9CA3AF;
 }
 
-/* Opciones internas (el resto de las opciones, color normal) */
-.form-group select option {
-  color: #090B0A;
-}
-
-/* Forzar color gris solo en la opción placeholder inicial */
 .form-group select option[disabled] {
   color: #9CA3AF;
 }
