@@ -116,11 +116,12 @@
 
 .form-group select {
   height: 40px;
+  line-height: 40px;
   width: 100%;
+  padding: 1.5rem;
   box-sizing: border-box;
   color: #090B0A;
   background-color: white;
-  padding: 0 0.75rem;
   border: none;
   resize: none;
   border-radius: 20px;
@@ -128,7 +129,33 @@
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  display: flex;
+  align-items: center;
 }
+
+/* Color gris cuando está en estado inválido (placeholder visible) */
+.form-group select:invalid {
+  color: #9CA3AF; /* gris placeholder tipo Tailwind gray-400 */
+}
+
+/* Opciones internas (el resto de las opciones, color normal) */
+.form-group select option {
+  color: #090B0A;
+}
+
+/* Forzar color gris solo en la opción placeholder inicial */
+.form-group select option[disabled] {
+  color: #9CA3AF;
+}
+
 
 /* EFETO DE TRANSICION ENTRE STEPS */
 
@@ -522,14 +549,4 @@ input[type="number"] {
 }
 
 
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 1rem;
-  padding-right: 2.5rem;
-}
 
