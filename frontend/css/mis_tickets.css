@@ -116,7 +116,10 @@
   font-size: 0.8rem;
   color: white;
   text-align: center;
-  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+  border: none;
+  resize: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   min-width: 100px;
 }
 
