@@ -20,9 +20,12 @@ exports.crearTicket = async (req, res) => {
       .from('profiles')
       .select('empresa_id')
       .eq('profile_id', user_id)
-      .single();
+      .maybeSingle();
 
     if (errorPerfil) throw errorPerfil;
+    if (!perfil) {
+      return res.status(404).json({ error: 'Perfil de usuario no encontrado' });
+    }
 
     const { error } = await supabase.from('tickets').insert({
       user_id,
@@ -62,9 +65,12 @@ exports.obtenerDirecciones = async (req, res) => {
         .from('profiles')
         .select('empresa_id')
         .eq('profile_id', user_id)
-        .single();
+        .maybeSingle();
   
       if (errorPerfil) throw errorPerfil;
+      if (!perfil) {
+        return res.status(404).json({ error: 'Perfil de usuario no encontrado' });
+      }
   
       const { data: direcciones, error } = await supabase
         .from('direcciones_entrega')
@@ -95,7 +101,7 @@ exports.obtenerTickets = async (req, res) => {
       const { data, error } = await supabase
         .from('tickets')
         .select('ticket_id, descripcion, estado')
-        .filter('user_id::text', 'eq', user_id.trim());
+        .eq('user_id', user_id);
   
       if (error) throw error;
   
