@@ -36,20 +36,10 @@
   }
   
   .text-input {
+    position: relative;
     display:flex;
     flex-direction: column;
     width: 100%;
-  }
-  
-  .text-input label {
-    display: flex;   
-    font-family: 'Inter', sans-serif;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
-    margin-bottom: 0.25rem;
-    color: #55625D;
   }
 
   .text-input input {
@@ -63,11 +53,21 @@
     font-size: 1rem;
     color: #090B0A;
     background-color: white;
-    padding-left: 0.75rem;
+    padding-left: 2.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
+  .text-input .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #090B0A;
+    pointer-events: none;
+  }
   
   .login-links {
     font-family: 'Inter', sans-serif;
@@ -88,3 +88,5 @@
     text-decoration: underline;
     color: #508991;
   }
+
+  
