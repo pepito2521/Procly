@@ -17,8 +17,11 @@ module.exports = async function requireAuth(req, res, next) {
   const { data, error } = await supabase.auth.getUser(token);
 
   if (error || !data?.user) {
+    console.error('🛑 Error al validar token:', error);
     return res.status(401).json({ error: 'Token inválido o expirado' });
   }
+
+  console.log("🧪 Usuario completo autenticado:", data.user);
 
   req.user = data.user;
   console.log("🧪 Usuario autenticado:", data.user.id);

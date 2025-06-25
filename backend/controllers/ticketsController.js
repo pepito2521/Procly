@@ -101,7 +101,7 @@ exports.obtenerDirecciones = async (req, res) => {
         const { data, error } = await supabase
           .from('tickets')
           .select('ticket_id, descripcion, estado')
-          .filter('user_id::text', 'eq', user_id.trim());
+          .filter('user_id::text', 'eq', user_id);
     
         if (error) throw error;
     
