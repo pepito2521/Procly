@@ -62,7 +62,7 @@
   
   .text-input input {
     height: 40px;
-    padding: 0 0.75rem;
+    padding-left: 2.5rem;
     border: none;
     resize: none;
     border-radius: 20px;
@@ -73,6 +73,17 @@
     background-color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .text-input .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #090B0A;
+    pointer-events: none;
   }
 
   .signup-links {
