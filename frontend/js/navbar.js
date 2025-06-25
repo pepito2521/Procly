@@ -20,7 +20,6 @@ async function cargarNavbarDesdeArchivo(ruta) {
   placeholder.innerHTML = html;
 
   inicializarLogoutDirecto();
-  resaltarLinkActivo();
 }
 // FUNCION: INICIALIZAR LOGOUT DESDE ICONO
 function inicializarLogoutDirecto() {

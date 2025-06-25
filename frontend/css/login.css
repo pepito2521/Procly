@@ -54,15 +54,20 @@
 
   .text-input input {
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    line-height: 40px;
+    border: none;
+    resize: none;
+    border-radius: 20px;
+    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
-    color: #333;
-    background-color: #fff;
+    color: #090B0A;
+    background-color: white;
     padding-left: 0.75rem;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+
   
   .login-links {
     font-family: 'Inter', sans-serif;

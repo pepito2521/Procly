@@ -90,18 +90,11 @@ exports.obtenerDirecciones = async (req, res) => {
   exports.obtenerTickets = async (req, res) => {
       try {
         const user_id = req.user?.id;
-    
         console.log("🧪 [DEBUG] ID del usuario autenticado:", user_id);
-        console.log("🧪 [DEBUG] typeof user_id:", typeof user_id);
-    
-        if (!user_id) {
-          return res.status(401).json({ error: 'Usuario no autenticado' });
-        }
-    
+
         const { data, error } = await supabase
           .from('tickets')
-          .select('ticket_id, descripcion, estado')
-          .filter('user_id::text', 'eq', user_id);
+          .select('ticket_id, descripcion, estado');
     
         if (error) throw error;
     
@@ -136,6 +129,3 @@ try {
     res.status(500).json({ error: 'No se pudo obtener el ticket', detalle: err.message });
 }
 };
-
-  
-  
