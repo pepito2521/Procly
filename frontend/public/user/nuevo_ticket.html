@@ -15,6 +15,19 @@
     
     <main class="nuevo-ticket-container">
 
+      <!-- PROGRESS BAR + BOTÓN VOLVER -->
+      <div class="progress-bar-container">
+        <div class="progress-bar-outer">
+          <div class="progress-bar-inner" id="progressBar"></div>
+        </div>
+        <div class="progress-bar-btn-container">
+          <button type="button" class="progress-bar-btn hidden" id="progressBarBtn">
+            <img src="../assets/icons/chevron-left.png" alt="Volver" class="chevron-icon">
+            Volver
+          </button>
+        </div>
+      </div>
+
       <!-- CONTENEDOR MULTISTEP -->
       <form class="formulario-ticket" id="multiStepForm">
           <!-- STEP 1: Selección de categoría -->
@@ -166,18 +179,6 @@
         
       </form>
 
-          <!-- PROGRESS BAR + BOTÓN VOLVER -->
-      <div class="progress-bar-container">
-        <div class="progress-bar-outer">
-          <div class="progress-bar-inner" id="progressBar"></div>
-        </div>
-        <div class="progress-bar-btn-container">
-          <button type="button" class="progress-bar-btn hidden" id="progressBarBtn">
-            <img src="../assets/icons/chevron-left.png" alt="Volver" class="chevron-icon">
-            Volver
-          </button>
-        </div>
-      </div>
     </main>
     <a href="https://wa.me/34643615319" class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
       <img src="/assets/img/whatsapp2.svg" alt="WhatsApp" />
