@@ -47,9 +47,13 @@
   }
   
   .text-input {
-    display: flex;
+    position: relative;
+    display:flex;
     flex-direction: column;
+    width: 100%;
+    margin-bottom: 1rem; 
   }
+
   
   .text-input label {
     font-family: 'Inter', sans-serif;
