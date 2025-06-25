@@ -18,7 +18,8 @@
     padding:2.5rem;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .signup-form img {
@@ -62,15 +63,18 @@
   .text-input input {
     height: 40px;
     padding: 0 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: none;
+    resize: none;
+    border-radius: 20px;
     font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
     font-size: 1rem;
-    color: #333;
-    background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.10);
+    color: #090B0A;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  
+
   .signup-links {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
