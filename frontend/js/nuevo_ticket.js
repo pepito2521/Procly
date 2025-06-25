@@ -29,13 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
     currentStep = index;
 
     // Mostrar u ocultar botón "Volver"
+    const hidePrevOnSteps = [0, steps.length - 1];
+
     if (prevBtnContainer) {
-      if (index === 0 || index === steps.length - 1) {
+      if (hidePrevOnSteps.includes(index)) {
         prevBtnContainer.classList.add("hidden");
       } else {
         prevBtnContainer.classList.remove("hidden");
       }
     }
+    
 
     // Ocultar la barra de progreso en el último paso
     const progressBarContainer = document.querySelector(".progress-bar-container");

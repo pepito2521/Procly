@@ -486,7 +486,7 @@ input[type="number"] {
   gap: 0.2rem;
   margin: 2rem 0;
   min-height: 20px;
-  width: 85%;
+  width: 100%;
   padding: 0;
   visibility: visible !important;
   opacity: 1 !important;
