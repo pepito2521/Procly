@@ -21,6 +21,17 @@
     border-spacing: 0 16px;
   }
 
+  .tabla-tickets thead {
+    margin-bottom: 12px;
+    display: table-header-group;
+  }
+
+  .tabla-tickets thead tr {
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    border-radius: 20px;
+  }
+
   .tabla-tickets tr {
     background-color: white;
     border-radius: 20px;
@@ -35,9 +46,12 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   }
-  
-  .tabla-tickets th,
-  .tabla-tickets td {
+
+  .tabla-tickets th {
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #090B0A;
     padding: 0.75rem 1rem;
     text-align: center;
     vertical-align: middle;
@@ -45,20 +59,19 @@
     border-bottom: none;
     border-radius: 20px;
   }
-  
-  .tabla-tickets th {
-    background-color: white;
-    font-weight: 500;
-    font-size: 1rem;
-    color: #090B0A;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-  }
+
   
   .tabla-tickets td {
     background-color: transparent;
     font-weight: 400;
     font-size: 1rem;
     color: #090B0A;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-bottom: none;
+    border-radius: 20px;
   }
 
   .th-flex {

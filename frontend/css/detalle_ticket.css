@@ -13,10 +13,10 @@
 
 /* COLUMNA IZQUIERDA: BARRA DE PROGRESO */
 .progreso-ticket {
+  width: 100%;
   background-color: #fff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,7 +60,7 @@
 /* LÍNEA ENTRE PASOS */
 .linea-vertical {
   width: 4px;
-  flex-grow: 1;
+  height: 40px;
   background-color: #ddd;
   margin-left: 22px;
 }
@@ -68,9 +68,10 @@
 /* COLUMNA DERECHA: DETALLES */
 
 .detalle-ticket-columna-derecha {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .detalle-ticket-info {
@@ -115,11 +116,6 @@
   border-radius: 20px;
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-}
-
-.panel-dinamico h3 {
-  margin-top: 0;
-  color: #1f2937;
 }
 
 .panel-dinamico p {

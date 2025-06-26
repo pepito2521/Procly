@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Marcar los pasos completados en el progress
 function actualizarProgreso(estado) {
   const pasos = {
-    "Creado": "paso-creado",
-    "En proceso": "paso-proceso",
-    "Propuestas": "paso-propuestas",
-    "En camino": "paso-camino",
-    "Entregado": "paso-entregado"
+    "Creado": "step-creado",
+    "En proceso": "step-proceso",
+    "Propuestas": "step-propuestas",
+    "En camino": "step-camino",
+    "Entregado": "step-entregado"
   };
 
   let activar = true;
