@@ -18,11 +18,12 @@
     width: 100%;
     table-layout: fixed;
     border-collapse: separate;
-    border-spacing: 0 12px;
+    border-spacing: 0 16px;
   }
 
   .tabla-tickets tr {
-    border-radius: 12px;
+    background-color: white;
+    border-radius: 20px;
     overflow: hidden;
     border: none;
     resize: none;
@@ -31,7 +32,7 @@
   }
 
   .tabla-tickets tr:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   }
   
@@ -41,7 +42,7 @@
     text-align: center;
     vertical-align: middle;
     font-size: 14px;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: none;
   }
   
   .tabla-tickets th {
