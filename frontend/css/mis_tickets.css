@@ -32,7 +32,7 @@
   }
 
   .tabla-tickets tr:hover {
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   }
   
@@ -43,6 +43,7 @@
     vertical-align: middle;
     font-size: 14px;
     border-bottom: none;
+    border-radius: 20px;
   }
   
   .tabla-tickets th {
