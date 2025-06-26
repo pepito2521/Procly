@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Detalle Ticket</title>
   <link rel="shortcut icon" href="/assets/img/favicon_procly.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/detalle_ticket.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/detalle_ticket.css" />
 </head>
 <body>
   <div id="navbar-placeholder"></div>
@@ -15,14 +15,15 @@
   
     <!-- COLUMNA IZQUIERDA: Progress bar vertical -->
     <aside class="progreso-ticket">
+      
       <div class="bloque-paso">
         <div class="paso" id="step-creado">
           <svg class="icono" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
             <path d="M215.79,118.17a8,8,0,0,0-5-5.66L153.18,90.9l14.66-73.33a8,8,0,0,0-13.69-7l-112,120a8,8,0,0,0,3,13l57.63,21.61L88.16,238.43a8,8,0,0,0,13.69,7l112-120A8,8,0,0,0,215.79,118.17ZM109.37,214l10.47-52.38a8,8,0,0,0-5-9.06L62,132.71l84.62-90.66L136.16,94.43a8,8,0,0,0,5,9.06l52.8,19.8Z"></path>
           </svg>
           <span>Creado</span>
+          <div class="linea-vertical"></div>
         </div>
-        <div class="linea-vertical"></div>
       </div>
 
       <div class="bloque-paso">
@@ -41,8 +42,8 @@
             <path d="M213.66,66.34l-40-40A8,8,0,0,0,168,24H88A16,16,0,0,0,72,40V56H56A16,16,0,0,0,40,72V216a16,16,0,0,0,16,16H168a16,16,0,0,0,16-16V200h16a16,16,0,0,0,16-16V72A8,8,0,0,0,213.66,66.34ZM168,216H56V72h76.69L168,107.31v84.53c0,.06,0,.11,0,.16s0,.1,0,.16V216Zm32-32H184V104a8,8,0,0,0-2.34-5.66l-40-40A8,8,0,0,0,136,56H88V40h76.69L200,75.31Zm-56-32a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,152Zm0,32a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h48A8,8,0,0,1,144,184Z"></path>
           </svg>
           <span>Propuestas</span>
+          <div class="linea-vertical"></div>
         </div>
-        <div class="linea-vertical"></div>
       </div>
 
       <div class="bloque-paso">
@@ -51,8 +52,8 @@
             <path d="M208,40H167.2a40,40,0,0,0-78.4,0H48a8,8,0,0,0,0,16H88.8a40,40,0,0,0,12.58,21.82A64.08,64.08,0,0,0,64,136v64a16,16,0,0,0,16,16H96a32,32,0,0,0,64,0h16a16,16,0,0,0,16-16V136a64.08,64.08,0,0,0-37.38-58.18A40,40,0,0,0,167.2,56H208a8,8,0,0,0,0-16ZM144,216a16,16,0,0,1-32,0V168a16,16,0,0,1,32,0Zm32-80v64H160V168a32,32,0,0,0-64,0v32H80V136a48,48,0,0,1,96,0ZM104,48a24,24,0,1,1,24,24A24,24,0,0,1,104,48Z"></path>
           </svg>
           <span>En Camino</span>
+          <div class="linea-vertical"></div>
         </div>
-        <div class="linea-vertical"></div>
       </div>
 
       <div class="bloque-paso">
@@ -71,7 +72,9 @@
 
       <!-- DETALLES TICKET -->
       <section class="detalle-ticket-info">
-        <h2>Detalle del Ticket</h2>
+        <h2><svg class="icono-titulo" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+          <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"></path>
+        </svg> Detalle del Ticket</h2>
         <p><strong>ID:</strong> <span id="ticket-id"></span></p>
         <p><strong>Descripción:</strong> <span id="ticket-nombre"></span></p>
         <p><strong>Estado:</strong> <span id="ticket-estado"></span></p>
@@ -81,7 +84,9 @@
 
       <!-- PANEL DINAMICO -->
       <section class="panel-dinamico" id="panel-estado-dinamico">
-        <h2>Seguimiento del Ticket:</h2>
+        <h2><svg class="icono-titulo" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256">
+          <path d="M224,71.1a8,8,0,0,1-10.78-3.42,94.13,94.13,0,0,0-33.46-36.91,8,8,0,1,1,8.54-13.54,111.46,111.46,0,0,1,39.12,43.09A8,8,0,0,1,224,71.1ZM35.71,72a8,8,0,0,0,7.1-4.32A94.13,94.13,0,0,1,76.27,30.77a8,8,0,1,0-8.54-13.54A111.46,111.46,0,0,0,28.61,60.32,8,8,0,0,0,35.71,72Zm186.1,103.94A16,16,0,0,1,208,200H167.2a40,40,0,0,1-78.4,0H48a16,16,0,0,1-13.79-24.06C43.22,160.39,48,138.28,48,112a80,80,0,0,1,160,0C208,138.27,212.78,160.38,221.81,175.94ZM150.62,200H105.38a24,24,0,0,0,45.24,0ZM208,184c-10.64-18.27-16-42.49-16-72a64,64,0,0,0-128,0c0,29.52-5.38,53.74-16,72Z"></path>
+        </svg> Seguimiento del Ticket:</h2>
         <div id="detalle-dinamico">
           <div id="panel-estado-dinamico"></div>
         </div>
@@ -95,6 +100,8 @@
     <img src="/assets/img/whatsapp2.svg" alt="WhatsApp" />
   </a>
 
-  <script type="module" src="/js/detalle_ticket.js"></script>
+  <script type="module" src="../../js/detalle_ticket.js"></script>
 </body>
 </html>
+
+

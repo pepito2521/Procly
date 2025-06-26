@@ -1,6 +1,6 @@
 .detalle-ticket-container {
   width: calc(100vw - 48px);
-  max-height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
   margin: 24px auto;
   padding: 0 2rem;
   font-family: 'Inter', sans-serif;
@@ -17,7 +17,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 2rem 0;
 }
@@ -72,32 +72,39 @@
   border-radius: 20px;
 }
 
-/* COLUMNA DERECHA: DETALLES */
+/* COLUMNA DERECHA: DETALLES & PANEL DE ACCIONES */
 
 .detalle-ticket-columna-derecha {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  height: 100%;
 }
 
-.detalle-ticket-info {
-  margin-top: 2rem;
+.detalle-ticket-info,
+.panel-dinamico {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0;                
   padding: 1rem;
   color: #090B0A;
   background-color: white;
   border: none;
-  resize: none;
   border-radius: 20px;
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  overflow: auto; 
 }
 
-.detalle-ticket-info h2 {
+.detalle-ticket-info h2,
+.panel-dinamico h2{
   margin-top: 0;
   color: #2f3e46;
 }
 
-.detalle-ticket-info p {
+.detalle-ticket-info p,
+.panel-dinamico p{
   margin: 0.5rem 0;
   color: #333;
 }
@@ -109,22 +116,10 @@
   margin-bottom: 1rem;
 }
 
-
-/* PANEL DE ACCIONES */
-
-.panel-dinamico {
-  margin-top: 2rem;
-  padding: 1rem;
-  color: #090B0A;
-  background-color: white;
-  border: none;
-  resize: none;
-  border-radius: 20px;
-  font-family: 'Inter', sans-serif;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+.icono-titulo {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #2f3e46;
 }
 
-.panel-dinamico p {
-  margin-bottom: 0;
-  color: #374151;
-}
