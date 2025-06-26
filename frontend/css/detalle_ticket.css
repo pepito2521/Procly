@@ -86,13 +86,24 @@
   margin-bottom: 1rem;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .detalle-ticket-container {
-    grid-template-columns: 1fr;
-  }
 
-  .progreso-ticket, .detalle-ticket-info {
-    width: 100%;
-  }
+/* PANEL DE ACCIONES */
+
+.panel-dinamico {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+.panel-dinamico h3 {
+  margin-top: 0;
+  color: #1f2937;
+}
+
+.panel-dinamico p {
+  margin-bottom: 0;
+  color: #374151;
 }

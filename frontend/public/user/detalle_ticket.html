@@ -11,48 +11,59 @@
 <body>
   <div id="navbar-placeholder"></div>
 
-  <main class="ticket-main">
-    <div class="ticket-columna-izquierda">
-      <div class="progreso-vertical">
-        <div class="paso" id="paso-creado">
-          <span class="icono-circle">✅</span>
-          <p>Creado</p>
-        </div>
-        <div class="linea-vertical"></div>
-
-        <div class="paso" id="paso-proceso">
-          <span class="icono-circle">⚙️</span>
-          <p>En Proceso</p>
-        </div>
-        <div class="linea-vertical"></div>
-
-        <div class="paso" id="paso-propuestas">
-          <span class="icono-circle">📄</span>
-          <p>Propuestas</p>
-        </div>
-        <div class="linea-vertical"></div>
-
-        <div class="paso" id="paso-camino">
-          <span class="icono-circle">🚚</span>
-          <p>En Camino</p>
-        </div>
-        <div class="linea-vertical"></div>
-
-        <div class="paso" id="paso-entregado">
-          <span class="icono-circle">📦</span>
-          <p>Entregado</p>
-        </div>
+  <main class="detalle-ticket-container">
+  
+    <!-- Columna izquierda: Progress bar vertical -->
+    <aside class="progreso-ticket">
+      <div class="paso" id="step-creado">
+        <div class="icono">✅</div>
+        <p>Creado</p>
       </div>
-    </div>
-
-    <div class="ticket-columna-derecha">
+      <div class="linea-vertical"></div>
+  
+      <div class="paso" id="step-proceso">
+        <div class="icono">⚙️</div>
+        <p>En Proceso</p>
+      </div>
+      <div class="linea-vertical"></div>
+  
+      <div class="paso" id="step-propuestas">
+        <div class="icono">📄</div>
+        <p>Propuestas</p>
+      </div>
+      <div class="linea-vertical"></div>
+  
+      <div class="paso" id="step-camino">
+        <div class="icono">🚚</div>
+        <p>En Camino</p>
+      </div>
+      <div class="linea-vertical"></div>
+  
+      <div class="paso" id="step-entregado">
+        <div class="icono">📦</div>
+        <p>Entregado</p>
+      </div>
+    </aside>
+  
+    <!-- Columna derecha: Info y acciones -->
+    <section class="detalle-ticket-info">
+      <h2>Detalle del Ticket</h2>
+      <p><strong>ID:</strong> <span id="ticket-id"></span></p>
+      <p><strong>Descripción:</strong> <span id="ticket-nombre"></span></p>
+      <p><strong>Estado:</strong> <span id="ticket-estado"></span></p>
+      <p><strong>Presupuesto:</strong> <span id="ticket-presupuesto"></span></p>
+      <p><strong>Fecha de Entrega:</strong> <span id="ticket-fecha"></span></p>
+  
+      <!-- Panel dinámico según estado -->
       <div id="detalle-dinamico">
-        <!-- Contenido dinámico según el estado -->
         <h2>Seguimiento del Ticket:</h2>
-        <div id="contenido-estado"></div>
+        <div id="panel-estado-dinamico"></div>
       </div>
-    </div>
+      
+    </section>
+  
   </main>
+  
 
   <a href="https://wa.me/34643615319" class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
     <img src="/assets/img/whatsapp2.svg" alt="WhatsApp" />

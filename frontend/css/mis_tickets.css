@@ -16,8 +16,23 @@
 
   .tabla-tickets table {
     width: 100%;
-    border-collapse: collapse;
     table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+  }
+
+  .tabla-tickets tr {
+    border-radius: 12px;
+    overflow: hidden;
+    border: none;
+    resize: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tabla-tickets tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   }
   
   .tabla-tickets th,
@@ -35,26 +50,13 @@
     font-size: 1rem;
     color: #090B0A;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
   .tabla-tickets td {
-    background-color: white;
+    background-color: transparent;
     font-weight: 400;
     font-size: 1rem;
     color: #090B0A;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .tabla-tickets td:hover {
-    background-color: #d6e7e6;
-    color: #0f2e2e;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  .tabla-tickets tr:hover {
-    background-color: #f9f9f9;
   }
 
   .th-flex {
