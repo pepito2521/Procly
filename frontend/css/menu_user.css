@@ -26,6 +26,10 @@ main {
     max-width: 100%;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 500px;                     /* Aumentá este valor según lo que busques */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;        /* Para empujar el link abajo */
   }
   
   .admin-card:hover {
