@@ -503,6 +503,13 @@ input[type="number"] {
   box-sizing: border-box;
 }
 
+.progress-bar-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
 #progressBar,
 .progress-bar-inner {
   height: 100% !important;
