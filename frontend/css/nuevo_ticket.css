@@ -517,6 +517,7 @@ input[type="number"] {
   display: inline-flex !important;
   flex-direction: row !important;
   align-items: center !important;
+  justify-content: flex-start;
   border:none;
   cursor: pointer;
   background-color: transparent;
@@ -539,6 +540,10 @@ input[type="number"] {
 }
 .progress-bar-btn:hover {
   transform: scale(1.05);
+}
+
+.hidden {
+  display: none !important;
 }
 
 
