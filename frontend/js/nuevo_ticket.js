@@ -2,7 +2,6 @@ import { cargarNavbar } from './navbar.js';
 
 let progressBar;
 let prevBtn;
-let prevBtnContainer;
 let currentStep = 0;
 let categoriaSeleccionada = ''; 
 
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
   prevBtn = document.getElementById("progressBarBtn");
-  prevBtnContainer = document.querySelector(".progress-bar-btn-container");
 
   function showStep(index) {
     steps.forEach((step, i) => {
@@ -31,14 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Mostrar u ocultar botón "Volver"
     const hidePrevOnSteps = [0, steps.length - 1];
 
-    if (prevBtnContainer) {
+    if (prevBtn) {
       if (hidePrevOnSteps.includes(index)) {
-        prevBtnContainer.classList.add("hidden");
+        prevBtn.classList.add("hidden");
       } else {
-        prevBtnContainer.classList.remove("hidden");
+        prevBtn.classList.remove("hidden");
       }
     }
     
+
 
     // Ocultar la barra de progreso en el último paso
     const progressBarContainer = document.querySelector(".progress-bar-container");

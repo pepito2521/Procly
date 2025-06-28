@@ -513,28 +513,16 @@ input[type="number"] {
   display: block;
 }
 
-.progress-bar-btn-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  box-sizing: border-box;
-  padding-left: 0;
-  margin-left: 0;
-}
-
 .progress-bar-btn {
   display: inline-flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 300;
-  color: #09090b;
   border:none;
-  background-color: transparent;
   cursor: pointer;
+  background-color: transparent;
   transition: transform 0.2s ease;
-  margin-left: -0.7rem;
+  padding: 0;
+  margin: 0;
 }
 
 .chevron-icon {
@@ -544,6 +532,11 @@ input[type="number"] {
   object-fit: contain;
 }
 
+.progress-bar-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #09090b;
+}
 .progress-bar-btn:hover {
   transform: scale(1.05);
 }
