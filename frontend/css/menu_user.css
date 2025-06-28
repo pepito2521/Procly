@@ -21,15 +21,15 @@ main {
     background-color: #fff;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-    padding: 24px 20px;
+    padding: 62px 20px 24px 20px;
     width: 400px;
     max-width: 100%;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: 500px;                     /* Aumentá este valor según lo que busques */
+    min-height: 600px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;        /* Para empujar el link abajo */
+    justify-content: space-between;
   }
   
   .admin-card:hover {
