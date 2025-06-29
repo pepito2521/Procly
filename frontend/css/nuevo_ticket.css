@@ -262,8 +262,7 @@
 }
 
 .categoria-card.selected {
-  border: 1px solid #3E8914;
-  box-shadow: 0 0 0 2px rgba(62, 137, 20, 0.3);
+  box-shadow:none;
 }
 
 .admin-card-icon-circle {
@@ -375,7 +374,7 @@ input[type="number"] {
 }
 
 .custom-file-upload label {
-  display: inline-block;
+  display: inline-block;  
   width: 100%;
   padding: 1.5rem;
   background-color: white;
@@ -393,6 +392,17 @@ input[type="number"] {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
+
+.custom-file-upload label.filled {
+  box-shadow: none;
+  color: #333;  
+}
+
+.custom-file-upload label.filled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 
 
 /* STEP 5: TICKET CREADO */

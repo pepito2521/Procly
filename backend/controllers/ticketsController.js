@@ -6,6 +6,7 @@ exports.crearTicket = async (req, res) => {
   try {
     const {
       categoria,
+      nombre,
       descripcion,
       presupuesto,
       limite,
@@ -31,6 +32,7 @@ exports.crearTicket = async (req, res) => {
       user_id,
       empresa_id: perfil.empresa_id,
       categoria,
+      nombre,
       descripcion,
       presupuesto: limite === true || limite === 'si' ? presupuesto : null,
       limite: limite === true || limite === 'si',

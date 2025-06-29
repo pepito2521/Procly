@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress(index);
     currentStep = index;
 
-    // Mostrar u ocultar botón "Volver"
+    // MOSTRAR/OCULTAR BOTON VOLVER
     const hidePrevOnSteps = [0, steps.length - 1];
 
     if (prevBtn) {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
 
 
-    // Ocultar la barra de progreso en el último paso
+    // OCULTAR PROGRESSBAR EN EL ULTIMO PASO
     const progressBarContainer = document.querySelector(".progress-bar-container");
     if (index === steps.length - 1) {
       progressBarContainer.style.display = "none";
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   cargarDirecciones();
 
-  // Date Picker
+  // DATE PICKER
   flatpickr("#fecha_entrega", {
     dateFormat: "Y-m-d",
     minDate: "today",
@@ -171,6 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const body = {
       categoria: categoriaSeleccionada,
+      nombre: formData.get('nombre'),
       descripcion: formData.get('descripcion'),
       presupuesto: formData.get('presupuesto'),
       limite: formData.get('limite'),
@@ -207,6 +208,29 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       console.error('⚠️ Error al enviar el ticket:', err);
       alert('Error de red al crear el ticket');
+    }
+  });
+
+  const adjuntoInput = document.getElementById('adjunto');
+  const labelAdjunto = document.querySelector('.custom-file-upload label');
+  
+  const svgClip = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4B5563" viewBox="0 0 256 256" style="vertical-align: middle; margin-right: 8px;">
+    <path d="M209.66,122.34a8,8,0,0,1,0,11.32l-82.05,82a56,56,0,0,1-79.2-79.21L147.67,35.73a40,40,0,1,1,56.61,56.55L105,193A24,24,0,1,1,71,159L154.3,74.38A8,8,0,1,1,165.7,85.6L82.39,170.31a8,8,0,1,0,11.27,11.36L192.93,81A24,24,0,1,0,159,47L59.76,147.68a40,40,0,1,0,56.53,56.62l82.06-82A8,8,0,0,1,209.66,122.34Z"></path>
+  </svg>`;
+  
+  const svgCheck = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4B5563" viewBox="0 0 256 256" style="vertical-align: middle; margin-right: 8px;">
+    <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
+  </svg>`;
+  
+  adjuntoInput.addEventListener('change', () => {
+    if (adjuntoInput.files.length > 0) {
+      labelAdjunto.innerHTML = `${svgCheck} Archivo seleccionado`;
+      labelAdjunto.classList.add('filled');
+    } else {
+      labelAdjunto.innerHTML = `${svgClip} Adjuntar archivo`;
+      labelAdjunto.classList.remove('filled');
     }
   });
 
