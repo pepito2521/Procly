@@ -1,6 +1,6 @@
 .detalle-ticket-container {
   width: calc(100vw - 48px);
-  height: calc(100vh - 120px);
+  height: calc(100vh - 130px);
   margin: 24px auto;
   padding: 0 2rem;
   font-family: 'Inter', sans-serif;
