@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("ticket-id").textContent = data.ticket_id;
     document.getElementById("ticket-nombre").textContent = data.descripcion;
     document.getElementById("ticket-estado").textContent = data.estado;
+    document.getElementById("estado-actual").textContent = data.estado;
     document.getElementById("ticket-presupuesto").textContent = data.presupuesto ?? "Sin límite";
     document.getElementById("ticket-fecha").textContent = data.fecha_entrega ?? "No asignada";
 
