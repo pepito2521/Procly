@@ -1,6 +1,6 @@
 .detalle-ticket-container {
   width: calc(100vw - 48px);
-  height: calc(100vh - 130px);
+  height: calc(100vh - 140px);
   margin: 24px auto;
   padding: 0 2rem;
   font-family: 'Inter', sans-serif;
@@ -84,11 +84,14 @@
   display: inline-block
 }
 
-/* Paso activo: si querés que se pinte el círculo activo */
 .paso-activo .icono-circulo {
   background-color: #2e7d32;
   color: white;
   opacity: 1;
+}
+
+.paso-activo .icono-circulo svg {
+  fill: white;
 }
 
 .paso-activo span {
@@ -143,6 +146,10 @@
   height: 20px;
   flex-shrink: 0;
   color: #2f3e46;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  margin-right: 6px;
 }
 
 .detalle-ticket-info ul,

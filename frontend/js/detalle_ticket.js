@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Mostrar datos básicos en pantalla (opcional, según tu HTML actual)
     document.getElementById("ticket-id").textContent = data.ticket_id;
-    document.getElementById("ticket-nombre").textContent = data.descripcion;
+    document.getElementById("ticket-nombre").textContent = data.nombre;
+    document.getElementById("ticket-descripcion").textContent = data.descripcion;
     document.getElementById("ticket-estado").textContent = data.estado;
     document.getElementById("estado-actual").textContent = data.estado;
     document.getElementById("ticket-presupuesto").textContent = data.presupuesto ?? "Sin límite";
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("ticket-info").innerHTML = `<p>Error al obtener el ticket: ${error.message}</p>`;
   }
 });
+
 
 // Marcar los pasos completados en el progress
 function actualizarProgreso(estado) {
@@ -67,13 +69,13 @@ function actualizarProgreso(estado) {
   }
 }
 
-// Mostrar el panel dinámico según estado
+// PANEL DINAMICO: MENSAJES SEGUN ESTADO DEL TICKET
 function mostrarPanelPorEstado(estado, data) {
   const panel = document.getElementById("panel-estado-dinamico");
-  panel.innerHTML = ""; // Limpiar antes
+  panel.innerHTML = ""; 
 
   if (estado === "Creado") {
-    panel.innerHTML = `<h3>Estamos revisando tu pedido</h3><p>En breve te contactaremos.</p>`;
+    panel.innerHTML = `<p>Estamos revisando tu pedido, en breve te contactaremos.</p>`;
   } else if (estado === "En proceso") {
     panel.innerHTML = `<h3>Buscando proveedores...</h3><p>Estamos trabajando en conseguir opciones.</p>`;
   } else if (estado === "Propuestas") {
@@ -85,6 +87,6 @@ function mostrarPanelPorEstado(estado, data) {
   } else if (estado === "En camino") {
     panel.innerHTML = `<h3>Tu pedido está en camino 🚚</h3><p>Te llegará antes del ${data.fecha_entrega ?? "próximos días"}.</p>`;
   } else if (estado === "Entregado") {
-    panel.innerHTML = `<h3>Pedido entregado ✅</h3><p>Gracias por confiar en PROCLY. Tu ticket está finalizado.</p>`;
+    panel.innerHTML = `<p>Tu pedido fue entregado en la direccion de entrega indicada, Gracias por confiar en Procly</p>`;
   }
 }
