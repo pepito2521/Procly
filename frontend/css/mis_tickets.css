@@ -4,7 +4,6 @@
     padding: 0;
     background-color:transparent;
     border-radius: 20px;
-    box-shadow: none;
     font-family: 'Inter', sans-serif;
   }
   
@@ -21,46 +20,28 @@
     border-spacing: 0 16px;
   }
 
-  .tabla-tickets thead {
-    margin-bottom: 12px;
-    display: table-header-group;
-  }
-
-  .tabla-tickets thead tr {
-    background-color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  .header-wrapper {
     border-radius: 20px;
-  }
-
-  .tabla-tickets tr {
-    background-color: white;
-    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     overflow: hidden;
-    border: none;
-    resize: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 16px;
   }
-
-  .tabla-tickets tr:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  
+  .header-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
   }
-
-  .tabla-tickets th {
-    background-color: transparent;
-    font-weight: 500;
+  
+  .header-wrapper th {
+    background-color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
     font-size: 1rem;
-    color: #090B0A;
     padding: 0.75rem 1rem;
     text-align: center;
     vertical-align: middle;
-    font-size: 14px;
-    border-bottom: none;
-    border-radius: 20px;
   }
 
-  
   .tabla-tickets td {
     background-color: transparent;
     font-weight: 400;
@@ -69,9 +50,12 @@
     padding: 0.75rem 1rem;
     text-align: center;
     vertical-align: middle;
-    font-size: 14px;
-    border-bottom: none;
-    border-radius: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  }
+
+  .tabla-tickets tr:hover td {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   }
 
   .th-flex {
@@ -81,8 +65,15 @@
     gap: 0.5rem;
   }
 
-  .tabla-tickets th:nth-child(2) .th-flex {
-    justify-content: flex-start;
+  
+  .tabla-tickets tbody tr td:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  
+  .tabla-tickets tbody tr td:last-child {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
 
 
