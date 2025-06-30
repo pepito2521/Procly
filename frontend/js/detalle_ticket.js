@@ -30,12 +30,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw new Error(data.error || "No se pudo obtener el ticket.");
     }
 
-    // Mostrar datos básicos en pantalla (opcional, según tu HTML actual)
+    // MOSTRAR DATOS BASICOS DEL TICKET
     document.getElementById("ticket-id").textContent = data.ticket_id;
     document.getElementById("ticket-nombre").textContent = data.nombre;
     document.getElementById("ticket-descripcion").textContent = data.descripcion;
     document.getElementById("ticket-estado").textContent = data.estado;
-    document.getElementById("estado-actual").textContent = data.estado;
     document.getElementById("ticket-presupuesto").textContent = data.presupuesto ?? "Sin límite";
     document.getElementById("ticket-fecha").textContent = data.fecha_entrega ?? "No asignada";
 
@@ -44,28 +43,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (error) {
     console.error("Error al cargar ticket:", error);
-    document.getElementById("ticket-info").innerHTML = `<p>Error al obtener el ticket: ${error.message}</p>`;
   }
 });
 
 
-// Marcar los pasos completados en el progress
+// PASOS COMPLETADOS EN PROGRESS BAR
 function actualizarProgreso(estado) {
-  const estadoNormalizado = estado.trim().toLowerCase();
-  const pasos = {
-    "Creado": "step-creado",
-    "En proceso": "step-proceso",
-    "Propuestas": "step-propuestas",
-    "En camino": "step-camino",
-    "Entregado": "step-entregado"
+  const mapaEstados = {
+    "creado": "step-creado",
+    "en proceso": "step-proceso",
+    "propuestas": "step-propuestas",
+    "en camino": "step-camino",
+    "entregado": "step-entregado"
   };
 
+  const estadoNormalizado = estado.trim().toLowerCase();
+
   let activar = true;
-  for (const key in pasos) {
-    const el = document.getElementById(pasos[key]);
+  for (const estadoKey in mapaEstados) {
+    const idPaso = mapaEstados[estadoKey];
+    const el = document.getElementById(idPaso);
     if (el) {
       if (activar) el.classList.add("paso-activo");
-      if (key.toLowerCase() === estadoNormalizado) activar = false;
+      if (estadoKey === estadoNormalizado) activar = false;
     }
   }
 }
