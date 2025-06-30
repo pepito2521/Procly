@@ -58,7 +58,7 @@ async function cargarTickets() {
       const fila = document.createElement("tr");
       fila.innerHTML = `
         <td>${ticket.ticket_id}</td>
-        <td>${ticket.descripcion}</td>
+        <td>${ticket.nombre}</td>
         <td>
           <span class="estado-badge ${claseEstado}">
             ${ticket.estado}

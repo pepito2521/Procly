@@ -42,20 +42,30 @@
     vertical-align: middle;
   }
 
+  .tabla-tickets tbody tr {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 16px;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  .tabla-tickets tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
   .tabla-tickets td {
     background-color: transparent;
-    font-weight: 400;
-    font-size: 1rem;
-    color: #090B0A;
     padding: 0.75rem 1rem;
     text-align: center;
     vertical-align: middle;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-  }
-
-  .tabla-tickets tr:hover td {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    font-weight: 400;
+    font-size: 1rem;
+    color: #090B0A;
   }
 
   .th-flex {
