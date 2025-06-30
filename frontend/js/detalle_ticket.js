@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Marcar los pasos completados en el progress
 function actualizarProgreso(estado) {
+  const estadoNormalizado = estado.trim().toLowerCase();
   const pasos = {
     "Creado": "step-creado",
     "En proceso": "step-proceso",
@@ -64,7 +65,7 @@ function actualizarProgreso(estado) {
     const el = document.getElementById(pasos[key]);
     if (el) {
       if (activar) el.classList.add("paso-activo");
-      if (key === estado) activar = false;
+      if (key.toLowerCase() === estadoNormalizado) activar = false;
     }
   }
 }

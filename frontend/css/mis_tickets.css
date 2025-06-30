@@ -130,11 +130,6 @@
   transition: transform 0.2s ease;
 }
 
-.ver-icono svg:hover {
-  transform: scale(1.15);
-}
-
-
 /* ESTADOS */
 
 .estado-badge {

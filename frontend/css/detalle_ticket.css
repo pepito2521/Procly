@@ -6,7 +6,7 @@
   font-family: 'Inter', sans-serif;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  gap: 2rem;
+  gap: 1rem;
   max-width: 1200px;
 }
 
