@@ -20,6 +20,7 @@ async function cargarNavbarDesdeArchivo(ruta) {
   placeholder.innerHTML = html;
 
   inicializarLogoutDirecto();
+  ocultarBotonVolverSiAplica();
 }
 // FUNCION: INICIALIZAR LOGOUT DESDE ICONO
 function inicializarLogoutDirecto() {
@@ -36,6 +37,18 @@ function inicializarLogoutDirecto() {
       window.location.href = "/index.html";
     }
   });
+}
+
+
+// FUNCIÓN: OCULTAR BOTÓN VOLVER SI ESTOY EN MENU_USER
+function ocultarBotonVolverSiAplica() {
+  const backButton = document.querySelector('.back-icon');
+  if (!backButton) return;
+
+  const currentPage = window.location.pathname;
+  if (currentPage.includes('menu_user.html')) {
+    backButton.style.display = 'none';
+  }
 }
 
 
