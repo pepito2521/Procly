@@ -126,7 +126,7 @@
 
         <!-- STEP 3: Presupuesto -->
         <section class="form-step" id="step-3" style="display:none">
-          <h2>¿Tenés un límite de plata para gastar?</h2>
+          <h2>¿Querés establecer un presupuesto límite?</h2>
           <div class="presupuesto-opciones">
             <label class="opcion-card">
               <input type="radio" name="limite" value="si" />
@@ -140,7 +140,7 @@
           
             <div class="form-group"id="presupuestoInputGroup" style="display: none;">
               <div class="input-with-unit">
-                <input type="number" name="presupuesto" placeholder="Indica tu Presupuesto" />
+                <input type="number" name="presupuesto" placeholder="Ingresá tu presupuesto máximo (opcional)" />
                 <span class="unidad">ARS</span>
               </div>
             </div>
@@ -153,9 +153,9 @@
         <section class="form-step" id="step-4" style="display:none">
           <div class="form-group">
             <select name="direccion_entrega" id="direccion_entrega" placeholder="Seleccioná la Dirección de Entrega" required>
-              <option value="" disabled selected>Seleccioná una dirección</option>
+              <option value="" disabled selected>Seleccioná la Dirección de Entrega</option>
             </select>                        
-            <input type="text" id="fecha_entrega" name="fecha_entrega" placeholder="Seleccioná la Fecha de Entrega" required>
+            <input type="text" id="fecha_entrega" class="input-fecha" name="fecha_entrega" placeholder="Seleccioná la Fecha de Entrega" required>
           </div>
           <div class="button-group">
             <button type="submit" class="submit-btn">Crear Ticket</button>

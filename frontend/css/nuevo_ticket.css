@@ -404,6 +404,23 @@ input[type="number"] {
 }
 
 
+/* STEP 4: DIRECCION & FECHA DE ENTREGA */
+
+.input-fecha {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+.input-fecha:hover,
+.input-fecha:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
 
 /* STEP 5: TICKET CREADO */
 
