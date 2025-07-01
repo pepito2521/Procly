@@ -42,7 +42,7 @@ function inicializarLogoutDirecto() {
 
 // FUNCIÓN: OCULTAR BOTÓN VOLVER SI ESTOY EN MENU_USER
 function ocultarBotonVolverSiAplica() {
-  const backButton = document.querySelector('.back-icon');
+  const backButton = document.getElementById('back-button');
   if (!backButton) return;
 
   const currentPage = window.location.pathname;
