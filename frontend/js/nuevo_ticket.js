@@ -1,4 +1,5 @@
 import { cargarNavbar } from './navbar.js';
+import { supabase } from './supabaseClient.js';
 
 let progressBar;
 let prevBtn;
