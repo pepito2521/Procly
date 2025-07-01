@@ -168,7 +168,26 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const form = e.target;
     const formData = new FormData(form);
+    
+    const archivo = formData.get('adjunto');
+    let archivoUrl = null;
   
+    if (archivo && archivo.size > 0) {
+      const nombreArchivo = `${Date.now()}_${archivo.name}`;
+  
+      const { data, error } = await supabase.storage
+        .from('adjuntos-ticket')
+        .upload(nombreArchivo, archivo);
+  
+      if (error) {
+        console.error('❌ Error al subir archivo:', error);
+        alert('Error al subir el archivo adjunto.');
+        return;
+      }
+  
+      archivoUrl = data.path;
+    }
+    
     const body = {
       categoria: categoriaSeleccionada,
       nombre: formData.get('nombre'),
@@ -177,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
       limite: formData.get('limite'),
       direccion_id: formData.get('direccion_entrega'),
       fecha_entrega: formData.get('fecha_entrega'),
-      archivo_url: null
+      archivo_url: archivoUrl
     };
   
     const token = localStorage.getItem('supabaseToken');
