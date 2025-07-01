@@ -96,7 +96,7 @@ exports.obtenerDirecciones = async (req, res) => {
 
         const { data, error } = await supabase
           .from('tickets')
-          .select('ticket_id, descripcion, estado');
+          .select('ticket_id, nombre, estado');
     
         if (error) throw error;
     
