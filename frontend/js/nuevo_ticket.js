@@ -141,13 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
   }
-
-
   showStep(currentStep);
+
 
   // STEP 4: DIRECCION DE ENTREGA Y FECHA
 
-  // Direccion de entrega segun usuario
 
   async function cargarDirecciones() {
     const token = localStorage.getItem('supabaseToken');
@@ -169,10 +167,14 @@ document.addEventListener("DOMContentLoaded", () => {
   
       if (res.ok) {
         const select = document.getElementById('direccion_entrega');
-        data.forEach(dir => {
+  
+        // Limpiar opciones previas (por si recargas varias veces)
+        select.innerHTML = '<option value="" disabled selected>Seleccioná la Dirección de Entrega</option>';
+  
+        data.forEach((dir, index) => {
           const option = document.createElement('option');
           option.value = dir.direccion_id;
-          option.textContent = dir.direccion;
+          option.textContent = dir.direccion;  
           select.appendChild(option);
         });
       } else {
@@ -182,6 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error('Error al cargar direcciones:', err);
     }
   }
+  
   cargarDirecciones();
 
   // DATE PICKER
