@@ -8,6 +8,6 @@ export const supabase = createClient(
 export async function setSupabaseAuthToken(token) {
   await supabase.auth.setSession({
     access_token: token,
-    refresh_token: '',
+    refresh_token: token
   });
 }
