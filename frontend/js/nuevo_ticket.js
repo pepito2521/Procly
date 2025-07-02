@@ -1,5 +1,6 @@
 import { cargarNavbar } from './navbar.js';
-import { supabase } from './supabaseClient.js';
+import { supabase, setSupabaseAuthToken } from './supabaseClient.js';
+
 
 let progressBar;
 let prevBtn;
@@ -201,7 +202,15 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const form = e.target;
     const formData = new FormData(form);
-    
+  
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      alert('Token de autenticación no encontrado');
+      return;
+    }
+  
+    await setSupabaseAuthToken(token);
+  
     const archivo = formData.get('adjunto');
     let archivoUrl = null;
   
@@ -221,9 +230,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
       archivoUrl = data.path;
     }
-
+  
     const presupuestoRaw = formData.get('presupuesto');
     const presupuestoNumerico = presupuestoRaw ? Number(presupuestoRaw.replace(/\./g, '')) : null;
+  
     const body = {
       categoria: categoriaSeleccionada,
       nombre: formData.get('nombre'),
@@ -234,12 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
       fecha_entrega: formData.get('fecha_entrega'),
       archivo_url: archivoUrl
     };
-  
-    const token = localStorage.getItem('supabaseToken');
-    if (!token) {
-      alert('Token de autenticación no encontrado');
-      return;
-    }
   
     try {
       const res = await fetch('https://procly.onrender.com/tickets', {
@@ -265,6 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert('Error de red al crear el ticket');
     }
   });
+  
 
   const adjuntoInput = document.getElementById('adjunto');
   const labelAdjunto = document.querySelector('.custom-file-upload label');
