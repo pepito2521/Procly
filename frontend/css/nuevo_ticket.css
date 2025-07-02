@@ -152,9 +152,14 @@
   color: #9CA3AF;
 }
 
+.form-group select option {
+  color: #090B0A;
+}
+
 .form-group select option[disabled] {
   color: #9CA3AF;
 }
+
 
 
 /* EFETO DE TRANSICION ENTRE STEPS */

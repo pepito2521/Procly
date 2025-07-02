@@ -174,7 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let archivoUrl = null;
   
     if (archivo && archivo.size > 0) {
-      const nombreArchivo = `${Date.now()}_${archivo.name}`;
+      const nombreLimpio = archivo.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\.-]/g, '');
+      const nombreArchivo = `${Date.now()}_${nombreLimpio}`;
   
       const { data, error } = await supabase.storage
         .from('adjuntos-ticket')
