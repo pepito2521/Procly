@@ -114,6 +114,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  const presupuestoInput = document.querySelector('input[name="presupuesto"]');
+  if (presupuestoInput) {
+    presupuestoInput.addEventListener('input', (e) => {
+      const input = e.target;
+      const raw = input.value;
+      const cursorStart = input.selectionStart;
+    
+      const numeric = raw.replace(/\D/g, '');
+      if (numeric === '') {
+        input.value = '';
+        return;
+      }
+    
+      const formatted = numeric.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    
+      const countDotsBefore = (str, pos) => (str.slice(0, pos).match(/\./g) || []).length;
+    
+      const oldDots = countDotsBefore(raw, cursorStart);
+      const newDots = countDotsBefore(formatted, cursorStart + (formatted.length - raw.length));
+    
+      const cursorPos = cursorStart + (newDots - oldDots);
+    
+      input.value = formatted;
+      input.setSelectionRange(cursorPos, cursorPos);
+    });
+    
+  }
+
+
   showStep(currentStep);
 
   // STEP 4: DIRECCION DE ENTREGA Y FECHA
@@ -189,12 +218,14 @@ document.addEventListener("DOMContentLoaded", () => {
   
       archivoUrl = data.path;
     }
-    
+
+    const presupuestoRaw = formData.get('presupuesto');
+    const presupuestoNumerico = presupuestoRaw ? Number(presupuestoRaw.replace(/\./g, '')) : null;
     const body = {
       categoria: categoriaSeleccionada,
       nombre: formData.get('nombre'),
       descripcion: formData.get('descripcion'),
-      presupuesto: formData.get('presupuesto'),
+      presupuesto: presupuestoNumerico,
       limite: formData.get('limite'),
       direccion_id: formData.get('direccion_entrega'),
       fecha_entrega: formData.get('fecha_entrega'),
