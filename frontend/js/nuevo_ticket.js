@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   prevBtn = document.getElementById("progressBarBtn");
 
   function showStep(index) {
+    console.log("Mostrando step:", index, "Total steps:", steps.length);
     steps.forEach((step, i) => {
       step.style.display = i === index ? "block" : "none";
       step.classList.remove("slide-in");
@@ -39,9 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     
-
-
-    // OCULTAR PROGRESSBAR EN EL ULTIMO PASO
+    // FUNCIONAMIENTO DEL PROGRESSBAR
     const progressBarContainer = document.querySelector(".progress-bar-container");
     if (index === steps.length - 1) {
       progressBarContainer.style.display = "none";
