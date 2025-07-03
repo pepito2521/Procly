@@ -501,6 +501,20 @@ input[type="number"] {
   background-color: #44504B; 
 }
 
+.copiar-btn {
+  margin: 0 1rem;
+  padding: 0.4rem 1rem;
+  background-color: #F3F4F6;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.copiar-btn:hover {
+  background-color: #E5E7EB;
+}
 
 /* PROGRESS BAR */
 
