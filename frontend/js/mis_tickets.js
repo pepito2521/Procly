@@ -66,8 +66,8 @@ async function cargarTickets() {
         </td>
         <td>
           <a href="detalle_ticket.html?id=${ticket.ticket_id}" class="ver-icono">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#090B0A" viewBox="0 0 16 16">
-              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#090B0A" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793L9.146 4.354a.5.5 0 1 1 .708-.708l4.5 4.5a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
             </svg>
           </a>
         </td>
