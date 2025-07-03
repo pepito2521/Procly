@@ -65,11 +65,12 @@ async function cargarTickets() {
           </span>
         </td>
         <td>
-          <a href="detalle_ticket.html?id=${ticket.ticket_id}" class="ver-icono">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#090B0A" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793L9.146 4.354a.5.5 0 1 1 .708-.708l4.5 4.5a.5.5 0 0 1 0 .708l-4.5 4.5a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-            </svg>
-          </a>
+        <a href="detalle_ticket.html?id=${ticket.ticket_id}" class="ver-icono">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#090B0A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
         </td>
       `;
       tbody.appendChild(fila);

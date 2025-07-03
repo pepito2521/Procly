@@ -100,6 +100,7 @@
 }
 
 /* COLUMNA DERECHA: DETALLES & PANEL DE ACCIONES */
+
 .detalle-ticket-columna-derecha {
   display: flex;
   flex-direction: column;
@@ -192,6 +193,30 @@
   font-size: 1.2rem;
   color: #333;
 }
+
+.detalle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 2rem;
+  margin-top: 1rem;
+}
+
+.detalle-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalle-label {
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.25rem;
+}
+
+.detalle-valor {
+  color: #111827;
+  font-size: 1.1rem;
+}
+
 
 
 /* PANEL DINAMICO: PROPUESTAS */
