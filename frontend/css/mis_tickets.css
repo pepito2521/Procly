@@ -21,7 +21,6 @@
 
 .header-wrapper {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-  margin-bottom: 16px;
 }
 
 .header-wrapper table {
@@ -58,7 +57,7 @@
   background-color: white;
   box-shadow: none;
   border-radius: 0;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.05s ease;
 }
 
 .tabla-tickets tbody tr:hover {
@@ -103,6 +102,14 @@
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
+
+.truncar-texto {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
   
 /* COLUMNAS PERSONALIZADAS */
 
@@ -132,6 +139,7 @@
 .tabla-tickets th:nth-child(4),
 .tabla-tickets td:nth-child(4) {
   width: 10%;
+  text-align: center;
 }
 
 /* ICONO DE VER */

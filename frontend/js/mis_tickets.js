@@ -57,7 +57,7 @@ async function cargarTickets() {
       const claseEstado = estadoClase[ticket.estado] || "creado"; 
       const fila = document.createElement("tr");
       fila.innerHTML = `
-        <td>${ticket.codigo_ticket || ticket.ticket_id}</td>
+        <td><div class="truncar-texto" title="${ticket.codigo_ticket || ticket.ticket_id}">${ticket.codigo_ticket || ticket.ticket_id}</div></td>
         <td>${ticket.nombre}</td>
         <td>
           <span class="estado-badge ${claseEstado}">
