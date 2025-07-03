@@ -61,6 +61,10 @@
   transition: background-color 0.2s ease;
 }
 
+.tabla-tickets tbody tr:hover {
+  background-color: #F9F9F9;
+}
+
 .tabla-tickets tbody tr:last-child td:first-child {
   border-bottom-left-radius: 12px;
 }
@@ -84,7 +88,6 @@
   align-items: center;
   justify-content: flex-start;
 }
-
 
 .body-wrapper {
   max-height: 600px;
