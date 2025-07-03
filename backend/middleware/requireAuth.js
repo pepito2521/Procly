@@ -20,10 +20,6 @@ module.exports = async function requireAuth(req, res, next) {
     console.error('🛑 Error al validar token:', error);
     return res.status(401).json({ error: 'Token inválido o expirado' });
   }
-
-  console.log("🧪 Usuario completo autenticado:", data.user);
-
   req.user = data.user;
-  console.log("🧪 Usuario autenticado:", data.user.id);
   next();
 };

@@ -1,7 +1,14 @@
 const { supabase } = require('../config/supabase');
 
-
 // CREAR TICKET
+
+function generarCodigoTicket() {
+  const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const numeros = Math.floor(1000 + Math.random() * 9000);
+  const letra = letras[Math.floor(Math.random() * letras.length)];
+  return `TKT-${letra}${numeros}`;
+}
+
 exports.crearTicket = async (req, res) => {
   try {
     const {
@@ -16,7 +23,7 @@ exports.crearTicket = async (req, res) => {
     } = req.body;
 
     const user_id = req.user?.id || req.body.user_id;
-
+    const codigo_ticket = generarCodigoTicket();
     const { data: perfil, error: errorPerfil } = await supabase
       .from('profiles')
       .select('empresa_id')
@@ -39,13 +46,11 @@ exports.crearTicket = async (req, res) => {
       direccion_id,
       fecha_entrega,
       archivo_url,
-      estado: 'Creado'
+      estado: 'Creado',
+      codigo_ticket
     });
 
     if (error) throw error;
-
-    console.log('🧪 [DEBUG CREACIÓN] user_id insertado en ticket:', user_id);
-    console.log('🧪 [DEBUG GET] user_id autenticado:', req.user?.id);
 
     res.status(201).json({ message: 'Ticket creado con éxito' });
   } catch (err) {
@@ -60,8 +65,6 @@ exports.crearTicket = async (req, res) => {
 exports.obtenerDirecciones = async (req, res) => {
     try {
       const user_id = req.user?.id || req.query.user_id;
-
-      console.log('🧪 [DEBUG] ID del usuario autenticado:', user_id);
   
       const { data: perfil, error: errorPerfil } = await supabase
         .from('profiles')
@@ -92,15 +95,12 @@ exports.obtenerDirecciones = async (req, res) => {
   exports.obtenerTickets = async (req, res) => {
       try {
         const user_id = req.user?.id;
-        console.log("🧪 [DEBUG] ID del usuario autenticado:", user_id);
 
         const { data, error } = await supabase
           .from('tickets')
-          .select('ticket_id, nombre, estado');
-    
+          .select('ticket_id, codigo_ticket, nombre, estado');
+
         if (error) throw error;
-    
-        console.log("🧪 [DEBUG] Tickets obtenidos:", data);
     
         res.json(data);
       } catch (err) {
