@@ -432,17 +432,22 @@ input[type="number"] {
   padding: 2rem;
 }
 
+.ticket-confirmacion-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
 #copiarIcono svg {
   transition: fill 0.3s ease;
 }
 
 #copiarIcono.copiado svg {
-  fill: #3E8914;
   opacity: 0.9;
 }
-
-
-
 
 /* BOTONES DE PASO ENTRE STEPS & SUBMIT*/
 
