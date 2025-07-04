@@ -214,8 +214,8 @@
 }
 
 .detalle-valor {
-  color: #111827;
-  font-size: 1.1rem;
+  color:   #2f3e46;;
+  font-size: 1rem;
 }
 
 /* ESTADOS */
@@ -238,7 +238,7 @@
   background-color: #F49F0A;
 }
 
-.estado-badge.en-progreso {
+.estado-badge.en-proceso {
   background-color: #F49F0A;
 }
 
