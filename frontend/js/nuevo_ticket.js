@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
   prevBtn = document.getElementById("progressBarBtn");
+  const progressBarContainer = document.querySelector(".progress-bar-container");
 
   function showStep(index) {
     console.log("Mostrando step:", index, "Total steps:", steps.length);
@@ -41,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
     // FUNCIONAMIENTO DEL PROGRESSBAR
-    const progressBarContainer = document.querySelector(".progress-bar-container");
+  
     if (index === steps.length - 1) {
       progressBarContainer.style.display = "none";
     } else {
