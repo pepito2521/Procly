@@ -31,10 +31,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // MOSTRAR DATOS BASICOS DEL TICKET
-    document.getElementById("ticket-id").textContent = data.ticket_id;
+    document.getElementById("ticket-id").textContent = data.codigo_ticket;
     document.getElementById("ticket-nombre").textContent = data.nombre;
     document.getElementById("ticket-descripcion").textContent = data.descripcion;
-    document.getElementById("ticket-estado").textContent = data.estado;
+    const estadoSpan = document.createElement("span");
+    estadoSpan.classList.add("estado-badge", data.estado.toLowerCase().replace(/\s+/g, "-"));
+    estadoSpan.textContent = data.estado;
+    const estadoContainer = document.getElementById("ticket-estado");
+    estadoContainer.innerHTML = "";
+    estadoContainer.appendChild(estadoSpan);
     document.getElementById("ticket-presupuesto").textContent = data.presupuesto ?? "Sin límite";
     document.getElementById("ticket-fecha").textContent = data.fecha_entrega ?? "No asignada";
 
