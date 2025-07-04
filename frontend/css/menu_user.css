@@ -26,7 +26,7 @@ main {
     max-width: 100%;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    min-height: 500px;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -82,8 +82,8 @@ main {
   .admin-card-icon-circle {
     background-color: #edf4f4;
     border-radius: 50%;
-    width: 64px;
-    height: 64px;
+    width: 110px;
+    height: 110px;
     margin: 0 auto 12px;
     display: flex;
     align-items: center;
