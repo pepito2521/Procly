@@ -297,33 +297,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // MENSAJE CONDIFRMACION: CODIGO TICKET
   function mostrarConfirmacion(codigoTicket) {
-    const contenedor = document.getElementById("codigoTicketContenedor");
+    // Mostrar el código
+    const textoCodigo = document.getElementById("codigoTicketTexto");
+    textoCodigo.textContent = codigoTicket;
   
-    contenedor.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#090B0A" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
-        <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
-        <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
-        <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
-        <path d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
-        <path d="M12 9h2V8h-2z"/>
-      </svg>
-      <span id="codigoTicketTexto">${codigoTicket}</span>
-      <button class="copiar-btn" onclick="copiarCodigoTicket('${codigoTicket}')">Copiar</button>
-      <a href="mis_tickets.html" class="btn2">Ver mis tickets</a>
-    `;
-  }  
-
+    // Guardar el código en dataset para usarlo luego
+    const copiarIcono = document.getElementById("copiarIcono");
+    copiarIcono.dataset.codigo = codigoTicket;
+    copiarIcono.classList.remove("copiado"); // En caso de mostrar varios
+  }
 });
 
- // ADICIONAL: COPIAR CODIGO TICKET
-window.copiarCodigoTicket = function (codigo) {
+// ADICIONAL: COPIAR CODIGO TICKET      
+window.copiarCodigoTicket = function () {
+  const icono = document.getElementById("copiarIcono");
+  const codigo = icono.dataset.codigo;
+
+  if (icono.classList.contains("copiado")) return;
+
   navigator.clipboard.writeText(codigo).then(() => {
-    const btn = document.querySelector('.copiar-btn');
-    btn.textContent = 'Copiado ✔️';
-    setTimeout(() => {
-      btn.textContent = 'Copiar';
-    }, 2000);
+    icono.innerHTML = `
+      <!-- Icono copiado -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#3E8914" viewBox="0 0 256 256">
+        <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
+      </svg>
+    `;
+    icono.classList.add("copiado");
+    icono.style.pointerEvents = "none";
   }).catch(err => {
-    console.error('Error al copiar al portapapeles:', err);
+    console.error("Error al copiar:", err);
   });
 };

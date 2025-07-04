@@ -1,5 +1,5 @@
 import { cargarNavbarAdmin } from './navbar.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-    cargarNavbarAdmin();
+    cargarNavbar();
 });
