@@ -297,12 +297,12 @@
 }
 
 .card-propuesta:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .card-propuesta.selected {
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1);
   transform: translateY(0);
 }
 
@@ -316,15 +316,14 @@
 }
 
 #btn-seleccionar-propuesta{
-  max-width: calc(150px * 3 + 2rem * 2);
+  width: 100%;
+  /* max-width: 516px; */
+  margin-top: 1rem;
 }
 
 #btn-seleccionar-propuesta:disabled {
-  background-color: #e0f2f1;
-  color: #90a4ae;
   cursor: default;
   pointer-events: none;
-  border: 1px solid #b2dfdb;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
