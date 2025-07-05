@@ -7,7 +7,7 @@
   font-family: 'Inter', sans-serif;
   display: grid;
   grid-template-columns: 1fr 4fr;
-  gap: 2.5rem;
+  gap: 2rem;
   max-width: 1200px;
 }
 
@@ -106,7 +106,7 @@
 .detalle-ticket-columna-derecha {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
   height: 100%;
   width: 100%;
 }
@@ -301,7 +301,7 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-.card-propuesta.seleccionada {
+.card-propuesta.selected {
 box-shadow: none;
 }
 

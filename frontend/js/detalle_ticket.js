@@ -110,3 +110,72 @@ function mostrarPanelPorEstado(estado, data) {
     }
   }
 }
+
+// SELECTOR DE PROPUESTA
+let propuestaSeleccionada = null;
+
+document.addEventListener("click", (e) => {
+  const card = e.target.closest(".card-propuesta");
+  if (!card) return;
+
+  const propuesta = card.getAttribute("data-propuesta");
+
+  if (propuestaSeleccionada === propuesta) {
+    card.classList.remove("selected");
+    propuestaSeleccionada = null;
+
+    const btn = document.getElementById("btn-seleccionar-propuesta");
+    if (btn) btn.disabled = true;
+    return;
+  }
+
+  document.querySelectorAll(".card-propuesta").forEach(el => el.classList.remove("selected"));
+  card.classList.add("selected");
+  propuestaSeleccionada = propuesta;
+
+  const btn = document.getElementById("btn-seleccionar-propuesta");
+  if (btn) btn.disabled = false;
+});
+
+
+// ENVÍA LA PROPUESTA SELECCIONADA AL BACKEND
+async function enviarSeleccionPropuesta(ticket_id) {
+  if (!propuestaSeleccionada) {
+    alert("Primero seleccioná una propuesta.");
+    return;
+  }
+
+  const token = localStorage.getItem("supabaseToken");
+  if (!token) {
+    alert("No estás autenticado.");
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://procly.onrender.com/tickets/${ticket_id}/seleccionar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        propuesta_seleccionada: propuestaSeleccionada
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Error al seleccionar propuesta.");
+    }
+
+    alert("¡Propuesta seleccionada correctamente!");
+    location.reload();
+
+  } catch (error) {
+    console.error("Error al enviar propuesta seleccionada:", error);
+    alert("Ocurrió un error al guardar tu selección.");
+  }
+}
+
+

@@ -51,7 +51,7 @@ exports.crearTicket = async (req, res) => {
     });
 
     if (error) throw error;
-    
+
     res.status(201).json({ message: 'Ticket creado con éxito', codigo_ticket });
 
   } catch (err) {
@@ -131,4 +131,45 @@ try {
     console.error("Error al obtener el ticket:", err.message);
     res.status(500).json({ error: 'No se pudo obtener el ticket', detalle: err.message });
 }
+};
+
+
+// SELECCIONAR PROPUESTA PARA UN TICKET
+exports.seleccionarPropuesta = async (req, res) => {
+  try {
+    const ticketId = req.params.id;
+    const { propuesta_seleccionada } = req.body;
+    const userId = req.user.id;
+
+    if (!["A", "B", "C"].includes(propuesta_seleccionada)) {
+      return res.status(400).json({ error: "Propuesta inválida. Debe ser A, B o C." });
+    }
+
+    const { data: ticket, error: errorTicket } = await supabase
+      .from('tickets')
+      .select('ticket_id, user_id')
+      .eq('ticket_id', ticketId)
+      .single();
+
+    if (errorTicket) throw errorTicket;
+    if (!ticket || ticket.user_id !== userId) {
+      return res.status(403).json({ error: "No tenés permiso para modificar este ticket" });
+    }
+
+    const { error: updateError } = await supabase
+      .from('tickets')
+      .update({
+        propuesta_seleccionada,
+        estado: "En camino"
+      })
+      .eq('ticket_id', ticketId);
+
+    if (updateError) throw updateError;
+
+    res.json({ message: "Propuesta seleccionada correctamente", nuevaEtapa: "En camino" });
+
+  } catch (err) {
+    console.error("Error al seleccionar propuesta:", err.message);
+    res.status(500).json({ error: "No se pudo guardar la propuesta", detalle: err.message });
+  }
 };

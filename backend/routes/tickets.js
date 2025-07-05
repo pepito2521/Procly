@@ -4,7 +4,8 @@ const {
     crearTicket,
     obtenerDirecciones,
     obtenerTickets,
-    obtenerTicketPorId
+    obtenerTicketPorId,
+    seleccionarPropuesta
 } = require('../controllers/ticketsController');
 const requireAuth = require('../middleware/requireAuth');
 
@@ -14,5 +15,6 @@ router.get('/direcciones', requireAuth, obtenerDirecciones);
 router.post('/', requireAuth, crearTicket);
 router.get('/', requireAuth, obtenerTickets);
 router.get('/:id', requireAuth, obtenerTicketPorId);
+router.post('/:id/seleccionar', requireAuth, seleccionarPropuesta);
 
 module.exports = router;
