@@ -208,6 +208,7 @@
 .detalle-item {
   display: flex;
   flex-direction: column;
+  gap: 0.8rem;
 }
 
 .detalle-label {
@@ -291,8 +292,8 @@
 }
 
 .card-propuesta img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 }
 
 .card-propuesta p {
