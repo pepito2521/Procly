@@ -54,6 +54,44 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // PASOS COMPLETADOS EN PROGRESS BAR
 function actualizarProgreso(estado) {
+
+  const estadoNormalizado = estado.trim().toLowerCase();
+
+  if (estadoNormalizado === "cancelado") {
+    document.querySelectorAll(".icono-circulo").forEach(circulo => {
+      circulo.classList.remove("paso-activo");
+      circulo.classList.add("cancelado");
+    });
+    return;
+  }
+
+  if (estadoNormalizado === "revisar") {
+    const stepCreado = document.getElementById("step-creado");
+    const stepProceso = document.getElementById("step-proceso");
+
+    document.querySelectorAll(".icono-circulo").forEach(c => {
+      c.classList.remove("paso-activo", "cancelado", "revisar");
+    });
+  
+    if (stepCreado) {
+      stepCreado.classList.add("paso-activo");
+    }
+
+    if (stepProceso) {
+      const circulo = stepProceso.querySelector(".icono-circulo");
+      if (circulo) {
+        circulo.classList.add("revisar");
+        circulo.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#fff" viewBox="0 0 256 256">
+            <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"></path>
+          </svg>
+        `;
+      }
+    }
+    return;
+    
+  }
+
   const mapaEstados = {
     "creado": "step-creado",
     "en proceso": "step-proceso",
@@ -61,8 +99,6 @@ function actualizarProgreso(estado) {
     "en camino": "step-camino",
     "entregado": "step-entregado"
   };
-
-  const estadoNormalizado = estado.trim().toLowerCase();
 
   let activar = true;
   for (const estadoKey in mapaEstados) {
@@ -117,7 +153,7 @@ async function enviarSeleccionPropuesta(ticket_id) {
 
 //  FUNCION: DESCARGAR PROPUESTA
 
-function descargarPropuesta(url) {
+async function descargarPropuesta(url) {
   const params = new URLSearchParams(window.location.search);
   const ticketId = params.get("id");
 
@@ -132,12 +168,23 @@ function descargarPropuesta(url) {
 
   const nombreArchivo = `PROPUESTA ${propuesta} - ${ticketId}.pdf`;
 
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = nombreArchivo;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+
+    const blobUrl = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = nombreArchivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(blobUrl);
+
+  } catch (error) {
+    console.error("Error al descargar archivo:", error);
+    alert("Hubo un problema al intentar descargar el archivo.");
+  }
 }
 
 //  FUNCION: ABRIR PROPUESTA
