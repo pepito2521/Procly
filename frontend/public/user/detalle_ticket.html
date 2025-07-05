@@ -130,28 +130,55 @@
           <p>Seleccionar propuesta</p>
           <div class="propuestas-container">
             <div class="card-propuesta" data-propuesta="A">
-              <div class="icono-descarga" onclick="descargarPropuesta('{{propuesta_a}}')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                  <path d="M50.34,117.66a8,8,0,0,1,11.32-11.32L120,164.69V32a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32l-72,72a8,8,0,0,1-11.32,0ZM216,208H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
-                </svg>
+              <div class="acciones-propuesta">
+                <!-- VER -->
+                <div class="icono-ver" onclick="abrirPropuesta('{{propuesta_a}}')" title="Ver propuesta">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M128,56c-73.33,0-104,66.67-104,72s30.67,72,104,72,104-66.67,104-72S201.33,56,128,56Zm0,120c-26.47,0-48-21.53-48-48s21.53-48,48-48,48,21.53,48,48S154.47,176,128,176Zm0-80a32,32,0,1,0,32,32A32.05,32.05,0,0,0,128,96Z"/>
+                  </svg>
+                </div>
+                <!-- DESCARGAR -->
+                <div class="icono-descarga" onclick="descargarPropuesta('{{propuesta_a}}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                    <path d="M50.34,117.66a8,8,0,0,1,11.32-11.32L120,164.69V32a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32l-72,72a8,8,0,0,1-11.32,0ZM216,208H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
+                  </svg>
+                </div>
               </div>
               <img src="/assets/icons/file-pdf.svg" alt="PDF" />
               <p>Propuesta A</p>
             </div>
             <div class="card-propuesta" data-propuesta="B">
-              <div class="icono-descarga" onclick="descargarPropuesta('{{propuesta_b}}')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                  <path d="M50.34,117.66a8,8,0,0,1,11.32-11.32L120,164.69V32a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32l-72,72a8,8,0,0,1-11.32,0ZM216,208H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
-                </svg>
+              <div class="acciones-propuesta">
+                <!-- VER -->
+                <div class="icono-ver" onclick="abrirPropuesta('{{propuesta_b}}')" title="Ver propuesta">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M128,56c-73.33,0-104,66.67-104,72s30.67,72,104,72,104-66.67,104-72S201.33,56,128,56Zm0,120c-26.47,0-48-21.53-48-48s21.53-48,48-48,48,21.53,48,48S154.47,176,128,176Zm0-80a32,32,0,1,0,32,32A32.05,32.05,0,0,0,128,96Z"/>
+                  </svg>
+                </div>
+                <!-- DESCARGAR -->
+                <div class="icono-descarga" onclick="descargarPropuesta('{{propuesta_b}}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                    <path d="M50.34,117.66a8,8,0,0,1,11.32-11.32L120,164.69V32a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32l-72,72a8,8,0,0,1-11.32,0ZM216,208H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
+                  </svg>
+                </div>
               </div>
               <img src="/assets/icons/file-pdf.svg" alt="PDF" />
               <p>Propuesta B</p>
             </div>
             <div class="card-propuesta" data-propuesta="C">
-              <div class="icono-descarga" onclick="descargarPropuesta('{{propuesta_c}}')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                  <path d="M50.34,117.66a8,8,0,0,1,11.32-11.32L120,164.69V32a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32l-72,72a8,8,0,0,1-11.32,0ZM216,208H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
-                </svg>
+              <div class="acciones-propuesta">
+                <!-- VER -->
+                <div class="icono-ver" onclick="abrirPropuesta('{{propuesta_c}}')" title="Ver propuesta">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M128,56c-73.33,0-104,66.67-104,72s30.67,72,104,72,104-66.67,104-72S201.33,56,128,56Zm0,120c-26.47,0-48-21.53-48-48s21.53-48,48-48,48,21.53,48,48S154.47,176,128,176Zm0-80a32,32,0,1,0,32,32A32.05,32.05,0,0,0,128,96Z"/>
+                  </svg>
+                </div>
+                <!-- DESCARGAR -->
+                <div class="icono-descarga" onclick="descargarPropuesta('{{propuesta_c}}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
+                    <path d="M50.34,117.66a8,8,0,0,1,11.32-11.32L120,164.69V32a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32l-72,72a8,8,0,0,1-11.32,0ZM216,208H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"></path>
+                  </svg>
+                </div>
               </div>
               <img src="/assets/icons/file-pdf.svg" alt="PDF" />
               <p>Propuesta C</p>

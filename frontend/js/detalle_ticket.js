@@ -75,69 +75,6 @@ function actualizarProgreso(estado) {
   }
 }
 
-// PANEL DINAMICO: MENSAJES SEGUN ESTADO DEL TICKET
-function mostrarPanelPorEstado(estado, data) {
-  const panel = document.getElementById("panel-estado-dinamico");
-  panel.innerHTML = "";
-
-  const templateId = {
-    "Creado": "template-panel-creado",
-    "En proceso": "template-panel-proceso",
-    "Propuestas": "template-panel-propuestas",
-    "En camino": "template-panel-camino",
-    "Entregado": "template-panel-entregado",
-    "Revisar": "template-panel-revisar",
-    "Cancelado": "template-panel-cancelado"
-  }[estado];
-
-  if (templateId) {
-    const template = document.getElementById(templateId);
-    if (template) {
-      const clone = template.content.cloneNode(true);
-
-      // Si el estado es "Propuestas", reemplazá placeholders por data real
-      if (estado === "Propuestas") {
-        clone.querySelectorAll(".icono-descarga").forEach((el, index) => {
-          const urls = [data.propuesta_a, data.propuesta_b, data.propuesta_c];
-          el.setAttribute("onclick", `descargarPropuesta('${urls[index]}')`);
-        });
-
-        const btn = clone.getElementById("btn-seleccionar-propuesta");
-        if (btn) btn.setAttribute("onclick", `enviarSeleccionPropuesta('${data.ticket_id}')`);
-      }
-
-      panel.appendChild(clone);
-    }
-  }
-}
-
-// SELECTOR DE PROPUESTA
-let propuestaSeleccionada = null;
-
-document.addEventListener("click", (e) => {
-  const card = e.target.closest(".card-propuesta");
-  if (!card) return;
-
-  const propuesta = card.getAttribute("data-propuesta");
-
-  if (propuestaSeleccionada === propuesta) {
-    card.classList.remove("selected");
-    propuestaSeleccionada = null;
-
-    const btn = document.getElementById("btn-seleccionar-propuesta");
-    if (btn) btn.disabled = true;
-    return;
-  }
-
-  document.querySelectorAll(".card-propuesta").forEach(el => el.classList.remove("selected"));
-  card.classList.add("selected");
-  propuestaSeleccionada = propuesta;
-
-  const btn = document.getElementById("btn-seleccionar-propuesta");
-  if (btn) btn.disabled = false;
-});
-
-
 // ENVÍA LA PROPUESTA SELECCIONADA AL BACKEND
 async function enviarSeleccionPropuesta(ticket_id) {
   if (!propuestaSeleccionada) {
@@ -178,4 +115,113 @@ async function enviarSeleccionPropuesta(ticket_id) {
   }
 }
 
+//  FUNCION: DESCARGAR PROPUESTA
 
+function descargarPropuesta(url) {
+  const params = new URLSearchParams(window.location.search);
+  const ticketId = params.get("id");
+
+  if (!url || !ticketId) {
+    alert("No se puede descargar la propuesta.");
+    return;
+  }
+
+  const propuesta = url.includes("propuesta_a") ? "A" :
+                    url.includes("propuesta_b") ? "B" :
+                    url.includes("propuesta_c") ? "C" : "X";
+
+  const nombreArchivo = `PROPUESTA ${propuesta} - ${ticketId}.pdf`;
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = nombreArchivo;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+//  FUNCION: ABRIR PROPUESTA
+function abrirPropuesta(url) {
+  if (!url) {
+    alert("No hay propuesta disponible.");
+    return;
+  }
+  window.open(url, '_blank');
+}
+
+// PANEL DINAMICO: MENSAJES SEGUN ESTADO DEL TICKET
+function mostrarPanelPorEstado(estado, data) {
+  const panel = document.getElementById("panel-estado-dinamico");
+  panel.innerHTML = "";
+
+  const templateId = {
+    "Creado": "template-panel-creado",
+    "En proceso": "template-panel-proceso",
+    "Propuestas": "template-panel-propuestas",
+    "En camino": "template-panel-camino",
+    "Entregado": "template-panel-entregado",
+    "Revisar": "template-panel-revisar",
+    "Cancelado": "template-panel-cancelado"
+  }[estado];
+
+  if (templateId) {
+    const template = document.getElementById(templateId);
+    if (template) {
+      const clone = template.content.cloneNode(true);
+
+      if (estado === "Propuestas") {
+        const urls = [data.propuesta_a, data.propuesta_b, data.propuesta_c];
+
+        // DESCARGAR PROPUESTA
+        clone.querySelectorAll(".icono-descarga").forEach((el, index) => {
+          el.addEventListener("click", () => {
+            descargarPropuesta(urls[index]);
+          });
+        });
+
+        // VER PROPUESTA
+        clone.querySelectorAll(".icono-ver").forEach((el, index) => {
+          el.addEventListener("click", () => {
+            abrirPropuesta(urls[index]);
+          });
+        });
+
+        // SELECCIONAR PROPUESTA
+        const btn = clone.getElementById("btn-seleccionar-propuesta");
+        if (btn) {
+          btn.addEventListener("click", () => {
+            enviarSeleccionPropuesta(data.ticket_id);
+          });
+        }
+      }
+
+      panel.appendChild(clone);
+    }
+  }
+}
+
+// SELECTOR DE PROPUESTA
+let propuestaSeleccionada = null;
+
+document.addEventListener("click", (e) => {
+  const card = e.target.closest(".card-propuesta");
+  if (!card) return;
+
+  const propuesta = card.getAttribute("data-propuesta");
+
+  if (propuestaSeleccionada === propuesta) {
+    card.classList.remove("selected");
+    propuestaSeleccionada = null;
+
+    const btn = document.getElementById("btn-seleccionar-propuesta");
+    if (btn) btn.disabled = true;
+    return;
+  }
+
+  document.querySelectorAll(".card-propuesta").forEach(el => el.classList.remove("selected"));
+  card.classList.add("selected");
+  propuestaSeleccionada = propuesta;
+
+  const btn = document.getElementById("btn-seleccionar-propuesta");
+  if (btn) btn.disabled = false;
+});
