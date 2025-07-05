@@ -302,7 +302,8 @@
 }
 
 .card-propuesta.selected {
-box-shadow: none;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(0);
 }
 
 .icono-descarga {
@@ -312,5 +313,18 @@ box-shadow: none;
   font-size: 1rem;
   color: #555;
   cursor: pointer;
+}
+
+#btn-seleccionar-propuesta{
+  max-width: calc(150px * 3 + 2rem * 2);
+}
+
+#btn-seleccionar-propuesta:disabled {
+  background-color: #e0f2f1;
+  color: #90a4ae;
+  cursor: default;
+  pointer-events: none;
+  border: 1px solid #b2dfdb;
+  opacity: 0.7;
 }
 
