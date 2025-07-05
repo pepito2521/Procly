@@ -129,7 +129,10 @@
         <template id="template-panel-propuestas">
           <p>Seleccionar propuesta</p>
           <div class="propuestas-container">
+            
             <div class="card-propuesta" data-propuesta="A">
+              <img src="/assets/icons/file-pdf.svg" alt="PDF" />
+              <p>Propuesta A</p>
               <div class="acciones-propuesta">
                 <!-- VER -->
                 <div class="icono-ver" onclick="abrirPropuesta('{{propuesta_a}}')" title="Ver propuesta">
@@ -144,10 +147,11 @@
                   </svg>
                 </div>
               </div>
-              <img src="/assets/icons/file-pdf.svg" alt="PDF" />
-              <p>Propuesta A</p>
             </div>
+
             <div class="card-propuesta" data-propuesta="B">
+              <img src="/assets/icons/file-pdf.svg" alt="PDF" />
+              <p>Propuesta B</p>
               <div class="acciones-propuesta">
                 <!-- VER -->
                 <div class="icono-ver" onclick="abrirPropuesta('{{propuesta_b}}')" title="Ver propuesta">
@@ -162,10 +166,12 @@
                   </svg>
                 </div>
               </div>
-              <img src="/assets/icons/file-pdf.svg" alt="PDF" />
-              <p>Propuesta B</p>
             </div>
+           
             <div class="card-propuesta" data-propuesta="C">
+
+              <img src="/assets/icons/file-pdf.svg" alt="PDF" />
+              <p>Propuesta C</p>
               <div class="acciones-propuesta">
                 <!-- VER -->
                 <div class="icono-ver" onclick="abrirPropuesta('{{propuesta_c}}')" title="Ver propuesta">
@@ -180,9 +186,8 @@
                   </svg>
                 </div>
               </div>
-              <img src="/assets/icons/file-pdf.svg" alt="PDF" />
-              <p>Propuesta C</p>
             </div>
+            
             <button class="btn2" onclick="enviarSeleccionPropuesta('{{ticket_id}}')" id="btn-seleccionar-propuesta" disabled>Seleccionar Propuesta</button>
           </div>
         </template>
