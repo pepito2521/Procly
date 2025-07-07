@@ -1,4 +1,10 @@
+import { cargarLoader } from './loader.js';
+import { cargarNavbarProclier } from './navbar.js';
+
+await cargarLoader();
+
 document.addEventListener('DOMContentLoaded', async () => {
+    cargarNavbarProclier();
     const tabla = document.querySelector('#tabla-tickets-proclier tbody');
   
     try {

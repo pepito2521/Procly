@@ -1,6 +1,8 @@
+import { cargarLoader } from './loader.js';
 import { cargarNavbar } from './navbar.js';
 import { supabase, setSupabaseAuthToken } from './supabaseClient.js';
 
+await cargarLoader();
 
 let progressBar;
 let prevBtn;
