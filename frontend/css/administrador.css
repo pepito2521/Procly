@@ -28,6 +28,8 @@
   
   .sidebar.collapsed {
     width: 80px;
+    justify-content: center;
+    margin-left: 0;
   }
   
   .sidebar-header {
@@ -38,7 +40,7 @@
   .sidebar-header-content {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
   
   .logo-container {
@@ -88,6 +90,7 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+    margin-left: 0;
   }
   
   .sidebar-toggle:hover {
@@ -151,6 +154,11 @@
   .sidebar.collapsed .nav-text {
     opacity: 0;
     pointer-events: none;
+  }
+
+  .sidebar.collapsed .nav-icon {
+    margin: 0 auto;
+    display: block;
   }
   
   /* Sidebar Footer */
