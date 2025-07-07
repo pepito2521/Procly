@@ -1,10 +1,11 @@
 import { cargarLoader } from './loader.js';
 import { cargarNavbarProclier } from './navbar.js';
 
-await cargarLoader();
+document.addEventListener("DOMContentLoaded", async () => {
+  await cargarLoader();
+  await cargarNavbarProclier();
 
-document.addEventListener("DOMContentLoaded", () => {
-  cargarNavbarProclier();
+  document.body.classList.remove("oculto");
   
     const form = document.getElementById('form-crear-empresa');
   

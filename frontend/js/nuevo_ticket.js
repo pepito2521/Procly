@@ -172,7 +172,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (res.ok) {
         const select = document.getElementById('direccion_entrega');
   
-        // Limpiar opciones previas (por si recargas varias veces)
         select.innerHTML = '<option value="" disabled selected>Seleccioná la Dirección de Entrega</option>';
   
         data.forEach((dir, index) => {
@@ -301,14 +300,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // MENSAJE CONDIFRMACION: CODIGO TICKET
   function mostrarConfirmacion(codigoTicket) {
-    // Mostrar el código
+
     const textoCodigo = document.getElementById("codigoTicketTexto");
     textoCodigo.textContent = codigoTicket;
-  
-    // Guardar el código en dataset para usarlo luego
+
     const copiarIcono = document.getElementById("copiarIcono");
     copiarIcono.dataset.codigo = codigoTicket;
-    copiarIcono.classList.remove("copiado"); // En caso de mostrar varios
+    copiarIcono.classList.remove("copiado");
+    
+    lottie.loadAnimation({
+      container: document.getElementById('success-animation'),
+      renderer: 'svg',
+      loop: false,
+      autoplay: true,
+      path: '/assets/lottie/success-check.json'
+    });    
   }
 });
 

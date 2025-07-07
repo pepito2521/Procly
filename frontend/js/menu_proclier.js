@@ -1,8 +1,9 @@
 import { cargarLoader } from './loader.js';
 import { cargarNavbarProclier } from './navbar.js';
 
-await cargarLoader();
-
-document.addEventListener("DOMContentLoaded", () => {
-  cargarNavbarProclier();
+document.addEventListener("DOMContentLoaded", async () => {
+  await cargarLoader();
+  await cargarNavbarProclier();
+  
+  document.body.classList.remove("oculto");
 });

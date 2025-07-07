@@ -1,10 +1,12 @@
 import { cargarLoader } from './loader.js';
 import { cargarNavbarAdmin } from './navbar.js';
 
-await cargarLoader();
-
 document.addEventListener('DOMContentLoaded', async () => {
-    cargarNavbarAdmin();
+  await cargarLoader();
+  await cargarNavbarAdmin();
+
+  document.body.classList.remove("oculto");
+
     const tabla = document.querySelector('#tabla-usuarios-proclier tbody');
   
     try {
