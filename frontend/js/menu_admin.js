@@ -1,11 +1,11 @@
 import { cargarLoader } from './loader.js';
-import { cargarNavbarAdmin } from './navbar.js';
+import { cargarNavbar } from './navbar.js';
 
 
 
 document.addEventListener("DOMContentLoaded", async () => {
     await cargarLoader();
-    await cargarNavbarAdmin();
+    await cargarNavbar();
 
     document.body.classList.remove("oculto");
 });

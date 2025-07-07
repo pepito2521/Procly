@@ -3,9 +3,7 @@ import { supabase } from './supabaseClient.js';
 export async function cargarNavbar() {
   await cargarNavbarDesdeArchivo("/components/navbar.html");
 }
-export async function cargarNavbarAdmin() {
-  await cargarNavbarDesdeArchivo("/components/navbar_admin.html");
-}
+
 export async function cargarNavbarProclier() {
   await cargarNavbarDesdeArchivo("/components/navbar_proclier.html");
 }
