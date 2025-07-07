@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
     let redirectUrl;
     switch (perfil.role) {
       case 'admin':
-        redirectUrl = '/admin/menu_admin.html';
+        redirectUrl = '/admin/administrador.html';
         break;
       case 'proclier':
         redirectUrl = '/proclier/menu_proclier.html';

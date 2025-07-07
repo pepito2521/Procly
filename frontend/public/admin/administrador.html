@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="shortcut icon" href="/assets/img/favicon_procly.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/administrador.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <!-- Header del Sidebar -->
+            <div class="sidebar-header">
+                <div class="sidebar-header-content">
+                    <div class="logo-container" id="logoContainer">
+                        <div class="logo-icon">
+                            <div class="logo-inner"></div>
+                        </div>
+                    </div>
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i data-lucide="x" class="toggle-icon" id="toggleIcon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Items -->
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-section="dashboard">
+                    <i data-lucide="monitor" class="nav-icon"></i>
+                    <span class="nav-text">Dashboard</span>
+                </button>
+                <button class="nav-item" data-section="activity">
+                    <i data-lucide="clock" class="nav-icon"></i>
+                    <span class="nav-text">Registro de Actividad</span>
+                </button>
+                <button class="nav-item" data-section="users">
+                    <i data-lucide="users" class="nav-icon"></i>
+                    <span class="nav-text">Gestionar Usuarios</span>
+                </button>
+                <button class="nav-item" data-section="addresses">
+                    <i data-lucide="map-pin" class="nav-icon"></i>
+                    <span class="nav-text">Gestionar Direcciones</span>
+                </button>
+            </nav>
+
+            <!-- Footer del Sidebar -->
+            <div class="sidebar-footer" id="sidebarFooter">
+                <button class="footer-item">
+                    <i data-lucide="settings" class="footer-icon"></i>
+                    <span class="footer-text">Configuración</span>
+                </button>
+                <button class="footer-item">
+                    <i data-lucide="log-out" class="footer-icon"></i>
+                    <span class="footer-text">Cerrar Sesión</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-content">
+                    <h1 class="page-title" id="pageTitle">Dashboard</h1>
+                    <div class="header-actions">
+                        <button class="header-btn">
+                            <i data-lucide="arrow-left"></i>
+                        </button>
+                        <button class="header-btn">
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <main class="content-area">
+                <div class="content-wrapper">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <div class="card-icon-container">
+                                <i data-lucide="monitor" class="card-icon" id="cardIcon"></i>
+                            </div>
+                            <h2 class="card-title" id="cardTitle">Dashboard</h2>
+                            <p class="card-description" id="cardDescription">
+                                Visualiza la actividad de tu empresa en tiempo real.
+                            </p>
+                        </div>
+                        <div class="card-content">
+                            <button class="action-button" id="actionButton">
+                                Ir al Dashboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/34643615319" class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
+            <img src="/assets/img/whatsapp2.svg" alt="WhatsApp" />
+        </a>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="/js/administrador.js"></script>
+</body>
+</html>
