@@ -1,10 +1,11 @@
 import { cargarLoader } from './loader.js';
 import { cargarNavbar } from './navbar.js';
 
-await cargarLoader();
-
 document.addEventListener("DOMContentLoaded", async () => {
+  await cargarLoader();
   await cargarNavbar();
+  
+  document.body.classList.remove("oculto");
 
   const params = new URLSearchParams(window.location.search);
   const ticketId = params.get("id");
