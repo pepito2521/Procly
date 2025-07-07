@@ -1,33 +1,36 @@
 export async function cargarLoader() {
     document.body.classList.add("oculto");
-
+  
     try {
-        const res = await fetch('/components/loader.html');
-        const html = await res.text();
-        document.getElementById('loader-placeholder').innerHTML = html;
+      const res = await fetch('/components/loader.html');
+      const html = await res.text();
+      document.getElementById('loader-placeholder').innerHTML = html;
     } catch (error) {
-        console.error('Error al cargar el loader:', error);
+      console.error('Error al cargar el loader:', error);
     }
-
+  
     const esperarYOcultar = () => {
-        const loader = document.getElementById("loader");
-        if (loader) {
-        loader.classList.add("fade-out");
+      const loader = document.getElementById("loader");
+      if (loader) {
 
         setTimeout(() => {
+          loader.classList.add("fade-out");
+  
+          setTimeout(() => {
             loader.style.display = "none";
             document.body.classList.remove("oculto");
-        }, 500);
-        } else {
-
+          }, 500);
+        }, 600);
+      } else {
         document.body.classList.remove("oculto");
-        }
+      }
     };
-
+  
     if (document.readyState === "complete") {
-        esperarYOcultar();
+      esperarYOcultar();
     } else {
-        window.addEventListener("load", esperarYOcultar);
+      window.addEventListener("load", esperarYOcultar);
     }
-}
+  }
+  
   
