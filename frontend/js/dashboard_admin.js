@@ -1,9 +1,9 @@
 import { cargarLoader } from './loader.js';
-import { cargarNavbar } from './navbar.js';
+import { cargarMenuLateral } from './menu_lateral.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     await cargarLoader();
-    await cargarNavbar();
+    await cargarMenuLateral();
 
     document.body.classList.remove("oculto");
 });
