@@ -20,7 +20,7 @@ export async function cargarLoader() {
             loader.style.display = "none";
             document.body.classList.remove("oculto");
           }, 500);
-        }, 600);
+        }, 900);
       } else {
         document.body.classList.remove("oculto");
       }
