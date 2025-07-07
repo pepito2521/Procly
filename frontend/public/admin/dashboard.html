@@ -8,18 +8,23 @@
   <link rel="stylesheet" href="/css/admin.css" />
   <link rel="stylesheet" href="/css/menu_lateral.css" />
 </head>
+
 <body>
   <div id="loader-placeholder"></div>
-  <div id="menu-lateral-placeholder"></div>
-  <main>
-    <h1>Dashboard de la Empresa</h1>
-    <section class="kpi-cards">
-      <!-- Total tickets, total gasto, usuarios activos -->
-    </section>
-    <section class="charts">
-      <!-- Top 5 por tickets, por monto, por proveedor -->
-    </section>
-  </main>
+  <div class="layout">
+    <div id="menu-lateral-placeholder"></div>
+
+    <main class="contenido">
+      <h1>Dashboard de la Empresa</h1>
+      <section class="kpi-cards">
+        <!-- Total tickets, total gasto, usuarios activos -->
+      </section>
+      <section class="charts">
+        <!-- Top 5 por tickets, por monto, por proveedor -->
+      </section>
+    </main>
+
+  </div>
   <script type="module" src="/js/dashboard_admin.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 </body>

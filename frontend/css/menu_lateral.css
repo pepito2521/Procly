@@ -3,6 +3,12 @@
 display: flex;
 }
 
+.contenido {
+    margin-left: 0;
+    padding: 20px;
+    width: 100%;
+}
+
 /* Sidebar */
 .sidebar {
 width: 240px;
@@ -90,6 +96,16 @@ font-size: 28px;
 cursor: pointer;
 }
 
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    color: #508991;
+}
+
+.nav-item.active .nav-icon {
+    color: white;
+}
+  
 @media (max-width: 768px) {
 .sidebar {
     position: fixed;
