@@ -1,10 +1,9 @@
 main {
-  padding: 40px 20px;
-  min-height: calc(100vh - 100px);
+  padding: 20px 20px;
+  min-height: calc(100vh - 120px);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 }
   
 h1 {
@@ -18,9 +17,10 @@ h1 {
 .admin-card-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+  gap: 2.8rem 0rem;
   max-width: 1000px;
   width: 100%;
+  justify-items: center;
 }
   
 .admin-card {
@@ -32,6 +32,7 @@ h1 {
   max-width: 100%;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0;
 }
 
 .admin-card:hover {
