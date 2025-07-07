@@ -7,9 +7,9 @@ let prevBtn;
 let currentStep = 0;
 let categoriaSeleccionada = ''; 
 
-document.addEventListener("DOMContentLoaded", () => {
-  cargarNavbar();
-  cargarLoader();
+document.addEventListener("DOMContentLoaded", async () => {
+  await cargarNavbar();
+  await cargarLoader();
 
   document.body.classList.remove("oculto");
 
