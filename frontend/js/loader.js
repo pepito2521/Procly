@@ -1,5 +1,5 @@
 export async function cargarLoader() {
-    const res = await fetch('loader.html');
+    const res = await fetch('/components/loader.html');
     const html = await res.text();
     document.getElementById('loader-placeholder').innerHTML = html;
 
