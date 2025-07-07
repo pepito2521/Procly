@@ -103,7 +103,7 @@
   }
 
   .logo-container img {
-    width: 120px;
+    width: 80px;
     height: auto;
     max-width: 100%;
     transition: width 0.3s ease;
@@ -115,6 +115,13 @@
     opacity: 0;
     pointer-events: none;
   }
+
+  .toggle-icon {
+    width: 20px;
+    height: 20px;
+    stroke: #374151;
+  }
+  
   
   
   /* Navigation Styles */
@@ -353,36 +360,5 @@
     background: linear-gradient(135deg, #306971 0%, #508991 100%);
     transform: translateY(-1px);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .sidebar {
-      position: fixed;
-      left: -320px;
-      top: 0;
-      height: 100vh;
-      z-index: 1000;
-      transition: left 0.3s ease;
-    }
-  
-    .sidebar.open {
-      left: 0;
-    }
-  
-    .sidebar.collapsed {
-      width: 320px;
-      left: -320px;
-    }
-  
-    .main-content {
-      width: 100%;
-    }
-  
-    .content-area {
-      padding: 16px;
-    }
   }
   

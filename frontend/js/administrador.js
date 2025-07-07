@@ -2,9 +2,10 @@ import { cargarLoader } from './loader.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     await cargarLoader();
-
     document.body.classList.remove("oculto");
-});
+    new Dashboard();
+  });
+  
 
 
 class Dashboard {
@@ -78,24 +79,22 @@ class Dashboard {
     }
   
     toggleSidebar() {
-      this.sidebarOpen = !this.sidebarOpen
-      const sidebar = document.getElementById("sidebar")
-      const toggleIcon = document.getElementById("toggleIcon")
-  
-      if (this.sidebarOpen) {
-        sidebar.classList.remove("collapsed")
-        toggleIcon.setAttribute("data-lucide", "x")
-      } else {
-        sidebar.classList.add("collapsed")
-        toggleIcon.setAttribute("data-lucide", "menu")
-      }
-  
-      // Recrear iconos después del cambio
-      const lucide = window.lucide // Declare the variable before using it
-      if (typeof lucide !== "undefined") {
-        lucide.createIcons()
-      }
-    }
+        this.sidebarOpen = !this.sidebarOpen;
+        const sidebar = document.getElementById("sidebar");
+        const toggleIcon = document.getElementById("toggleIcon");
+      
+        if (this.sidebarOpen) {
+          sidebar.classList.remove("collapsed");
+          toggleIcon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          `;
+        } else {
+          sidebar.classList.add("collapsed");
+          toggleIcon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          `;
+        }
+    }      
   
     setActiveSection(section) {
       // Remover clase active de todos los items
@@ -137,44 +136,4 @@ class Dashboard {
         lucide.createIcons()
       }
     }
-  
-    handleResize() {
-      const isMobile = window.innerWidth <= 768
-      const sidebar = document.getElementById("sidebar")
-  
-      if (isMobile) {
-        // En móvil, el sidebar se comporta como overlay
-        sidebar.classList.remove("collapsed")
-        if (this.sidebarOpen) {
-          sidebar.classList.add("open")
-        } else {
-          sidebar.classList.remove("open")
-        }
-      } else {
-        // En desktop, comportamiento normal
-        sidebar.classList.remove("open")
-        if (!this.sidebarOpen) {
-          sidebar.classList.add("collapsed")
-        }
-      }
-    }
-  }
-  
-  // Inicializar la aplicación cuando el DOM esté listo
-  document.addEventListener("DOMContentLoaded", () => {
-    new Dashboard()
-  })
-  
-  // Manejar clics fuera del sidebar en móvil
-  document.addEventListener("click", (e) => {
-    const sidebar = document.getElementById("sidebar")
-    const sidebarToggle = document.getElementById("sidebarToggle")
-    const isMobile = window.innerWidth <= 768
-  
-    if (isMobile && sidebar.classList.contains("open")) {
-      if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-        sidebar.classList.remove("open")
-      }
-    }
-  })
-  
+}
