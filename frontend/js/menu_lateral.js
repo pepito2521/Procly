@@ -1,5 +1,5 @@
 export async function cargarMenuLateral() {
-    const contenedor = document.getElementById('menu-lateral-container');
+    const contenedor = document.getElementById('menu-lateral-placeholder');
     if (!contenedor) return;
   
     const response = await fetch('/components/menu_lateral.html');
