@@ -5,4 +5,7 @@ await cargarLoader();
 
 document.addEventListener("DOMContentLoaded", async () => {
   await cargarNavbar();
+  cargarLoader();
+
+  document.body.classList.remove("oculto");
 });
