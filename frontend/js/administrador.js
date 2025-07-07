@@ -1,3 +1,12 @@
+import { cargarLoader } from './loader.js';
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await cargarLoader();
+
+    document.body.classList.remove("oculto");
+});
+
+
 class Dashboard {
     constructor() {
       this.sidebarOpen = true
