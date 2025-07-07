@@ -261,7 +261,7 @@
 }
 
 .categoria-card.selected {
-  box-shadow:none;
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .admin-card-icon-circle {
