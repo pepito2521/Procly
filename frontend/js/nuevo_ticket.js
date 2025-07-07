@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   prevBtn = document.getElementById("progressBarBtn");
   const progressBarContainer = document.querySelector(".progress-bar-container");
 
+
+  //PROGRESS BAR
   function showStep(index) {
     console.log("Mostrando step:", index, "Total steps:", steps.length);
     steps.forEach((step, i) => {
@@ -33,7 +35,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateProgress(index);
     currentStep = index;
 
-    // MOSTRAR/OCULTAR BOTON VOLVER
     const hidePrevOnSteps = [0, steps.length - 1];
 
     if (prevBtn) {
@@ -43,11 +44,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         prevBtn.classList.remove("hidden");
       }
     }
-    
-    // FUNCIONAMIENTO DEL PROGRESSBAR
   
     if (index === steps.length - 1) {
-      progressBarContainer.style.display = "none";
+      progressBarContainer.style.setProperty('display', 'none', 'important');
+
     } else {
       progressBarContainer.style.display = "flex";
     }
@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const copiarIcono = document.getElementById("copiarIcono");
     copiarIcono.dataset.codigo = codigoTicket;
     copiarIcono.classList.remove("copiado");
-    
+
     lottie.loadAnimation({
       container: document.getElementById('success-animation'),
       renderer: 'svg',

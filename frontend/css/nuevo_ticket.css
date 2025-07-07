@@ -449,6 +449,14 @@ input[type="number"] {
   opacity: 0.9;
 }
 
+.btn2.sm {
+  height: 32px;
+  line-height: 32px;
+  font-size: 0.875rem;
+  padding: 0.4rem 1rem;
+}
+
+
 /* BOTONES DE PASO ENTRE STEPS & SUBMIT*/
 
 .button-group {
