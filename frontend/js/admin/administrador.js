@@ -16,24 +16,28 @@ class Dashboard {
           description: "Visualiza la actividad de tu empresa en tiempo real.",
           action: "Ir al Dashboard",
           icon: "monitor",
+          file: "dashboard"
         },
         activity: {
           title: "Registro de Actividad",
           description: "Consulta las acciones recientes realizadas por los usuarios de tu empresa.",
           action: "Ver Actividad",
           icon: "clock",
+          file: "actividad"
         },
         users: {
           title: "Gestionar Usuarios",
           description: "Controla el acceso y los permisos de tu equipo.",
           action: "Gestionar Usuarios",
           icon: "users",
+          file: "usuarios" 
         },
         addresses: {
           title: "Gestionar Direcciones",
           description: "Controla las direcciones de entrega habilitadas para tu empresa.",
           action: "Gestionar Direcciones",
           icon: "map-pin",
+          file: "direcciones"
         },
       }
   
@@ -104,40 +108,35 @@ class Dashboard {
         if (!currentItem) return;
       
         const pageTitle = document.getElementById("pageTitle");
-        pageTitle.textContent = currentItem.title;
+        pageTitle.textContent = currentItem.title;  
     
         this.loadContent(this.activeSection);
       }
 
       async loadContent(section) {
         const container = document.getElementById("dynamicContent");
+        const currentItem = this.menuItems[section];
+        const fileName = currentItem?.file || section;
+      
         try {
-          const res = await fetch(`partials/${section}.html`);
+          const res = await fetch(`partials/${fileName}.html`);
           const html = await res.text();
           container.innerHTML = html;
-
-          if (section === "dashboard") {
-            const monthNames = [
-              "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-              "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-            ];
       
-            const today = new Date();
-            const currentMonthIndex = today.getMonth();
-            const currentMonthName = monthNames[currentMonthIndex];
-            const currentMonthNumber = currentMonthIndex + 1;
-      
-            const mesNombreEl = document.getElementById("mesNombre");
-            const mesNumeroEl = document.getElementById("mesNumero");
-      
-            if (mesNombreEl && mesNumeroEl) {
-              mesNombreEl.textContent = currentMonthName;
-              mesNumeroEl.textContent = `Mes ${currentMonthNumber} de 12`;
+          // Importar JS específico si existe
+          try {
+            const module = await import(`./${fileName}.js`);
+            if (typeof module.inicializar === 'function') {
+              module.inicializar(); // función principal de cada módulo
             }
+          } catch (e) {
+            console.warn(`No se pudo cargar el módulo JS para ${fileName}:`, e);
           }
-
+      
         } catch (err) {
+          console.error("Error al cargar sección:", section, err);
           container.innerHTML = `<p>Error al cargar el contenido de ${section}.</p>`;
         }
       }
+      
 }

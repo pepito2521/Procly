@@ -1,6 +1,6 @@
 import { supabase } from "../supabaseClient.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
+export async function inicializar() {
   const user = supabase.auth.user();
   if (!user) return;
 
@@ -20,7 +20,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("promedioMensual").textContent = `$${promedio.promedio?.toLocaleString() ?? 0}`;
     document.getElementById("gastoAcumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
 
+    // Mostrar mes actual en dashboard
+    const monthNames = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+    
+    const today = new Date();
+    const currentMonthIndex = today.getMonth();
+    const currentMonthName = monthNames[currentMonthIndex];
+    const currentMonthNumber = currentMonthIndex + 1;
+    
+    const mesNombreEl = document.getElementById("mesNombre");
+    const mesNumeroEl = document.getElementById("mesNumero");
+    
+    if (mesNombreEl && mesNumeroEl) {
+        mesNombreEl.textContent = currentMonthName;
+        mesNumeroEl.textContent = `Mes ${currentMonthNumber} de 12`;
+    }
+    
+
   } catch (error) {
     console.error("Error cargando KPIs:", error);
   }
-});
+};
