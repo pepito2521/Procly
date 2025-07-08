@@ -45,4 +45,4 @@ export async function inicializar() {
   } catch (error) {
     console.error("Error cargando KPIs:", error);
   }
-};
+}

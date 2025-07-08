@@ -44,3 +44,40 @@
     color: #6b7280;
     font-weight: 500;
 }
+
+/* BADGES */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: white;
+  }
+  
+  .badge-success {
+    background-color: #22c55e;
+  }
+  
+  .badge-gray {
+    background-color: #6b7280;
+  }
+  
+  .btn-sm {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  
+  .btn-outline {
+    border: 1px solid #d1d5db;
+    background-color: white;
+    color: #111827;
+  }
+  
+  .btn-danger {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+  }
+  
