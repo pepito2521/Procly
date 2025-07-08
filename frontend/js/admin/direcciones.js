@@ -1,4 +1,4 @@
-import { supabase } from "../supabaseClient.js";
+import { supabase } from "/js/supabaseClient.js";
 
 export async function inicializar() {
   try {

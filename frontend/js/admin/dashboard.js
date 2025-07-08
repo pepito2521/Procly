@@ -1,4 +1,4 @@
-import { supabase } from "../supabaseClient.js";
+import { supabase } from "/js/supabaseClient.js";
 
 export async function inicializar() {
   const {
@@ -17,10 +17,11 @@ export async function inicializar() {
     ]);
 
     // Cargar en el DOM
-    document.getElementById("ticketsProcesados").textContent = tickets.total ?? 0;
-    document.getElementById("gastoMensual").textContent = `$${mensual.total?.toLocaleString() ?? 0}`;
-    document.getElementById("promedioMensual").textContent = `$${promedio.promedio?.toLocaleString() ?? 0}`;
-    document.getElementById("gastoAcumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
+    document.getElementById("kpi-gasto-mensual").textContent = `$${mensual.total?.toLocaleString() ?? 0}`;
+    document.getElementById("kpi-promedio-mensual").textContent = `$${promedio.promedio?.toLocaleString() ?? 0}`;
+    document.getElementById("kpi-acumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
+    document.getElementById("kpi-tickets-procesados").textContent = tickets.total ?? 0;
+    
 
     // Mostrar mes actual en dashboard
     const monthNames = [
