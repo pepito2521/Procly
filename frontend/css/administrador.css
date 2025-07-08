@@ -445,5 +445,16 @@ font-size: 18px;
 font-weight: 600;
 color: #111827;
 }
+
+.summary-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-title-row svg {
+    flex-shrink: 0;
+}
+
   
   

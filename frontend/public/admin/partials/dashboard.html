@@ -1,25 +1,81 @@
-<section class="dashboard-overview">
-    <div class="summary-cards">
-      <div class="summary-card">
+<div class="summary-cards">
+    <!-- Gasto Actual -->
+    <div class="summary-card">
+      <div class="summary-title-row">
         <div class="summary-title">Gasto Actual</div>
-        <div class="summary-value">$82,000</div>
-        <div class="summary-trend up">+12.5% vs mes anterior</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#2563eb" viewBox="0 0 24 24">
+          <path d="M12 1v22M5 6h14M5 18h14" />
+        </svg>
       </div>
-      <div class="summary-card">
-        <div class="summary-title">Promedio Anual</div>
-        <div class="summary-value">$54,333</div>
-        <div class="summary-trend up">+8.2% vs año anterior</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-title">Mes Actual</div>
-        <div class="summary-value">Diciembre</div>
-        <div class="summary-subtext">Mes 12 de 12</div>
-      </div>
+      <div class="summary-value">$82,000</div>
+      <div class="summary-trend up">+12.5% vs mes anterior</div>
     </div>
   
-    <div class="chart-card">
-      <h3 class="chart-title">Gastos Mensuales</h3>
-      <canvas id="monthlyChart"></canvas>
+    <!-- Promedio Anual -->
+    <div class="summary-card">
+      <div class="summary-title-row">
+        <div class="summary-title">Promedio Anual</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#2563eb" viewBox="0 0 24 24">
+          <path d="M4 12h16M12 4v16" />
+        </svg>
+      </div>
+      <div class="summary-value">$54,333</div>
+      <div class="summary-trend up">+8.2% vs año anterior</div>
     </div>
-  </section>
+
+    <!-- Acumulado -->
+    <div class="summary-card">
+        <div class="summary-title-row">
+            <div class="summary-title">Acumulado</div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" stroke-width="2" fill="none" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="6" />
+            <circle cx="12" cy="12" r="2" />
+            </svg>
+        </div>
+        <div class="summary-value">$652,000</div>
+        <div class="summary-trend up">81.5% del presupuesto</div>
+        </div>
+  
+    <!-- Mes Actual -->
+    <div class="summary-card">
+      <div class="summary-title-row">
+        <div class="summary-title">Mes Actual</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#2563eb" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2" />
+          <path d="M8 2v4M16 2v4M3 10h18" />
+        </svg>
+      </div>
+      <div class="summary-value">Diciembre</div>
+      <div class="summary-subtext">Mes 12 de 12</div>
+    </div>
+  
+    <!-- Usuarios Activos -->
+    <div class="summary-card">
+      <div class="summary-title-row">
+        <div class="summary-title">Usuarios Activos</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="8.5" cy="7" r="4" />
+          <path d="M20 8v6M23 11h-6" />
+        </svg>
+      </div>
+      <div class="summary-value">127</div>
+      <div class="summary-subtext">5 nuevos este mes</div>
+    </div>
+  
+    <!-- Tickets Procesados -->
+    <div class="summary-card">
+      <div class="summary-title-row">
+        <div class="summary-title">Tickets Procesados</div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="16" rx="2" ry="2" />
+          <path d="M16 2v4M8 2v4M3 10h18" />
+        </svg>
+      </div>
+      <div class="summary-value">89</div>
+      <div class="summary-trend up">+15.3% vs mes anterior</div>
+    </div>
+</div>
+  
   
