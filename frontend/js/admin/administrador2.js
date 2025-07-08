@@ -1,20 +1,42 @@
 import { supabase } from "/js/supabaseClient.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+  inicializarSidebar();
   cargarDashboardTemplate();
-  setTimeout(() => cargarDatosKPIs(), 50);
+  await cargarDatosKPIs();
 });
 
-function cargarDashboardTemplate() {
-  const template = document.getElementById("dashboardTemplate");
-  const clone = template.content.cloneNode(true);
-  const container = document.getElementById("dynamicContent");
-  container.innerHTML = ""; // limpia por si ya había algo
-  container.appendChild(clone);
+// Maneja colapso de sidebar y navegación
+function inicializarSidebar() {
+  document.getElementById("sidebarToggle")?.addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("collapsed");
+  });
+
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const section = e.currentTarget.getAttribute("data-section");
+      cambiarSeccion(section);
+    });
+  });
 }
 
+// Carga secciones desde templates
+function cambiarSeccion(section) {
+  const template = document.getElementById(`${section}Template`);
+  const container = document.getElementById("dynamicContent");
+  if (template) {
+    container.innerHTML = "";
+    container.appendChild(template.content.cloneNode(true));
+
+    if (section === "dashboard") {
+      cargarDatosKPIs();
+    }
+  }
+}
+
+// Carga datos Supabase
 async function cargarDatosKPIs() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user }, error } = await supabase.auth.getUser();
   if (!user) {
     console.error("Usuario no autenticado.");
     return;
@@ -43,4 +65,9 @@ async function cargarDatosKPIs() {
   } catch (error) {
     console.error("Error cargando KPIs:", error);
   }
+}
+
+// Muestra por defecto
+function cargarDashboardTemplate() {
+  cambiarSeccion("dashboard");
 }
