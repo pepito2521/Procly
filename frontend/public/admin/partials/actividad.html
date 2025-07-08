@@ -1,0 +1,64 @@
+<section class="dashboard-overview">
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      
+      <!-- Tickets Procesados -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Tickets Procesados</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M3 3h18v18H3V3z" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="summary-value" id="actividadTickets">89</div>
+        <div class="summary-trend up" id="actividadTicketsTrend">+15.3% vs mes anterior</div>
+      </div>
+  
+      <!-- Valor Promedio -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Valor Promedio</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M4 17l6-6 4 4 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="summary-value" id="actividadPromedio">$3,247</div>
+        <div class="summary-trend up" id="actividadPromedioTrend">+8.7% vs mes anterior</div>
+      </div>
+  
+      <!-- Pendientes -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Pendientes</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M4 4h16v16H4z" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="summary-value" id="actividadPendientes">12</div>
+        <div class="summary-subtext">En revisión</div>
+      </div>
+    </div>
+  
+    <!-- Top 5 Tickets -->
+    <div class="chart-card">
+      <div class="chart-title">Top 5 Tickets</div>
+      <div id="topTicketsList" class="top-tickets-list">
+        <!-- Aquí se inyectará dinámicamente la lista -->
+        <!-- Ejemplo de item:
+        <div class="ticket-item">
+          <div>
+            <div class="ticket-rank">#1</div>
+            <div class="ticket-id">TK-2024–001</div>
+            <div class="ticket-title">Equipos de oficina - Q4</div>
+            <div class="ticket-date">2024-12-15</div>
+          </div>
+          <div class="ticket-right">
+            <span class="ticket-tag">Equipamiento</span>
+            <div class="ticket-value">$15,800</div>
+          </div>
+        </div>
+        -->
+      </div>
+    </div>
+  </section>
+  

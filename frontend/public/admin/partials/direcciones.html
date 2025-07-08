@@ -1,0 +1,71 @@
+<section class="dashboard-overview">
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+  
+      <!-- Total Direcciones -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Total Direcciones</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="summary-value" id="totalDirecciones">12</div>
+        <div class="summary-trend up">2 nuevas este mes</div>
+      </div>
+  
+      <!-- Direcciones Activas -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Direcciones Activas</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="summary-value" id="direccionesActivas">10</div>
+        <div class="summary-trend up">83% del total</div>
+      </div>
+  
+      <!-- Por Región -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Por Región</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="summary-value" id="regionesCantidad">3</div>
+        <div class="summary-subtext">CABA, GBA, Interior</div>
+      </div>
+    </div>
+  
+    <!-- Tabla de Direcciones -->
+    <div class="chart-card">
+      <div class="chart-title">Direcciones de Entrega</div>
+  
+      <div class="table-header">
+        <input type="text" placeholder="Buscar por nombre, dirección o ciudad..." class="search-input" id="buscadorDirecciones" />
+        <button class="btn btn-primary" id="btnAgregarDireccion">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5V7.5H11a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V8.5H5a.5.5 0 0 1 0-1h2.5V4.5A.5.5 0 0 1 8 4z"/></svg>
+          Agregar Dirección
+        </button>
+      </div>
+  
+      <table class="direcciones-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Ciudad/Provincia</th>
+            <th>Código Postal</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaDirecciones">
+          <!-- Contenido dinámico desde JS -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
