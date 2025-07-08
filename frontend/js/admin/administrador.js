@@ -124,13 +124,13 @@ class Dashboard {
         try {
           await cargarLoader();
 
-          const res = await fetch(`partials/${fileName}.html`);
+          const res = await fetch(`/admin/partials/${fileName}.html`);
           const html = await res.text();
           container.innerHTML = html;
       
           // Importar JS específico si existe
           try {
-            const module = await import(`./${fileName}.js`);
+            const module = await import(`/js/admin/${fileName}.js`);
             if (typeof module.inicializar === 'function') {
 
               requestAnimationFrame(() => {
