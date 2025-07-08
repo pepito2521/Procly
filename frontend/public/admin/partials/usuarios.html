@@ -1,0 +1,130 @@
+<section class="usuarios-overview">
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <!-- Total Usuarios -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Total Usuarios</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="8.5" cy="7" r="4" />
+            <path d="M20 8v6M23 11h-6" />
+          </svg>
+        </div>
+        <div class="summary-value">127</div>
+        <div class="summary-trend up">5 nuevos este mes</div>
+      </div>
+  
+      <!-- Usuarios Activos -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Usuarios Activos</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="8.5" cy="7" r="4" />
+          </svg>
+        </div>
+        <div class="summary-value">89</div>
+        <div class="summary-trend up">70% del total</div>
+      </div>
+  
+      <!-- Gasto Promedio -->
+      <div class="summary-card">
+        <div class="summary-title-row">
+          <div class="summary-title">Gasto Promedio</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" stroke="#2563eb" fill="none" viewBox="0 0 24 24">
+            <path d="M4 12h16M12 4v16" />
+          </svg>
+        </div>
+        <div class="summary-value">$5,145</div>
+        <div class="summary-trend up">+12% vs mes anterior</div>
+      </div>
+    </div>
+  
+    <!-- Tabla de usuarios -->
+    <div class="usuarios-card">
+      <h3 class="usuarios-title">Usuarios por Gasto</h3>
+      <div class="usuarios-search">
+        <input type="text" placeholder="🔍 Buscar usuario por nombre..." />
+      </div>
+      <table class="usuarios-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Gasto Mensual</th>
+            <th>Límite</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#1</td>
+            <td>
+              <div class="usuario-info">
+                <div class="avatar">MG</div>
+                <span>María González</span>
+              </div>
+            </td>
+            <td>$28,500</td>
+            <td>$30,000</td>
+            <td><span class="estado activo">Activo</span></td>
+            <td>
+              <button class="btn-secundario">👤 Límite</button>
+              <button class="btn-peligro">🚫 Bloquear</button>
+            </td>
+          </tr>
+          <tr>
+            <td>#2</td>
+            <td>
+              <div class="usuario-info">
+                <div class="avatar">CR</div>
+                <span>Carlos Rodríguez</span>
+              </div>
+            </td>
+            <td>$24,800</td>
+            <td>Sin límite</td>
+            <td><span class="estado activo">Activo</span></td>
+            <td>
+              <button class="btn-secundario">👤 Límite</button>
+              <button class="btn-peligro">🚫 Bloquear</button>
+            </td>
+          </tr>
+          <tr>
+            <td>#3</td>
+            <td>
+              <div class="usuario-info">
+                <div class="avatar">AM</div>
+                <span>Ana Martínez</span>
+              </div>
+            </td>
+            <td>$22,300</td>
+            <td>$25,000</td>
+            <td><span class="estado bloqueado">Bloqueado</span></td>
+            <td>
+              <button class="btn-secundario">👤 Límite</button>
+              <button class="btn-activar">👥 Activar</button>
+            </td>
+          </tr>
+          <tr>
+            <td>#4</td>
+            <td>
+              <div class="usuario-info">
+                <div class="avatar">RS</div>
+                <span>Roberto Silva</span>
+              </div>
+            </td>
+            <td>$19,700</td>
+            <td>Sin límite</td>
+            <td><span class="estado activo">Activo</span></td>
+            <td>
+              <button class="btn-secundario">👤 Límite</button>
+              <button class="btn-peligro">🚫 Bloquear</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
