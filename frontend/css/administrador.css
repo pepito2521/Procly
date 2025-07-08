@@ -391,10 +391,11 @@ gap: 32px;
 }
 
 .summary-cards {
-display: flex;
-gap: 16px;
-flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 }
+  
 
 .summary-card {
 background: white;
