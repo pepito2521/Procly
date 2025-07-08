@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await cargarLoader();
     document.body.classList.remove("oculto");
     new Dashboard();
-  });
+});
   
 
 
@@ -45,11 +45,6 @@ class Dashboard {
     init() {
       this.bindEvents()
       this.updateContent()
-      // Inicializar iconos de Lucide
-      const lucide = window.lucide // Declare the variable before using it
-      if (typeof lucide !== "undefined") {
-        lucide.createIcons()
-      }
     }
   
     bindEvents() {
@@ -72,10 +67,6 @@ class Dashboard {
         const currentItem = this.menuItems[this.activeSection]
         alert(`Ejecutando: ${currentItem.action}`)
       })
-  
-      // Responsive behavior
-      this.handleResize()
-      window.addEventListener("resize", () => this.handleResize())
     }
   
     toggleSidebar() {
@@ -112,28 +103,25 @@ class Dashboard {
     }
   
     updateContent() {
-      const currentItem = this.menuItems[this.activeSection]
-      if (!currentItem) return
-  
-      // Actualizar título de la página
-      const pageTitle = document.getElementById("pageTitle")
-      pageTitle.textContent = currentItem.title
-  
-      // Actualizar contenido de la card
-      const cardTitle = document.getElementById("cardTitle")
-      const cardDescription = document.getElementById("cardDescription")
-      const actionButton = document.getElementById("actionButton")
-      const cardIcon = document.getElementById("cardIcon")
-  
-      cardTitle.textContent = currentItem.title
-      cardDescription.textContent = currentItem.description
-      actionButton.textContent = currentItem.action
-      cardIcon.setAttribute("data-lucide", currentItem.icon)
-  
-      // Recrear iconos
-      const lucide = window.lucide // Declare the variable before using it
-      if (typeof lucide !== "undefined") {
-        lucide.createIcons()
+        const currentItem = this.menuItems[this.activeSection];
+        if (!currentItem) return;
+      
+        const pageTitle = document.getElementById("pageTitle");
+        pageTitle.textContent = currentItem.title;
+    
+        this.loadContent(this.activeSection);
       }
-    }
+
+      async loadContent(section) {
+        const container = document.getElementById("dynamicContent");
+        try {
+          const res = await fetch(`partials/${section}.html`);
+          const html = await res.text();
+          container.innerHTML = html;
+        } catch (err) {
+          container.innerHTML = `<p>Error al cargar el contenido de ${section}.</p>`;
+        }
+      }
+      
+      
 }
