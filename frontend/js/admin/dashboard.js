@@ -1,5 +1,6 @@
 import { supabase } from "/js/supabaseClient.js";
 
+
 export async function inicializar() {
   const {
     data: { user },
