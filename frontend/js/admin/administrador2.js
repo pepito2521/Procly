@@ -1,31 +1,24 @@
-import { cargarLoader } from "../components/loader.js";
 import { supabase } from "/js/supabaseClient.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await cargarLoader();
-  document.body.classList.remove("oculto");
-  await cargarDashboard();
+  cargarDashboardTemplate();
+  setTimeout(() => cargarDatosKPIs(), 50);
 });
 
-async function cargarDashboard() {
+function cargarDashboardTemplate() {
+  const template = document.getElementById("dashboardTemplate");
+  const clone = template.content.cloneNode(true);
   const container = document.getElementById("dynamicContent");
-
-  try {
-    const res = await fetch("/admin/partials/dashboard.html");
-    const html = await res.text();
-    container.innerHTML = html;
-
-    await actualizarKPIs();
-
-  } catch (error) {
-    console.error("Error al cargar dashboard:", error);
-    container.innerHTML = `<p>Error al cargar el contenido del dashboard.</p>`;
-  }
+  container.innerHTML = ""; // limpia por si ya había algo
+  container.appendChild(clone);
 }
 
-async function actualizarKPIs() {
+async function cargarDatosKPIs() {
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    console.error("Usuario no autenticado.");
+    return;
+  }
 
   const userId = user.id;
 
@@ -42,20 +35,12 @@ async function actualizarKPIs() {
     document.getElementById("kpi-acumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
     document.getElementById("kpi-tickets-procesados").textContent = tickets.total ?? 0;
 
-    const monthNames = [
-      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-    ];
-
-    const today = new Date();
-    const currentMonthIndex = today.getMonth();
-    const currentMonthName = monthNames[currentMonthIndex];
-    const currentMonthNumber = currentMonthIndex + 1;
-
-    document.getElementById("mesNombre").textContent = currentMonthName;
-    document.getElementById("mesNumero").textContent = `Mes ${currentMonthNumber} de 12`;
+    const mesActual = new Date().getMonth();
+    const nombreMes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"][mesActual];
+    document.getElementById("mesNombre").textContent = nombreMes;
+    document.getElementById("mesNumero").textContent = `Mes ${mesActual + 1} de 12`;
 
   } catch (error) {
-    console.error("Error al cargar KPIs:", error);
+    console.error("Error cargando KPIs:", error);
   }
 }
