@@ -1,7 +1,9 @@
 import { supabase } from "../supabaseClient.js";
 
 export async function inicializar() {
-  const user = supabase.auth.user();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return;
 
   const userId = user.id;

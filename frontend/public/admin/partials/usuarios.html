@@ -58,73 +58,33 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>#1</td>
-            <td>
-              <div class="usuario-info">
-                <div class="avatar">MG</div>
-                <span>María González</span>
-              </div>
-            </td>
-            <td>$28,500</td>
-            <td>$30,000</td>
-            <td><span class="estado activo">Activo</span></td>
-            <td>
-              <button class="btn-secundario">👤 Límite</button>
-              <button class="btn-peligro">🚫 Bloquear</button>
-            </td>
-          </tr>
-          <tr>
-            <td>#2</td>
-            <td>
-              <div class="usuario-info">
-                <div class="avatar">CR</div>
-                <span>Carlos Rodríguez</span>
-              </div>
-            </td>
-            <td>$24,800</td>
-            <td>Sin límite</td>
-            <td><span class="estado activo">Activo</span></td>
-            <td>
-              <button class="btn-secundario">👤 Límite</button>
-              <button class="btn-peligro">🚫 Bloquear</button>
-            </td>
-          </tr>
-          <tr>
-            <td>#3</td>
-            <td>
-              <div class="usuario-info">
-                <div class="avatar">AM</div>
-                <span>Ana Martínez</span>
-              </div>
-            </td>
-            <td>$22,300</td>
-            <td>$25,000</td>
-            <td><span class="estado bloqueado">Bloqueado</span></td>
-            <td>
-              <button class="btn-secundario">👤 Límite</button>
-              <button class="btn-activar">👥 Activar</button>
-            </td>
-          </tr>
-          <tr>
-            <td>#4</td>
-            <td>
-              <div class="usuario-info">
-                <div class="avatar">RS</div>
-                <span>Roberto Silva</span>
-              </div>
-            </td>
-            <td>$19,700</td>
-            <td>Sin límite</td>
-            <td><span class="estado activo">Activo</span></td>
-            <td>
-              <button class="btn-secundario">👤 Límite</button>
-              <button class="btn-peligro">🚫 Bloquear</button>
-            </td>
-          </tr>
+        <tbody d="tablaUsuarios">
+          <!-- Contenido dinámico desde JS -->
         </tbody>
       </table>
     </div>
+
+    <div class="chart-card">
+        <div class="chart-title">Usuarios</div>
+        <div class="usuarios-search">
+            <input type="text" placeholder="Buscar por Nombre" class="search-input" id="buscadorUsuarios" />
+        </div>
+        <table class="usuarios-table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>Ciudad/Provincia</th>
+              <th>Código Postal</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaUsuarios">
+            <!-- Contenido dinámico desde JS -->
+          </tbody>
+        </table>
+      </div>
+
   </section>
   
