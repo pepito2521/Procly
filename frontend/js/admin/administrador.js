@@ -132,11 +132,15 @@ class Dashboard {
           try {
             const module = await import(`./${fileName}.js`);
             if (typeof module.inicializar === 'function') {
-              module.inicializar(); // función principal de cada módulo
+              // Esperar un pequeño delay para asegurar que el DOM inyectado esté listo
+              setTimeout(() => {
+                module.inicializar();
+              }, 50); // 50-100 ms suele ser suficiente
             }
           } catch (e) {
             console.warn(`No se pudo cargar el módulo JS para ${fileName}:`, e);
           }
+
       
         } catch (err) {
           console.error("Error al cargar sección:", section, err);
