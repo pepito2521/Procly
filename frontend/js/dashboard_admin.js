@@ -1,4 +1,4 @@
-import { cargarLoader } from './loader.js';
+import { cargarLoader } from './components/loader.js';
 import { cargarMenuLateral } from './menu_lateral.js';
 
 document.addEventListener('DOMContentLoaded', async () => {

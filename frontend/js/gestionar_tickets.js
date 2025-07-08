@@ -1,5 +1,5 @@
-import { cargarLoader } from './loader.js';
-import { cargarNavbarProclier } from './navbar.js';
+import { cargarLoader } from './components/loader.js';
+import { cargarNavbarProclier } from './components/navbar.js';
 
 
 

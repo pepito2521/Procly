@@ -1,4 +1,4 @@
-import { supabase } from './supabaseClient.js';
+import { supabase } from '../supabaseClient.js';
 
 export async function cargarNavbar() {
   await cargarNavbarDesdeArchivo("/components/navbar.html");

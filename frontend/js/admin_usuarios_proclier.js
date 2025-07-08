@@ -1,5 +1,5 @@
-import { cargarLoader } from './loader.js';
-import { cargarNavbarAdmin } from './navbar.js';
+import { cargarLoader } from './components/loader.js';
+import { cargarNavbarAdmin } from './components/navbar.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await cargarLoader();

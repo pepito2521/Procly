@@ -1,12 +1,10 @@
-import { cargarLoader } from './loader.js';
+import { cargarLoader } from '../components/loader.js';
 
 document.addEventListener("DOMContentLoaded", async () => {
     await cargarLoader();
     document.body.classList.remove("oculto");
     new Dashboard();
 });
-  
-
 
 class Dashboard {
     constructor() {
