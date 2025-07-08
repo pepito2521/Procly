@@ -46,7 +46,7 @@ class Dashboard {
   
     init() {
       this.bindEvents()
-      this.updateContent()
+      this.setActiveSection("dashboard") 
     }
   
     bindEvents() {
@@ -64,11 +64,14 @@ class Dashboard {
       })
   
       // Action button
-      const actionButton = document.getElementById("actionButton")
-      actionButton.addEventListener("click", () => {
-        const currentItem = this.menuItems[this.activeSection]
-        alert(`Ejecutando: ${currentItem.action}`)
-      })
+      const actionButton = document.getElementById("actionButton");
+      if (actionButton) {
+        actionButton.addEventListener("click", () => {
+          const currentItem = this.menuItems[this.activeSection];
+          alert(`Ejecutando: ${currentItem.action}`);
+        });
+      }
+
     }
   
     toggleSidebar() {
@@ -117,8 +120,10 @@ class Dashboard {
         const container = document.getElementById("dynamicContent");
         const currentItem = this.menuItems[section];
         const fileName = currentItem?.file || section;
-      
+
         try {
+          await cargarLoader();
+
           const res = await fetch(`partials/${fileName}.html`);
           const html = await res.text();
           container.innerHTML = html;
@@ -136,6 +141,8 @@ class Dashboard {
         } catch (err) {
           console.error("Error al cargar sección:", section, err);
           container.innerHTML = `<p>Error al cargar el contenido de ${section}.</p>`;
+        } finally {
+          document.body.classList.remove("oculto");
         }
       }
       
