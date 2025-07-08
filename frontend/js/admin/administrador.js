@@ -132,10 +132,10 @@ class Dashboard {
           try {
             const module = await import(`./${fileName}.js`);
             if (typeof module.inicializar === 'function') {
-              // Esperar un pequeño delay para asegurar que el DOM inyectado esté listo
-              setTimeout(() => {
+
+              requestAnimationFrame(() => {
                 module.inicializar();
-              }, 50); // 50-100 ms suele ser suficiente
+              });              
             }
           } catch (e) {
             console.warn(`No se pudo cargar el módulo JS para ${fileName}:`, e);
