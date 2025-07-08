@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 // 🚀 RUTAS BACKEND
 app.use('/auth', require('./routes/auth'));
 app.use('/tickets', require('./routes/tickets'));
+app.use('/stats', require('./routes/stats'));
 
 // 🌐 ARCHIVOS ESTATICOS DEL FRONTEND
 app.use(express.static(path.join(__dirname, '../frontend/public')));
@@ -25,6 +26,7 @@ app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
 app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
 app.use('/assets', express.static(path.join(__dirname, '../frontend/assets')));
 app.use('/components', express.static(path.join(__dirname, '../frontend/components')));
+
 
 // ⚠️ FALLBACK
 app.use((req, res) => {

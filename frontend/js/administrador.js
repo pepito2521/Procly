@@ -88,11 +88,10 @@ class Dashboard {
     }      
   
     setActiveSection(section) {
-      // Remover clase active de todos los items
+
       const navItems = document.querySelectorAll(".nav-item")
       navItems.forEach((item) => item.classList.remove("active"))
   
-      // Agregar clase active al item seleccionado
       const activeItem = document.querySelector(`[data-section="${section}"]`)
       if (activeItem) {
         activeItem.classList.add("active")
@@ -118,10 +117,29 @@ class Dashboard {
           const res = await fetch(`partials/${section}.html`);
           const html = await res.text();
           container.innerHTML = html;
+
+          if (section === "dashboard") {
+            const monthNames = [
+              "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+              "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+            ];
+      
+            const today = new Date();
+            const currentMonthIndex = today.getMonth();
+            const currentMonthName = monthNames[currentMonthIndex];
+            const currentMonthNumber = currentMonthIndex + 1;
+      
+            const mesNombreEl = document.getElementById("mesNombre");
+            const mesNumeroEl = document.getElementById("mesNumero");
+      
+            if (mesNombreEl && mesNumeroEl) {
+              mesNombreEl.textContent = currentMonthName;
+              mesNumeroEl.textContent = `Mes ${currentMonthNumber} de 12`;
+            }
+          }
+
         } catch (err) {
           container.innerHTML = `<p>Error al cargar el contenido de ${section}.</p>`;
         }
       }
-      
-      
 }
