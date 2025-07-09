@@ -115,19 +115,19 @@ async function cargarDatosKPIs() {
 // TEMPLATE: DIRECCIONES
 async function cargarDireccionesTemplate() {
   try {
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      console.error("Usuario no autenticado.");
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      console.error("Usuario no autenticado (token faltante).");
       return;
     }
-    const userId = user.id;
+    
+    const headers = { 'Authorization': `Bearer ${token}` };
 
     const [kpi, lista] = await Promise.all([
-      fetch(`/stats/direcciones-totales?user_id=${userId}`).then(r => r.json()),
-      fetch(`/stats/direcciones?user_id=${userId}`).then(r => r.json())
-    ]);
-
+      fetch(`/stats/direcciones-totales`, { headers }).then(r => r.json()),
+      fetch(`/stats/direcciones`, { headers }).then(r => r.json())
+    ]);    
+    
     document.getElementById("totalDirecciones").textContent = kpi.total ?? 0;
 
     const tbody = document.getElementById("tablaDirecciones");

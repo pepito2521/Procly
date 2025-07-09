@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const requireAuth = require('../middleware/requireAuth');
 const { 
     crearTicket,
     obtenerDirecciones,
@@ -7,7 +8,6 @@ const {
     obtenerTicketPorId,
     seleccionarPropuesta
 } = require('../controllers/ticketsController');
-const requireAuth = require('../middleware/requireAuth');
 
 
 // RUTAS
