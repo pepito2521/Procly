@@ -6,33 +6,50 @@ document.addEventListener("DOMContentLoaded", async () => {
   await cargarDatosKPIs();
 });
 
-// Maneja colapso de sidebar y navegación
 function inicializarSidebar() {
-  document.getElementById("sidebarToggle")?.addEventListener("click", () => {
-    document.getElementById("sidebar").classList.toggle("collapsed");
-  });
-
-  document.querySelectorAll(".nav-item").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const section = e.currentTarget.getAttribute("data-section");
-      cambiarSeccion(section);
+    // COLLAPSE
+    document.getElementById("sidebarToggle")?.addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("collapsed");
     });
-  });
-}
+  
+    // NAVEGACION
+    document.querySelectorAll(".nav-item").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const section = e.currentTarget.getAttribute("data-section");
+  
+        document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+        e.currentTarget.classList.add("active");
+        cambiarSeccion(section);
+      });
+    });
+  }
 
-// Carga secciones desde templates
-function cambiarSeccion(section) {
-  const template = document.getElementById(`${section}Template`);
-  const container = document.getElementById("dynamicContent");
-  if (template) {
+  const seccionToTemplateId = {
+    dashboard: "dashboardTemplate",
+    activity: "actividadTemplate",
+    users: "usuariosTemplate",
+    addresses: "direccionesTemplate"
+  };
+  
+  function cambiarSeccion(section) {
+    const templateId = seccionToTemplateId[section];
+    const template = document.getElementById(templateId);
+    const container = document.getElementById("dynamicContent");
+  
+    if (!template) {
+      container.innerHTML = `<p style="padding: 1rem;">❌ No se encontró el template para: ${section}</p>`;
+      console.error(`No se encontró el template con ID: ${section}Template`);
+      return;
+    }
+  
     container.innerHTML = "";
     container.appendChild(template.content.cloneNode(true));
-
+  
     if (section === "dashboard") {
       cargarDatosKPIs();
     }
   }
-}
+  
 
 // Carga datos Supabase
 async function cargarDatosKPIs() {
