@@ -2,7 +2,7 @@ import { supabase } from "/js/supabaseClient.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   inicializarSidebar();
-  cargarDashboardTemplate();
+  cambiarSeccion("dashboard");
   await cargarDatosKPIs();
 });
 
@@ -26,9 +26,9 @@ function inicializarSidebar() {
 
   const seccionToTemplateId = {
     dashboard: "dashboardTemplate",
-    activity: "actividadTemplate",
-    users: "usuariosTemplate",
-    addresses: "direccionesTemplate"
+    actividad: "actividadTemplate",
+    usuarios: "usuariosTemplate",
+    direcciones: "direccionesTemplate"
   };
   
   function cambiarSeccion(section) {
