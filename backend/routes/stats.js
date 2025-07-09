@@ -7,10 +7,13 @@ const {
   ticketsProcesados,
   gastoMensual,
   promedioMensual,
-  acumuladoAnual
+  acumuladoAnual,
+  usuarios,
+  totalUsuarios,
+  usuariosActivos,
+  gastoPromedioMensual
 } = require('../controllers/statsController');
 
-// Asegurarse de que todas las rutas usan autenticación
 router.use(requireAuth);
 
 // KPI: DIRECCIONES
@@ -22,5 +25,11 @@ router.get('/tickets-procesados', ticketsProcesados);
 router.get('/gasto-mensual', gastoMensual);
 router.get('/promedio-mensual', promedioMensual);
 router.get('/acumulado-anual', acumuladoAnual);
+
+// KPI: USUARIOS
+router.get('/usuarios', usuarios);
+router.get('/usuarios-totales', totalUsuarios);
+router.get('/usuarios-activos', usuariosActivos);
+router.get('/gasto-promedio-mensual', gastoPromedioMensual);
 
 module.exports = router;
