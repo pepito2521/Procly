@@ -80,19 +80,26 @@ function cambiarSeccion(section) {
 // TEMPLATE: DASHBOARD
 async function cargarDatosKPIs() {
   const { data: { user }, error } = await supabase.auth.getUser();
+
   if (!user) {
     console.error("Usuario no autenticado.");
     return;
   }
 
-  const userId = user.id;
+  const token = localStorage.getItem('supabaseToken');
+  if (!token) {
+    console.error("Token de sesión no encontrado.");
+    return;
+  }
+
+  const headers = { 'Authorization': `Bearer ${token}` };
 
   try {
     const [tickets, mensual, promedio, acumulado] = await Promise.all([
-      fetch(`/stats/tickets-procesados?user_id=${userId}`).then(r => r.json()),
-      fetch(`/stats/gasto-mensual?user_id=${userId}`).then(r => r.json()),
-      fetch(`/stats/promedio-mensual?user_id=${userId}`).then(r => r.json()),
-      fetch(`/stats/acumulado-anual?user_id=${userId}`).then(r => r.json())
+      fetch(`/stats/tickets-procesados`, { headers }).then(r => r.json()),
+      fetch(`/stats/gasto-mensual`, { headers }).then(r => r.json()),
+      fetch(`/stats/promedio-mensual`, { headers }).then(r => r.json()),
+      fetch(`/stats/acumulado-anual`, { headers }).then(r => r.json())
     ]);
 
     document.getElementById("kpi-gasto-mensual").textContent = `$${mensual.total?.toLocaleString() ?? 0}`;
@@ -109,6 +116,7 @@ async function cargarDatosKPIs() {
     console.error("Error cargando KPIs:", error);
   }
 }
+
 
 
 
