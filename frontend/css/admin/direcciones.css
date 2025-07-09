@@ -76,12 +76,13 @@
 
 /* BOTONES */
 .btn.btn-primary {
+    width: fit-content;
     display: inline-flex;
     align-items: center;
     height: 35px;
     line-height: 35px;
-    gap: 12px;
-    padding: 12px;
+    gap: 8px;
+    padding: 0 14px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
