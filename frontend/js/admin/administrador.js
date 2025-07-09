@@ -1,182 +1,164 @@
-import { cargarLoader } from '../components/loader.js';
 import { supabase } from "/js/supabaseClient.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await cargarLoader();
-    document.body.classList.remove("oculto");
-    new Dashboard();
+  inicializarSidebar();
+  inicializarLogoutDirecto();
+  cambiarSeccion("dashboard");
 });
 
-class Dashboard {
-    constructor() {
-      this.sidebarOpen = true
-      this.activeSection = "dashboard"
-      this.menuItems = {
-        dashboard: {
-          title: "Dashboard",
-          description: "Visualiza la actividad de tu empresa en tiempo real.",
-          action: "Ir al Dashboard",
-          icon: "monitor",
-          file: "dashboard"
-        },
-        activity: {
-          title: "Registro de Actividad",
-          description: "Consulta las acciones recientes realizadas por los usuarios de tu empresa.",
-          action: "Ver Actividad",
-          icon: "clock",
-          file: "actividad"
-        },
-        users: {
-          title: "Gestionar Usuarios",
-          description: "Controla el acceso y los permisos de tu equipo.",
-          action: "Gestionar Usuarios",
-          icon: "users",
-          file: "usuarios" 
-        },
-        addresses: {
-          title: "Gestionar Direcciones",
-          description: "Controla las direcciones de entrega habilitadas para tu empresa.",
-          action: "Gestionar Direcciones",
-          icon: "map-pin",
-          file: "direcciones"
-        },
-      }
 
-      this.init()
-    }
-
-    init() {
-      this.bindEvents()
-      this.setActiveSection("dashboard") 
-    }
-
-    bindEvents() {
-      const sidebarToggle = document.getElementById("sidebarToggle")
-      sidebarToggle.addEventListener("click", () => this.toggleSidebar())
-
-      const navItems = document.querySelectorAll(".nav-item")
-      navItems.forEach((item) => {
-        item.addEventListener("click", (e) => {
-          const section = e.currentTarget.getAttribute("data-section")
-          this.setActiveSection(section)
-        })
-      })
-
-      const actionButton = document.getElementById("actionButton");
-      if (actionButton) {
-        actionButton.addEventListener("click", () => {
-          const currentItem = this.menuItems[this.activeSection];
-          alert(`Ejecutando: ${currentItem.action}`);
-        });
-      }
-    }
-
-    toggleSidebar() {
-        this.sidebarOpen = !this.sidebarOpen;
-        const sidebar = document.getElementById("sidebar");
-        const toggleIcon = document.getElementById("toggleIcon");
-      
-        if (this.sidebarOpen) {
-          sidebar.classList.remove("collapsed");
-          toggleIcon.innerHTML = `
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          `;
-        } else {
-          sidebar.classList.add("collapsed");
-          toggleIcon.innerHTML = `
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          `;
-        }
-    }      
-
-    setActiveSection(section) {
-      const navItems = document.querySelectorAll(".nav-item")
-      navItems.forEach((item) => item.classList.remove("active"))
-
-      const activeItem = document.querySelector(`[data-section="${section}"]`)
-      if (activeItem) {
-        activeItem.classList.add("active")
-      }
-
-      this.activeSection = section
-      this.updateContent()
-    }
-
-    updateContent() {
-        const currentItem = this.menuItems[this.activeSection];
-        if (!currentItem) return;
-      
-        const pageTitle = document.getElementById("pageTitle");
-        pageTitle.textContent = currentItem.title;  
+// FUNCIONALIDADES DEL SIDEBAR
+function inicializarSidebar() {
     
-        this.loadContent(this.activeSection);
-    }
-
-    async loadContent(section) {
-      const container = document.getElementById("dynamicContent");
-      const currentItem = this.menuItems[section];
-      const fileName = currentItem?.file || section;
-
-      try {
-        await cargarLoader();
-
-        const res = await fetch(`/admin/partials/${fileName}.html`);
-        const html = await res.text();
-        container.innerHTML = html;
-
-        if (fileName === 'dashboard') {
-          requestAnimationFrame(() => this.inicializarDashboard());
-        }
-
-      } catch (err) {
-        console.error("Error al cargar sección:", section, err);
-        container.innerHTML = `<p>Error al cargar el contenido de ${section}.</p>`;
-      } finally {
-        document.body.classList.remove("oculto");
-      }
-    }
-
-    async inicializarDashboard() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const userId = user.id;
-
-      try {
-        const [tickets, mensual, promedio, acumulado] = await Promise.all([
-          fetch(`/stats/tickets-procesados?user_id=${userId}`).then(r => r.json()),
-          fetch(`/stats/gasto-mensual?user_id=${userId}`).then(r => r.json()),
-          fetch(`/stats/promedio-mensual?user_id=${userId}`).then(r => r.json()),
-          fetch(`/stats/acumulado-anual?user_id=${userId}`).then(r => r.json())
-        ]);
-
-        document.getElementById("kpi-gasto-mensual").textContent = `$${mensual.total?.toLocaleString() ?? 0}`;
-        document.getElementById("kpi-promedio-mensual").textContent = `$${promedio.promedio?.toLocaleString() ?? 0}`;
-        document.getElementById("kpi-acumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
-        document.getElementById("kpi-tickets-procesados").textContent = tickets.total ?? 0;
-
-        const monthNames = [
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-        ];
-
-        const today = new Date();
-        const currentMonthIndex = today.getMonth();
-        const currentMonthName = monthNames[currentMonthIndex];
-        const currentMonthNumber = currentMonthIndex + 1;
-
-        const mesNombreEl = document.getElementById("mesNombre");
-        const mesNumeroEl = document.getElementById("mesNumero");
-
-        if (mesNombreEl && mesNumeroEl) {
-            mesNombreEl.textContent = currentMonthName;
-            mesNumeroEl.textContent = `Mes ${currentMonthNumber} de 12`;
-        }
-
-      } catch (error) {
-        console.error("Error cargando KPIs:", error);
-      }
-    }
+    document.getElementById("sidebarToggle")?.addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("collapsed");
+    });
+  
+    document.querySelectorAll(".nav-item").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const section = e.currentTarget.getAttribute("data-section");
+  
+        document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+        e.currentTarget.classList.add("active");
+        cambiarSeccion(section);
+      });
+    });
 }
+
+// FUNCION: LOGOUT
+
+function inicializarLogoutDirecto() {
+    const logoutIcon = document.getElementById("logout-direct");
+  
+    if (!logoutIcon) return;
+  
+    logoutIcon.addEventListener("click", async () => {
+      const { error } = await supabase.auth.signOut();
+  
+      if (error) {
+        alert("Error al cerrar sesión: " + error.message);
+      } else {
+        window.location.href = "/index.html";
+      }
+    });
+}
+  
+
+// TEMPLATES
+
+const seccionToTemplateId = {
+    dashboard: "dashboardTemplate",
+    actividad: "actividadTemplate",
+    usuarios: "usuariosTemplate",
+    direcciones: "direccionesTemplate"
+};
+
+function cambiarSeccion(section) {
+    const templateId = seccionToTemplateId[section];
+    const template = document.getElementById(templateId);
+    const container = document.getElementById("dynamicContent");
+
+    if (!template) {
+        container.innerHTML = `<p style="padding: 1rem;">❌ No se encontró el template para: ${section}</p>`;
+        console.error(`No se encontró el template con ID: ${section}Template`);
+        return;
+    }
+
+    container.innerHTML = "";
+    container.appendChild(template.content.cloneNode(true));
+
+    if (section === "dashboard") {
+        cargarDatosKPIs();
+    }
+
+    if (section === "direcciones") {
+      cargarDireccionesTemplate();
+    }    
+}
+  
+
+// TEMPLATE: DASHBOARD
+async function cargarDatosKPIs() {
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (!user) {
+    console.error("Usuario no autenticado.");
+    return;
+  }
+
+  const userId = user.id;
+
+  try {
+    const [tickets, mensual, promedio, acumulado] = await Promise.all([
+      fetch(`/stats/tickets-procesados?user_id=${userId}`).then(r => r.json()),
+      fetch(`/stats/gasto-mensual?user_id=${userId}`).then(r => r.json()),
+      fetch(`/stats/promedio-mensual?user_id=${userId}`).then(r => r.json()),
+      fetch(`/stats/acumulado-anual?user_id=${userId}`).then(r => r.json())
+    ]);
+
+    document.getElementById("kpi-gasto-mensual").textContent = `$${mensual.total?.toLocaleString() ?? 0}`;
+    document.getElementById("kpi-promedio-mensual").textContent = `$${promedio.promedio?.toLocaleString() ?? 0}`;
+    document.getElementById("kpi-acumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
+    document.getElementById("kpi-tickets-procesados").textContent = tickets.total ?? 0;
+
+    const mesActual = new Date().getMonth();
+    const nombreMes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"][mesActual];
+    document.getElementById("mesNombre").textContent = nombreMes;
+    document.getElementById("mesNumero").textContent = `Mes ${mesActual + 1} de 12`;
+
+  } catch (error) {
+    console.error("Error cargando KPIs:", error);
+  }
+}
+
+
+
+// TEMPLATE: DIRECCIONES
+async function cargarDireccionesTemplate() {
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      console.error("Usuario no autenticado.");
+      return;
+    }
+    const userId = user.id;
+
+    const [kpi, lista] = await Promise.all([
+      fetch(`/stats/direcciones-totales?user_id=${userId}`).then(r => r.json()),
+      fetch(`/stats/direcciones?user_id=${userId}`).then(r => r.json())
+    ]);
+
+    document.getElementById("totalDirecciones").textContent = kpi.total ?? 0;
+
+    const tbody = document.getElementById("tablaDirecciones");
+    tbody.innerHTML = "";
+
+    if (lista.direcciones.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6">⚠️ No hay direcciones disponibles</td></tr>`;
+      return;
+    }
+
+    lista.direcciones.forEach(d => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${d.nombre}</td>
+        <td>${d.direccion}</td>
+        <td>${d.ciudad ?? ""}, ${d.provincia ?? ""}</td>
+        <td>${d.codigo_postal ?? "-"}</td>
+        <td>${d.is_active ? "🟢 Activa" : "🔴 Inactiva"}</td>
+        <td><button class="btn btn-sm">Editar</button></td>
+      `;
+      tbody.appendChild(row);
+    });
+  } catch (error) {
+    console.error("Error cargando direcciones:", error);
+    document.getElementById("tablaDirecciones").innerHTML = `<tr><td colspan="6">❌ Error al cargar direcciones</td></tr>`;
+  }
+}
+
+
+
+
+// TEMPLATE: USUARIOS
+
+// TEMPLATE: ACTIVIDAD
