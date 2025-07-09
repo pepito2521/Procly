@@ -241,6 +241,46 @@ const getEmpresaId = async (userId) => {
 
 // 4. ACTIVIDAD
 
+// KPI: LISTADO DE TICKETS DE LA EMPRESA
+const actividadTickets = async (req, res) => {
+    try {
+      const empresaId = await getEmpresaId(req.user.id);
+  
+      const { data, error } = await supabaseService
+        .from('tickets')
+        .select(`
+          codigo_ticket,
+          estado,
+          categoria,
+          precio_seleccionado,
+          user_id,
+          profiles:profiles!tickets_user_id_fkey (nombre, apellido)
+        `)
+        .eq('empresa_id', empresaId)
+        .order('created_at', { ascending: false });
+  
+      if (error) throw error;
+  
+      const resultado = data.map(t => ({
+        codigo_ticket: t.codigo_ticket,
+        nombre: t.profiles?.nombre ?? '',
+        apellido: t.profiles?.apellido ?? '',
+        estado: t.estado,
+        categoria: t.categoria,
+        precio: t.estado === 'entregado'
+          ? `$${t.precio_seleccionado?.toLocaleString() ?? '0'}`
+          : 'En proceso'
+      }));
+  
+      res.json({ tickets: resultado });
+  
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  };
+  
+
 module.exports = {
   direccionesTotales,
   direcciones,
@@ -251,5 +291,6 @@ module.exports = {
   usuarios,
   totalUsuarios,
   usuariosActivos,
-  gastoPromedioMensual
+  gastoPromedioMensual,
+  actividadTickets
 };

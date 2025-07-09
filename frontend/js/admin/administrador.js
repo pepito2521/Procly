@@ -78,6 +78,11 @@ function cambiarSeccion(section) {
     if (section === "usuarios") {
       cargarUsuariosTemplate();
     }
+
+    if (section === "actividad") {
+      cargarActividadTemplate();
+    }
+    
     
 }
   
@@ -244,3 +249,69 @@ async function cargarUsuariosTemplate() {
 
 
 // TEMPLATE: ACTIVIDAD
+async function cargarActividadTemplate() {
+  try {
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      console.error("Token no disponible.");
+      return;
+    }
+
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    // 1. Cargar KPIs
+    const [resProcesados, resPromedio, resPendientes] = await Promise.all([
+      fetch('/stats/tickets-procesados', { headers }).then(r => r.json()),
+      fetch('/stats/promedio-mensual', { headers }).then(r => r.json()),
+      fetch('/stats/tickets-pendientes', { headers }).then(r => r.json())
+    ]);
+
+    document.getElementById("actividadTickets").textContent = resProcesados.total ?? 0;
+    document.getElementById("actividadPromedio").textContent = `$${resPromedio.promedio?.toLocaleString() ?? 0}`;
+    document.getElementById("actividadPendientes").textContent = resPendientes.total ?? 0;
+
+    // 2. Cargar Tabla
+    const response = await fetch('/stats/actividad-tickets', { headers });
+    const { tickets } = await response.json();
+
+    const tbody = document.getElementById("tablaActividad");
+    tbody.innerHTML = "";
+
+    if (!tickets || tickets.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay tickets registrados</td></tr>`;
+      return;
+    }
+
+    tickets.forEach(t => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${t.codigo_ticket}</td>
+        <td>${t.nombre} ${t.apellido}</td>
+        <td>
+          <span class="badge ${getEstadoColor(t.estado)}">${t.estado}</span>
+        </td>
+        <td>${t.categoria}</td>
+        <td>${t.estado === 'entregado' ? `$${t.precio.toLocaleString()}` : 'En proceso'}</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+  } catch (error) {
+    console.error("Error al cargar actividad:", error);
+    document.getElementById("tablaActividad").innerHTML = `<tr><td colspan="5">❌ Error al cargar actividad</td></tr>`;
+  }
+}
+
+// Utilidad: color según estado
+function getEstadoColor(estado) {
+  switch (estado) {
+    case 'pendiente':
+      return 'badge-warning';
+    case 'en revisión':
+      return 'badge-secondary';
+    case 'entregado':
+      return 'badge-success';
+    default:
+      return 'badge-default';
+  }
+}
