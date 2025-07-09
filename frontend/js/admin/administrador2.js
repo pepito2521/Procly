@@ -2,17 +2,19 @@ import { supabase } from "/js/supabaseClient.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   inicializarSidebar();
+  inicializarLogoutDirecto();
   cambiarSeccion("dashboard");
   await cargarDatosKPIs();
 });
 
+
+// FUNCIONALIDADES DEL SIDEBAR
 function inicializarSidebar() {
-    // COLLAPSE
+    
     document.getElementById("sidebarToggle")?.addEventListener("click", () => {
       document.getElementById("sidebar").classList.toggle("collapsed");
     });
   
-    // NAVEGACION
     document.querySelectorAll(".nav-item").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const section = e.currentTarget.getAttribute("data-section");
@@ -22,33 +24,54 @@ function inicializarSidebar() {
         cambiarSeccion(section);
       });
     });
-  }
+}
 
-  const seccionToTemplateId = {
+// FUNCION: LOGOUT
+
+function inicializarLogoutDirecto() {
+    const logoutIcon = document.getElementById("logout-direct");
+  
+    if (!logoutIcon) return;
+  
+    logoutIcon.addEventListener("click", async () => {
+      const { error } = await supabase.auth.signOut();
+  
+      if (error) {
+        alert("Error al cerrar sesión: " + error.message);
+      } else {
+        window.location.href = "/index.html";
+      }
+    });
+}
+  
+
+// TEMPLATES
+
+const seccionToTemplateId = {
     dashboard: "dashboardTemplate",
     actividad: "actividadTemplate",
     usuarios: "usuariosTemplate",
     direcciones: "direccionesTemplate"
-  };
-  
-  function cambiarSeccion(section) {
+};
+
+function cambiarSeccion(section) {
     const templateId = seccionToTemplateId[section];
     const template = document.getElementById(templateId);
     const container = document.getElementById("dynamicContent");
-  
+
     if (!template) {
-      container.innerHTML = `<p style="padding: 1rem;">❌ No se encontró el template para: ${section}</p>`;
-      console.error(`No se encontró el template con ID: ${section}Template`);
-      return;
+        container.innerHTML = `<p style="padding: 1rem;">❌ No se encontró el template para: ${section}</p>`;
+        console.error(`No se encontró el template con ID: ${section}Template`);
+        return;
     }
-  
+
     container.innerHTML = "";
     container.appendChild(template.content.cloneNode(true));
-  
+
     if (section === "dashboard") {
-      cargarDatosKPIs();
+        cargarDatosKPIs();
     }
-  }
+}
   
 
 // Carga datos Supabase
@@ -82,9 +105,4 @@ async function cargarDatosKPIs() {
   } catch (error) {
     console.error("Error cargando KPIs:", error);
   }
-}
-
-// Muestra por defecto
-function cargarDashboardTemplate() {
-  cambiarSeccion("dashboard");
 }
