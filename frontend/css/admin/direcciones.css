@@ -78,6 +78,8 @@
 .btn.btn-primary {
     display: inline-flex;
     align-items: center;
+    height: 35px;
+    line-height: 35px;
     gap: 12px;
     padding: 12px;
     border: none;

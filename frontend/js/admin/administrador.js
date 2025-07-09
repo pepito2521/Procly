@@ -260,15 +260,15 @@ async function cargarActividadTemplate() {
     const headers = { 'Authorization': `Bearer ${token}` };
 
     // 1. Cargar KPIs
-    const [resProcesados, resPromedio, resPendientes] = await Promise.all([
-      fetch('/stats/tickets-procesados', { headers }).then(r => r.json()),
-      fetch('/stats/promedio-mensual', { headers }).then(r => r.json()),
-      fetch('/stats/tickets-pendientes', { headers }).then(r => r.json())
+    const [resEntregados, resEnProceso, resCancelados] = await Promise.all([
+      fetch('/stats/tickets-entregados', { headers }).then(r => r.json()),
+      fetch('/stats/tickets-en-proceso', { headers }).then(r => r.json()),
+      fetch('/stats/tickets-cancelados', { headers }).then(r => r.json())
     ]);
-
-    document.getElementById("actividadTickets").textContent = resProcesados.total ?? 0;
-    document.getElementById("actividadPromedio").textContent = `$${resPromedio.promedio?.toLocaleString() ?? 0}`;
-    document.getElementById("actividadPendientes").textContent = resPendientes.total ?? 0;
+    
+    document.getElementById("actividadEntregados").textContent = resEntregados.total ?? 0;
+    document.getElementById("actividadEnProceso").textContent = resEnProceso.total ?? 0;
+    document.getElementById("actividadCancelados").textContent = resCancelados.total ?? 0;    
 
     // 2. Cargar Tabla
     const response = await fetch('/stats/actividad-tickets', { headers });

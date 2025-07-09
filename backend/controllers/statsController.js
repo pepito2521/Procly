@@ -241,45 +241,101 @@ const getEmpresaId = async (userId) => {
 
 // 4. ACTIVIDAD
 
-// KPI: LISTADO DE TICKETS DE LA EMPRESA
-const actividadTickets = async (req, res) => {
+    // KPI: LISTADO DE TICKETS DE LA EMPRESA
+    const actividadTickets = async (req, res) => {
+        try {
+        const empresaId = await getEmpresaId(req.user.id);
+    
+        const { data, error } = await supabaseService
+            .from('tickets')
+            .select(`
+            codigo_ticket,
+            estado,
+            categoria,
+            precio_seleccionado,
+            user_id,
+            profiles:profiles!tickets_user_id_fkey (nombre, apellido)
+            `)
+            .eq('empresa_id', empresaId)
+            .order('created_at', { ascending: false });
+    
+        if (error) throw error;
+    
+        const resultado = data.map(t => ({
+            codigo_ticket: t.codigo_ticket,
+            nombre: t.profiles?.nombre ?? '',
+            apellido: t.profiles?.apellido ?? '',
+            estado: t.estado,
+            categoria: t.categoria,
+            precio: t.estado === 'entregado'
+            ? `$${t.precio_seleccionado?.toLocaleString() ?? '0'}`
+            : 'En proceso'
+        }));
+    
+        res.json({ tickets: resultado });
+    
+        } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+        }
+    };
+
+  // KPI: TICKETS ENTREGADOS
+  const ticketsEntregados = async (req, res) => {
     try {
       const empresaId = await getEmpresaId(req.user.id);
   
-      const { data, error } = await supabaseService
+      const { count, error } = await supabaseService
         .from('tickets')
-        .select(`
-          codigo_ticket,
-          estado,
-          categoria,
-          precio_seleccionado,
-          user_id,
-          profiles:profiles!tickets_user_id_fkey (nombre, apellido)
-        `)
+        .select('*', { count: 'exact', head: true })
         .eq('empresa_id', empresaId)
-        .order('created_at', { ascending: false });
+        .eq('estado', 'entregado');
   
       if (error) throw error;
   
-      const resultado = data.map(t => ({
-        codigo_ticket: t.codigo_ticket,
-        nombre: t.profiles?.nombre ?? '',
-        apellido: t.profiles?.apellido ?? '',
-        estado: t.estado,
-        categoria: t.categoria,
-        precio: t.estado === 'entregado'
-          ? `$${t.precio_seleccionado?.toLocaleString() ?? '0'}`
-          : 'En proceso'
-      }));
-  
-      res.json({ tickets: resultado });
-  
+      res.json({ total: count });
     } catch (err) {
-      console.error(err);
       res.status(500).json({ error: err.message });
     }
   };
-  
+
+    // KPI: TICKETS EN PROCESO
+    const ticketsEnProceso = async (req, res) => {
+    try {
+        const empresaId = await getEmpresaId(req.user.id);
+
+        const { count, error } = await supabaseService
+        .from('tickets')
+        .select('*', { count: 'exact', head: true })
+        .eq('empresa_id', empresaId)
+        .not('estado', 'in', '("entregado","cancelado")');
+
+        if (error) throw error;
+
+        res.json({ total: count });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+    };
+
+    const ticketsCancelados = async (req, res) => {
+        try {
+          const empresaId = await getEmpresaId(req.user.id);
+      
+          const { count, error } = await supabaseService
+            .from('tickets')
+            .select('*', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId)
+            .eq('estado', 'cancelado');
+      
+          if (error) throw error;
+      
+          res.json({ total: count });
+        } catch (err) {
+          res.status(500).json({ error: err.message });
+        }
+      };
+      
 
 module.exports = {
   direccionesTotales,
@@ -292,5 +348,8 @@ module.exports = {
   totalUsuarios,
   usuariosActivos,
   gastoPromedioMensual,
-  actividadTickets
+  actividadTickets,
+  ticketsEntregados,
+  ticketsEnProceso,
+  ticketsCancelados
 };

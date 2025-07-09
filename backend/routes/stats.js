@@ -12,7 +12,10 @@ const {
   totalUsuarios,
   usuariosActivos,
   gastoPromedioMensual,
-  actividadTickets
+  actividadTickets,
+  ticketsEntregados,
+  ticketsEnProceso,
+  ticketsCancelados
 } = require('../controllers/statsController');
 
 router.use(requireAuth);
@@ -35,5 +38,8 @@ router.get('/gasto-promedio-mensual', gastoPromedioMensual);
 
 // KPI: ACTIVIDADES
 router.get('/actividad-tickets', actividadTickets);
+router.get('/tickets-entregados', ticketsEntregados);
+router.get('/tickets-en-proceso', ticketsEnProceso);
+router.get('/tickets-cancelados', ticketsCancelados);
 
 module.exports = router;
