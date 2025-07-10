@@ -268,6 +268,22 @@
     font-weight: 600;
     color: #374151;
   }
+
+  #pageIcon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+
+  #pageIcon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid red;
+  }
+  
   
   .header-actions {
     display: flex;
