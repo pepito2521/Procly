@@ -24,7 +24,6 @@ const getEmpresaId = async (userId) => {
         .from('direcciones_entrega')
         .select('*', { count: 'exact', head: true })
         .eq('empresa_id', empresaId)
-        .eq('is_active', true);
 
         if (error) throw error;
         res.json({ total: count });
@@ -36,17 +35,17 @@ const getEmpresaId = async (userId) => {
     // KPI: DIRECCIONES ACTIVAS
     const getDireccionesActivas = async (req, res) => {
         try {
-          const empresaId = await getEmpresaId(req.user.id);
-      
-          const { count, error } = await supabaseService
+            const empresaId = await getEmpresaId(req.user.id);
+        
+            const { count, error } = await supabaseService
             .from('direcciones_entrega')
-            .select('id', { count: 'exact', head: true })
+            .select('*', { count: 'exact', head: true })
             .eq('empresa_id', empresaId)
             .eq('is_active', true);
-      
-          if (error) throw error;
-      
-          res.json({ total: count });
+        
+            if (error) throw error;
+        
+            res.json({ total: count });
         } catch (error) {
           console.error("Error al obtener direcciones activas:", error.message);
           res.status(500).json({ error: "Error al obtener direcciones activas" });
@@ -61,7 +60,7 @@ const getEmpresaId = async (userId) => {
       
           const { count, error } = await supabaseService
             .from('direcciones_entrega')
-            .select('id', { count: 'exact', head: true })
+            .select('*', { count: 'exact', head: true })
             .eq('empresa_id', empresaId)
             .eq('is_active', false);
       
