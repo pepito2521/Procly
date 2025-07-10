@@ -276,12 +276,12 @@
   }
 
   #pageIcon {
+    color: #374151;
     width: 24px;
     height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid red;
   }
   
   
