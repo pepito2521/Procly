@@ -33,6 +33,48 @@ const getEmpresaId = async (userId) => {
     }
     };
 
+    // KPI: DIRECCIONES ACTIVAS
+    const getDireccionesActivas = async (req, res) => {
+        try {
+          const empresaId = await getEmpresaId(req.user.id);
+      
+          const { count, error } = await supabaseService
+            .from('direcciones_entrega')
+            .select('id', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId)
+            .eq('is_active', true);
+      
+          if (error) throw error;
+      
+          res.json({ total: count });
+        } catch (error) {
+          console.error("Error al obtener direcciones activas:", error.message);
+          res.status(500).json({ error: "Error al obtener direcciones activas" });
+        }
+      };
+
+
+    // KPI: DIRECCIONES BLOQUEADAS
+    const getDireccionesBloqueadas = async (req, res) => {
+        try {
+          const empresaId = await getEmpresaId(req.user.id);
+      
+          const { count, error } = await supabaseService
+            .from('direcciones_entrega')
+            .select('id', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId)
+            .eq('is_active', false);
+      
+          if (error) throw error;
+      
+          res.json({ total: count });
+        } catch (error) {
+          console.error("Error al obtener direcciones bloqueadas:", error.message);
+          res.status(500).json({ error: "Error al obtener direcciones bloqueadas" });
+        }
+      };
+
+
     // KPI: LISTADO DIRECCIONES
     const direcciones = async (req, res) => {
     try {
@@ -50,7 +92,6 @@ const getEmpresaId = async (userId) => {
         res.status(500).json({ error: err.message });
     }
     };
-
 
 
 // 2. DASHBOARD
@@ -401,6 +442,8 @@ const getEmpresaId = async (userId) => {
 
 module.exports = {
   direccionesTotales,
+  getDireccionesActivas,
+  getDireccionesBloqueadas,
   direcciones,
   ticketsProcesados,
   gastoMensual,

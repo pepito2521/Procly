@@ -2,22 +2,32 @@ const express = require('express');
 const router = express.Router();
 const requireAuth = require('../middleware/requireAuth');
 const {
-  direccionesTotales,
-  direcciones,
-  ticketsProcesados,
-  gastoMensual,
-  promedioMensual,
-  acumuladoAnual,
-  usuarios,
-  usuariosNuevosEsteMes,
-  totalUsuarios,
-  usuariosActivos,
-  porcentajeUsuariosActivos,
-  gastoPromedioMensual,
-  actividadTickets,
-  ticketsEntregados,
-  ticketsEnProceso,
-  ticketsCancelados
+
+    // DIRECCIONES
+    direccionesTotales,
+    getDireccionesActivas,
+    getDireccionesBloqueadas,
+    direcciones,
+
+    // DASHBOARD
+    ticketsProcesados,
+    gastoMensual,
+    promedioMensual,
+    acumuladoAnual,
+
+    // USUARIOS
+    usuarios,
+    usuariosNuevosEsteMes,
+    totalUsuarios,
+    usuariosActivos,
+    porcentajeUsuariosActivos,
+    gastoPromedioMensual,
+
+    // ACTIVIDAD
+    actividadTickets,
+    ticketsEntregados,
+    ticketsEnProceso,
+    ticketsCancelados
 } = require('../controllers/statsController');
 
 router.use(requireAuth);
@@ -25,6 +35,8 @@ router.use(requireAuth);
 // KPI: DIRECCIONES
 router.get('/direcciones-totales', direccionesTotales);
 router.get('/direcciones', direcciones);
+router.get('/direcciones-activas', getDireccionesActivas);
+router.get('/direcciones-bloqueadas', getDireccionesBloqueadas);
 
 // KPI: DASHBOARD
 router.get('/tickets-procesados', ticketsProcesados);

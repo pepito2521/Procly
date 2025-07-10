@@ -171,12 +171,17 @@ async function cargarDireccionesTemplate() {
     
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    const [kpi, lista] = await Promise.all([
+    const [kpi, lista, activas, bloqueadas] = await Promise.all([
       fetch(`/stats/direcciones-totales`, { headers }).then(r => r.json()),
-      fetch(`/stats/direcciones`, { headers }).then(r => r.json())
-    ]);    
+      fetch(`/stats/direcciones`, { headers }).then(r => r.json()),
+      fetch(`/stats/direcciones-activas`, { headers }).then(r => r.json()),
+      fetch(`/stats/direcciones-bloqueadas`, { headers }).then(r => r.json())
+    ]);
+        
     
     document.getElementById("totalDirecciones").textContent = kpi.total ?? 0;
+    document.getElementById("DireccionesActivas").textContent = activas.total ?? 0;
+    document.getElementById("DireccionesBloqueadas").textContent = bloqueadas.total ?? 0;
 
     const tbody = document.getElementById("tablaDirecciones");
     tbody.innerHTML = "";
