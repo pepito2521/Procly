@@ -38,14 +38,6 @@
     font-weight: 500;
 }
 
-.summary-cards.single-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    margin-bottom: 16px;
-}
-
-
 .dashboard-overview {
     display: flex;
     flex-direction: column;
