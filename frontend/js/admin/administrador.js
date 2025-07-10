@@ -219,6 +219,20 @@ async function cargarDireccionesTemplate() {
     console.error("Error cargando direcciones:", error);
     document.getElementById("tablaDirecciones").innerHTML = `<tr><td colspan="6">❌ Error al cargar direcciones</td></tr>`;
   }
+
+  const inputBuscador = document.getElementById("buscadorDirecciones");
+
+  inputBuscador.addEventListener("input", (e) => {
+    const valor = e.target.value.toLowerCase();
+
+    const filas = tbody.querySelectorAll("tr");
+    filas.forEach((fila) => {
+      const textoFila = fila.textContent.toLowerCase();
+      const coincide = textoFila.includes(valor);
+      fila.style.display = coincide ? "" : "none";
+    });
+  });
+
 }
 
 // TEMPLATE: USUARIOS
@@ -289,6 +303,21 @@ async function cargarUsuariosTemplate() {
     console.error("Error al cargar usuarios:", error);
     document.getElementById("tablaUsuarios").innerHTML = `<tr><td colspan="6">❌ Error al cargar usuarios</td></tr>`;
   }
+
+   
+  const inputBuscador = document.getElementById("buscadorUsuarios");
+
+  inputBuscador.addEventListener("input", (e) => {
+    const valor = e.target.value.toLowerCase();
+
+    const filas = tbody.querySelectorAll("tr");
+    filas.forEach((fila) => {
+      const textoNombre = fila.children[0]?.textContent.toLowerCase() ?? "";
+      const coincide = textoNombre.includes(valor);
+      fila.style.display = coincide ? "" : "none";
+    });
+  });
+
 }
 
 
