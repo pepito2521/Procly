@@ -86,43 +86,42 @@ const seccionToIcon = {
 
 
 function cambiarSeccion(section) {
-    const templateId = seccionToTemplateId[section];
-    const template = document.getElementById(templateId);
-    const container = document.getElementById("dynamicContent");
+  const templateId = seccionToTemplateId[section];
+  const template = document.getElementById(templateId);
+  const container = document.getElementById("dynamicContent");
 
-    if (!template) {
-        container.innerHTML = `<p style="padding: 1rem;">❌ No se encontró el template para: ${section}</p>`;
-        console.error(`No se encontró el template con ID: ${section}Template`);
-        return;
-    }
+  if (!template) {
+      container.innerHTML = `<p style="padding: 1rem;">❌ No se encontró el template para: ${section}</p>`;
+      console.error(`No se encontró el template con ID: ${section}Template`);
+      return;
+  }
 
-    const titulo = seccionToTitulo[section] ?? "Panel";
-    document.getElementById("pageTitle").textContent = titulo;
+  const titulo = seccionToTitulo[section] ?? "Panel";
+  document.getElementById("pageTitle").textContent = titulo;
 
-    const iconHTML = seccionToIcon[section] ?? '';
-    document.getElementById("pageIcon").innerHTML = iconHTML;
+  const iconHTML = seccionToIcon[section] ?? '';
+  document.getElementById("pageIcon").innerHTML = iconHTML;
 
 
-    container.innerHTML = "";
-    container.appendChild(template.content.cloneNode(true));
+  container.innerHTML = "";
+  container.appendChild(template.content.cloneNode(true));
 
-    if (section === "dashboard") {
+  requestAnimationFrame(() => {
+    switch (section) {
+      case "dashboard":
         cargarDatosKPIs();
+        break;
+      case "direcciones":
+        cargarDireccionesTemplate();
+        break;
+      case "usuarios":
+        cargarUsuariosTemplate();
+        break;
+      case "actividad":
+        cargarActividadTemplate();
+        break;
     }
-
-    if (section === "direcciones") {
-      cargarDireccionesTemplate();
-    }    
-
-    if (section === "usuarios") {
-      cargarUsuariosTemplate();
-    }
-
-    if (section === "actividad") {
-      cargarActividadTemplate();
-    }
-    
-    
+  });
 }
   
 // TEMPLATE: DASHBOARD
