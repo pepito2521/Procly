@@ -9,8 +9,10 @@ const {
   promedioMensual,
   acumuladoAnual,
   usuarios,
+  usuariosNuevosEsteMes,
   totalUsuarios,
   usuariosActivos,
+  porcentajeUsuariosActivos,
   gastoPromedioMensual,
   actividadTickets,
   ticketsEntregados,
@@ -32,8 +34,10 @@ router.get('/acumulado-anual', acumuladoAnual);
 
 // KPI: USUARIOS
 router.get('/usuarios', usuarios);
+router.get('/usuarios-nuevos-mes', usuariosNuevosEsteMes);
 router.get('/usuarios-totales', totalUsuarios);
 router.get('/usuarios-activos', usuariosActivos);
+router.get('/usuarios-activos-porcentaje', porcentajeUsuariosActivos);
 router.get('/gasto-promedio-mensual', gastoPromedioMensual);
 
 // KPI: ACTIVIDADES

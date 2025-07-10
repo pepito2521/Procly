@@ -196,6 +196,31 @@ const getEmpresaId = async (userId) => {
         }
     };
 
+    // KPI: USUARIOS NUEVOS ESTE MES
+    const usuariosNuevosEsteMes = async (req, res) => {
+        try {
+        const empresaId = await getEmpresaId(req.user.id);
+    
+        const primerDiaMes = new Date();
+        primerDiaMes.setDate(1);
+        primerDiaMes.setHours(0, 0, 0, 0);
+    
+        const { count, error } = await supabaseService
+            .from('profiles')
+            .select('*', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId)
+            .gte('created_at', primerDiaMes.toISOString());
+    
+        if (error) throw error;
+    
+        res.json({ nuevos: count });
+        } catch (err) {
+        console.error("Error en usuariosNuevosEsteMes:", err.message);
+        res.status(500).json({ error: err.message });
+        }
+    };
+  
+
     // KPI: USUARIOS ACTIVOS
     const usuariosActivos = async (req, res) => {
         try {
@@ -214,6 +239,38 @@ const getEmpresaId = async (userId) => {
         res.status(500).json({ error: err.message });
         }
     };
+
+    // KPI: % de USUARIOS ACTIVOS
+    const porcentajeUsuariosActivos = async (req, res) => {
+        try {
+        const empresaId = await getEmpresaId(req.user.id);
+    
+        // Total usuarios
+        const { count: total, error: totalError } = await supabaseService
+            .from('profiles')
+            .select('*', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId);
+    
+        if (totalError) throw totalError;
+    
+        // Usuarios activos (no bloqueados)
+        const { count: activos, error: activosError } = await supabaseService
+            .from('profiles')
+            .select('*', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId)
+            .eq('bloqueado', false);
+    
+        if (activosError) throw activosError;
+    
+        const porcentaje = total > 0 ? Math.round((activos / total) * 100) : 0;
+    
+        res.json({ porcentaje });
+        } catch (err) {
+        console.error("Error en porcentajeUsuariosActivos:", err.message);
+        res.status(500).json({ error: err.message });
+        }
+    };
+  
   
     // KPI: GASTO PROMEDIO MENSUAL POR USUARIO
     const gastoPromedioMensual = async (req, res) => {
@@ -358,8 +415,10 @@ module.exports = {
   promedioMensual,
   acumuladoAnual,
   usuarios,
+  usuariosNuevosEsteMes,
   totalUsuarios,
   usuariosActivos,
+  porcentajeUsuariosActivos,
   gastoPromedioMensual,
   actividadTickets,
   ticketsEntregados,
