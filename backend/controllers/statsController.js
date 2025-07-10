@@ -54,7 +54,6 @@ const getEmpresaId = async (userId) => {
 
 
 // 2. DASHBOARD
-
     // KPI: TOTAL TICKETS
     const ticketsProcesados = async (req, res) => {
     try {
@@ -149,17 +148,6 @@ const getEmpresaId = async (userId) => {
     // KPI: LISTADO DE USUARIOS
     const usuarios = async (req, res) => {
         try {
-        const getEmpresaId = async (userId) => {
-            const { data, error } = await supabaseService
-                .from('profiles')
-                .select('empresa_id')
-                .eq('profile_id', userId)
-                .single();
-            
-            if (error) throw new Error('No se pudo obtener empresa_id');
-            return data.empresa_id;
-            };
-        
         const empresaId = await getEmpresaId(req.user.id);
         
         const { data, error } = await supabaseService
@@ -337,7 +325,7 @@ const getEmpresaId = async (userId) => {
             apellido: t.profiles?.apellido ?? '',
             estado: t.estado,
             categoria: t.categoria,
-            precio: t.estado === 'entregado'
+            precio: t.estado === 'Entregado'
             ? `$${t.precio_seleccionado?.toLocaleString() ?? '0'}`
             : 'En proceso'
         }));
@@ -359,7 +347,8 @@ const getEmpresaId = async (userId) => {
         .from('tickets')
         .select('*', { count: 'exact', head: true })
         .eq('empresa_id', empresaId)
-        .eq('estado', 'entregado');
+        .eq('estado', 'Entregado');
+
   
       if (error) throw error;
   
@@ -378,7 +367,8 @@ const getEmpresaId = async (userId) => {
         .from('tickets')
         .select('*', { count: 'exact', head: true })
         .eq('empresa_id', empresaId)
-        .not('estado', 'in', '("entregado","cancelado")');
+        .not('estado', 'in', '("Entregado","Cancelado")');
+
 
         if (error) throw error;
 
@@ -388,6 +378,7 @@ const getEmpresaId = async (userId) => {
     }
     };
 
+    // KPI: TICKETS CANCELADOS
     const ticketsCancelados = async (req, res) => {
         try {
           const empresaId = await getEmpresaId(req.user.id);
@@ -396,7 +387,8 @@ const getEmpresaId = async (userId) => {
             .from('tickets')
             .select('*', { count: 'exact', head: true })
             .eq('empresa_id', empresaId)
-            .eq('estado', 'cancelado');
+            .eq('estado', 'Cancelado');
+
       
           if (error) throw error;
       
