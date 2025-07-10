@@ -373,6 +373,20 @@ async function cargarActividadTemplate() {
     console.error("Error al cargar actividad:", error);
     document.getElementById("tablaActividad").innerHTML = `<tr><td colspan="5">❌ Error al cargar actividad</td></tr>`;
   }
+
+  const inputBuscador = document.getElementById("buscadorTickets");
+
+  inputBuscador.addEventListener("input", (e) => {
+    const valor = e.target.value.toLowerCase();
+    const filas = tbody.querySelectorAll("tr");
+
+    filas.forEach((fila) => {
+      const textoCodigo = fila.children[0]?.textContent.toLowerCase() ?? "";
+      const coincide = textoCodigo.includes(valor);
+      fila.style.display = coincide ? "" : "none";
+    });
+  });
+
 }
 
 // Utilidad: color según estado
