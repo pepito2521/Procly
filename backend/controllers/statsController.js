@@ -205,7 +205,7 @@ const getEmpresaId = async (userId) => {
             .from('profiles')
             .select('*', { count: 'exact', head: true })
             .eq('empresa_id', empresaId)
-            .eq('is_active', true);
+            .eq('bloqueado', false);
     
         if (error) throw error;
     
