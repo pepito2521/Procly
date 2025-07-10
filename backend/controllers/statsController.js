@@ -149,8 +149,19 @@ const getEmpresaId = async (userId) => {
     // KPI: LISTADO DE USUARIOS
     const usuarios = async (req, res) => {
         try {
+        const getEmpresaId = async (userId) => {
+            const { data, error } = await supabaseService
+                .from('profiles')
+                .select('empresa_id')
+                .eq('profile_id', userId)
+                .single();
+            
+            if (error) throw new Error('No se pudo obtener empresa_id');
+            return data.empresa_id;
+            };
+        
         const empresaId = await getEmpresaId(req.user.id);
-    
+        
         const { data, error } = await supabaseService
             .from('profiles')
             .select('profile_id, nombre, apellido, email, is_active, limite_gasto_mensual')
@@ -159,8 +170,10 @@ const getEmpresaId = async (userId) => {
     
         if (error) throw error;
     
+        console.log("Usuarios encontrados:", data);
         res.json({ usuarios: data });
         } catch (err) {
+        console.error("Error al buscar usuarios:", err.message);
         res.status(500).json({ error: err.message });
         }
     };
@@ -335,7 +348,7 @@ const getEmpresaId = async (userId) => {
           res.status(500).json({ error: err.message });
         }
       };
-      
+
 
 module.exports = {
   direccionesTotales,

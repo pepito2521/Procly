@@ -34,6 +34,7 @@ function inicializarLogoutDirecto() {
   
     logoutIcon.addEventListener("click", async () => {
       const { error } = await supabase.auth.signOut();
+      localStorage.removeItem('supabaseToken');
   
       if (error) {
         alert("Error al cerrar sesión: " + error.message);
