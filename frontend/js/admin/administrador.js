@@ -256,8 +256,8 @@ async function cargarUsuariosTemplate() {
         <td>${u.email}</td>
         <td>$${u.limite_gasto_mensual?.toLocaleString() ?? '-'}</td>
         <td>
-          <span class="badge ${u.is_active ? 'badge-success' : 'badge-danger'}">
-            ${u.is_active ? 'Activo' : 'Inactivo'}
+          <span class="badge ${!u.bloqueado ? 'badge-success' : 'badge-danger'}">
+            ${!u.bloqueado ? 'Activo' : 'Inactivo'}
           </span>
         </td>
         <td>

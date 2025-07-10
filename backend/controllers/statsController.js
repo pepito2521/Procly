@@ -164,7 +164,7 @@ const getEmpresaId = async (userId) => {
         
         const { data, error } = await supabaseService
             .from('profiles')
-            .select('profile_id, nombre, apellido, email, is_active, limite_gasto_mensual')
+            .select('profile_id, nombre, apellido, email, bloqueado, limite_gasto')
             .eq('empresa_id', empresaId)
             .order('apellido', { ascending: true });
     
