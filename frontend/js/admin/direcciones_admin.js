@@ -114,6 +114,9 @@ async function cargarPopupEliminar(idDireccion) {
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
 
+  // Mostrar el pop-up interior
+  document.getElementById('pop-up-eliminar').style.display = 'flex';
+
   document.getElementById('cancelar-eliminar').onclick = function() {
     document.getElementById('popup-direccion-container').style.display = 'none';
   };
@@ -139,6 +142,9 @@ async function cargarPopupDireccion() {
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
+
+  // ¡Agrega esta línea!
+  document.getElementById('pop-up-direccion').style.display = 'flex';
 
   // Botón para cerrar con la X
   document.getElementById('cerrar-pop-up-direccion').onclick = function() {
@@ -167,6 +173,9 @@ async function cargarPopupEditar(idDireccion) {
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
+
+  // Mostrar el pop-up interior
+  document.getElementById('pop-up-editar').style.display = 'flex';
 
   // Botón para cerrar con la X
   document.getElementById('cerrar-pop-up-editar').onclick = function() {
