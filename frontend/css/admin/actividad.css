@@ -43,8 +43,7 @@
     border: none;
     border-radius: 8px;
     overflow-y: auto;
-    flex: 1;
-    min-height: 0;
+    max-height: 500px;
 }
   
 .tabla-con-scroll > table {
