@@ -119,29 +119,3 @@ function cambiarSeccion(section) {
   });
     
 }
-
-// FUNCION: POP-UP DIRECCION
-
-async function cargarPopupDireccion() {
-  const response = await fetch('/components/pop-up-direccion.html');
-  const html = await response.text();
-  document.getElementById('popup-direccion-container').innerHTML = html;
-  document.getElementById('popup-direccion-container').style.display = 'block';
-
-  document.getElementById('cerrar-pop-up-direccion').onclick = function() {
-    document.getElementById('popup-direccion-container').style.display = 'none';
-  };
-
-  document.querySelector('.btn-cancelar').onclick = function() {
-    document.getElementById('popup-direccion-container').style.display = 'none';
-  };
-
-  const popup = document.getElementById('pop-up-direccion');
-  if (popup) {
-    popup.addEventListener('click', function(event) {
-      if (event.target === popup) {
-        document.getElementById('popup-direccion-container').style.display = 'none';
-      }
-    });
-  }
-}
