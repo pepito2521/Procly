@@ -162,6 +162,7 @@ async function cargarDatosKPIs() {
 
 // TEMPLATE: DIRECCIONES
 async function cargarDireccionesTemplate() {
+  let tbody;
   try {
     const token = localStorage.getItem('supabaseToken');
     if (!token) {
@@ -183,7 +184,7 @@ async function cargarDireccionesTemplate() {
     document.getElementById("DireccionesActivas").textContent = activas.total ?? 0;
     document.getElementById("DireccionesBloqueadas").textContent = bloqueadas.total ?? 0;
 
-    const tbody = document.getElementById("tablaDirecciones");
+    tbody = document.getElementById("tablaDirecciones");
     tbody.innerHTML = "";
 
     if (lista.direcciones.length === 0) {
@@ -237,6 +238,7 @@ async function cargarDireccionesTemplate() {
 
 // TEMPLATE: USUARIOS
 async function cargarUsuariosTemplate() {
+  let tbody;
   try {
     const token = localStorage.getItem('supabaseToken');
     if (!token) {
@@ -268,7 +270,7 @@ async function cargarUsuariosTemplate() {
 
 
     // 2. Tabla
-    const tbody = document.getElementById("tablaUsuarios");
+    tbody = document.getElementById("tablaUsuarios");
     tbody.innerHTML = "";
 
     if (!listado.usuarios || listado.usuarios.length === 0) {
@@ -323,6 +325,7 @@ async function cargarUsuariosTemplate() {
 
 // TEMPLATE: ACTIVIDAD
 async function cargarActividadTemplate() {
+  let tbody;
   try {
     const token = localStorage.getItem('supabaseToken');
     if (!token) {
@@ -347,7 +350,7 @@ async function cargarActividadTemplate() {
     const response = await fetch('/stats/actividad-tickets', { headers });
     const { tickets } = await response.json();
 
-    const tbody = document.getElementById("tablaActividad");
+    tbody = document.getElementById("tablaActividad");
     tbody.innerHTML = "";
 
     if (!tickets || tickets.length === 0) {
