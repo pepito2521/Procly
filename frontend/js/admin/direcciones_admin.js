@@ -67,13 +67,11 @@ async function cargarDireccionesTemplate() {
         tbody.appendChild(row);
       });
 
-      // Asignar event listener al botón Agregar Dirección
       const btnAgregar = document.getElementById('btnAgregarDireccion');
       if (btnAgregar) {
         btnAgregar.addEventListener('click', cargarPopupDireccion);
       }
-
-      // Asignar event listeners a los botones Eliminar
+      
       tbody.querySelectorAll('.btn-eliminar').forEach(btn => {
         btn.addEventListener('click', function() {
           const id = this.getAttribute('data-id');
@@ -118,6 +116,33 @@ async function cargarPopupEliminar(idDireccion) {
   };
 
   const popup = document.getElementById('pop-up-eliminar');
+  if (popup) {
+    popup.addEventListener('click', function(event) {
+      if (event.target === popup) {
+        document.getElementById('popup-direccion-container').style.display = 'none';
+      }
+    });
+  }
+}
+
+async function cargarPopupDireccion() {
+  const response = await fetch('/components/pop-up-direccion.html');
+  const html = await response.text();
+  document.getElementById('popup-direccion-container').innerHTML = html;
+  document.getElementById('popup-direccion-container').style.display = 'block';
+
+  // Botón para cerrar con la X
+  document.getElementById('cerrar-pop-up-direccion').onclick = function() {
+    document.getElementById('popup-direccion-container').style.display = 'none';
+  };
+
+  // Botón para cerrar con "Cancelar"
+  document.querySelector('.btn-cancelar').onclick = function() {
+    document.getElementById('popup-direccion-container').style.display = 'none';
+  };
+
+  // Cerrar haciendo click fuera del contenido
+  const popup = document.getElementById('pop-up-direccion');
   if (popup) {
     popup.addEventListener('click', function(event) {
       if (event.target === popup) {
