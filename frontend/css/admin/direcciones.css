@@ -4,6 +4,8 @@
     gap: 32px;
 }
 
+
+/* TABLA DE DIRECCIONES */
 .table-header {
     display: flex;
     justify-content: space-between;
@@ -89,9 +91,8 @@
 }
 
 
-.btn-sm  {
-    width: 100%;
-    max-width: 100%;
+/* BOTONES DE ACCIÓN EN TABLA DE DIRECCIONES */
+.btn-editar {
     height: 35px;
     line-height: 35px;
     display: inline-flex;
@@ -108,31 +109,48 @@
     border-radius: 8px;
     padding: 0.6rem 1.2rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
 }
-  
-.btn-sm:hover {
+.btn-editar:hover {
     background-color: #d6e7e6;
     color: #0f2e2e;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
-
-.btn-sm svg {
+.btn-editar svg {
     fill: currentColor;
     width: 1rem;
     height: 1rem;
 }
 
-.btn-sm:link,
-.btn-sm:visited {
+.btn-eliminar {
+    height: 35px;
+    line-height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     text-decoration: none;
+    background-color: #fff;
+    color: #d32f2f;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 1px solid #f4cccc;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
 }
-  
-
-.btn-outline {
-    border: 1px solid #d1d5db;
-    background-color: white;
-    color: #111827;
+.btn-eliminar:hover {
+    background-color: #ffeaea;
+    color: #b71c1c;
+    border: 1px solid #d32f2f;
+    box-shadow: 0 2px 6px rgba(211, 47, 47, 0.08);
+}
+.btn-eliminar svg {
+    fill: currentColor;
+    width: 1rem;
+    height: 1rem;
 }
 
 .acciones-btns {

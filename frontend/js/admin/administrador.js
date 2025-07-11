@@ -145,5 +145,3 @@ async function cargarPopupDireccion() {
     });
   }
 }
-
-document.getElementById('btnAgregarDireccion').addEventListener('click', cargarPopupDireccion);
