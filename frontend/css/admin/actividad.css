@@ -38,3 +38,23 @@
     color: #6b7280;
     font-weight: 500;
 }
+
+.tabla-con-scroll {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .tabla-con-scroll > table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+.actividades-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+  }
+  
