@@ -38,23 +38,24 @@ async function cargarDireccionesTemplate() {
       lista.direcciones.forEach(d => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${d.nombre}</td>
-          <td>${d.direccion}</td>
-          <td>${d.ciudad ?? ""}, ${d.provincia ?? ""}</td>
-          <td>${d.codigo_postal ?? "-"}</td>
-          <td>
+            <td>${d.nombre}</td>
+            <td>${d.direccion}</td>
+            <td>${d.ciudad ?? ""}, ${d.provincia ?? ""}</td>
+            <td>
             <span class="badge ${d.is_active ? 'badge-success' : 'badge-danger'}">
-              ${d.is_active ? 'Activa' : 'Inactiva'}
+                ${d.is_active ? 'Activa' : 'Inactiva'}
             </span>
-          </td>
-          <td>
-            <button class="btn btn-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#000000" viewBox="0 0 256 256">
-                <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.32,64l24-24L216,84.69Z"></path>
-              </svg>
-              Editar
-            </button>
-          </td>
+            </td>
+            <td>
+                <button class="btn-sm btn-editar" data-id="${d.id}">
+                <svg><!-- ícono editar --></svg>
+                Editar
+                </button>
+                <button class="btn-sm btn-eliminar" data-id="${d.id}" style="margin-left:8px;">
+                <svg><!-- ícono eliminar --></svg>
+                Eliminar
+                </button>
+            </td>
   
         `;
         tbody.appendChild(row);
@@ -79,3 +80,36 @@ async function cargarDireccionesTemplate() {
     });
   
   }
+
+document.querySelectorAll('.btn-eliminar').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const id = this.getAttribute('data-id');
+    cargarPopupEliminar(id);
+  });
+});
+
+// FUNCION: POP-UP ELIMINAR
+async function cargarPopupEliminar(idDireccion) {
+  const response = await fetch('/components/pop-up-eliminar.html');
+  const html = await response.text();
+  document.getElementById('popup-direccion-container').innerHTML = html;
+  document.getElementById('popup-direccion-container').style.display = 'block';
+
+  document.getElementById('cancelar-eliminar').onclick = function() {
+    document.getElementById('popup-direccion-container').style.display = 'none';
+  };
+
+  document.getElementById('confirmar-eliminar').onclick = function() {
+    eliminarDireccion(idDireccion);
+    document.getElementById('popup-direccion-container').style.display = 'none';
+  };
+
+  const popup = document.getElementById('pop-up-eliminar');
+  if (popup) {
+    popup.addEventListener('click', function(event) {
+      if (event.target === popup) {
+        document.getElementById('popup-direccion-container').style.display = 'none';
+      }
+    });
+  }
+}

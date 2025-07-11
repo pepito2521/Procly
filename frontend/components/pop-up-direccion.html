@@ -1,5 +1,6 @@
-<div id="pop-up-direccion" class="glass-loader" style="display: none;">
+<div id="pop-up-direccion" class="glass-loader" style="display: none;" aria-modal="true" role="dialog">
     <div class="pop-up-direccion-contenido">
+      <button type="button" id="cerrar-pop-up-direccion" class="btn-cerrar-x" aria-label="Cerrar">&times;</button>
       <h2>Agregar Dirección</h2>
       <form id="form-pop-up-direccion">
         <input type="text" name="nombre" placeholder="Nombre" required />
@@ -9,8 +10,8 @@
         <input type="text" name="codigo_postal" placeholder="Código Postal" />
         <input type="text" name="pais" placeholder="País" />
         <button type="submit" class="btn2">Guardar</button>
-        <button type="button" id="cerrar-pop-up-direccion" class="btn-cancelar">Cancelar</button>
+        <button type="button" class="btn-cancelar">Cancelar</button>
       </form>
     </div>
-  </div>
+</div>
   
