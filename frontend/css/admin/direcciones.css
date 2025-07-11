@@ -108,28 +108,35 @@
     padding: 0.6rem 1.2rem;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  }
+}
   
-  .btn-sm:hover {
+.btn-sm:hover {
     background-color: #d6e7e6;
     color: #0f2e2e;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  .btn-sm svg {
+}
+
+.btn-sm svg {
     fill: currentColor;
     width: 1rem;
     height: 1rem;
-  }
-  
-  .btn-sm:link,
-  .btn-sm:visited {
-  text-decoration: none;
-  }
+}
+
+.btn-sm:link,
+.btn-sm:visited {
+    text-decoration: none;
+}
   
 
-  .btn-outline {
+.btn-outline {
     border: 1px solid #d1d5db;
     background-color: white;
     color: #111827;
+}
+
+.acciones-btns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
 }

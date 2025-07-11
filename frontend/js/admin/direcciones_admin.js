@@ -47,19 +47,40 @@ async function cargarDireccionesTemplate() {
             </span>
             </td>
             <td>
-                <button class="btn-sm btn-editar" data-id="${d.id}">
-                <svg><!-- ícono editar --></svg>
-                Editar
-                </button>
-                <button class="btn-sm btn-eliminar" data-id="${d.id}" style="margin-left:8px;">
-                <svg><!-- ícono eliminar --></svg>
-                Eliminar
-                </button>
+                <div class="acciones-btns" style="display: flex; gap: 8px;">
+                    <button class="btn-sm btn-editar" data-id="${d.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1976d2" viewBox="0 0 256 256">
+                            <path d="M229.66,77.66l-51.32-51.32a16,16,0,0,0-22.63,0l-96,96A16,16,0,0,0,56,134.06V184a16,16,0,0,0,16,16h49.94a16,16,0,0,0,11.31-4.69l96-96A16,16,0,0,0,229.66,77.66ZM128,192H72V136l96-96,56,56Z"></path>
+                        </svg>
+                        Editar
+                    </button>
+                    <button class="btn-sm btn-eliminar" data-id="${d.id}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#d32f2f" viewBox="0 0 256 256">
+                            <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40A8,8,0,0,0,40,64H56V208a24,24,0,0,0,24,24H176a24,24,0,0,0,24-24V64h16a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM192,208a8,8,0,0,1-8,8H80a8,8,0,0,1-8-8V64H192Z"></path>
+                        </svg>
+                        Eliminar
+                    </button>
+                </div>
             </td>
   
         `;
         tbody.appendChild(row);
       });
+
+      // Asignar event listener al botón Agregar Dirección
+      const btnAgregar = document.getElementById('btnAgregarDireccion');
+      if (btnAgregar) {
+        btnAgregar.addEventListener('click', cargarPopupDireccion);
+      }
+
+      // Asignar event listeners a los botones Eliminar
+      tbody.querySelectorAll('.btn-eliminar').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = this.getAttribute('data-id');
+          cargarPopupEliminar(id);
+        });
+      });
+
     } catch (error) {
       console.error("Error cargando direcciones:", error);
       document.getElementById("tablaDirecciones").innerHTML = `<tr><td colspan="6">❌ Error al cargar direcciones</td></tr>`;
@@ -78,15 +99,7 @@ async function cargarDireccionesTemplate() {
         fila.style.display = coincide ? "" : "none";
       });
     });
-  
   }
-
-document.querySelectorAll('.btn-eliminar').forEach(btn => {
-  btn.addEventListener('click', function() {
-    const id = this.getAttribute('data-id');
-    cargarPopupEliminar(id);
-  });
-});
 
 // FUNCION: POP-UP ELIMINAR
 async function cargarPopupEliminar(idDireccion) {
