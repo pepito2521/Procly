@@ -79,6 +79,13 @@ async function cargarDireccionesTemplate() {
         });
       });
 
+      tbody.querySelectorAll('.btn-editar').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const id = this.getAttribute('data-id');
+          cargarPopupEditar(id);
+        });
+      });
+
     } catch (error) {
       console.error("Error cargando direcciones:", error);
       document.getElementById("tablaDirecciones").innerHTML = `<tr><td colspan="6">❌ Error al cargar direcciones</td></tr>`;
@@ -149,5 +156,44 @@ async function cargarPopupDireccion() {
         document.getElementById('popup-direccion-container').style.display = 'none';
       }
     });
+  }
+}
+
+async function cargarPopupEditar(idDireccion) {
+  const response = await fetch('/components/pop-up-editar.html');
+  const html = await response.text();
+  document.getElementById('popup-direccion-container').innerHTML = html;
+  document.getElementById('popup-direccion-container').style.display = 'block';
+
+  // Botón para cerrar con la X
+  document.getElementById('cerrar-pop-up-editar').onclick = function() {
+    document.getElementById('popup-direccion-container').style.display = 'none';
+  };
+
+  // Botón para cerrar con "Cancelar"
+  document.querySelector('.btn-cancelar').onclick = function() {
+    document.getElementById('popup-direccion-container').style.display = 'none';
+  };
+
+  // Cerrar haciendo click fuera del contenido
+  const popup = document.getElementById('pop-up-editar');
+  if (popup) {
+    popup.addEventListener('click', function(event) {
+      if (event.target === popup) {
+        document.getElementById('popup-direccion-container').style.display = 'none';
+      }
+    });
+  }
+
+  // --- Precargar datos ---
+  // 1. Buscar la dirección en la lista global (puedes guardar la lista en window o en una variable global)
+  const direccion = window.listaDirecciones?.find(d => d.id == idDireccion);
+  if (direccion) {
+    document.getElementById('editar-nombre').value = direccion.nombre || '';
+    document.getElementById('editar-direccion').value = direccion.direccion || '';
+    document.getElementById('editar-ciudad').value = direccion.ciudad || '';
+    document.getElementById('editar-provincia').value = direccion.provincia || '';
+    document.getElementById('editar-codigo_postal').value = direccion.codigo_postal || '';
+    document.getElementById('editar-pais').value = direccion.pais || '';
   }
 }
