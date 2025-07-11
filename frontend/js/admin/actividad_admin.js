@@ -59,16 +59,14 @@ async function cargarActividadTemplate() {
 
     // BUSCADOR DE TICKETS
     const inputBuscador = document.getElementById("buscadorTickets");
-    inputBuscador?.oninput = (e) => {
-    const valor = e.target.value.toLowerCase();
-    const filas = tbody.querySelectorAll("tr");
-    filas.forEach((fila) => {
+    inputBuscador && (inputBuscador.oninput = (e) => {
+      const valor = e.target.value.toLowerCase();
+      const filas = tbody.querySelectorAll("tr");
+      filas.forEach((fila) => {
         const textoCodigo = fila.children[0]?.textContent.toLowerCase() ?? "";
         fila.style.display = textoCodigo.includes(valor) ? "" : "none";
+      });
     });
-    };
-
-  
   }
   
   // Utilidad: color según estado
