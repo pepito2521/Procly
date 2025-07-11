@@ -40,21 +40,22 @@
 }
 
 .tabla-con-scroll {
-    border: 1px solid #e5e7eb;
+    border: none;
     border-radius: 8px;
-    max-height: 300px;
     overflow-y: auto;
-  }
+    flex: 1;
+    min-height: 0;
+}
   
-  .tabla-con-scroll > table {
+.tabla-con-scroll > table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
+}
+
 .actividades-table thead th {
     position: sticky;
     top: 0;
     background-color: white;
     z-index: 1;
-  }
+}
   
