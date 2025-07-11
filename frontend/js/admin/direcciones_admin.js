@@ -108,6 +108,7 @@ async function cargarDireccionesTemplate() {
 
 // FUNCION: POP-UP ELIMINAR
 async function cargarPopupEliminar(idDireccion) {
+  console.log("Click en Eliminar Dirección");
   const response = await fetch('/components/pop-up-eliminar.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
@@ -133,6 +134,7 @@ async function cargarPopupEliminar(idDireccion) {
 }
 
 async function cargarPopupDireccion() {
+  console.log("Click en Agregar Dirección");
   const response = await fetch('/components/pop-up-direccion.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
@@ -160,6 +162,7 @@ async function cargarPopupDireccion() {
 }
 
 async function cargarPopupEditar(idDireccion) {
+  console.log("Click en Editar Dirección");
   const response = await fetch('/components/pop-up-editar.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
