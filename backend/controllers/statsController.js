@@ -111,7 +111,7 @@ const getEmpresaId = async (userId) => {
     }
     };
 
-    // KPI: GASTO MENSUAL
+    // KPI: GASTO MES EN CURSO
     const gastoMensual = async (req, res) => {
     try {
         const empresaId = await getEmpresaId(req.user.id);
@@ -135,6 +135,34 @@ const getEmpresaId = async (userId) => {
         res.status(500).json({ error: err.message });
     }
     };
+
+    // KPI: GASTOS MENSUALES AÑO EN CURSO
+    const gastosMensuales = async (req, res) => {
+        try {
+          const empresaId = await getEmpresaId(req.user.id);
+          const now = new Date();
+          const year = now.getFullYear();
+          const monthlyTotals = Array(12).fill(0);
+      
+          const { data, error } = await supabaseService
+            .from('tickets')
+            .select('precio_seleccionado, created_at')
+            .eq('empresa_id', empresaId)
+            .gte('created_at', `${year}-01-01`)
+            .lte('created_at', `${year}-12-31`);
+      
+          if (error) throw error;
+      
+          data.forEach(ticket => {
+            const month = new Date(ticket.created_at).getMonth(); // 0 = enero
+            monthlyTotals[month] += ticket.precio_seleccionado || 0;
+          });
+      
+          res.json({ monthlyTotals });
+        } catch (err) {
+          res.status(500).json({ error: err.message });
+        }
+      };
 
     // KPI: PROMEDIO MENSUAL
     const promedioMensual = async (req, res) => {
@@ -457,5 +485,6 @@ module.exports = {
   ticketsEntregados,
   ticketsEnProceso,
   ticketsCancelados,
-  gastoTotalPorUsuario
+  gastoTotalPorUsuario,
+  gastosMensuales
 };

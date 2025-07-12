@@ -39,3 +39,45 @@ async function cargarDatosKPIs() {
       console.error("Error cargando KPIs:", error);
     }
   }
+
+  // CHART: GASTOS MENSUALES
+async function cargarGraficoGastosMensuales() {
+  const token = localStorage.getItem('supabaseToken');
+  const headers = { 'Authorization': `Bearer ${token}` };
+  const response = await fetch('/stats/gastos-mensuales', { headers });
+  const data = await response.json();
+
+  const ctx = document.getElementById('monthlyChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+      datasets: [{
+        label: 'Gasto mensual ($)',
+        data: data.monthlyTotals,
+        borderColor: '#508991',
+        backgroundColor: 'rgba(80,137,145,0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: '#508991'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function(value) {
+              return '$' + value.toLocaleString();
+            }
+          }
+        }
+      }
+    }
+  });
+}

@@ -12,6 +12,7 @@ const {
     // DASHBOARD
     ticketsProcesados,
     gastoMensual,
+    gastosMensuales,
     promedioMensual,
     acumuladoAnual,
 
@@ -41,6 +42,7 @@ router.get('/direcciones-bloqueadas', getDireccionesBloqueadas);
 // KPI: DASHBOARD
 router.get('/tickets-procesados', ticketsProcesados);
 router.get('/gasto-mensual', gastoMensual);
+router.get('/gastos-mensuales', gastosMensuales);
 router.get('/promedio-mensual', promedioMensual);
 router.get('/acumulado-anual', acumuladoAnual);
 
