@@ -21,7 +21,7 @@ const {
     totalUsuarios,
     usuariosActivos,
     porcentajeUsuariosActivos,
-    gastoPromedioMensual,
+    gastoTotalPorUsuario,
 
     // ACTIVIDAD
     actividadTickets,
@@ -51,7 +51,7 @@ router.get('/usuarios-nuevos-mes', usuariosNuevosEsteMes);
 router.get('/usuarios-totales', totalUsuarios);
 router.get('/usuarios-activos', usuariosActivos);
 router.get('/usuarios-activos-porcentaje', porcentajeUsuariosActivos);
-router.get('/gasto-promedio-mensual', gastoPromedioMensual);
+router.get('/gasto-promedio-mensual', promedioMensual);
 router.get('/usuarios-gasto-total', gastoTotalPorUsuario);
 
 // KPI: ACTIVIDADES
