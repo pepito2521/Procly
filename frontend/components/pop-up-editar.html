@@ -1,6 +1,5 @@
 <div id="pop-up-editar" class="glass-loader" style="display: none;" aria-modal="true" role="dialog">
-  <div class="pop-up-editar-contenido">
-    <button type="button" id="cerrar-pop-up-editar" class="btn-cerrar-x" aria-label="Cerrar">&times;</button>
+  <div class="pop-up-contenido">
     <h2>Editar Dirección</h2>
     <form id="form-pop-up-editar">
       <input type="text" name="nombre" id="editar-nombre" placeholder="Nombre" required />
@@ -9,8 +8,10 @@
       <input type="text" name="provincia" id="editar-provincia" placeholder="Provincia" />
       <input type="text" name="codigo_postal" id="editar-codigo_postal" placeholder="Código Postal" />
       <input type="text" name="pais" id="editar-pais" placeholder="País" />
-      <button type="submit" class="btn2">Guardar Cambios</button>
-      <button type="button" class="btn-cancelar">Cancelar</button>
+      <div class="pop-up-btns-row">
+        <button type="submit" class="btn2">Guardar Cambios</button>
+        <button type="button" class="btn-cancelar">Cancelar</button>
+      </div>
     </form>
   </div>
 </div>
