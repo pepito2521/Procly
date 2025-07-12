@@ -92,13 +92,15 @@ async function cargarUsuariosTemplate() {
         });
       });
 
-    // Asigna los listeners en la tabla de usuarios
-    tbody.querySelectorAll('.btn2').forEach((btn, i) => {
+
+    tbody.querySelectorAll('.btn-cancelar').forEach((btn, i) => {
       btn.addEventListener('click', function() {
         const idUsuario = listado.usuarios[i].profile_id;
         cargarPopupLimite(idUsuario);
       });
     });
+
+
     tbody.querySelectorAll('.btn-eliminar').forEach((btn, i) => {
       btn.addEventListener('click', function() {
         const idUsuario = listado.usuarios[i].profile_id;
