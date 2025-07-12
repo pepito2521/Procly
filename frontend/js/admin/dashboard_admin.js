@@ -34,6 +34,8 @@ async function cargarDatosKPIs() {
       const nombreMes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"][mesActual];
       document.getElementById("mesNombre").textContent = nombreMes;
       document.getElementById("mesNumero").textContent = `Mes ${mesActual + 1} de 12`;
+
+      cargarGraficoGastosMensuales();
   
     } catch (error) {
       console.error("Error cargando KPIs:", error);
