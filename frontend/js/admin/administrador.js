@@ -20,7 +20,16 @@ async function mostrarNombreAdmin() {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        nombre = user.user_metadata?.nombre || user.email || 'Administrador';
+        const { data: perfil, error } = await supabase
+          .from('profiles')
+          .select('nombre')
+          .eq('profile_id', user.id)
+          .single();
+        if (perfil && perfil.nombre) {
+          nombre = perfil.nombre;
+        } else {
+          nombre = user.email || 'Administrador';
+        }
       }
     } catch (e) {
       nombre = 'Administrador';
