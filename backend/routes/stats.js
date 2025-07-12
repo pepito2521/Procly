@@ -27,8 +27,7 @@ const {
     actividadTickets,
     ticketsEntregados,
     ticketsEnProceso,
-    ticketsCancelados,
-    gastoTotalPorUsuario
+    ticketsCancelados
 } = require('../controllers/statsController');
 
 router.use(requireAuth);
