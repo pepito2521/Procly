@@ -14,14 +14,16 @@ async function cargarDatosKPIs() {
     const headers = { 'Authorization': `Bearer ${token}` };
   
     try {
-      const [tickets, mensual, promedio, acumulado] = await Promise.all([
+      const [tickets, mensual, promedio, acumulado, totalUsuarios, usuariosNuevos] = await Promise.all([
         fetch(`/stats/tickets-procesados`, { headers }).then(r => r.json()),
         fetch(`/stats/gasto-mensual`, { headers }).then(r => r.json()),
         fetch(`/stats/promedio-mensual`, { headers }).then(r => r.json()),
-        fetch(`/stats/acumulado-anual`, { headers }).then(r => r.json())
+        fetch(`/stats/acumulado-anual`, { headers }).then(r => r.json()),
+        fetch(`/stats/usuarios-totales`, { headers }).then(r => r.json()),
+        fetch(`/stats/usuarios-nuevos-mes`, { headers }).then(r => r.json())
       ]);
 
-      if (!mensual || !promedio || !acumulado || !tickets) {
+      if (!mensual || !promedio || !acumulado || !tickets || !totalUsuarios || !usuariosNuevos) {
         console.warn("Algunos KPIs no pudieron cargarse.");
       }
   
@@ -29,6 +31,8 @@ async function cargarDatosKPIs() {
       document.getElementById("kpi-promedio-mensual").textContent = `$${promedio.promedio?.toLocaleString() ?? 0}`;
       document.getElementById("kpi-acumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
       document.getElementById("kpi-tickets-procesados").textContent = tickets.total ?? 0;
+      document.getElementById("kpi-usuarios-totales").textContent = totalUsuarios.total ?? 0;
+      document.getElementById("kpi-usuarios-nuevos").textContent = `${usuariosNuevos.nuevos === 0 ? "Ningún usuario nuevo este mes" : usuariosNuevos.nuevos + (usuariosNuevos.nuevos === 1 ? " nuevo este mes" : " nuevos este mes")}`;
 
       const mesActual = new Date().getMonth();
       const nombreMes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"][mesActual];
