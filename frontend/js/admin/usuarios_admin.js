@@ -56,8 +56,20 @@ async function cargarUsuariosTemplate() {
             </span>
           </td>
           <td>
-            <button class="btn2">Límite</button>
-            <button class="btn-eliminar">${u.bloqueado ? 'Activar' : 'Bloquear'}</button>
+            <div class="acciones-btns">
+              <button class="btn2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0f2e2e" viewBox="0 0 256 256">
+                  <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z"></path>
+                </svg>
+                Límite
+              </button>
+              <button class="btn-eliminar">
+                ${u.bloqueado
+                  ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1976d2" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
+                  : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#d32f2f" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
+                }
+              </button>
+            </div>
           </td>
         `;
         tbody.appendChild(row);
@@ -79,4 +91,70 @@ async function cargarUsuariosTemplate() {
           fila.style.display = textoNombre.includes(valor) ? "" : "none";
         });
       });
+
+    // Asigna los listeners en la tabla de usuarios
+    tbody.querySelectorAll('.btn2').forEach((btn, i) => {
+      btn.addEventListener('click', function() {
+        const idUsuario = listado.usuarios[i].profile_id;
+        cargarPopupLimite(idUsuario);
+      });
+    });
+    tbody.querySelectorAll('.btn-eliminar').forEach((btn, i) => {
+      btn.addEventListener('click', function() {
+        const idUsuario = listado.usuarios[i].profile_id;
+        cargarPopupBloquear(idUsuario);
+      });
+    });
   }
+
+// Mostrar pop-up de límite
+async function cargarPopupLimite(idUsuario) {
+  const response = await fetch('/components/pop-up-limite.html');
+  const html = await response.text();
+  document.getElementById('popup-direccion-container').innerHTML = html;
+  document.getElementById('popup-direccion-container').style.display = 'block';
+  document.getElementById('pop-up-limite').style.display = 'flex';
+
+  // Botón cancelar
+  const popup = document.getElementById('pop-up-limite');
+  const btnCancelar = popup.querySelector('.btn-cancelar');
+  if (btnCancelar) {
+    btnCancelar.onclick = function() {
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    };
+  }
+  // Cerrar haciendo click fuera
+  popup.addEventListener('click', function(event) {
+    if (event.target === popup) {
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    }
+  });
+
+  // Aquí puedes precargar el límite actual si lo necesitas
+}
+
+// Mostrar pop-up de bloquear
+async function cargarPopupBloquear(idUsuario) {
+  const response = await fetch('/components/pop-up-bloquear.html');
+  const html = await response.text();
+  document.getElementById('popup-direccion-container').innerHTML = html;
+  document.getElementById('popup-direccion-container').style.display = 'block';
+  document.getElementById('pop-up-bloquear').style.display = 'flex';
+
+  // Botón cancelar
+  const popup = document.getElementById('pop-up-bloquear');
+  const btnCancelar = popup.querySelector('.btn-cancelar');
+  if (btnCancelar) {
+    btnCancelar.onclick = function() {
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    };
+  }
+  // Cerrar haciendo click fuera
+  popup.addEventListener('click', function(event) {
+    if (event.target === popup) {
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    }
+  });
+
+  // Aquí puedes agregar la lógica para confirmar el bloqueo
+}
