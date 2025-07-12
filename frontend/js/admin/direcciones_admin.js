@@ -114,7 +114,6 @@ async function cargarPopupEliminar(idDireccion) {
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
 
-  // Mostrar el pop-up interior
   document.getElementById('pop-up-eliminar').style.display = 'flex';
 
   document.getElementById('cancelar-eliminar').onclick = function() {
@@ -135,6 +134,8 @@ async function cargarPopupEliminar(idDireccion) {
     });
   }
 }
+
+// FUNCION: POP-UP AGREGAR
 
 async function cargarPopupDireccion() {
   console.log("Click en Agregar Dirección");
@@ -167,6 +168,7 @@ async function cargarPopupDireccion() {
   }
 }
 
+// FUNCION: POP-UP EDITAR
 async function cargarPopupEditar(idDireccion) {
   console.log("Click en Editar Dirección");
   const response = await fetch('/components/pop-up-editar.html');
@@ -174,21 +176,16 @@ async function cargarPopupEditar(idDireccion) {
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
 
-  // Mostrar el pop-up interior
   document.getElementById('pop-up-editar').style.display = 'flex';
 
-  // Botón para cerrar con la X
-  document.getElementById('cerrar-pop-up-editar').onclick = function() {
-    document.getElementById('popup-direccion-container').style.display = 'none';
-  };
-
-  // Botón para cerrar con "Cancelar"
-  document.querySelector('.btn-cancelar').onclick = function() {
-    document.getElementById('popup-direccion-container').style.display = 'none';
-  };
-
-  // Cerrar haciendo click fuera del contenido
   const popup = document.getElementById('pop-up-editar');
+  const btnCancelar = popup.querySelector('.btn-cancelar');
+  if (btnCancelar) {
+    btnCancelar.onclick = function() {
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    };
+  }
+
   if (popup) {
     popup.addEventListener('click', function(event) {
       if (event.target === popup) {

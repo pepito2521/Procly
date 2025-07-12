@@ -300,43 +300,43 @@ const getEmpresaId = async (userId) => {
     };
   
   
-    // KPI: GASTO PROMEDIO MENSUAL POR USUARIO
-    const gastoPromedioMensual = async (req, res) => {
+    // KPI: ACUMULADO GASTO POR USUARIO
+    const gastoTotalPorUsuario = async (req, res) => {
         try {
         const empresaId = await getEmpresaId(req.user.id);
     
-        const now = new Date();
-        const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString();
-    
-        const { data: tickets, error: err1 } = await supabaseService
-            .from('tickets')
-            .select('precio_seleccionado')
-            .eq('empresa_id', empresaId)
-            .gte('created_at', firstDay)
-            .lte('created_at', lastDay);
-    
-        if (err1) throw err1;
-    
-        const { count: totalUsuarios, error: err2 } = await supabaseService
+        const { data: usuarios, error: errorUsuarios } = await supabaseService
             .from('profiles')
-            .select('*', { count: 'exact', head: true })
+            .select('profile_id, nombre, apellido, email, bloqueado, limite_gasto')
             .eq('empresa_id', empresaId);
     
-        if (err2) throw err2;
+        if (errorUsuarios) throw errorUsuarios;
     
-        const totalGasto = tickets.reduce((acc, t) => acc + (t.precio_seleccionado || 0), 0);
-        const promedio = totalUsuarios > 0 ? totalGasto / totalUsuarios : 0;
+        const { data: tickets, error: errorTickets } = await supabaseService
+            .from('tickets')
+            .select('user_id, precio_seleccionado')
+            .eq('empresa_id', empresaId);
     
-        res.json({ promedio });
+        if (errorTickets) throw errorTickets;
+    
+        const usuariosConGasto = usuarios.map(u => {
+            const gasto = tickets
+            .filter(t => t.user_id === u.profile_id)
+            .reduce((acc, t) => acc + (t.precio_seleccionado || 0), 0);
+    
+            return {
+            ...u,
+            gasto_total: gasto
+            };
+        });
+    
+        res.json({ usuarios: usuariosConGasto });
         } catch (err) {
+        console.error("Error en gastoTotalPorUsuario:", err.message);
         res.status(500).json({ error: err.message });
         }
     };
   
-  
-  
-
 // 4. ACTIVIDAD
 
     // KPI: LISTADO DE TICKETS DE LA EMPRESA
@@ -457,5 +457,6 @@ module.exports = {
   actividadTickets,
   ticketsEntregados,
   ticketsEnProceso,
-  ticketsCancelados
+  ticketsCancelados,
+  gastoTotalPorUsuario
 };

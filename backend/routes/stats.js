@@ -27,7 +27,8 @@ const {
     actividadTickets,
     ticketsEntregados,
     ticketsEnProceso,
-    ticketsCancelados
+    ticketsCancelados,
+    gastoTotalPorUsuario
 } = require('../controllers/statsController');
 
 router.use(requireAuth);
@@ -51,6 +52,7 @@ router.get('/usuarios-totales', totalUsuarios);
 router.get('/usuarios-activos', usuariosActivos);
 router.get('/usuarios-activos-porcentaje', porcentajeUsuariosActivos);
 router.get('/gasto-promedio-mensual', gastoPromedioMensual);
+router.get('/usuarios-gasto-total', gastoTotalPorUsuario);
 
 // KPI: ACTIVIDADES
 router.get('/actividad-tickets', actividadTickets);
