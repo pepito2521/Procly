@@ -1,3 +1,5 @@
+import { supabase } from "/js/supabaseClient.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.login-form');
   
@@ -20,6 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (response.ok && result.session?.access_token) {
           localStorage.setItem('supabaseToken', result.session.access_token);
+          await supabase.auth.setSession({
+            access_token: result.session.access_token,
+            refresh_token: result.session.refresh_token
+          });
           if (result.redirectTo) {
             window.location.href = result.redirectTo;
           } else {
