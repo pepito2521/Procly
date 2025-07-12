@@ -19,12 +19,14 @@ async function mostrarNombreAdmin() {
   if (!nombre) {
     try {
       const { data: { user } } = await supabase.auth.getUser();
+      console.log("Usuario autenticado:", user);
       if (user) {
         const { data: perfil, error } = await supabase
           .from('profiles')
           .select('nombre')
           .eq('profile_id', user.id)
           .single();
+        console.log("Perfil encontrado:", perfil, "Error:", error);
         if (perfil && perfil.nombre) {
           nombre = perfil.nombre;
         } else {
