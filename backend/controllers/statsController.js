@@ -453,7 +453,6 @@ module.exports = {
   totalUsuarios,
   usuariosActivos,
   porcentajeUsuariosActivos,
-  promedioMensual,
   actividadTickets,
   ticketsEntregados,
   ticketsEnProceso,
