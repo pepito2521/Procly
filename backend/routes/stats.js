@@ -8,6 +8,7 @@ const {
     getDireccionesActivas,
     getDireccionesBloqueadas,
     direcciones,
+    eliminarDireccion,
 
     // DASHBOARD
     ticketsProcesados,
@@ -40,6 +41,9 @@ router.get('/direcciones-totales', direccionesTotales);
 router.get('/direcciones', direcciones);
 router.get('/direcciones-activas', getDireccionesActivas);
 router.get('/direcciones-bloqueadas', getDireccionesBloqueadas);
+
+// ELIMINAR DIRECCIÓN DE ENTREGA
+router.delete('/direcciones/:id', eliminarDireccion);
 
 // KPI: DASHBOARD
 router.get('/tickets-procesados', ticketsProcesados);

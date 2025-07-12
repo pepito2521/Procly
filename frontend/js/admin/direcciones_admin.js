@@ -79,11 +79,13 @@ async function cargarDireccionesTemplate() {
         });
       });
 
-      tbody.querySelectorAll('.btn-editar').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const id = this.getAttribute('data-id');
-          cargarPopupEditar(id);
-        });
+      tbody.querySelectorAll('.btn-cancelar').forEach(btn => {
+        if (btn.textContent.trim().includes('Editar')) {
+          btn.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            cargarPopupEditar(id);
+          });
+        }
       });
 
     } catch (error) {
@@ -120,9 +122,25 @@ async function cargarPopupEliminar(idDireccion) {
     document.getElementById('popup-direccion-container').style.display = 'none';
   };
 
-  document.getElementById('confirmar-eliminar').onclick = function() {
-    eliminarDireccion(idDireccion);
-    document.getElementById('popup-direccion-container').style.display = 'none';
+  document.getElementById('confirmar-eliminar').onclick = async function() {
+    try {
+      const token = localStorage.getItem('supabaseToken');
+      const response = await fetch(`/stats/direcciones/${idDireccion}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        cargarDireccionesTemplate(); // Refresca la tabla
+      } else {
+        alert('Error al eliminar la dirección');
+      }
+    } catch (error) {
+      alert('Error al conectar con el servidor');
+      console.error(error);
+    }
   };
 
   const popup = document.getElementById('pop-up-eliminar');

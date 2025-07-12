@@ -266,7 +266,7 @@
   .page-title {
     font-size: 24px;
     font-weight: 600;
-    color: #6b7280;
+    color: #111827;
   }
 
   #pageIcon svg {
@@ -283,6 +283,11 @@
     align-items: center;
     justify-content: center;
   }
+  
+  .header-content #pageIcon svg {
+    color: #111827 !important;
+    fill: #111827 !important;
+}
   
   
   .header-actions {

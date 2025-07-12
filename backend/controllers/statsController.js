@@ -92,6 +92,33 @@ const getEmpresaId = async (userId) => {
     }
     };
 
+    // ELIMINAR DIRECCIÓN DE ENTREGA
+    const eliminarDireccion = async (req, res) => {
+        try {
+            const direccionId = req.params.id;
+            const empresaId = await getEmpresaId(req.user.id);
+            // Validar que la dirección pertenezca a la empresa
+            const { data: direccion, error: errorDireccion } = await supabaseService
+                .from('direcciones_entrega')
+                .select('empresa_id')
+                .eq('direccion_id', direccionId)
+                .single();
+            if (errorDireccion) throw errorDireccion;
+            if (!direccion || direccion.empresa_id !== empresaId) {
+                return res.status(403).json({ error: 'No autorizado para eliminar esta dirección' });
+            }
+            // Eliminar la dirección
+            const { error } = await supabaseService
+                .from('direcciones_entrega')
+                .delete()
+                .eq('direccion_id', direccionId);
+            if (error) throw error;
+            res.json({ success: true });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    };
+
 
 // 2. DASHBOARD
     // KPI: TOTAL TICKETS
@@ -507,6 +534,7 @@ const getEmpresaId = async (userId) => {
         }
       };
 
+
 module.exports = {
   direccionesTotales,
   getDireccionesActivas,
@@ -528,5 +556,6 @@ module.exports = {
   gastoTotalPorUsuario,
   gastosMensuales,
   usuariosBloqueados,
-  porcentajeUsuariosBloqueados
+  porcentajeUsuariosBloqueados,
+  eliminarDireccion
 };
