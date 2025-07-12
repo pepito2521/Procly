@@ -83,7 +83,6 @@ const getEmpresaId = async (userId) => {
         .from('direcciones_entrega')
         .select('*')
         .eq('empresa_id', empresaId)
-        .eq('is_active', true);
 
         if (error) throw error;
         res.json({ direcciones: data });
