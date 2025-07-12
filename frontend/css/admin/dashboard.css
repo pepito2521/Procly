@@ -54,6 +54,9 @@
     padding: 24px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    max-height: 340px;
+    height: 340px;
+    overflow: hidden;
 }
 
 .chart-title {
@@ -71,4 +74,9 @@
 
 .summary-title-row svg {
     flex-shrink: 0;
+}
+
+#monthlyChart {
+    max-height: 220px;
+    height: 220px;
 }
