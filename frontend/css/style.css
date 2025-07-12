@@ -267,6 +267,27 @@ text-decoration: none;
   text-align: center;
 }
 
+.pop-up-titulos {
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.pop-up-titulos h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f111a;
+  margin: 0 0 2px 0;
+  line-height: 1.2;
+}
+
+.pop-up-subtitulo {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.4;
+}
+
 .pop-up-contenido input {
   padding: 8px 12px;
   font-size: 14px;
@@ -289,7 +310,7 @@ text-decoration: none;
   min-width: 0;
 }
 
-.btn-cancelar {
+.btn-editar , .btn-eliminar , .btn-cancelar{
   height: 35px;
   line-height: 35px;
   display: inline-flex;
@@ -308,12 +329,37 @@ text-decoration: none;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
 }
+.btn-editar:hover {
+  background-color: #d6e7e6;
+  color: #0f2e2e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
 
+.btn-eliminar:hover {
+  background-color: #ffeaea;
+  color: #0f2e2e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
 .btn-cancelar:hover {
   background-color: #f5f7fa;
   color: #0f2e2e;
   border: 1px solid #d1d5db;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
+
+.btn-editar svg , .btn-eliminar svg , .btn-cancelar svg {
+  fill: currentColor;
+  width: 1rem;
+  height: 1rem;
+}
+
+.acciones-btns {
+display: flex;
+gap: 8px;
+align-items: center;
+justify-content: flex-end;
+}
+
+
 
 

@@ -41,6 +41,14 @@
     font-weight: 500;
 }
 
+.direcciones-table th:last-child {
+    text-align: right;
+}
+
+.direcciones-table td:last-child {
+    text-align: right;
+}
+
 .dashboard-overview {
     display: flex;
     flex-direction: column;
@@ -88,54 +96,4 @@
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
-}
-
-
-/* BOTONES DE ACCIÓN EN TABLA DE DIRECCIONES */
-.btn-editar , .btn-eliminar {
-    height: 35px;
-    line-height: 35px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    background-color: white;
-    color: #0f2e2e;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    border: 1px solid rgba(15, 46, 46, 0.2);
-    border-radius: 8px;
-    padding: 0.6rem 1.2rem;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
-}
-.btn-editar:hover {
-    background-color: #d6e7e6;
-    color: #0f2e2e;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-.btn-editar svg {
-    fill: currentColor;
-    width: 1rem;
-    height: 1rem;
-}
-
-.btn-eliminar:hover {
-    background-color: #ffeaea;
-    color: #0f2e2e;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-.btn-eliminar svg {
-    fill: currentColor;
-    width: 1rem;
-    height: 1rem;
-}
-
-.acciones-btns {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: flex-start;
 }

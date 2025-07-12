@@ -38,3 +38,11 @@
     color: #6b7280;
     font-weight: 500;
 }
+
+.usuarios-table th:last-child {
+    text-align: right;
+}
+
+.usuarios-table td:last-child {
+    text-align: right;
+}

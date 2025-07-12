@@ -1,6 +1,9 @@
 <div id="pop-up-editar" class="glass-loader" style="display: none;" aria-modal="true" role="dialog">
   <div class="pop-up-contenido">
-    <h2>Editar Dirección</h2>
+    <div class="pop-up-titulos">
+      <h2>Editar Dirección</h2>
+      <p class="pop-up-subtitulo">Modifica los datos de la dirección existente.</p>
+    </div>
     <form id="form-pop-up-editar">
       <input type="text" name="nombre" id="editar-nombre" placeholder="Nombre" required />
       <input type="text" name="direccion" id="editar-direccion" placeholder="Dirección" required />
@@ -10,7 +13,7 @@
       <input type="text" name="pais" id="editar-pais" placeholder="País" />
       <div class="pop-up-btns-row">
         <button type="button" class="btn-cancelar">Cancelar</button>
-        <button type="submit" class="btn2">Guardar Cambios</button>
+        <button type="submit" class="btn-editar">Guardar Cambios</button>
       </div>
     </form>
   </div>
