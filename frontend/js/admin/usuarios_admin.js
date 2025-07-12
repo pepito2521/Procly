@@ -16,23 +16,25 @@ async function cargarUsuariosTemplate() {
       const headers = { 'Authorization': `Bearer ${token}` };
   
       // 1. KPIs
-      const [kpiTotal, kpiActivos, kpiGasto, listado, kpiPorcentaje, nuevos] = await Promise.all([
+      const [kpiTotal, kpiActivos, kpiBloqueados, listado, kpiPorcentaje, nuevos, kpiPorcentajeBloqueados] = await Promise.all([
         fetch('/stats/usuarios-totales', { headers }).then(r => r.json()),
         fetch('/stats/usuarios-activos', { headers }).then(r => r.json()),
-        fetch('/stats/gasto-promedio-mensual', { headers }).then(r => r.json()),
+        fetch('/stats/usuarios-bloqueados', { headers }).then(r => r.json()),
         fetch('/stats/usuarios-gasto-total', { headers }).then(r => r.json()),
         fetch('/stats/usuarios-activos-porcentaje', { headers }).then(r => r.json()),
-        fetch('/stats/usuarios-nuevos-mes', { headers }).then(r => r.json())
+        fetch('/stats/usuarios-nuevos-mes', { headers }).then(r => r.json()),
+        fetch('/stats/usuarios-bloqueados-porcentaje', { headers }).then(r => r.json())
       ]);
   
       document.getElementById("totalUsuarios").textContent = kpiTotal.total ?? 0;
       document.getElementById("usuariosActivos").textContent = kpiActivos.total ?? 0;
-      document.getElementById("gastoPromedio").textContent = `$${kpiGasto.promedio?.toLocaleString() ?? 0}`;
+      document.getElementById("usuariosBloqueados").textContent = kpiBloqueados.total ?? 0;
       document.getElementById("porcentajeUsuariosActivos").textContent = `${kpiPorcentaje.porcentaje}% del total`;
       document.getElementById("usuariosNuevosMes").textContent =
         nuevos.nuevos === 0
             ? "Ningún usuario nuevo este mes"
             : `${nuevos.nuevos} nuevo${nuevos.nuevos > 1 ? 's' : ''} este mes`;
+      document.getElementById("porcentajeUsuariosBloqueados").textContent = `${kpiPorcentajeBloqueados.porcentaje}% del total`;
   
   
       // 2. Tabla

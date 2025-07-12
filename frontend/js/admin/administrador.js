@@ -10,7 +10,24 @@ document.addEventListener("DOMContentLoaded", async () => {
   inicializarSidebar();
   inicializarLogoutDirecto();
   cambiarSeccion("dashboard");
+  mostrarNombreAdmin();
 });
+
+// FUNCION: MOSTRAR NOMBRE DEL ADMINISTRADOR
+async function mostrarNombreAdmin() {
+  let nombre = localStorage.getItem('adminNombre');
+  if (!nombre) {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        nombre = user.user_metadata?.nombre || user.email || 'Administrador';
+      }
+    } catch (e) {
+      nombre = 'Administrador';
+    }
+  }
+  document.getElementById('adminName').textContent = nombre || 'Administrador';
+}
 
 
 // FUNCIONALIDADES DEL SIDEBAR

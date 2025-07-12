@@ -75,6 +75,11 @@ async function cargarGraficoGastosMensuales() {
         legend: { display: false }
       },
       scales: {
+        x: {
+          grid: {
+            display: false
+          }
+        },
         y: {
           beginAtZero: true,
           ticks: {

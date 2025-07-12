@@ -326,6 +326,47 @@ const getEmpresaId = async (userId) => {
         res.status(500).json({ error: err.message });
         }
     };
+
+    // KPI: USUARIOS BLOQUEADOS
+    const usuariosBloqueados = async (req, res) => {
+        try {
+            const empresaId = await getEmpresaId(req.user.id);
+            const { count, error } = await supabaseService
+                .from('profiles')
+                .select('*', { count: 'exact', head: true })
+                .eq('empresa_id', empresaId)
+                .eq('bloqueado', true);
+            if (error) throw error;
+            res.json({ total: count });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+        }
+    };
+
+    // KPI: % de USUARIOS BLOQUEADOS
+    const porcentajeUsuariosBloqueados = async (req, res) => {
+        try {
+            const empresaId = await getEmpresaId(req.user.id);
+            // Total usuarios
+            const { count: total, error: totalError } = await supabaseService
+                .from('profiles')
+                .select('*', { count: 'exact', head: true })
+                .eq('empresa_id', empresaId);
+            if (totalError) throw totalError;
+            // Usuarios bloqueados
+            const { count: bloqueados, error: bloqueadosError } = await supabaseService
+                .from('profiles')
+                .select('*', { count: 'exact', head: true })
+                .eq('empresa_id', empresaId)
+                .eq('bloqueado', true);
+            if (bloqueadosError) throw bloqueadosError;
+            const porcentaje = total > 0 ? Math.round((bloqueados / total) * 100) : 0;
+            res.json({ porcentaje });
+        } catch (err) {
+            console.error("Error en porcentajeUsuariosBloqueados:", err.message);
+            res.status(500).json({ error: err.message });
+        }
+    };
   
   
     // KPI: ACUMULADO GASTO POR USUARIO
@@ -466,7 +507,6 @@ const getEmpresaId = async (userId) => {
         }
       };
 
-
 module.exports = {
   direccionesTotales,
   getDireccionesActivas,
@@ -486,5 +526,7 @@ module.exports = {
   ticketsEnProceso,
   ticketsCancelados,
   gastoTotalPorUsuario,
-  gastosMensuales
+  gastosMensuales,
+  usuariosBloqueados,
+  porcentajeUsuariosBloqueados
 };
