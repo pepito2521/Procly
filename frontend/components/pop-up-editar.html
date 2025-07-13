@@ -11,6 +11,12 @@
       <input type="text" name="provincia" id="editar-provincia" placeholder="Provincia" />
       <input type="text" name="codigo_postal" id="editar-codigo_postal" placeholder="Código Postal" />
       <input type="text" name="pais" id="editar-pais" placeholder="País" />
+
+      <div style="display: flex; align-items: center; gap: 8px; margin: 12px 0;">
+        <label for="editar-activa" style="font-size: 1rem;">Dirección activa</label>
+        <input type="checkbox" id="editar-activa" name="is_active" />
+      </div>
+
       <div class="pop-up-btns-row">
         <button type="button" class="btn-cancelar">Cancelar</button>
         <button type="submit" class="btn-editar">Guardar Cambios</button>

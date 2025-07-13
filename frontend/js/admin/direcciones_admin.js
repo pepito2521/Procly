@@ -54,7 +54,7 @@ async function cargarDireccionesTemplate() {
                         </svg>
                         Editar
                     </button>
-                    <button class="btn-eliminar" data-id="${d.id}">
+                    <button class="btn-eliminar" data-id="${d.direccion_id}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#d32f2f" viewBox="0 0 256 256">
                             <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
                         </svg>
@@ -133,7 +133,7 @@ async function cargarPopupEliminar(idDireccion) {
       });
       if (response.ok) {
         document.getElementById('popup-direccion-container').style.display = 'none';
-        cargarDireccionesTemplate(); // Refresca la tabla
+        cargarDireccionesTemplate();
       } else {
         alert('Error al eliminar la dirección');
       }
@@ -207,9 +207,7 @@ async function cargarPopupEditar(idDireccion) {
     });
   }
 
-  // --- Precargar datos ---
-  // 1. Buscar la dirección en la lista global (puedes guardar la lista en window o en una variable global)
-  const direccion = window.listaDirecciones?.find(d => d.id == idDireccion);
+  const direccion = window.listaDirecciones?.find(d => d.direccion_id == idDireccion);
   if (direccion) {
     document.getElementById('editar-nombre').value = direccion.nombre || '';
     document.getElementById('editar-direccion').value = direccion.direccion || '';
@@ -217,5 +215,42 @@ async function cargarPopupEditar(idDireccion) {
     document.getElementById('editar-provincia').value = direccion.provincia || '';
     document.getElementById('editar-codigo_postal').value = direccion.codigo_postal || '';
     document.getElementById('editar-pais').value = direccion.pais || '';
+    document.getElementById('editar-activa').checked = !!direccion.is_active;
   }
+
+  const form = document.getElementById('form-pop-up-editar');
+  form.onsubmit = async function(e) {
+    e.preventDefault();
+
+    const token = localStorage.getItem('supabaseToken');
+    const data = {
+      nombre: document.getElementById('editar-nombre').value,
+      direccion: document.getElementById('editar-direccion').value,
+      ciudad: document.getElementById('editar-ciudad').value,
+      provincia: document.getElementById('editar-provincia').value,
+      codigo_postal: document.getElementById('editar-codigo_postal').value,
+      pais: document.getElementById('editar-pais').value,
+      is_active: document.getElementById('editar-activa').checked
+    };
+
+    try {
+      const response = await fetch(`/stats/direcciones/${idDireccion}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+      if (response.ok) {
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        cargarDireccionesTemplate();
+      } else {
+        alert('Error al editar la dirección');
+      }
+    } catch (error) {
+      alert('Error al conectar con el servidor');
+      console.error(error);
+    }
+  };
 }

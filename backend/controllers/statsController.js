@@ -91,6 +91,43 @@ const getEmpresaId = async (userId) => {
     }
     };
 
+    // EDITAR DIRECCIÓN DE ENTREGA
+    const editarDireccion = async (req, res) => {
+        try {
+        const direccionId = req.params.id;
+        const empresaId = await getEmpresaId(req.user.id);
+    
+        const { data: direccion, error: errorDireccion } = await supabaseService
+            .from('direcciones_entrega')
+            .select('empresa_id')
+            .eq('direccion_id', direccionId)
+            .single();
+        if (errorDireccion) throw errorDireccion;
+        if (!direccion || direccion.empresa_id !== empresaId) {
+            return res.status(403).json({ error: 'No autorizado para editar esta dirección' });
+        }
+    
+        const { nombre, direccion: dir, ciudad, provincia, codigo_postal, pais, is_active } = req.body;
+        const { error } = await supabaseService
+            .from('direcciones_entrega')
+            .update({
+            nombre,
+            direccion: dir,
+            ciudad,
+            provincia,
+            codigo_postal,
+            pais,
+            is_active
+            })
+            .eq('direccion_id', direccionId);
+    
+        if (error) throw error;
+        res.json({ success: true });
+        } catch (err) {
+        res.status(500).json({ error: err.message });
+        }
+    };
+
     // ELIMINAR DIRECCIÓN DE ENTREGA
     const eliminarDireccion = async (req, res) => {
         try {
@@ -533,7 +570,6 @@ const getEmpresaId = async (userId) => {
         }
       };
 
-
 module.exports = {
   direccionesTotales,
   getDireccionesActivas,
@@ -556,5 +592,6 @@ module.exports = {
   gastosMensuales,
   usuariosBloqueados,
   porcentajeUsuariosBloqueados,
-  eliminarDireccion
+  eliminarDireccion,
+  editarDireccion
 };

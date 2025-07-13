@@ -47,7 +47,11 @@ async function cargarActividadTemplate() {
             <span class="badge ${getEstadoColor(t.estado)}">${t.estado}</span>
           </td>
           <td>${t.categoria}</td>
-          <td>${t.estado === 'entregado' ? `$${t.precio.toLocaleString()}` : 'En proceso'}</td>
+          <td>
+            ${t.precio_seleccionado && t.precio_seleccionado > 0
+              ? `$${t.precio_seleccionado.toLocaleString()}`
+              : 'En proceso'}
+          </td>
         `;
         tbody.appendChild(row);
       });

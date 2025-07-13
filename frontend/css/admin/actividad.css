@@ -44,7 +44,9 @@
     border: none;
     border-radius: 8px;
     overflow-y: auto;
-    max-height: 420px;
+    height: 500px;
+    max-height: 500px;
+    min-height: 300px;
 }
   
 .tabla-con-scroll > table {

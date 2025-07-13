@@ -9,6 +9,7 @@ const {
     getDireccionesBloqueadas,
     direcciones,
     eliminarDireccion,
+    editarDireccion,
 
     // DASHBOARD
     ticketsProcesados,
@@ -31,7 +32,8 @@ const {
     actividadTickets,
     ticketsEntregados,
     ticketsEnProceso,
-    ticketsCancelados
+    ticketsCancelados,
+    
 } = require('../controllers/statsController');
 
 router.use(requireAuth);
@@ -41,9 +43,8 @@ router.get('/direcciones-totales', direccionesTotales);
 router.get('/direcciones', direcciones);
 router.get('/direcciones-activas', getDireccionesActivas);
 router.get('/direcciones-bloqueadas', getDireccionesBloqueadas);
-
-// ELIMINAR DIRECCIÓN DE ENTREGA
 router.delete('/direcciones/:id', eliminarDireccion);
+router.put('/direcciones/:id', editarDireccion);
 
 // KPI: DASHBOARD
 router.get('/tickets-procesados', ticketsProcesados);
