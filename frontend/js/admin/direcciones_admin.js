@@ -48,7 +48,7 @@ async function cargarDireccionesTemplate() {
             </td>
             <td>
                 <div class="acciones-btns" style="display: flex; gap: 8px;">
-                    <button class="btn-cancelar" data-id="${d.id}">
+                    <button class="btn-cancelar" data-id="${d.direccion_id}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#1976d2" viewBox="0 0 256 256">
                             <path d="M227.32,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H216a8,8,0,0,0,0-16H115.32l112-112A16,16,0,0,0,227.32,73.37ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.32,64l24-24L216,84.69Z"></path>
                         </svg>
@@ -87,6 +87,8 @@ async function cargarDireccionesTemplate() {
           });
         }
       });
+
+      window.listaDirecciones = lista.direcciones;
 
     } catch (error) {
       console.error("Error cargando direcciones:", error);
@@ -179,6 +181,42 @@ async function cargarPopupDireccion() {
       }
     });
   }
+  
+  const form = document.getElementById('form-pop-up-direccion');
+  form.onsubmit = async function(e) {
+    e.preventDefault();
+
+    const token = localStorage.getItem('supabaseToken');
+    const data = {
+      nombre: form.nombre.value,
+      direccion: form.direccion.value,
+      ciudad: form.ciudad.value,
+      provincia: form.provincia.value,
+      codigo_postal: form.codigo_postal.value,
+      pais: form.pais.value,
+      is_active: true
+    };
+
+    try {
+      const response = await fetch('/stats/direcciones', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      });
+      if (response.ok) {
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        cargarDireccionesTemplate();
+      } else {
+        alert('Error al crear la dirección');
+      }
+    } catch (error) {
+      alert('Error al conectar con el servidor');
+      console.error(error);
+    }
+  };
 }
 
 // FUNCION: POP-UP EDITAR

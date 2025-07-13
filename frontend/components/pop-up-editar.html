@@ -12,9 +12,12 @@
       <input type="text" name="codigo_postal" id="editar-codigo_postal" placeholder="Código Postal" />
       <input type="text" name="pais" id="editar-pais" placeholder="País" />
 
-      <div style="display: flex; align-items: center; gap: 8px; margin: 12px 0;">
+      <div style="display: flex; align-items: center; gap: 12px; margin: 12px 0;">
         <label for="editar-activa" style="font-size: 1rem;">Dirección activa</label>
-        <input type="checkbox" id="editar-activa" name="is_active" />
+        <label class="switch">
+          <input type="checkbox" id="editar-activa" name="is_active" />
+          <span class="slider"></span>
+        </label>
       </div>
 
       <div class="pop-up-btns-row">

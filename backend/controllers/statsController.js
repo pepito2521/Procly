@@ -90,6 +90,31 @@ const getEmpresaId = async (userId) => {
         res.status(500).json({ error: err.message });
     }
     };
+    // CREAR DIRECCIÓN DE ENTREGA
+    const crearDireccion = async (req, res) => {
+        try {
+        const empresaId = await getEmpresaId(req.user.id);
+        const { nombre, direccion, ciudad, provincia, codigo_postal, pais, is_active } = req.body;
+        const { error } = await supabaseService
+            .from('direcciones_entrega')
+            .insert([
+            {
+                empresa_id: empresaId,
+                nombre,
+                direccion,
+                ciudad,
+                provincia,
+                codigo_postal,
+                pais,
+                is_active: is_active !== undefined ? is_active : true
+            }
+            ]);
+        if (error) throw error;
+        res.json({ success: true });
+        } catch (err) {
+        res.status(500).json({ error: err.message });
+        }
+    };
 
     // EDITAR DIRECCIÓN DE ENTREGA
     const editarDireccion = async (req, res) => {
@@ -570,6 +595,8 @@ const getEmpresaId = async (userId) => {
         }
       };
 
+
+
 module.exports = {
   direccionesTotales,
   getDireccionesActivas,
@@ -593,5 +620,6 @@ module.exports = {
   usuariosBloqueados,
   porcentajeUsuariosBloqueados,
   eliminarDireccion,
-  editarDireccion
+  editarDireccion,
+  crearDireccion
 };
