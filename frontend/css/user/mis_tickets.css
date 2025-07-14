@@ -1,10 +1,12 @@
 .mis-tickets-container {
-  width: calc(100vw - 48px);
-  margin: 24px auto 24px auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   padding: 0;
-  background-color:transparent;
+  background-color: transparent;
   border-radius: 20px;
   font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
 }
   
 .tabla-tickets {

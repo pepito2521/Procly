@@ -7,6 +7,8 @@ export function initMisTickets() {
 async function cargarTickets() {
   await mostrarLoader();
   const token = localStorage.getItem('supabaseToken');
+  console.log("Token usado para fetch:", token); // LOG 1
+
   if (!token) {
     console.error("Token no encontrado. El usuario no está autenticado.");
     ocultarLoader();
@@ -22,6 +24,7 @@ async function cargarTickets() {
     });
 
     const tickets = await res.json();
+    console.log("Respuesta del backend (tickets):", tickets); // LOG 2
 
     if (!Array.isArray(tickets)) {
       console.error('Respuesta inesperada:', tickets);

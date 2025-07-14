@@ -1,14 +1,14 @@
 .detalle-ticket-container {
-  width: calc(100vw - 48px);
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   height: calc(100vh - 150px);
-  margin: 24px auto;
+  margin: 0;
   padding: 0 2rem;
   font-family: 'Inter', sans-serif;
   display: grid;
   grid-template-columns: 1fr 4fr;
   gap: 2rem;
-  max-width: 1200px;
+  box-sizing: border-box;
 }
 
 /* COLUMNA IZQUIERDA: BARRA DE PROGRESO */

@@ -94,21 +94,22 @@ exports.obtenerDirecciones = async (req, res) => {
 
   // OBTENER TICKETS DEL USUARIO AUTENTICADO
   exports.obtenerTickets = async (req, res) => {
-      try {
-        const user_id = req.user?.id;
+    try {
+      const user_id = req.user?.id;
 
-        const { data, error } = await supabase
-          .from('tickets')
-          .select('ticket_id, codigo_ticket, nombre, estado');
+      const { data, error } = await supabase
+        .from('tickets')
+        .select('ticket_id, codigo_ticket, nombre, estado')
+        .eq('user_id', user_id);
 
-        if (error) throw error;
-    
-        res.json(data);
-      } catch (err) {
-        console.error('Error al obtener tickets:', err.message);
-        res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
-      }
-    };
+      if (error) throw error;
+
+      res.json(data);
+    } catch (err) {
+      console.error('Error al obtener tickets:', err.message);
+      res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
+    }
+  };
 
 
   // OBTENER TICKET POR ID
