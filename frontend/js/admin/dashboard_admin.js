@@ -15,7 +15,7 @@ async function cargarDatosKPIs() {
   
     try {
       const [tickets, mensual, promedio, acumulado, totalUsuarios, usuariosNuevos] = await Promise.all([
-        fetch(`/stats/tickets-procesados`, { headers }).then(r => r.json()),
+        fetch(`/stats/tickets-totales`, { headers }).then(r => r.json()),
         fetch(`/stats/gasto-mensual`, { headers }).then(r => r.json()),
         fetch(`/stats/promedio-mensual`, { headers }).then(r => r.json()),
         fetch(`/stats/acumulado-anual`, { headers }).then(r => r.json()),
