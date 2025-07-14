@@ -51,8 +51,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (info.js) {
         import(info.js)
           .then(mod => {
+            if (seccion === "nuevo_ticket" && typeof mod.initNuevoTicket === 'function') mod.initNuevoTicket();
+            if (seccion === "mis_tickets" && typeof mod.initMisTickets === 'function') mod.initMisTickets();
+            if (seccion === "manual" && typeof mod.initManual === 'function') mod.initManual();
             if (typeof mod.initDetalleTicket === 'function') mod.initDetalleTicket();
-            // ...otros inits según la sección...
           })
           .catch(e => console.error("Error cargando JS de sección:", e));
       }
@@ -89,6 +91,31 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+    // FUNCION: MOSTRAR NOMBRE DEL USUARIO
+    async function mostrarNombreUsuario() {
+        let nombre = localStorage.getItem('usuarioNombre');
+        if (!nombre) {
+            try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { data: perfil, error } = await supabase
+                .from('profiles')
+                .select('nombre')
+                .eq('profile_id', user.id)
+                .single();
+                if (perfil && perfil.nombre) {
+                nombre = perfil.nombre;
+                } else {
+                nombre = user.email || 'Usuario';
+                }
+            }
+            } catch (e) {
+            nombre = 'Usuario';
+            }
+        }
+        const nombreElem = document.getElementById('userName');
+        if (nombreElem) nombreElem.textContent = nombre || 'Usuario';
+    }
 
   document.querySelectorAll('.nav-item').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -101,6 +128,5 @@ document.addEventListener("DOMContentLoaded", () => {
   cargarSeccion('nuevo_ticket');
   inicializarSidebar();
   inicializarLogoutDirecto();
+  mostrarNombreUsuario();
 });
-
-// Aquí puedes poner lógica global, listeners generales, utilidades, etc.
