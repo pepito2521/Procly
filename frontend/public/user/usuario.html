@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Usuario</title>
+  <link rel="shortcut icon" href="/assets/img/favicon_procly.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/menu_user.css" />
+  <link rel="stylesheet" href="../../css/nuevo_ticket.css">
+  <link rel="stylesheet" href="../../css/mis_tickets.css">
+  <link rel="stylesheet" href="../../css/manual.css">
+  <link rel="stylesheet" href="../../css/detalle_ticket.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body class="oculto">
+  <div id="loader-placeholder"></div>
+  <div id="navbar-placeholder"></div>
+  
+  <div class="dashboard-container">
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-container">
+          <img src="/assets/img/newlogo.png" alt="Logo" />
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-section="menu_user">Inicio</button>
+        <button class="nav-item" data-section="mis_tickets">Mis Tickets</button>
+        <button class="nav-item" data-section="nuevo_ticket">Nuevo Ticket</button>
+        <button class="nav-item" data-section="manual">Manual</button>
+      </nav>
+    </div>
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="main-content">
+      <header class="top-header">
+        <h1 class="page-title" id="pageTitle">Panel Usuario</h1>
+      </header>
+      <main class="content-area">
+        <div id="dynamicContent"></div>
+      </main>
+    </div>
+  </div>
+  <script type="module" src="/js/user/usuario.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@ const {
     crearDireccion,
 
     // DASHBOARD
-    ticketsProcesados,
+    ticketsTotales,
     gastoMensual,
     gastosMensuales,
     promedioMensual,
@@ -53,7 +53,7 @@ router.put('/direcciones/:id', editarDireccion);
 router.post('/direcciones', crearDireccion);
 
 // KPI: DASHBOARD
-router.get('/tickets-totales', ticketsProcesados);
+router.get('/tickets-totales', ticketsTotales);
 router.get('/gasto-mensual', gastoMensual);
 router.get('/gastos-mensuales', gastosMensuales);
 router.get('/promedio-mensual', promedioMensual);

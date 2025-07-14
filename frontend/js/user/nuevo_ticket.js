@@ -1,19 +1,12 @@
-import { cargarLoader } from './components/loader.js';
-import { cargarNavbar } from './components/navbar.js';
-import { supabase, setSupabaseAuthToken } from './supabaseClient.js';
+import { supabase, setSupabaseAuthToken } from '../supabaseClient.js';
 
-let progressBar;
-let prevBtn;
-let currentStep = 0;
-let categoriaSeleccionada = ''; 
-
-document.addEventListener("DOMContentLoaded", async () => {
-  await cargarNavbar();
-  await cargarLoader();
-
-  document.body.classList.remove("oculto");
-
+export function initNuevoTicket() {
   // MULTISTEP FORM
+  let progressBar;
+  let prevBtn;
+  let currentStep = 0;
+  let categoriaSeleccionada = '';
+
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
   prevBtn = document.getElementById("progressBarBtn");
@@ -316,25 +309,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       path: '/assets/lottie/success-check.json'
     });    
   }
-});
 
-// ADICIONAL: COPIAR CODIGO TICKET      
-window.copiarCodigoTicket = function () {
-  const icono = document.getElementById("copiarIcono");
-  const codigo = icono.dataset.codigo;
-
-  if (icono.classList.contains("copiado")) return;
-
-  navigator.clipboard.writeText(codigo).then(() => {
-    icono.innerHTML = `
-      <!-- Icono copiado -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#3E8914" viewBox="0 0 256 256">
-        <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
-      </svg>
-    `;
-    icono.classList.add("copiado");
-    icono.style.pointerEvents = "none";
-  }).catch(err => {
-    console.error("Error al copiar:", err);
+  // Al final, delega el click para "Ver mis tickets"
+  document.getElementById('verMisTicketsBtn')?.addEventListener('click', () => {
+    document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
   });
-};
+
+  // Si necesitas exponer copiar código:
+  window.copiarCodigoTicket = function () {
+    const icono = document.getElementById("copiarIcono");
+    const codigo = icono.dataset.codigo;
+
+    if (icono.classList.contains("copiado")) return;
+
+    navigator.clipboard.writeText(codigo).then(() => {
+      icono.innerHTML = `
+        <!-- Icono copiado -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#3E8914" viewBox="0 0 256 256">
+          <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
+        </svg>
+      `;
+      icono.classList.add("copiado");
+      icono.style.pointerEvents = "none";
+    }).catch(err => {
+      console.error("Error al copiar:", err);
+    });
+  };
+}

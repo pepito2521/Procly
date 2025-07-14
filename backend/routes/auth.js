@@ -74,7 +74,7 @@ router.post('/login', async (req, res) => {
         redirectUrl = '/proclier/menu_proclier.html';
         break;
       default: // usuario
-        redirectUrl = '/user/menu_user.html';
+        redirectUrl = '/user/usuario.html';
     }
     
     return res.status(200).json({

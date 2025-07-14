@@ -1,13 +1,6 @@
-import { cargarLoader } from './components/loader.js';
-import { cargarNavbar } from './components/navbar.js';
-
-document.addEventListener("DOMContentLoaded", async () => {
-  await cargarLoader();
-  await cargarNavbar();
+export function initMisTickets() {
   cargarTickets();
-
-  document.body.classList.remove("oculto");
-});
+}
 
 async function cargarTickets() {
   const token = localStorage.getItem('supabaseToken');
@@ -46,7 +39,6 @@ async function cargarTickets() {
       return;
     }
 
-
     const estadoClase = {
       "Creado": "creado",
       "En proceso": "en-progreso",
@@ -55,7 +47,6 @@ async function cargarTickets() {
       "Revisar": "revisar",
       "Cancelado": "cancelado"
     };
-
 
     tickets.forEach(ticket => {
       const claseEstado = estadoClase[ticket.estado] || "creado"; 

@@ -1,12 +1,4 @@
-import { cargarLoader } from './components/loader.js';
-import { cargarNavbar } from './components/navbar.js';
-
-document.addEventListener("DOMContentLoaded", async () => {
-  await cargarLoader();
-  await cargarNavbar();
-
-  document.body.classList.remove("oculto");
-
+export function initDetalleTicket() {
   const params = new URLSearchParams(window.location.search);
   const ticketId = params.get("id");
 
@@ -21,18 +13,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  fetchTicket(ticketId, token);
+}
+
+async function fetchTicket(ticketId, token) {
   try {
     const res = await fetch(`https://procly.onrender.com/tickets/${ticketId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     const data = await res.json();
 
-    if (!res.ok) {
-      throw new Error(data.error || "No se pudo obtener el ticket.");
-    }
+    if (!res.ok) throw new Error(data.error || "No se pudo obtener el ticket.");
 
     // MOSTRAR DATOS BASICOS DEL TICKET
     document.getElementById("ticket-id").textContent = data.codigo_ticket;
@@ -53,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error("Error al cargar ticket:", error);
   }
-});
+}
 
 
 // PASOS COMPLETADOS EN PROGRESS BAR
