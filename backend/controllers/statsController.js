@@ -183,7 +183,7 @@ const getEmpresaId = async (userId) => {
 
 // 2. DASHBOARD
     // KPI: TOTAL TICKETS
-    const ticketsProcesados = async (req, res) => {
+    const ticketsTotales = async (req, res) => {
     try {
         const empresaId = await getEmpresaId(req.user.id);
 
@@ -597,14 +597,110 @@ const getEmpresaId = async (userId) => {
         }
       };
 
+    // KPI: TENDENCIA TICKETS VS MES ANTERIOR
+    const tendenciaTicketsVsMesAnterior = async (req, res) => {
+        try {
+        const empresaId = await getEmpresaId(req.user.id);
+        const now = new Date();
+        const firstDayPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const lastDayPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59, 999);
 
+        const { count: total_tickets, error: errorTotal } = await supabaseService
+            .from('tickets')
+            .select('*', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId);
+        if (errorTotal) throw errorTotal;
+
+        const { count: total_mes_anterior, error: errorMesAnt } = await supabaseService
+            .from('tickets')
+            .select('*', { count: 'exact', head: true })
+            .eq('empresa_id', empresaId)
+            .gte('created_at', firstDayPrevMonth.toISOString())
+            .lte('created_at', lastDayPrevMonth.toISOString());
+        if (errorMesAnt) throw errorMesAnt;
+    
+        let tendencia = 0;
+        if (total_mes_anterior > 0) {
+            tendencia = Math.round(((total_tickets - total_mes_anterior) / total_mes_anterior) * 100);
+        }
+        res.json({ tendencia });
+        } catch (err) {
+        res.status(500).json({ error: err.message });
+        }
+    };
+  
+  // KPI: % TICKETS ENTREGADOS
+  const porcentajeTicketsEntregados = async (req, res) => {
+    try {
+      const empresaId = await getEmpresaId(req.user.id);
+      const { count: total_tickets, error: errorTotal } = await supabaseService
+        .from('tickets')
+        .select('*', { count: 'exact', head: true })
+        .eq('empresa_id', empresaId);
+      if (errorTotal) throw errorTotal;
+      const { count: entregados, error: errorEntregados } = await supabaseService
+        .from('tickets')
+        .select('*', { count: 'exact', head: true })
+        .eq('empresa_id', empresaId)
+        .eq('estado', 'Entregado');
+      if (errorEntregados) throw errorEntregados;
+      const porcentaje = total_tickets > 0 ? Math.round((entregados / total_tickets) * 100) : 0;
+      res.json({ porcentaje });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+  
+  // KPI: % TICKETS EN CURSO
+  const porcentajeTicketsEnCurso = async (req, res) => {
+    try {
+      const empresaId = await getEmpresaId(req.user.id);
+      const { count: total_tickets, error: errorTotal } = await supabaseService
+        .from('tickets')
+        .select('*', { count: 'exact', head: true })
+        .eq('empresa_id', empresaId);
+      if (errorTotal) throw errorTotal;
+      const { count: en_curso, error: errorEnCurso } = await supabaseService
+        .from('tickets')
+        .select('*', { count: 'exact', head: true })
+        .eq('empresa_id', empresaId)
+        .not('estado', 'in', '("Entregado","Cancelado")');
+      if (errorEnCurso) throw errorEnCurso;
+      const porcentaje = total_tickets > 0 ? Math.round((en_curso / total_tickets) * 100) : 0;
+      res.json({ porcentaje });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+  
+  // KPI: % TICKETS CANCELADOS
+  const porcentajeTicketsCancelados = async (req, res) => {
+    try {
+      const empresaId = await getEmpresaId(req.user.id);
+      const { count: total_tickets, error: errorTotal } = await supabaseService
+        .from('tickets')
+        .select('*', { count: 'exact', head: true })
+        .eq('empresa_id', empresaId);
+      if (errorTotal) throw errorTotal;
+      const { count: cancelados, error: errorCancelados } = await supabaseService
+        .from('tickets')
+        .select('*', { count: 'exact', head: true })
+        .eq('empresa_id', empresaId)
+        .eq('estado', 'Cancelado');
+      if (errorCancelados) throw errorCancelados;
+      const porcentaje = total_tickets > 0 ? Math.round((cancelados / total_tickets) * 100) : 0;
+      res.json({ porcentaje });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
 
 module.exports = {
   direccionesTotales,
   getDireccionesActivas,
   getDireccionesBloqueadas,
   direcciones,
-  ticketsProcesados,
+  ticketsTotales,
   gastoMensual,
   promedioMensual,
   acumuladoAnual,
@@ -623,5 +719,9 @@ module.exports = {
   porcentajeUsuariosBloqueados,
   eliminarDireccion,
   editarDireccion,
-  crearDireccion
+  crearDireccion,
+  tendenciaTicketsVsMesAnterior,
+  porcentajeTicketsEntregados,
+  porcentajeTicketsEnCurso,
+  porcentajeTicketsCancelados
 };

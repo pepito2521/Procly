@@ -16,15 +16,30 @@ async function cargarActividadTemplate() {
       const headers = { 'Authorization': `Bearer ${token}` };
   
       // 1. Cargar KPIs
-      const [resEntregados, resEnProceso, resCancelados] = await Promise.all([
+      const [resTotales, resEntregados, resEnProceso, resCancelados, resTendencia, resPctEntregados, resPctEnCurso, resPctCancelados] = await Promise.all([
+        fetch('/stats/tickets-totales', { headers }).then(r => r.json()),
         fetch('/stats/tickets-entregados', { headers }).then(r => r.json()),
         fetch('/stats/tickets-en-proceso', { headers }).then(r => r.json()),
-        fetch('/stats/tickets-cancelados', { headers }).then(r => r.json())
+        fetch('/stats/tickets-cancelados', { headers }).then(r => r.json()),
+        fetch('/stats/tendencia-tickets-vs-mes-anterior', { headers }).then(r => r.json()),
+        fetch('/stats/porcentaje-tickets-entregados', { headers }).then(r => r.json()),
+        fetch('/stats/porcentaje-tickets-en-curso', { headers }).then(r => r.json()),
+        fetch('/stats/porcentaje-tickets-cancelados', { headers }).then(r => r.json())
       ]);
-      
+      document.getElementById("actividadTotales").textContent = resTotales.total ?? 0;
       document.getElementById("actividadEntregados").textContent = resEntregados.total ?? 0;
       document.getElementById("actividadEnProceso").textContent = resEnProceso.total ?? 0;
-      document.getElementById("actividadCancelados").textContent = resCancelados.total ?? 0;    
+      document.getElementById("actividadCancelados").textContent = resCancelados.total ?? 0;
+
+      const tendencia = resTendencia.tendencia;
+      document.getElementById("actividadTotalesSub").textContent =
+        tendencia === undefined ? "-" :
+        tendencia > 0 ? `▲ ${tendencia}% vs mes anterior` :
+        tendencia < 0 ? `▼ ${Math.abs(tendencia)}% vs mes anterior` :
+        `0% vs mes anterior`;
+      document.getElementById("actividadEntregadosSub").textContent = `${resPctEntregados.porcentaje ?? 0}% del total`;
+      document.getElementById("actividadEnProcesoSub").textContent = `${resPctEnCurso.porcentaje ?? 0}% del total`;
+      document.getElementById("actividadCanceladosSub").textContent = `${resPctCancelados.porcentaje ?? 0}% del total`;
   
       // 2. Cargar Tabla
       const response = await fetch('/stats/actividad-tickets', { headers });

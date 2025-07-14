@@ -34,6 +34,10 @@ const {
     ticketsEntregados,
     ticketsEnProceso,
     ticketsCancelados,
+    tendenciaTicketsVsMesAnterior,
+    porcentajeTicketsEntregados,
+    porcentajeTicketsEnCurso,
+    porcentajeTicketsCancelados,
     
 } = require('../controllers/statsController');
 
@@ -49,7 +53,7 @@ router.put('/direcciones/:id', editarDireccion);
 router.post('/direcciones', crearDireccion);
 
 // KPI: DASHBOARD
-router.get('/tickets-procesados', ticketsProcesados);
+router.get('/tickets-totales', ticketsProcesados);
 router.get('/gasto-mensual', gastoMensual);
 router.get('/gastos-mensuales', gastosMensuales);
 router.get('/promedio-mensual', promedioMensual);
@@ -71,5 +75,9 @@ router.get('/actividad-tickets', actividadTickets);
 router.get('/tickets-entregados', ticketsEntregados);
 router.get('/tickets-en-proceso', ticketsEnProceso);
 router.get('/tickets-cancelados', ticketsCancelados);
+router.get('/tendencia-tickets-vs-mes-anterior', tendenciaTicketsVsMesAnterior);
+router.get('/porcentaje-tickets-entregados', porcentajeTicketsEntregados);
+router.get('/porcentaje-tickets-en-curso', porcentajeTicketsEnCurso);
+router.get('/porcentaje-tickets-cancelados', porcentajeTicketsCancelados);
 
 module.exports = router;

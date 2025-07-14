@@ -71,4 +71,11 @@
     background-color: white;
     z-index: 1;
 }
+
+.summary-cards-actividad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
   
