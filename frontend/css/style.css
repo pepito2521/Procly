@@ -430,10 +430,6 @@ input:checked + .slider:before {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid #e5e7eb;
     padding: 16px;
-    margin: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    border-radius: 0 !important;
   }
   
   .header-content {
@@ -497,7 +493,6 @@ input:checked + .slider:before {
   .content-area {
     flex: 1;
     padding: 32px;
-    padding-top: 0 !important;
   }
   
   .content-wrapper {
