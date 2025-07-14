@@ -70,8 +70,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function inicializarSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const mainContent = document.querySelector(".main-content");
     document.getElementById("sidebarToggle")?.addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("collapsed");
+      sidebar.classList.toggle("collapsed");
+      mainContent.classList.toggle("sidebar-collapsed");
     });
   }
 

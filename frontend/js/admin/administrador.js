@@ -43,11 +43,13 @@ async function mostrarNombreAdmin() {
 
 // FUNCIONALIDADES DEL SIDEBAR
 function inicializarSidebar() {
-    
-    document.getElementById("sidebarToggle")?.addEventListener("click", () => {
-      document.getElementById("sidebar").classList.toggle("collapsed");
-    });
-  
+  const sidebar = document.getElementById("sidebar");
+  const mainContent = document.querySelector(".main-content");
+  document.getElementById("sidebarToggle")?.addEventListener("click", () => {
+    sidebar.classList.toggle("collapsed");
+    mainContent.classList.toggle("sidebar-collapsed");
+  });
+
     document.querySelectorAll(".nav-item").forEach(btn => {
       btn.addEventListener("click", (e) => {
         const section = e.currentTarget.getAttribute("data-section");

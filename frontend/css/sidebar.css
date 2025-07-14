@@ -236,3 +236,9 @@
     height: 20px;
     color: #508991;
   }
+
+.main-content.sidebar-collapsed {
+  padding-left: 24px; 
+  padding-right: 24px;
+  transition: padding 0.3s;
+}
