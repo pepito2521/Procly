@@ -1,10 +1,38 @@
 // NAVEGACION MODULAR
+import { supabase } from "/js/supabaseClient.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const secciones = {
-    nuevo_ticket: { nombre: "Nuevo Ticket", archivo: "nuevo_ticket.html", js: "/js/user/nuevo_ticket.js" },
-    mis_tickets: { nombre: "Mis Tickets", archivo: "mis_tickets.html", js: "/js/user/mis_tickets.js" },
-    manual: { nombre: "Manual", archivo: "manual.html", js: "/js/user/manual.js" }
+    nuevo_ticket: {
+      nombre: "Nuevo Ticket",
+      archivo: "nuevo_ticket.html",
+      js: "/js/user/nuevo_ticket.js",
+      icon: `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus">
+        <path d="M12 5v14"/><path d="M5 12h14"/>
+      </svg>
+      `
+    },
+    mis_tickets: {
+      nombre: "Mis Tickets",
+      archivo: "mis_tickets.html",
+      js: "/js/user/mis_tickets.js",
+      icon: `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list">
+        <path d="M12 20H2"/><path d="M12 4H2"/><path d="M20 12H4"/>
+      </svg>
+      `
+    },
+    manual: {
+      nombre: "Manual",
+      archivo: "manual.html",
+      js: "/js/user/manual.js",
+      icon: `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book">
+        <path d="M12 6h4l3 9H5L8 6z"/><path d="M15 6v12"/><path d="M9 6v12"/>
+      </svg>
+      `
+    }
   };
 
   const dynamicContent = document.getElementById("dynamicContent");
@@ -18,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const html = await resp.text();
       dynamicContent.innerHTML = html;
       pageTitle.textContent = info.nombre;
+      document.getElementById("pageIcon").innerHTML = info.icon;
       marcarActivo(seccion);
       if (info.js) {
         import(info.js)
@@ -38,6 +67,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function inicializarSidebar() {
+    document.getElementById("sidebarToggle")?.addEventListener("click", () => {
+      document.getElementById("sidebar").classList.toggle("collapsed");
+    });
+  }
+
+  function inicializarLogoutDirecto() {
+    const logoutIcon = document.getElementById("logout-direct");
+
+    if (!logoutIcon) return;
+
+    logoutIcon.addEventListener("click", async () => {
+      const { error } = await supabase.auth.signOut();
+      localStorage.removeItem('supabaseToken');
+
+      if (error) {
+        alert("Error al cerrar sesión: " + error.message);
+      } else {
+        window.location.href = "/index.html";
+      }
+    });
+  }
+
   document.querySelectorAll('.nav-item').forEach(btn => {
     btn.addEventListener('click', () => {
       const seccion = btn.getAttribute('data-section');
@@ -47,6 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Cargar sección por defecto
   cargarSeccion('nuevo_ticket');
+  inicializarSidebar();
+  inicializarLogoutDirecto();
 });
 
 // Aquí puedes poner lógica global, listeners generales, utilidades, etc.
