@@ -1,11 +1,11 @@
-export async function cargarLoader() {
-  document.body.classList.add("oculto");
-
-  try {
+//MOSTRAR LOADER
+export async function mostrarLoader() {
+  if (!document.getElementById('loader')) {
     const res = await fetch('/components/loader.html');
     const html = await res.text();
-    document.getElementById('loader-placeholder').innerHTML = html;
-
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    document.body.appendChild(div.firstElementChild);
     window.lottie.loadAnimation({
       container: document.getElementById('loader-animation'),
       renderer: 'svg',
@@ -13,29 +13,20 @@ export async function cargarLoader() {
       autoplay: true,
       path: '/assets/lottie/rocket.json',
     });
-
-  } catch (error) {
-    console.error('Error al cargar el loader:', error);
   }
+  document.body.classList.add('oculto');
+  document.getElementById('loader').style.display = 'flex';
+}
 
-  const esperarYOcultar = () => {
-    const loader = document.getElementById("loader");
-    if (loader) {
-      setTimeout(() => {
-        loader.classList.add("fade-out");
-        setTimeout(() => {
-          loader.style.display = "none";
-          document.body.classList.remove("oculto");
-        }, 500);
-      }, 900);
-    } else {
-      document.body.classList.remove("oculto");
-    }
-  };
-
-  if (document.readyState === "complete") {
-    esperarYOcultar();
-  } else {
-    window.addEventListener("load", esperarYOcultar);
+//OCULTAR LOADER
+export function ocultarLoader() {
+  document.body.classList.remove('oculto');
+  const loader = document.getElementById('loader');
+  if (loader) {
+    loader.classList.add('fade-out');
+    setTimeout(() => {
+      loader.style.display = 'none';
+      loader.classList.remove('fade-out');
+    }, 500);
   }
 }

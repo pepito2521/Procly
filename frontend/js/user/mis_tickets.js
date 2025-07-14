@@ -1,11 +1,15 @@
+import { mostrarLoader, ocultarLoader } from '/js/components/loader.js';
+
 export function initMisTickets() {
   cargarTickets();
 }
 
 async function cargarTickets() {
+  await mostrarLoader();
   const token = localStorage.getItem('supabaseToken');
   if (!token) {
     console.error("Token no encontrado. El usuario no está autenticado.");
+    ocultarLoader();
     return;
   }
 
@@ -21,6 +25,7 @@ async function cargarTickets() {
 
     if (!Array.isArray(tickets)) {
       console.error('Respuesta inesperada:', tickets);
+      ocultarLoader();
       return;
     }
 
@@ -36,6 +41,7 @@ async function cargarTickets() {
         </td>
       `;
       tbody.appendChild(filaVacia);
+      ocultarLoader();
       return;
     }
 
@@ -70,7 +76,9 @@ async function cargarTickets() {
       `;
       tbody.appendChild(fila);
     });
+    ocultarLoader();
   } catch (err) {
     console.error('Error al cargar tickets:', err);
+    ocultarLoader();
   }
 }

@@ -1,10 +1,12 @@
 import { supabase } from "/js/supabaseClient.js";
+import { mostrarLoader, ocultarLoader } from '/js/components/loader.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.login-form');
   
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      await mostrarLoader();
   
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
@@ -40,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         alert('Error al conectar con el servidor.');
         console.error(error);
+      } finally {
+        ocultarLoader();
       }
     });
   });
