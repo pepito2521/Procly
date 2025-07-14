@@ -1,0 +1,224 @@
+.sidebar {
+    width: 320px;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar.collapsed {
+    width: 80px;
+    justify-content: center;
+    margin-left: 0;
+    padding: 0;
+  }
+  
+  .sidebar-header {
+    height: 64px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .sidebar-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar.collapsed .logo-container {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo-inner {
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 2px;
+    opacity: 0.9;
+  }
+  
+  .logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #508991 0%, #306971 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    margin-left: 0;
+  }
+  
+  .sidebar-toggle:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .toggle-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .logo-container img {
+    width: 64px;
+    height: auto;
+    max-width: 100%;
+    transition: width 0.3s ease;
+  }
+  
+
+  .sidebar.collapsed .logo-container img {
+    width: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .toggle-icon {
+    width: 20px;
+    height: 20px;
+    stroke: #374151;
+  }
+  
+  
+  
+  /* NAVIGATION */
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    color: #374151;
+    font-weight: 500;
+  }
+  
+  .nav-item:hover {
+    background-color: #f9fafb;
+  }
+  
+  .nav-item.active {
+    background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+    color: #508991;
+    transition: margin 0.3s ease, transform 0.3s ease;
+  }
+  
+  .nav-item.active .nav-icon {
+    color: white;
+  }
+  
+  .nav-text {
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar.collapsed .nav-item {
+    justify-content: center;
+    padding: 12px 0;
+  }
+  
+  .sidebar.collapsed .nav-text {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+  }
+
+  .sidebar.collapsed .nav-icon {
+    margin: 0 auto;
+    display: block;
+  }
+  
+  /* FOOTER */
+  .sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar.collapsed .sidebar-footer {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .footer-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: left;
+    color: #374151;
+    font-weight: 500;
+  }
+  
+  .footer-item:hover {
+    background-color: #f9fafb;
+  }
+  
+  .footer-icon {
+    width: 20px;
+    height: 20px;
+    color: #508991;
+  }
