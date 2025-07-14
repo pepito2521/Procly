@@ -41,17 +41,11 @@ async function cargarActividadTemplate() {
       tickets.forEach(t => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${t.codigo_ticket}</td>
-          <td>${t.nombre} ${t.apellido}</td>
-          <td>
-            <span class="badge ${getEstadoColor(t.estado)}">${t.estado}</span>
-          </td>
-          <td>${t.categoria}</td>
-          <td>
-            ${t.precio_seleccionado != null && Number(t.precio_seleccionado) > 0
-              ? `$${Number(t.precio_seleccionado).toLocaleString()}`
-              : 'En proceso'}
-          </td>
+            <td><strong>${t.codigo_ticket}</strong></td>
+            <td><strong>${t.nombre_ticket ?? ''}</strong></td>
+            <td>${t.nombre} ${t.apellido}</td>
+            <td><span class="badge ${getEstadoColor(t.estado)}">${t.estado}</span></td>
+            <td>${t.precio}</td>
         `;
         tbody.appendChild(row);
       });

@@ -307,7 +307,9 @@ text-decoration: none;
 
 .pop-up-btns-row button {
   flex: 1 1 0;
-  min-width: 0;
+  min-width: 130px;
+  max-width: 200px;
+  white-space: nowrap;
 }
 
 .btn-editar , .btn-eliminar , .btn-cancelar{

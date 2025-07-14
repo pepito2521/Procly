@@ -505,6 +505,7 @@ const getEmpresaId = async (userId) => {
             .from('tickets')
             .select(`
             codigo_ticket,
+            nombre,
             estado,
             categoria,
             precio_seleccionado,
@@ -520,11 +521,12 @@ const getEmpresaId = async (userId) => {
             codigo_ticket: t.codigo_ticket,
             nombre: t.profiles?.nombre ?? '',
             apellido: t.profiles?.apellido ?? '',
+            nombre_ticket: t.nombre ?? '',
             estado: t.estado,
             categoria: t.categoria,
-            precio: t.estado === 'Entregado'
-            ? `$${t.precio_seleccionado?.toLocaleString() ?? '0'}`
-            : 'En proceso'
+            precio: (t.precio_seleccionado != null && Number(t.precio_seleccionado) > 0)
+                ? `$${Number(t.precio_seleccionado).toLocaleString()}`
+                : 'En proceso'
         }));
     
         res.json({ tickets: resultado });
