@@ -256,6 +256,17 @@ async function cargarPopupEditar(idDireccion) {
     document.getElementById('editar-activa').checked = !!direccion.is_active;
   }
 
+  const labelActiva = popup.querySelector('label[for="editar-activa"]');
+  const inputActiva = document.getElementById('editar-activa');
+
+  function actualizarTextoActiva() {
+    labelActiva.textContent = inputActiva.checked ? 'Dirección activa' : 'Dirección inactiva';
+  }
+
+  actualizarTextoActiva();
+
+  inputActiva.addEventListener('change', actualizarTextoActiva);
+
   const form = document.getElementById('form-pop-up-editar');
   form.onsubmit = async function(e) {
     e.preventDefault();

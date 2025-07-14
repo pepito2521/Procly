@@ -48,8 +48,8 @@ async function cargarActividadTemplate() {
           </td>
           <td>${t.categoria}</td>
           <td>
-            ${t.precio_seleccionado && t.precio_seleccionado > 0
-              ? `$${t.precio_seleccionado.toLocaleString()}`
+            ${t.precio_seleccionado != null && Number(t.precio_seleccionado) > 0
+              ? `$${Number(t.precio_seleccionado).toLocaleString()}`
               : 'En proceso'}
           </td>
         `;
