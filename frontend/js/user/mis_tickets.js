@@ -18,22 +18,25 @@ async function cargarKPIs() {
   if (!token) return;
   const headers = { 'Authorization': `Bearer ${token}` };
 
-  const endpoints = [
-    { url: '/tickets/kpi-total', id: 'kpi-total-tickets' },
-    { url: '/tickets/kpi-entregados', id: 'kpi-tickets-entregados' },
-    { url: '/tickets/kpi-en-proceso', id: 'kpi-tickets-proceso' },
-    { url: '/tickets/kpi-cancelados', id: 'kpi-tickets-cancelados' }
-  ];
+  try {
+    const [total, entregados, enProceso, cancelados] = await Promise.all([
+      fetch('/tickets/kpi-total', { headers }).then(r => r.json()),
+      fetch('/tickets/kpi-entregados', { headers }).then(r => r.json()),
+      fetch('/tickets/kpi-en-proceso', { headers }).then(r => r.json()),
+      fetch('/tickets/kpi-cancelados', { headers }).then(r => r.json())
+    ]);
 
-  await Promise.all(endpoints.map(async ({ url, id }) => {
-    try {
-      const res = await fetch(url, { headers });
-      const data = await res.json();
-      document.getElementById(id).textContent = data.total ?? 0;
-    } catch (e) {
-      document.getElementById(id).textContent = 0;
-    }
-  }));
+    document.getElementById('kpi-total-tickets').textContent = total.total ?? 0;
+    document.getElementById('kpi-tickets-entregados').textContent = entregados.total ?? 0;
+    document.getElementById('kpi-tickets-proceso').textContent = enProceso.total ?? 0;
+    document.getElementById('kpi-tickets-cancelados').textContent = cancelados.total ?? 0;
+  } catch (e) {
+  
+    document.getElementById('kpi-total-tickets').textContent = 0;
+    document.getElementById('kpi-tickets-entregados').textContent = 0;
+    document.getElementById('kpi-tickets-proceso').textContent = 0;
+    document.getElementById('kpi-tickets-cancelados').textContent = 0;
+  }
 }
 
 async function cargarTickets() {

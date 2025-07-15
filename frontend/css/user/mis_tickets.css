@@ -1,12 +1,7 @@
 .mis-tickets-container {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: transparent;
-  border-radius: 20px;
-  font-family: 'Inter', sans-serif;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 /* TABLA DE TICKETS */
