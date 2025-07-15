@@ -49,6 +49,10 @@ async function cargarTickets() {
     });
     const tickets = await res.json();
     const tbody = document.getElementById("tickets-table-body");
+    if (!tbody) {
+      console.error("No se encontró el tbody de la tabla de tickets.");
+      return;
+    }
     tbody.innerHTML = "";
 
     if (!Array.isArray(tickets) || tickets.length === 0) {
@@ -77,7 +81,7 @@ async function cargarTickets() {
           </span>
         </td>
         <td>
-          <a href="detalle_ticket.html?id=${ticket.ticket_id}" class="ver-icono" data-ticket-id="${ticket.ticket_id}">
+          <a href="#" class="ver-icono" data-ticket-id="${ticket.ticket_id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#090B0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"/>
               <polyline points="12 5 19 12 12 19"/>
@@ -86,6 +90,15 @@ async function cargarTickets() {
         </td>
       `;
       tbody.appendChild(fila);
+
+      const verIcono = fila.querySelector('.ver-icono');
+      if (verIcono) {
+        verIcono.addEventListener('click', function(e) {
+          e.preventDefault();
+          const ticketId = verIcono.dataset.ticketId;
+          cargarDetalleTicket(ticketId);
+        });
+      }
     });
   } catch (err) {
     document.getElementById("tickets-table-body").innerHTML = `<tr><td colspan="4">❌ Error al cargar tickets</td></tr>`;
@@ -104,7 +117,6 @@ document.addEventListener('input', (e) => {
   }
 });
 
-
 // FUNCION PARA CARGAR EL DETALLE DEL TICKET
 async function cargarDetalleTicket(ticketId) {
   const response = await fetch('/user/components/detalle_ticket.html');
@@ -115,11 +127,3 @@ async function cargarDetalleTicket(ticketId) {
     mod.initDetalleTicket(ticketId);
   });
 }
-
-tbody.querySelectorAll('.ver-icono').forEach((btn, i) => {
-  btn.addEventListener('click', function() {
-    const ticketId = btn.dataset.ticketId;
-    cargarDetalleTicket(ticketId);
-  });
-});
-

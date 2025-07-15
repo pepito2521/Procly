@@ -250,11 +250,14 @@
   min-width: 0;
 }
 
-.categoria-card.selected,
 .categoria-card:hover {
   box-shadow: 0 6px 18px rgba(0,0,0,0.10);
-  transform: translateY(-2px) scale(1.03);
-  border: 2px solid #508991;
+  transform: translateY(-2px);
+}
+
+.categoria-card.selected {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
 }
 
 .admin-card-icon-circle {
@@ -540,7 +543,7 @@ input[type="number"] {
   align-items: center;
   flex-direction: column;
   gap: 0.2rem;
-  margin: 2rem 0;
+  margin: 0.5rem 0;
   min-height: 20px;
   width: 100%;
   padding: 0;
