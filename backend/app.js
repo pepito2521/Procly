@@ -9,7 +9,11 @@ const app = express();
 
 // 🔐 MIDDLEWARES
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [
+    'https://app.procly.net',
+    'https://procly.net',
+    'http://localhost:3000',
+  ],
   credentials: true
 }));
 app.use(express.json());

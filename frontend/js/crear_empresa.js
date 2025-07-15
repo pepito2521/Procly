@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const email_contacto = document.getElementById('email_contacto').value;
   
       try {
-        const response = await fetch('https://procly.onrender.com/empresas', {
+        const response = await fetch('https://app.procly.net/empresas', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

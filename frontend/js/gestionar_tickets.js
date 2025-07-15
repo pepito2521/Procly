@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const tabla = document.querySelector('#tabla-tickets-proclier tbody');
 
   try {
-    const response = await fetch('https://procly.onrender.com/proclier/tickets');
+    const response = await fetch('https://app.procly.net/proclier/tickets');
     const tickets = await response.json();
 
     tickets.forEach((ticket) => {

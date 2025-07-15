@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch('https://procly.onrender.com/auth/signup', {
+      const response = await fetch('https://app.procly.net/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

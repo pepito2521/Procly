@@ -4,7 +4,7 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("recover-email").value;
 
-  const res = await fetch("https://procly.onrender.com/auth/recover-password", {
+  const res = await fetch("https://app.procly.net/auth/recover-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),
