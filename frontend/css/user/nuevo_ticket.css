@@ -1,7 +1,12 @@
 .nuevo-ticket-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 32px;
+  box-sizing: border-box;
 }
 
 .nuevo-ticket-container h1 {
@@ -17,13 +22,14 @@
 
 .formulario-ticket {
   width: 100%;
-  max-width: 600px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 24px 0;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
+  box-sizing: border-box;
 }
 
 

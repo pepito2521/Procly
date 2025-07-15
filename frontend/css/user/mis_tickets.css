@@ -1,15 +1,29 @@
 .mis-tickets-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 32px;
+  box-sizing: border-box;
 }
 
 /* TABLA DE TICKETS */
 .table-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 12px;
+}
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 320px;
+  font-size: 14px;
+  margin-bottom: 16px;
 }
   
 .tickets-table {
@@ -149,5 +163,15 @@
   font-size: 24px;
   font-weight: 700;
   color: #111827;
+}
+
+.kpi-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kpi-title-row svg {
+  flex-shrink: 0;
 }
 

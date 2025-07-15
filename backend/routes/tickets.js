@@ -6,15 +6,25 @@ const {
     obtenerDirecciones,
     obtenerTickets,
     obtenerTicketPorId,
-    seleccionarPropuesta
+    seleccionarPropuesta,
+    kpiTotalTicketsUsuario,
+    kpiTicketsEntregadosUsuario,
+    kpiTicketsEnProcesoUsuario,
+    kpiTicketsCanceladosUsuario
 } = require('../controllers/ticketsController');
 
 
-// RUTAS
+// RUTAS TICKETS
 router.get('/direcciones', requireAuth, obtenerDirecciones);
 router.post('/', requireAuth, crearTicket);
 router.get('/', requireAuth, obtenerTickets);
 router.get('/:id', requireAuth, obtenerTicketPorId);
 router.post('/:id/seleccionar', requireAuth, seleccionarPropuesta);
+
+// KPI USUARIO
+router.get('/kpi-total', requireAuth, kpiTotalTicketsUsuario);
+router.get('/kpi-entregados', requireAuth, kpiTicketsEntregadosUsuario);
+router.get('/kpi-en-proceso', requireAuth, kpiTicketsEnProcesoUsuario);
+router.get('/kpi-cancelados', requireAuth, kpiTicketsCanceladosUsuario);
 
 module.exports = router;

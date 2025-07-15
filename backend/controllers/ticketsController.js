@@ -157,14 +157,16 @@ const seleccionarPropuesta = async (req, res) => {
 const kpiTotalTicketsUsuario = async (req, res) => {
   try {
     const user_id = req.user?.id;
+    if (!user_id) throw new Error("No se encontró el user_id en req.user");
     const { count, error } = await supabase
       .from('tickets')
       .select('*', { count: 'exact', head: true })
       .eq('user_id', user_id);
     if (error) throw error;
     res.json({ total: count });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    console.error("Error en kpiTotalTicketsUsuario:", error);
+    res.status(500).json({ error: error.message });
   }
 };
 
