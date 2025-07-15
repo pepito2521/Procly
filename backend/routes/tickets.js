@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const requireAuth = require('../middleware/requireAuth');
-const { 
+const {
     crearTicket,
     obtenerDirecciones,
     obtenerTickets,
@@ -13,18 +13,19 @@ const {
     kpiTicketsCanceladosUsuario
 } = require('../controllers/ticketsController');
 
+router.use(requireAuth);
 
 // RUTAS TICKETS
-router.get('/direcciones', requireAuth, obtenerDirecciones);
-router.post('/', requireAuth, crearTicket);
-router.get('/', requireAuth, obtenerTickets);
-router.get('/:id', requireAuth, obtenerTicketPorId);
-router.post('/:id/seleccionar', requireAuth, seleccionarPropuesta);
+router.get('/direcciones', obtenerDirecciones);
+router.post('/', crearTicket);
+router.get('/', obtenerTickets);
+router.get('/:id', obtenerTicketPorId);
+router.post('/:id/seleccionar', seleccionarPropuesta);
 
-// KPI USUARIO
-router.get('/kpi-total', requireAuth, kpiTotalTicketsUsuario);
-router.get('/kpi-entregados', requireAuth, kpiTicketsEntregadosUsuario);
-router.get('/kpi-en-proceso', requireAuth, kpiTicketsEnProcesoUsuario);
-router.get('/kpi-cancelados', requireAuth, kpiTicketsCanceladosUsuario);
+// RUTAS KPI USUARIO
+router.get('/kpi-total', kpiTotalTicketsUsuario);
+router.get('/kpi-entregados', kpiTicketsEntregadosUsuario);
+router.get('/kpi-en-proceso', kpiTicketsEnProcesoUsuario);
+router.get('/kpi-cancelados', kpiTicketsCanceladosUsuario);
 
 module.exports = router;
