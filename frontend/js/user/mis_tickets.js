@@ -85,3 +85,14 @@ async function cargarTickets() {
     ocultarLoader();
   }
 }
+
+// BUSCADOR DE TICKETS
+const inputBuscador = document.getElementById("buscadorTickets");
+inputBuscador?.addEventListener("input", (e) => {
+  const valor = e.target.value.toLowerCase();
+  const filas = document.querySelectorAll("#tabla-tickets-body tr");
+  filas.forEach((fila) => {
+    const textoFila = fila.textContent.toLowerCase();
+    fila.style.display = textoFila.includes(valor) ? "" : "none";
+  });
+});
