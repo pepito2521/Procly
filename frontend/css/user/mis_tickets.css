@@ -167,11 +167,13 @@
 
 .kpi-title-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .kpi-title-row svg {
   flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #374151;
 }
-

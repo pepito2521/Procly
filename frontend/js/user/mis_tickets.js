@@ -77,7 +77,7 @@ async function cargarTickets() {
           </span>
         </td>
         <td>
-          <a href="detalle_ticket.html?id=${ticket.ticket_id}" class="ver-icono">
+          <a href="detalle_ticket.html?id=${ticket.ticket_id}" class="ver-icono" data-ticket-id="${ticket.ticket_id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#090B0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"/>
               <polyline points="12 5 19 12 12 19"/>
@@ -102,5 +102,24 @@ document.addEventListener('input', (e) => {
       fila.style.display = textoFila.includes(valor) ? "" : "none";
     });
   }
+});
+
+
+// FUNCION PARA CARGAR EL DETALLE DEL TICKET
+async function cargarDetalleTicket(ticketId) {
+  const response = await fetch('/user/components/detalle_ticket.html');
+  const html = await response.text();
+  document.getElementById('dynamicContent').innerHTML = html;
+
+  import('/js/user/detalle_ticket.js').then(mod => {
+    mod.initDetalleTicket(ticketId);
+  });
+}
+
+tbody.querySelectorAll('.ver-icono').forEach((btn, i) => {
+  btn.addEventListener('click', function() {
+    const ticketId = btn.dataset.ticketId;
+    cargarDetalleTicket(ticketId);
+  });
 });
 
