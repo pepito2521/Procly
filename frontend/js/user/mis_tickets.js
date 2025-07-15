@@ -32,7 +32,7 @@ async function cargarTickets() {
       return;
     }
 
-    const tbody = document.getElementById("tabla-tickets-body");
+    const tbody = document.getElementById("tickets-table-body");
 
     tbody.innerHTML = "";
 
