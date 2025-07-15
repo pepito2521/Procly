@@ -1,5 +1,6 @@
 // NAVEGACION MODULAR
 import { supabase } from "/js/supabaseClient.js";
+import { mostrarLoader, ocultarLoader } from "/js/components/loader.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const secciones = {
@@ -42,12 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const info = secciones[seccion];
     if (!info) return;
     try {
+      await mostrarLoader();
+
       const resp = await fetch(`/user/components/${info.archivo}`);
       const html = await resp.text();
       dynamicContent.innerHTML = html;
       pageTitle.textContent = info.nombre;
       document.getElementById("pageIcon").innerHTML = info.icon;
       marcarActivo(seccion);
+
       if (info.js) {
         import(info.js)
           .then(mod => {
@@ -60,6 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (e) {
       dynamicContent.innerHTML = `<p style='padding:2rem;'>No se pudo cargar la sección.</p>`;
+    } finally {
+      ocultarLoader();
     }
   }
 
@@ -127,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Cargar sección por defecto
   cargarSeccion('nuevo_ticket');
   inicializarSidebar();
   inicializarLogoutDirecto();

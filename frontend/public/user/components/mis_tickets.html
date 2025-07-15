@@ -1,28 +1,32 @@
 <main class="mis-tickets-container">
+  <section class="kpi-cards">
+    <div class="kpi-card">
+      <div class="kpi-title">Total Tickets</div>
+      <div class="kpi-value" id="kpi-total-tickets">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Entregados</div>
+      <div class="kpi-value" id="kpi-tickets-entregados">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">En Proceso</div>
+      <div class="kpi-value" id="kpi-tickets-proceso">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Cancelados</div>
+      <div class="kpi-value" id="kpi-tickets-cancelados">0</div>
+    </div>
+  </section>
   <div class="table-header">
     <input type="text" class="search-input" id="buscadorTickets" placeholder="Buscar por código, nombre o estado..." />
   </div>
-  <table class="tikcets-table">
+  <table class="tickets-table">
     <thead>
       <tr>
-        <th>
-          <div class="th-flex">
-            Ticket ID
-          </div>
-        </th>
-        <th>
-          <div class="th-flex">
-            Nombre
-          </div>
-        </th>
-        <th>
-          <div class="th-flex">
-            Estado
-          </div>
-        </th>
-        <th>
-          <div>Ver</div>
-        </th>
+        <th>Ticket ID</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Ver</th>
       </tr>
     </thead>
     <tbody id="tickets-table-body">

@@ -9,7 +9,7 @@ function generarCodigoTicket() {
   return `TKT-${letra}${numeros}`;
 }
 
-exports.crearTicket = async (req, res) => {
+const crearTicket = async (req, res) => {
   try {
     const {
       categoria,
@@ -58,105 +58,86 @@ exports.crearTicket = async (req, res) => {
     console.error('Error al crear ticket:', err.message);
     res.status(500).json({ error: 'No se pudo crear el ticket', detalle: err.message });
   }
-  
-
 };
 
 // OBTENER DIRECCIONES SEGUN USUARIO
-exports.obtenerDirecciones = async (req, res) => {
-    try {
-      const user_id = req.user?.id || req.query.user_id;
-  
-      const { data: perfil, error: errorPerfil } = await supabase
-        .from('profiles')
-        .select('empresa_id')
-        .eq('profile_id', user_id)
-        .maybeSingle();
-  
-      if (errorPerfil) throw errorPerfil;
-      if (!perfil) {
-        return res.status(404).json({ error: 'Perfil de usuario no encontrado' });
-      }
-  
-      const { data: direcciones, error } = await supabase
-        .from('direcciones_entrega')
-        .select('*')
-        .eq('empresa_id', perfil.empresa_id);
-  
-      if (error) throw error;
-  
-      res.json(direcciones);
-    } catch (err) {
-      console.error('Error al obtener direcciones:', err.message);
-      res.status(500).json({ error: 'No se pudieron cargar las direcciones', detalle: err.message });
+const obtenerDirecciones = async (req, res) => {
+  try {
+    const user_id = req.user?.id || req.query.user_id;
+    const { data: perfil, error: errorPerfil } = await supabase
+      .from('profiles')
+      .select('empresa_id')
+      .eq('profile_id', user_id)
+      .maybeSingle();
+    if (errorPerfil) throw errorPerfil;
+    if (!perfil) {
+      return res.status(404).json({ error: 'Perfil de usuario no encontrado' });
     }
+    const { data: direcciones, error } = await supabase
+      .from('direcciones_entrega')
+      .select('*')
+      .eq('empresa_id', perfil.empresa_id);
+    if (error) throw error;
+    res.json(direcciones);
+  } catch (err) {
+    console.error('Error al obtener direcciones:', err.message);
+    res.status(500).json({ error: 'No se pudieron cargar las direcciones', detalle: err.message });
+  }
 };
 
-  // OBTENER TICKETS DEL USUARIO AUTENTICADO
-  exports.obtenerTickets = async (req, res) => {
-    try {
-      const user_id = req.user?.id;
+// OBTENER TICKETS SEGUN USUARIO
+const obtenerTickets = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    const { data, error } = await supabase
+      .from('tickets')
+      .select('ticket_id, codigo_ticket, nombre, estado')
+      .eq('user_id', user_id);
+    if (error) throw error;
+    res.json(data);
+  } catch (err) {
+    console.error('Error al obtener tickets:', err.message);
+    res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
+  }
+};
 
-      const { data, error } = await supabase
-        .from('tickets')
-        .select('ticket_id, codigo_ticket, nombre, estado')
-        .eq('user_id', user_id);
-
-      if (error) throw error;
-
-      res.json(data);
-    } catch (err) {
-      console.error('Error al obtener tickets:', err.message);
-      res.status(500).json({ error: 'No se pudieron obtener los tickets', detalle: err.message });
-    }
-  };
-
-
-  // OBTENER TICKET POR ID
-exports.obtenerTicketPorId = async (req, res) => {
-try {
+// OBTENER TICKET SEGUN ID
+const obtenerTicketPorId = async (req, res) => {
+  try {
     const ticketId = req.params.id;
     const userId = req.user.id;
-
     const { data: ticket, error } = await supabase
-    .from('tickets')
-    .select('*')
-    .eq('ticket_id', ticketId)
-    .eq('user_id', userId)
-    .single();
-
+      .from('tickets')
+      .select('*')
+      .eq('ticket_id', ticketId)
+      .eq('user_id', userId)
+      .single();
     if (error) throw error;
-
     res.json(ticket);
-} catch (err) {
+  } catch (err) {
     console.error("Error al obtener el ticket:", err.message);
     res.status(500).json({ error: 'No se pudo obtener el ticket', detalle: err.message });
-}
+  }
 };
 
-
-// SELECCIONAR PROPUESTA PARA UN TICKET
-exports.seleccionarPropuesta = async (req, res) => {
+// SELECCIONAR PROPUESTA
+const seleccionarPropuesta = async (req, res) => {
   try {
     const ticketId = req.params.id;
     const { propuesta_seleccionada } = req.body;
     const userId = req.user.id;
-
     if (!["A", "B", "C"].includes(propuesta_seleccionada)) {
       return res.status(400).json({ error: "Propuesta inválida. Debe ser A, B o C." });
     }
-
     const { data: ticket, error: errorTicket } = await supabase
       .from('tickets')
       .select('ticket_id, user_id')
       .eq('ticket_id', ticketId)
       .single();
-
     if (errorTicket) throw errorTicket;
     if (!ticket || ticket.user_id !== userId) {
       return res.status(403).json({ error: "No tenés permiso para modificar este ticket" });
     }
-
     const { error: updateError } = await supabase
       .from('tickets')
       .update({
@@ -164,13 +145,85 @@ exports.seleccionarPropuesta = async (req, res) => {
         estado: "En camino"
       })
       .eq('ticket_id', ticketId);
-
     if (updateError) throw updateError;
-
     res.json({ message: "Propuesta seleccionada correctamente", nuevaEtapa: "En camino" });
-
   } catch (err) {
     console.error("Error al seleccionar propuesta:", err.message);
     res.status(500).json({ error: "No se pudo guardar la propuesta", detalle: err.message });
   }
+};
+
+// KPI: TICKETS TOTALES POR USUARIO
+const kpiTotalTicketsUsuario = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    const { count, error } = await supabase
+      .from('tickets')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user_id);
+    if (error) throw error;
+    res.json({ total: count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// KPI: TICKETS ENTREGADOS POR USUARIO
+const kpiTicketsEntregadosUsuario = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    const { count, error } = await supabase
+      .from('tickets')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user_id)
+      .eq('estado', 'Entregado');
+    if (error) throw error;
+    res.json({ total: count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// KPI: TICKETS EN PROCESO POR USUARIO
+const kpiTicketsEnProcesoUsuario = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    const { count, error } = await supabase
+      .from('tickets')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user_id)
+      .not('estado', 'in', '("Entregado","Cancelado")');
+    if (error) throw error;
+    res.json({ total: count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// KPI: TICKETS CANCELADOS POR USUARIO
+const kpiTicketsCanceladosUsuario = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    const { count, error } = await supabase
+      .from('tickets')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user_id)
+      .eq('estado', 'Cancelado');
+    if (error) throw error;
+    res.json({ total: count });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+module.exports = {
+  crearTicket,
+  obtenerDirecciones,
+  obtenerTickets,
+  obtenerTicketPorId,
+  seleccionarPropuesta,
+  kpiTotalTicketsUsuario,
+  kpiTicketsEntregadosUsuario,
+  kpiTicketsEnProcesoUsuario,
+  kpiTicketsCanceladosUsuario
 };
