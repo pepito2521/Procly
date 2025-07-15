@@ -1,6 +1,8 @@
-export function initDetalleTicket() {
-  const params = new URLSearchParams(window.location.search);
-  const ticketId = params.get("id");
+export function initDetalleTicket(ticketId) {
+  if (!ticketId) {
+    const params = new URLSearchParams(window.location.search);
+    ticketId = params.get("id");
+  }
 
   if (!ticketId) {
     document.getElementById("ticket-info").innerHTML = "<p>ID de ticket no encontrado en la URL</p>";
