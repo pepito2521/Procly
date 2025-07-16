@@ -81,21 +81,23 @@ async function cargarTickets() {
           </span>
         </td>
         <td>
-          <a href="#" class="ver-icono" data-ticket-id="${ticket.ticket_id}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#090B0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </a>
+          <button type="button" class="ver-icono-container" data-ticket-id="${ticket.ticket_id}" title="Ver ticket">
+            <span class="ver-icono">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </button>
         </td>
       `;
       tbody.appendChild(fila);
 
-      const verIcono = fila.querySelector('.ver-icono');
-      if (verIcono) {
-        verIcono.addEventListener('click', function(e) {
+      const verBtn = fila.querySelector('.ver-icono-container');
+      if (verBtn) {
+        verBtn.addEventListener('click', function(e) {
           e.preventDefault();
-          const ticketId = verIcono.dataset.ticketId;
+          const ticketId = verBtn.dataset.ticketId;
           cargarDetalleTicket(ticketId);
         });
       }
