@@ -92,6 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
         iconExpand.style.display = "none";
         iconClose.style.display = "inline";
       }
+      console.log("Expand visible:", iconExpand.style.display, "Close visible:", iconClose.style.display);
     });
 
     if (sidebar.classList.contains("collapsed")) {

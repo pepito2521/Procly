@@ -55,8 +55,7 @@ export function initNuevoTicket() {
     }
   }
   
-
-  document.querySelectorAll(".next-btn").forEach(btn => {
+  document.querySelectorAll(".next-btn, .btn2").forEach(btn => {
     btn.addEventListener("click", () => {
       if (currentStep < steps.length - 1) {
         currentStep++;

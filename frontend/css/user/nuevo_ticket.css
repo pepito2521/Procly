@@ -58,7 +58,7 @@
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  gap: 0.5rem;
+  gap: 2rem;
 }
 
 .form-step .form-group {
@@ -88,7 +88,7 @@
   background-color: white;
   border: none;
   resize: none;
-  border-radius: 20px;
+  border-radius: 8px;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
@@ -106,7 +106,7 @@
   background-color: white;
   border: none;
   resize: none;
-  border-radius: 20px;
+  border-radius: 8px;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
@@ -123,7 +123,7 @@
   background-color: white;
   border: none;
   resize: none;
-  border-radius: 20px;
+  border-radius: 8px;
   font-size: 1rem;
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
@@ -232,7 +232,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 24px;
-  margin: 16px 0;
+  margin: 0.5rem 0;
 }
 
 .categoria-card {
@@ -295,7 +295,7 @@
 
 .opcion-card {
   flex: 1;
-  border-radius: 20px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
