@@ -17,7 +17,10 @@ export async function mostrarLoader() {
     const div = document.createElement('div');
     div.innerHTML = html;
     document.body.appendChild(div.firstElementChild);
-    console.log("[Loader] loader.html insertado en el DOM");
+
+    const loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
+
     await esperarLottie();
     if (window.lottie) {
       console.log("[Loader] Lottie disponible, cargando animación...");
@@ -31,15 +34,11 @@ export async function mostrarLoader() {
     } else {
       console.warn("[Loader] Lottie NO disponible");
     }
+  } else {
+    const loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
   }
   document.body.classList.add('oculto');
-  const loader = document.getElementById('loader');
-  if (loader) {
-    loader.style.display = 'flex';
-    console.log("[Loader] Loader visible");
-  } else {
-    console.error("[Loader] No se encontró #loader en el DOM");
-  }
 }
 
 //OCULTAR LOADER
