@@ -232,7 +232,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 24px;
-  margin: 32px 0;
+  margin: 16px 0;
 }
 
 .categoria-card {
@@ -460,64 +460,10 @@ input[type="number"] {
   justify-content: center;
 }
 
-.next-btn,
-.prev-btn {
-  width: 100%;
-  max-width: 100%;
-  height: 40px;
-  line-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #09090b;
-  gap: 0.2rem;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.next-btn:hover,
-.prev-btn:hover {
-  background-color: #44504B;
-}
-
-.next-btn:hover p,
-.prev-btn:hover p{
-  color: #090B0A;
-}
-
-
 .submit-btn-container {
   display: flex;
   justify-content: center;
   gap: 1rem;
-}
-
-.submit-btn {
-  color: white;
-  text-decoration: none;
-  width: 100%;
-  max-width: 100%;
-  height: 40px;
-  line-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #09090b;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover {
-  background-color: #44504B; 
 }
 
 .copiar-btn {
@@ -610,6 +556,11 @@ input[type="number"] {
 
 .hidden {
   display: none !important;
+}
+
+select:invalid,
+select option[disabled][selected] {
+  color: #b0b0b0 !important;
 }
 
 

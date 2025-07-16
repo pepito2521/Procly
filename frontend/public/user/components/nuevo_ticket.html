@@ -19,7 +19,6 @@
       <!-- STEP 1: Selección de categoría -->
     <section class="form-step" id="step-1">
       <div class="categoria-grid">
-
         <div class="categoria-card" data-categoria="IT">
           <div class="admin-card-icon-circle">
             <img src="/assets/icons/cpu.svg" alt="IT" class="admin-card-icon" />
@@ -27,7 +26,6 @@
           <h3>IT</h3>
           <p>Equipos, periféricos y soporte técnico.</p>
         </div>
-
         <div class="categoria-card" data-categoria="Software">
           <div class="admin-card-icon-circle">
             <img src="/assets/icons/code.svg" alt="Software" class="admin-card-icon" />
@@ -51,7 +49,6 @@
           <h3>Supplies</h3>
           <p>Insumos, útiles de oficina, papel, toner.</p>
         </div>
-
         <div class="categoria-card" data-categoria="Eventos">
           <div class="admin-card-icon-circle">
             <img src="/assets/icons/calendar.svg" alt="Eventos" class="admin-card-icon" />
@@ -59,7 +56,6 @@
           <h3>Eventos</h3>
           <p>Logística, alquiler de espacios y equipos.</p>
         </div>
-
         <div class="categoria-card" data-categoria="Catering">
           <div class="admin-card-icon-circle">
             <img src="/assets/icons/coffee.svg" alt="Catering" class="admin-card-icon" />
@@ -67,7 +63,6 @@
           <h3>Catering</h3>
           <p>Servicios de comida para oficinas o eventos.</p>
         </div>
-
         <div class="categoria-card" data-categoria="EPP">
           <div class="admin-card-icon-circle">
             <img src="/assets/icons/hard-hat.svg" alt="EPP" class="admin-card-icon" />
@@ -75,7 +70,6 @@
           <h3>EPP</h3>
           <p>Elementos de protección personal y seguridad.</p>
         </div>
-
         <div class="categoria-card" data-categoria="Otros">
           <div class="admin-card-icon-circle">
             <img src="/assets/icons/squares-four.svg" alt="Otros" class="admin-card-icon" />
@@ -83,10 +77,8 @@
           <h3>Otros</h3>
           <p>Categoría general para pedidos especiales.</p>
         </div>
-
       </div>
     </section>
-
 
     <!-- STEP 2: Descripción y adjunto -->
     <section class="form-step" id="step-2" style="display:none">
@@ -103,9 +95,8 @@
           <input type="file" id="adjunto" name="adjunto">
         </div>
       </div>
-      
       <div class="button-group">
-        <button type="button" class="next-btn">Siguiente</button>
+        <button type="button" class="btn2 sm">Siguiente</button>
       </div>
     </section>
 
@@ -131,20 +122,20 @@
           </div>
         </div>
       <div class="button-group">
-        <button type="button" class="next-btn">Siguiente</button>
+        <button type="button" class="btn2 sm">Siguiente</button>
       </div>
     </section>
 
     <!-- STEP 4: Datos de entrega -->
     <section class="form-step" id="step-4" style="display:none">
       <div class="form-group">
-        <select name="direccion_entrega" id="direccion_entrega" placeholder="Seleccioná la Dirección de Entrega" required>
-          <option value="" disabled selected>Seleccioná la Dirección de Entrega</option>
+        <select name="direccion_entrega" id="direccion_entrega" required>
+          <option value="" disabled selected hidden>Seleccioná la Dirección de Entrega</option>
         </select>                        
         <input type="text" id="fecha_entrega" class="input-fecha" name="fecha_entrega" placeholder="Seleccioná la Fecha de Entrega" required>
       </div>
       <div class="button-group">
-        <button type="submit" class="submit-btn">Crear Ticket</button>
+        <button type="submit" class="btn2 sm">Crear Ticket</button>
       </div>
     </section>
 

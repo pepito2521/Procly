@@ -170,7 +170,7 @@ export function initNuevoTicket() {
         data.forEach((dir, index) => {
           const option = document.createElement('option');
           option.value = dir.direccion_id;
-          option.textContent = dir.direccion;  
+          option.textContent = `${dir.nombre} – ${dir.direccion}`;
           select.appendChild(option);
         });
       } else {

@@ -45,20 +45,39 @@ async function mostrarNombreAdmin() {
 function inicializarSidebar() {
   const sidebar = document.getElementById("sidebar");
   const mainContent = document.querySelector(".main-content");
-  document.getElementById("sidebarToggle")?.addEventListener("click", () => {
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const iconExpand = sidebarToggle.querySelector('.icon-expand');
+  const iconClose = sidebarToggle.querySelector('.icon-close');
+
+  sidebarToggle.addEventListener("click", () => {
     sidebar.classList.toggle("collapsed");
     mainContent.classList.toggle("sidebar-collapsed");
+    if (sidebar.classList.contains("collapsed")) {
+      iconExpand.style.display = "inline";
+      iconClose.style.display = "none";
+    } else {
+      iconExpand.style.display = "none";
+      iconClose.style.display = "inline";
+    }
   });
 
-    document.querySelectorAll(".nav-item").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const section = e.currentTarget.getAttribute("data-section");
-  
-        document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
-        e.currentTarget.classList.add("active");
-        cambiarSeccion(section);
-      });
+  // Estado inicial
+  if (sidebar.classList.contains("collapsed")) {
+    iconExpand.style.display = "inline";
+    iconClose.style.display = "none";
+  } else {
+    iconExpand.style.display = "none";
+    iconClose.style.display = "inline";
+  }
+
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const section = e.currentTarget.getAttribute("data-section");
+      document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+      e.currentTarget.classList.add("active");
+      cambiarSeccion(section);
     });
+  });
 }
 
 // FUNCION: LOGOUT

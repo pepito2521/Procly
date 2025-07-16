@@ -77,11 +77,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function inicializarSidebar() {
     const sidebar = document.getElementById("sidebar");
-    const mainContent = document.querySelector(".main-content");
-    document.getElementById("sidebarToggle")?.addEventListener("click", () => {
+    const sidebarToggle = document.getElementById("sidebarToggle");
+    const iconExpand = sidebarToggle.querySelector('.icon-expand');
+    const iconClose = sidebarToggle.querySelector('.icon-close');
+
+    sidebarToggle.addEventListener("click", () => {
       sidebar.classList.toggle("collapsed");
-      mainContent.classList.toggle("sidebar-collapsed");
+      document.querySelector(".main-content").classList.toggle("sidebar-collapsed");
+
+      if (sidebar.classList.contains("collapsed")) {
+        iconExpand.style.display = "inline";
+        iconClose.style.display = "none";
+      } else {
+        iconExpand.style.display = "none";
+        iconClose.style.display = "inline";
+      }
     });
+
+    if (sidebar.classList.contains("collapsed")) {
+      iconExpand.style.display = "inline";
+      iconClose.style.display = "none";
+    } else {
+      iconExpand.style.display = "none";
+      iconClose.style.display = "inline";
+    }
   }
 
   function inicializarLogoutDirecto() {
