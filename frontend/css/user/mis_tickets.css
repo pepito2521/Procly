@@ -118,7 +118,7 @@
 
 .ver-icono-container:hover {
   background-color: #f3f4f6;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Sombra suave solo en el botón */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .ver-icono {

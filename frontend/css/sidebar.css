@@ -100,6 +100,7 @@
 
 .sidebar-toggle:hover {
     background-color: #f3f4f6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .toggle-icon {
@@ -121,9 +122,6 @@
     opacity: 0;
     pointer-events: none;
 }
-
-
-
 
 /* NAVIGATION */
 .sidebar-nav {
