@@ -377,7 +377,7 @@ input[type="number"] {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;

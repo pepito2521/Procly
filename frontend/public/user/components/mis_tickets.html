@@ -37,19 +37,24 @@
       <div class="kpi-value" id="kpi-tickets-cancelados">...</div>
     </div>
   </section>
-  <div class="table-header">
-    <input type="text" class="search-input" id="buscadorTickets" placeholder="Buscar por código, nombre o estado..." />
+  
+  <!-- TABLA: MIS TICKETS -->
+  <div class="chart-card">
+    <div class="chart-title">Mis Tickets</div>
+    <div class="table-header">
+      <input type="text" class="search-input" id="buscadorTickets" placeholder="Buscar por código, nombre o estado..." />
+    </div>
+    <table class="tickets-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Nombre</th>
+          <th>Estado</th>
+          <th>Ver</th>
+        </tr>
+      </thead>
+      <tbody id="tickets-table-body">
+      </tbody>
+    </table>
   </div>
-  <table class="tickets-table">
-    <thead>
-      <tr>
-        <th>Ticket ID</th>
-        <th>Nombre</th>
-        <th>Estado</th>
-        <th>Ver</th>
-      </tr>
-    </thead>
-    <tbody id="tickets-table-body">
-    </tbody>
-  </table>
 </main>
