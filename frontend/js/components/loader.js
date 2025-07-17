@@ -29,7 +29,7 @@ export async function mostrarLoader() {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: '/assets/lottie/rocket.json',
+        path: '/assets/lottie/loader.json',
       });
     } else {
       console.warn("[Loader] Lottie NO disponible");
