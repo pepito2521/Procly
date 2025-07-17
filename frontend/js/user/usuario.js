@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await mostrarLoader();
 
-      const resp = await fetch(`/user/components/${info.archivo}`);
+      const resp = await fetch(`/app/user/components/${info.archivo}`);
       const html = await resp.text();
       dynamicContent.innerHTML = html;
       pageTitle.textContent = info.nombre;
