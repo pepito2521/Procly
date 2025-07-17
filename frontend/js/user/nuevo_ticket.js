@@ -152,7 +152,7 @@ export function initNuevoTicket() {
     }
   
     try {
-      const res = await fetch('https://procly.net/tickets/direcciones', {
+      const res = await fetch('https://www.procly.net/tickets/direcciones', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -240,7 +240,7 @@ export function initNuevoTicket() {
     };
   
     try {
-      const res = await fetch('https://procly.net/tickets', {
+      const res = await fetch('https://www.procly.net/tickets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

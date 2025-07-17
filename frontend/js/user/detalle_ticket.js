@@ -20,7 +20,7 @@ export function initDetalleTicket(ticketId) {
 
 async function fetchTicket(ticketId, token) {
   try {
-    const res = await fetch(`https://procly.net/tickets/${ticketId}`, {
+    const res = await fetch(`https://www.procly.net/tickets/${ticketId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
 
@@ -123,7 +123,7 @@ async function enviarSeleccionPropuesta(ticket_id) {
   }
 
   try {
-    const res = await fetch(`https://procly.net/tickets/${ticket_id}/seleccionar`, {
+    const res = await fetch(`https://www.procly.net/tickets/${ticket_id}/seleccionar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

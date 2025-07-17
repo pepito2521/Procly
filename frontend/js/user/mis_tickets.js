@@ -20,10 +20,10 @@ async function cargarKPIs() {
 
   try {
     const [total, entregados, enProceso, cancelados] = await Promise.all([
-      fetch('https://procly.net/tickets/kpi-total', { headers }).then(r => r.json()),
-      fetch('https://procly.net/tickets/kpi-entregados', { headers }).then(r => r.json()),
-      fetch('https://procly.net/tickets/kpi-en-proceso', { headers }).then(r => r.json()),
-      fetch('https://procly.net/tickets/kpi-cancelados', { headers }).then(r => r.json())
+      fetch('https://www.procly.net/tickets/kpi-total', { headers }).then(r => r.json()),
+      fetch('https://www.procly.net/tickets/kpi-entregados', { headers }).then(r => r.json()),
+      fetch('https://www.procly.net/tickets/kpi-en-proceso', { headers }).then(r => r.json()),
+      fetch('https://www.procly.net/tickets/kpi-cancelados', { headers }).then(r => r.json())
     ]);
 
     document.getElementById('kpi-total-tickets').textContent = total.total ?? 0;

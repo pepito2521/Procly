@@ -99,7 +99,7 @@ router.post('/recover-password', async (req, res) => {
   const { email } = req.body;
 
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://procly.net/app/auth/update_password.html'
+    redirectTo: 'https://www.procly.net/app/auth/update_password.html'
   });
 
   if (error) return res.status(400).json({ error: error.message });
