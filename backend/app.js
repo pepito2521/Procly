@@ -12,10 +12,18 @@ app.use(cors({
   origin: [
     'https://procly.net',
     'https://www.procly.net',
-    'http://localhost:3000'
+    'http://localhost:3000',
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  preflightContinue: false,
+  optionsSuccessStatus: 200
 }));
+
+// Middleware para manejar OPTIONS preflight
+app.options('*', cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,22 +39,21 @@ app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
 app.use('/assets', express.static(path.join(__dirname, '../frontend/assets')));
 app.use('/components', express.static(path.join(__dirname, '../frontend/components')));
 
-// 🏠 LANDING PAGE (PÁGINA PRINCIPAL)
+// 🏠 RUTAS DE LA LANDING PAGE
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/landing/index.html'));
 });
 
-// 📱 APLICACIÓN WEB
+// 📱 RUTAS DE LA APLICACIÓN
 app.get('/app', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/app/index.html'));
 });
 
 app.get('/app/*', (req, res) => {
-  const filePath = path.join(__dirname, '../frontend/public', req.path);
-  res.sendFile(filePath);
+  res.sendFile(path.join(__dirname, '../frontend/public/app/index.html'));
 });
 
-// 🚫 FALLBACK - PÁGINA 404
+// 🚫 FALLBACK PARA RUTAS NO ENCONTRADAS
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/404.html'));
 });
