@@ -14,6 +14,6 @@ form.addEventListener("submit", async (e) => {
     alert("Error al actualizar contraseña: " + error.message);
   } else {
     alert("Contraseña actualizada correctamente.");
-    window.location.href = "/index.html";
+    window.location.href = "/app/index.html";
   }
 });

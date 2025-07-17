@@ -10,8 +10,8 @@ const app = express();
 // 🔐 MIDDLEWARES
 app.use(cors({
   origin: [
-    'https://app.procly.net',
     'https://procly.net',
+    'https://www.procly.net',
     'http://localhost:3000',
   ],
   credentials: true
@@ -31,11 +31,24 @@ app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
 app.use('/assets', express.static(path.join(__dirname, '../frontend/assets')));
 app.use('/components', express.static(path.join(__dirname, '../frontend/components')));
 
+// 🏠 LANDING PAGE (PÁGINA PRINCIPAL)
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/landing/index.html'));
+});
 
-// ⚠️ FALLBACK
-app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, '../frontend/public/404.html'));
-  });
-  
+// 📱 APLICACIÓN WEB
+app.get('/app', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/app/index.html'));
+});
+
+app.get('/app/*', (req, res) => {
+  const filePath = path.join(__dirname, '../frontend/public', req.path);
+  res.sendFile(filePath);
+});
+
+// 🚫 FALLBACK - PÁGINA 404
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/404.html'));
+});
 
 module.exports = app;

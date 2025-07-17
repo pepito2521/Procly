@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const password = document.getElementById('password').value;
   
       try {
-        const response = await fetch('https://app.procly.net/auth/login', {
+        const response = await fetch('https://procly.net/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch('https://app.procly.net/auth/signup', {
+      const response = await fetch('https://procly.net/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
       if (response.ok) {
-        window.location.href = '/success_signup.html';
+        window.location.href = '/app/auth/success_signup.html';
       } else {
         alert(`Error: ${result.error}`);
       }

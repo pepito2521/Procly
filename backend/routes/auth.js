@@ -68,13 +68,13 @@ router.post('/login', async (req, res) => {
     let redirectUrl;
     switch (perfil.role) {
       case 'admin':
-        redirectUrl = '/admin/administrador.html';
+        redirectUrl = '/app/admin/administrador.html';
         break;
       case 'proclier':
-        redirectUrl = '/proclier/menu_proclier.html';
+        redirectUrl = '/app/proclier/menu_proclier.html';
         break;
       default: // usuario
-        redirectUrl = '/user/usuario.html';
+        redirectUrl = '/app/user/usuario.html';
     }
     
     return res.status(200).json({
@@ -99,7 +99,7 @@ router.post('/recover-password', async (req, res) => {
   const { email } = req.body;
 
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://app.procly.net/auth/update_password.html'
+    redirectTo: 'https://procly.net/app/auth/update_password.html'
   });
 
   if (error) return res.status(400).json({ error: error.message });

@@ -94,7 +94,7 @@ function inicializarLogoutDirecto() {
       if (error) {
         alert("Error al cerrar sesión: " + error.message);
       } else {
-        window.location.href = "/index.html";
+        window.location.href = "/app/index.html";
       }
     });
 }

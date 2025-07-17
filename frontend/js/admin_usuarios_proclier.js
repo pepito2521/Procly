@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tabla = document.querySelector('#tabla-usuarios-proclier tbody');
   
     try {
-      const response = await fetch('https://app.procly.net/admin/usuarios');
+      const response = await fetch('https://procly.net/admin/usuarios');
       const usuarios = await response.json();
   
       usuarios.forEach((usuario) => {
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const userId = e.target.dataset.id;
           const accion = e.target.textContent === 'Bloquear' ? true : false;
   
-          const res = await fetch(`https://app.procly.net/admin/usuarios/${userId}/bloquear`, {
+          const res = await fetch(`https://procly.net/admin/usuarios/${userId}/bloquear`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ bloquear: accion })
