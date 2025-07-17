@@ -55,11 +55,24 @@ async function cargarActividadTemplate() {
   
       tickets.forEach(t => {
         const row = document.createElement("tr");
+        const estadoClase = {
+          "Creado": "creado",
+          "En proceso": "en-progreso",
+          "En camino": "en-camino",
+          "Entregado": "entregado",
+          "Revisar": "revisar",
+          "Cancelado": "cancelado"
+        };
+        const clase = estadoClase[t.estado] || "creado";
         row.innerHTML = `
             <td><strong>${t.codigo_ticket}</strong></td>
             <td><strong>${t.nombre_ticket ?? ''}</strong></td>
             <td>${t.nombre} ${t.apellido}</td>
-            <td><span class="badge ${getEstadoColor(t.estado)}">${t.estado}</span></td>
+            <td>
+              <span class="estado-badge ${clase}">
+                ${t.estado}
+              </span>
+            </td>
             <td>${t.precio}</td>
         `;
         tbody.appendChild(row);

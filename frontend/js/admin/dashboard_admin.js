@@ -27,9 +27,9 @@ async function cargarDatosKPIs() {
         console.warn("Algunos KPIs no pudieron cargarse.");
       }
   
-      document.getElementById("kpi-gasto-mensual").textContent = `$${mensual.total?.toLocaleString() ?? 0}`;
-      document.getElementById("kpi-promedio-mensual").textContent = `$${promedio.promedio?.toLocaleString() ?? 0}`;
-      document.getElementById("kpi-acumulado").textContent = `$${acumulado.total?.toLocaleString() ?? 0}`;
+      document.getElementById("kpi-gasto-mensual").textContent = `$${Math.round(mensual.total ?? 0).toLocaleString()}`;
+      document.getElementById("kpi-promedio-mensual").textContent = `$${Math.round(promedio.promedio ?? 0).toLocaleString()}`;
+      document.getElementById("kpi-acumulado").textContent = `$${Math.round(acumulado.total ?? 0).toLocaleString()}`;
       document.getElementById("kpi-tickets-procesados").textContent = tickets.total ?? 0;
       document.getElementById("kpi-usuarios-totales").textContent = totalUsuarios.total ?? 0;
       document.getElementById("kpi-usuarios-nuevos").textContent = `${usuariosNuevos.nuevos === 0 ? "Ningún usuario nuevo este mes" : usuariosNuevos.nuevos + (usuariosNuevos.nuevos === 1 ? " nuevo este mes" : " nuevos este mes")}`;
