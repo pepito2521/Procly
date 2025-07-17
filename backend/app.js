@@ -12,7 +12,7 @@ app.use(cors({
   origin: [
     'https://procly.net',
     'https://www.procly.net',
-    'http://localhost:3000',
+    'http://localhost:3000'
   ],
   credentials: true
 }));
