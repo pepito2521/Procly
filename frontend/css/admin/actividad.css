@@ -81,25 +81,31 @@
 
 .estado-badge.creado {
     background-color: #F49F0A;
-  }
-  
-  .estado-badge.en-progreso {
+}
+
+.estado-badge.en-progreso {
     background-color: #F49F0A;
-  }
-  
-  .estado-badge.en-camino {
+}
+
+.estado-badge.en-camino {
     background-color: #F49F0A;
-  }
-  
-  .estado-badge.entregado {
+}
+
+.estado-badge.entregado {
     background-color: #3E8914;
-  }
-  
-  .estado-badge.revisar {
+}
+
+.estado-badge.revisar {
     background-color: #F49F0A;
-  }
-  
-  .estado-badge.cancelado {
+}
+
+.estado-badge.cancelado {
     background-color: #A22C29;
-  }
+}
+
+.precio-en-proceso {
+  font-style: italic;
+  font-weight: 300;
+  color: #6b7280;
+}
   

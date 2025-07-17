@@ -73,7 +73,11 @@ async function cargarActividadTemplate() {
                 ${t.estado}
               </span>
             </td>
-            <td>${t.precio}</td>
+            <td>
+              ${t.precio === "En proceso"
+                ? `<span class="precio-en-proceso">${t.precio}</span>`
+                : t.precio}
+            </td>
         `;
         tbody.appendChild(row);
       });
