@@ -52,15 +52,18 @@ async function cargarGraficoGastosMensuales() {
   const headers = { 'Authorization': `Bearer ${token}` };
   const response = await fetch('/stats/gastos-mensuales', { headers });
   const data = await response.json();
+  const nombresMeses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  const mesActual = new Date().getMonth();
+  const monthlyData = data.monthlyTotals.map((valor, idx) => idx <= mesActual ? valor : null);
 
   const ctx = document.getElementById('monthlyChart').getContext('2d');
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+      labels: nombresMeses,
       datasets: [{
         label: 'Gasto mensual ($)',
-        data: data.monthlyTotals,
+        data: monthlyData,
         borderColor: '#508991',
         backgroundColor: 'rgba(80,137,145,0.1)',
         fill: true,

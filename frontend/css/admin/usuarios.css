@@ -1,7 +1,7 @@
 .usuarios-overview {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
 }
 
 .table-header {
