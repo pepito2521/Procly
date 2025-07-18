@@ -180,13 +180,27 @@
     background-color: #f9fafb;
 }
 
-.btn-primary.active {
-    background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
+.btn-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    font-weight: 600;
     color: white;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
   
-  .btn-ghost {
+.btn-header:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+  
+  
+.btn-ghost {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -199,12 +213,14 @@
     border-radius: 0.375rem;
     cursor: pointer;
     transition: background-color 0.2s;
-  }
-  
-  .btn-ghost:hover {
+}
+
+.btn-ghost:hover {
     background-color: var(--gray-100);
-  }
+}
   
+
+
   /* HERO SECTION */
   .hero {
     position: relative;

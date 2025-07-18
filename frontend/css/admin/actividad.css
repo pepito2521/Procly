@@ -1,7 +1,7 @@
 .actividad-overview {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
 }
 
 .chart-card-historial {

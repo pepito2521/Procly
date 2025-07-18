@@ -65,8 +65,8 @@ async function cargarActividadTemplate() {
         };
         const clase = estadoClase[t.estado] || "creado";
         row.innerHTML = `
-            <td><strong>${t.codigo_ticket}</strong></td>
-            <td><strong>${t.nombre_ticket ?? ''}</strong></td>
+            <td>${t.codigo_ticket}</td>
+            <td>${t.nombre_ticket ?? ''}</td>
             <td>${t.nombre} ${t.apellido}</td>
             <td>
               <span class="estado-badge ${clase}">
