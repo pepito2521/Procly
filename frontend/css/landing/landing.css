@@ -189,11 +189,10 @@
     font-size: 1rem;
     font-weight: 500;
     color: #222;
-    background: rgba(255,255,255,0.25);
-    border: 1.5px solid #cfd8dc;
-    border-radius: 16px;
+    background: rgba(255,255,255,0.25); 
+    border: 1px solid #cfd8dc;
+    border-radius: 8px;
     text-decoration: none !important;
-    box-shadow: 0 2px 8px rgba(80,137,145,0.04);
     transition: background 0.2s, box-shadow 0.2s, color 0.2s;
     cursor: pointer;
 }
@@ -431,7 +430,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 2rem;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -452,8 +451,8 @@
 }
 
 .feature-img {
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
     margin-bottom: 1rem;
     border-radius: 12px;

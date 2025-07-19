@@ -5,17 +5,44 @@ export function initDetalleTicket(ticketId) {
   }
 
   if (!ticketId) {
-    document.getElementById("ticket-info").innerHTML = "<p>ID de ticket no encontrado en la URL</p>";
+    const panel = document.getElementById("panel-estado-dinamico");
+    if (panel) {
+      panel.innerHTML = `
+        <div style="text-align: center; padding: 2rem;">
+          <p style="color: #d32f2f; font-size: 1.1rem;">ID de ticket no encontrado</p>
+          <p style="color: #666; margin-top: 0.5rem;">No se pudo identificar el ticket a mostrar</p>
+        </div>
+      `;
+    }
     return;
   }
 
   const token = localStorage.getItem("supabaseToken");
   if (!token) {
-    document.getElementById("ticket-info").innerHTML = "<p>Usuario no autenticado</p>";
+    const panel = document.getElementById("panel-estado-dinamico");
+    if (panel) {
+      panel.innerHTML = `
+        <div style="text-align: center; padding: 2rem;">
+          <p style="color: #d32f2f; font-size: 1.1rem;">Usuario no autenticado</p>
+          <p style="color: #666; margin-top: 0.5rem;">Debes iniciar sesión para ver los detalles del ticket</p>
+        </div>
+      `;
+    }
     return;
   }
 
   fetchTicket(ticketId, token);
+  
+  // BOTON VOLVER A MIS TICKETS
+  const btnVolver = document.getElementById('btn-volver-tickets');
+  if (btnVolver) {
+    btnVolver.addEventListener('click', () => {
+      // Cargar la vista de Mis Tickets
+      import('/js/user/mis_tickets.js').then(mod => {
+        mod.initMisTickets();
+      });
+    });
+  }
 }
 
 async function fetchTicket(ticketId, token) {
@@ -46,6 +73,16 @@ async function fetchTicket(ticketId, token) {
 
   } catch (error) {
     console.error("Error al cargar ticket:", error);
+    // Mostrar mensaje de error en el panel
+    const panel = document.getElementById("panel-estado-dinamico");
+    if (panel) {
+      panel.innerHTML = `
+        <div style="text-align: center; padding: 2rem;">
+          <p style="color: #d32f2f; font-size: 1.1rem;">Error al cargar el ticket</p>
+          <p style="color: #666; margin-top: 0.5rem;">${error.message}</p>
+        </div>
+      `;
+    }
   }
 }
 

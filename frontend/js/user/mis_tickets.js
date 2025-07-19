@@ -121,11 +121,26 @@ document.addEventListener('input', (e) => {
 
 // FUNCION PARA CARGAR EL DETALLE DEL TICKET
 async function cargarDetalleTicket(ticketId) {
-  const response = await fetch('/user/components/detalle_ticket.html');
-  const html = await response.text();
-  document.getElementById('dynamicContent').innerHTML = html;
+  try {
+    // Cargar el HTML del detalle en el contenedor dinámico
+    const response = await fetch('/app/user/components/detalle_ticket.html');
+    const html = await response.text();
+    document.getElementById('dynamicContent').innerHTML = html;
 
-  import('/js/user/detalle_ticket.js').then(mod => {
-    mod.initDetalleTicket(ticketId);
-  });
+    // Importar y ejecutar el JS del detalle
+    const detalleModule = await import('/js/user/detalle_ticket.js');
+    detalleModule.initDetalleTicket(ticketId);
+    
+  } catch (error) {
+    console.error('Error al cargar detalle del ticket:', error);
+    document.getElementById('dynamicContent').innerHTML = `
+      <div style="text-align: center; padding: 2rem;">
+        <p style="color: #d32f2f; font-size: 1.1rem;">Error al cargar el detalle del ticket</p>
+        <p style="color: #666; margin-top: 0.5rem;">${error.message}</p>
+        <button onclick="window.history.back()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #508991; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Volver
+        </button>
+      </div>
+    `;
+  }
 }
