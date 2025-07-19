@@ -430,7 +430,7 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 2rem;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -451,8 +451,8 @@
 }
 
 .feature-img {
-    width: 80px;
-    height: 80px;
+    width: 260px;
+    height: auto;
     object-fit: contain;
     margin-bottom: 1rem;
     border-radius: 12px;
