@@ -118,7 +118,7 @@ small {
 }
 
 .btn2:hover {
-  background-color: #d6e7e6; /* Verde claro */
+  background-color: #d6e7e6;
   color: #0f2e2e;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
