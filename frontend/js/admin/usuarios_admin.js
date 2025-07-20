@@ -1,8 +1,10 @@
-document.addEventListener("seccion-cambiada", (e) => {
-    if (e.detail === "usuarios") {
-      cargarUsuariosTemplate();
-    }
-  });
+// USUARIOS ADMIN - COMPONENT
+import { supabase } from "/js/supabaseClient.js";
+
+export function initUsuarios() {
+  console.log("Inicializando Usuarios Admin...");
+  cargarUsuariosTemplate();
+}
 
 async function cargarUsuariosTemplate() {
     let tbody;

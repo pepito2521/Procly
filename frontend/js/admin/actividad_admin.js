@@ -1,114 +1,124 @@
-document.addEventListener("seccion-cambiada", (e) => {
-    if (e.detail === "actividad") {
-      cargarActividadTemplate();
-    }
-  });
+// ACTIVIDAD ADMIN - COMPONENT
+import { supabase } from "/js/supabaseClient.js";
+
+export function initActividad() {
+  console.log("Inicializando Actividad Admin...");
+  cargarActividadTemplate();
+}
 
 async function cargarActividadTemplate() {
-    let tbody;
-    try {
-      const token = localStorage.getItem('supabaseToken');
-      if (!token) {
-        console.error("Token no disponible.");
-        return;
-      }
-  
-      const headers = { 'Authorization': `Bearer ${token}` };
-  
-      // 1. Cargar KPIs
-      const [resTotales, resEntregados, resEnProceso, resCancelados, resTendencia, resPctEntregados, resPctEnCurso, resPctCancelados] = await Promise.all([
-        fetch('/stats/tickets-totales', { headers }).then(r => r.json()),
-        fetch('/stats/tickets-entregados', { headers }).then(r => r.json()),
-        fetch('/stats/tickets-en-proceso', { headers }).then(r => r.json()),
-        fetch('/stats/tickets-cancelados', { headers }).then(r => r.json()),
-        fetch('/stats/tendencia-tickets-vs-mes-anterior', { headers }).then(r => r.json()),
-        fetch('/stats/porcentaje-tickets-entregados', { headers }).then(r => r.json()),
-        fetch('/stats/porcentaje-tickets-en-curso', { headers }).then(r => r.json()),
-        fetch('/stats/porcentaje-tickets-cancelados', { headers }).then(r => r.json())
-      ]);
-      document.getElementById("actividadTotales").textContent = resTotales.total ?? 0;
-      document.getElementById("actividadEntregados").textContent = resEntregados.total ?? 0;
-      document.getElementById("actividadEnProceso").textContent = resEnProceso.total ?? 0;
-      document.getElementById("actividadCancelados").textContent = resCancelados.total ?? 0;
-
-      const tendencia = resTendencia.tendencia;
-      document.getElementById("actividadTotalesSub").textContent =
-        tendencia === undefined ? "-" :
-        tendencia > 0 ? `▲ ${tendencia}% vs mes anterior` :
-        tendencia < 0 ? `▼ ${Math.abs(tendencia)}% vs mes anterior` :
-        `0% vs mes anterior`;
-      document.getElementById("actividadEntregadosSub").textContent = `${resPctEntregados.porcentaje ?? 0}% del total`;
-      document.getElementById("actividadEnProcesoSub").textContent = `${resPctEnCurso.porcentaje ?? 0}% del total`;
-      document.getElementById("actividadCanceladosSub").textContent = `${resPctCancelados.porcentaje ?? 0}% del total`;
-  
-      // 2. Cargar Tabla
-      const response = await fetch('/stats/actividad-tickets', { headers });
-      const { tickets } = await response.json();
-  
-      tbody = document.getElementById("tablaActividad");
-      tbody.innerHTML = "";
-  
-      if (!tickets || tickets.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay tickets registrados</td></tr>`;
-        return;
-      }
-  
-      tickets.forEach(t => {
-        const row = document.createElement("tr");
-        const estadoClase = {
-          "Creado": "creado",
-          "En proceso": "en-progreso",
-          "En camino": "en-camino",
-          "Entregado": "entregado",
-          "Revisar": "revisar",
-          "Cancelado": "cancelado"
-        };
-        const clase = estadoClase[t.estado] || "creado";
-        row.innerHTML = `
-            <td>${t.codigo_ticket}</td>
-            <td>${t.nombre_ticket ?? ''}</td>
-            <td>${t.nombre} ${t.apellido}</td>
-            <td>
-              <span class="estado-badge ${clase}">
-                ${t.estado}
-              </span>
-            </td>
-            <td>
-              ${t.precio === "En proceso"
-                ? `<span class="precio-en-proceso">${t.precio}</span>`
-                : t.precio}
-            </td>
-        `;
-        tbody.appendChild(row);
-      });
-  
-    } catch (error) {
-      console.error("Error al cargar actividad:", error);
-      document.getElementById("tablaActividad").innerHTML = `<tr><td colspan="5">❌ Error al cargar actividad</td></tr>`;
+  try {
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      console.error("Token no disponible.");
+      return;
     }
 
-    // BUSCADOR DE TICKETS
-    const inputBuscador = document.getElementById("buscadorTickets");
-    inputBuscador && (inputBuscador.oninput = (e) => {
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    // Cargar KPIs y datos de actividad
+    const [
+      ticketsTotales,
+      ticketsEntregados,
+      ticketsEnProceso,
+      ticketsCancelados,
+      historialTickets
+    ] = await Promise.all([
+      fetch('/stats/tickets-totales', { headers }).then(r => r.json()),
+      fetch('/stats/tickets-entregados', { headers }).then(r => r.json()),
+      fetch('/stats/tickets-en-proceso', { headers }).then(r => r.json()),
+      fetch('/stats/tickets-cancelados', { headers }).then(r => r.json()),
+      fetch('/stats/historial-tickets', { headers }).then(r => r.json())
+    ]);
+
+    // Actualizar KPIs
+    document.getElementById("actividadTotales").textContent = ticketsTotales.total ?? 0;
+    document.getElementById("actividadTotalesSub").textContent = "Total de tickets procesados";
+    
+    document.getElementById("actividadEntregados").textContent = ticketsEntregados.total ?? 0;
+    document.getElementById("actividadEntregadosSub").textContent = "Tickets entregados exitosamente";
+    
+    document.getElementById("actividadEnProceso").textContent = ticketsEnProceso.total ?? 0;
+    document.getElementById("actividadEnProcesoSub").textContent = "Tickets en proceso actualmente";
+    
+    document.getElementById("actividadCancelados").textContent = ticketsCancelados.total ?? 0;
+    document.getElementById("actividadCanceladosSub").textContent = "Tickets cancelados";
+
+    // Cargar tabla de historial
+    cargarTablaHistorial(historialTickets.tickets || []);
+
+  } catch (error) {
+    console.error("Error al cargar actividad:", error);
+  }
+}
+
+function cargarTablaHistorial(tickets) {
+  const tbody = document.getElementById("tablaActividad");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  if (!tickets || tickets.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay tickets en el historial</td></tr>`;
+    return;
+  }
+
+  tickets.forEach(ticket => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${ticket.codigo_ticket || 'N/A'}</td>
+      <td>${ticket.nombre || 'Sin nombre'}</td>
+      <td>${ticket.usuario_nombre || 'Usuario no encontrado'}</td>
+      <td>
+        <span class="badge ${getBadgeClass(ticket.estado)}">
+          ${ticket.estado || 'Desconocido'}
+        </span>
+      </td>
+      <td>$${ticket.presupuesto?.toLocaleString() || '0'}</td>
+    `;
+    tbody.appendChild(row);
+  });
+
+  // Configurar buscador
+  const inputBuscador = document.getElementById("buscadorTickets");
+  if (inputBuscador) {
+    inputBuscador.addEventListener("input", (e) => {
       const valor = e.target.value.toLowerCase();
       const filas = tbody.querySelectorAll("tr");
       filas.forEach((fila) => {
         const textoCodigo = fila.children[0]?.textContent.toLowerCase() ?? "";
-        fila.style.display = textoCodigo.includes(valor) ? "" : "none";
+        const textoNombre = fila.children[1]?.textContent.toLowerCase() ?? "";
+        const textoUsuario = fila.children[2]?.textContent.toLowerCase() ?? "";
+        
+        const coincide = textoCodigo.includes(valor) || 
+                        textoNombre.includes(valor) || 
+                        textoUsuario.includes(valor);
+        
+        fila.style.display = coincide ? "" : "none";
       });
     });
   }
+}
+
+function getBadgeClass(estado) {
+  const estadoLower = estado?.toLowerCase() || '';
   
-  // Utilidad: color según estado
-  function getEstadoColor(estado) {
-    switch (estado) {
-      case 'pendiente':
-        return 'badge-warning';
-      case 'en revisión':
-        return 'badge-secondary';
-      case 'entregado':
-        return 'badge-success';
-      default:
-        return 'badge-default';
-    }
+  switch (estadoLower) {
+    case 'creado':
+      return 'badge-created';
+    case 'en proceso':
+    case 'en-proceso':
+      return 'badge-processing';
+    case 'en camino':
+    case 'en-camino':
+      return 'badge-shipping';
+    case 'entregado':
+      return 'badge-delivered';
+    case 'revisar':
+      return 'badge-review';
+    case 'cancelado':
+      return 'badge-cancelled';
+    default:
+      return 'badge-default';
   }
+}
