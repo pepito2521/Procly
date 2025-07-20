@@ -62,9 +62,9 @@ async function cargarKPIs() {
     ]);
 
     // Actualizar KPIs en el DOM con valores por defecto
-    document.getElementById("kpi-gasto-mensual").textContent = `$${(gastoMensual?.gasto || 0).toLocaleString()}`;
+    document.getElementById("kpi-gasto-mensual").textContent = `$${(gastoMensual?.total || 0).toLocaleString()}`;
     document.getElementById("kpi-promedio-mensual").textContent = `$${(promedioMensual?.promedio || 0).toLocaleString()}`;
-    document.getElementById("kpi-acumulado").textContent = `$${(acumulado?.acumulado || 0).toLocaleString()}`;
+    document.getElementById("kpi-acumulado").textContent = `$${(acumulado?.total || 0).toLocaleString()}`;
     document.getElementById("kpi-tickets-procesados").textContent = ticketsProcesados?.total || '0';
     document.getElementById("kpi-usuarios-totales").textContent = usuariosTotales?.total || '0';
     document.getElementById("kpi-usuarios-nuevos").textContent = 
@@ -125,16 +125,17 @@ async function cargarGrafico() {
     const ctx = document.getElementById('monthlyChart');
     if (!ctx) return;
 
-    // Si no hay datos, crear un gráfico vacío
-    const chartData = data || { labels: [], data: [] };
+    // Preparar datos para el gráfico
+    const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const monthlyTotals = data?.monthlyTotals || Array(12).fill(0);
 
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: chartData.labels || [],
+        labels: meses,
         datasets: [{
           label: 'Gastos Mensuales',
-          data: chartData.data || [],
+          data: monthlyTotals,
           borderColor: '#508991',
           backgroundColor: 'rgba(80, 137, 145, 0.1)',
           tension: 0.4,
