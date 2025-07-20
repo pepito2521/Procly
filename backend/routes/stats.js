@@ -54,10 +54,22 @@ router.post('/direcciones', crearDireccion);
 
 // KPI: DASHBOARD
 router.get('/tickets-totales', ticketsTotales);
+router.get('/tickets-procesados', ticketsTotales); // Alias para tickets-procesados
 router.get('/gasto-mensual', gastoMensual);
 router.get('/gastos-mensuales', gastosMensuales);
 router.get('/promedio-mensual', promedioMensual);
 router.get('/acumulado-anual', acumuladoAnual);
+router.get('/mes-actual', (req, res) => {
+  const meses = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ];
+  const ahora = new Date();
+  res.json({
+    nombre: meses[ahora.getMonth()],
+    numero: ahora.getMonth() + 1
+  });
+});
 
 // KPI: USUARIOS
 router.get('/usuarios', usuarios);

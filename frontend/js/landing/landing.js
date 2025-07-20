@@ -33,20 +33,20 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     }
 
-    // BOTON: ACCEDER
-    const btnAcceder = document.getElementById("btn-acceder")
-    if (btnAcceder) {
-      btnAcceder.addEventListener("click", () => {
-        console.log("Botón Acceder clicked - redirecting to app")
+    // BOTON: SIGN IN
+    const btnSignIn = document.getElementById("btn-signin")
+    if (btnSignIn) {
+      btnSignIn.addEventListener("click", () => {
+        console.log("Botón Sign In clicked - redirecting to app")
         window.location.href = "/app/index.html"
       })
     }
 
-    // BOTON: CREAR USUARIO
-    const btnCrearUsuario = document.getElementById("btn-crear-usuario")
-    if (btnCrearUsuario) {
-      btnCrearUsuario.addEventListener("click", () => {
-        console.log("Botón Crear Usuario clicked - redirecting to signup")
+    // BOTON: SIGN UP
+    const btnSignUp = document.getElementById("btn-signup")
+    if (btnSignUp) {
+      btnSignUp.addEventListener("click", () => {
+        console.log("Botón Sign Up clicked - redirecting to signup")
         window.location.href = "/app/auth/signup.html"
       })
     }
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, observerOptions)
   
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card")
+    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row")
   
     animatedElements.forEach((el) => {
       el.style.opacity = "0"
