@@ -128,6 +128,14 @@ async function cargarGrafico() {
     // Preparar datos para el gráfico
     const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     const monthlyTotals = data?.monthlyTotals || Array(12).fill(0);
+    
+    // Obtener el mes actual (0 = enero, 6 = julio)
+    const currentMonth = new Date().getMonth();
+    
+    // Filtrar datos: solo mostrar hasta el mes actual
+    const filteredData = monthlyTotals.map((value, index) => {
+      return index <= currentMonth ? value : null;
+    });
 
     new Chart(ctx, {
       type: 'line',
@@ -135,11 +143,12 @@ async function cargarGrafico() {
         labels: meses,
         datasets: [{
           label: 'Gastos Mensuales',
-          data: monthlyTotals,
+          data: filteredData,
           borderColor: '#508991',
           backgroundColor: 'rgba(80, 137, 145, 0.1)',
           tension: 0.4,
-          fill: true
+          fill: true,
+          spanGaps: false
         }]
       },
       options: {
@@ -153,10 +162,23 @@ async function cargarGrafico() {
         scales: {
           y: {
             beginAtZero: true,
+            grid: {
+              color: '#e5e7eb',
+              drawBorder: false
+            },
             ticks: {
+              color: '#6b7280',
               callback: function(value) {
                 return '$' + value.toLocaleString();
               }
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              color: '#6b7280'
             }
           }
         }
