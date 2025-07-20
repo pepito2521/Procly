@@ -46,6 +46,7 @@ router.use(requireAuth);
 // KPI: DIRECCIONES
 router.get('/direcciones-totales', direccionesTotales);
 router.get('/direcciones', direcciones);
+router.get('/direcciones-listado', direcciones);
 router.get('/direcciones-activas', getDireccionesActivas);
 router.get('/direcciones-bloqueadas', getDireccionesBloqueadas);
 router.delete('/direcciones/:id', eliminarDireccion);
@@ -54,7 +55,7 @@ router.post('/direcciones', crearDireccion);
 
 // KPI: DASHBOARD
 router.get('/tickets-totales', ticketsTotales);
-router.get('/tickets-procesados', ticketsTotales); // Alias para tickets-procesados
+router.get('/tickets-procesados', ticketsTotales);
 router.get('/gasto-mensual', gastoMensual);
 router.get('/gastos-mensuales', gastosMensuales);
 router.get('/promedio-mensual', promedioMensual);

@@ -56,25 +56,28 @@
 }
   
 
-/* BADGES */
-.badge {
+
+
+.estado-badge {
     display: inline-block;
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
     font-weight: 600;
-    border-radius: 9999px;
-    text-align: center;
-    white-space: nowrap;
-}
-  
-.badge-success {
-    background-color: #3E8914;
+    font-size: 0.8rem;
     color: white;
+    text-align: center;
+    border: none;
+    resize: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.badge-danger {
-    background-color: #F49F0A;
-    color: white;
+.estado-badge.activa {
+    background-color: #3E8914;
+}
+
+.estado-badge.bloqueada {
+    background-color: #A22C29;
 }
 
 /* BOTONES */

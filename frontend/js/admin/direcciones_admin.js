@@ -93,20 +93,20 @@ function cargarTablaDirecciones(direcciones) {
       <td>${direccion.direccion || 'Sin dirección'}</td>
       <td>${direccion.ciudad || ''}${direccion.provincia ? `, ${direccion.provincia}` : ''}</td>
       <td>
-        <span class="badge ${direccion.activa ? 'badge-success' : 'badge-danger'}">
-          ${direccion.activa ? 'Activa' : 'Bloqueada'}
+        <span class="estado-badge ${direccion.is_active ? 'activa' : 'bloqueada'}">
+          ${direccion.is_active ? 'Activa' : 'Bloqueada'}
         </span>
       </td>
       <td>
         <div class="acciones-btns">
-          <button class="btn-editar" data-id="${direccion.id}">
+          <button class="btn-editar" data-id="${direccion.direccion_id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1976d2" viewBox="0 0 256 256">
               <path d="M227.31,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152.05A16,16,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A16,16,0,0,0,103.95,219.31L227.31,95.95a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.31,64l24-24L216,84.69Z"></path>
             </svg>
             Editar
           </button>
-          <button class="btn-eliminar" data-id="${direccion.id}">
-            ${direccion.activa 
+          <button class="btn-eliminar" data-id="${direccion.direccion_id}">
+            ${direccion.is_active 
               ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#d32f2f" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
               : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1976d2" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
             }

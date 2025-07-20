@@ -215,17 +215,11 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-image: url("/assets/img/hero-background.png");
+    background-color: var(--gray-50);;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
   }
-  
-  /*.hero-overlay {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.05);
-  }*/
   
   .hero-content {
     position: relative;
@@ -245,7 +239,7 @@
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.1;
-    color: white;
+    color: var(--gray-900);
     margin-bottom: 1rem;
   }
   
@@ -262,12 +256,12 @@
   }
   
   .hero-subtitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--primary);
   }
   
   .hero-description {
     font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--gray-600);
     width: 100%;
     margin: 0 1rem;
     line-height: 1.6;
@@ -303,8 +297,8 @@
     padding: 1rem 2rem;
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--primary);
-    background-color: white;
+    color: white;
+    background-color: var(--primary);
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
@@ -313,7 +307,7 @@
   }
   
   .btn-hero-primary:hover {
-    background-color: var(--gray-50);
+    background-color: var(--primary-600);
   }
   
   .btn-hero-secondary {
@@ -324,17 +318,17 @@
     padding: 1rem 2rem;
     font-size: 1.125rem;
     font-weight: 600;
-    color: white;
+    color: var(--primary);
     background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid var(--primary);
     border-radius: 0.5rem;
     cursor: pointer;
-    backdrop-filter: blur(4px);
     transition: background-color 0.2s;
   }
 
   .btn-hero-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--primary);
+    color: white;
   }
   
   .hero-features {
