@@ -49,7 +49,15 @@ app.get('/app', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/app/index.html'));
 });
 
-app.get('/app/*', (req, res) => {
+app.get('/app/admin/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/app/admin/administrador.html'));
+});
+
+app.get('/app/user/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/app/user/usuario.html'));
+});
+
+app.get('/app/auth/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/app/index.html'));
 });
 

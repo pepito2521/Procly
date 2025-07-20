@@ -92,14 +92,14 @@ function cargarTablaHistorial(tickets) {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${ticket.codigo_ticket || 'N/A'}</td>
-      <td>${ticket.nombre || 'Sin nombre'}</td>
-      <td>${ticket.usuario_nombre || 'Usuario no encontrado'}</td>
+      <td>${ticket.nombre_ticket || 'Sin nombre'}</td>
+      <td>${ticket.nombre} ${ticket.apellido}</td>
       <td>
-        <span class="badge ${getBadgeClass(ticket.estado)}">
+        <span class="estado-badge ${ticket.estado?.toLowerCase() || 'default'}">
           ${ticket.estado || 'Desconocido'}
         </span>
       </td>
-      <td>$${ticket.presupuesto?.toLocaleString() || '0'}</td>
+      <td>${ticket.precio || 'En proceso'}</td>
     `;
     tbody.appendChild(row);
   });
@@ -125,25 +125,3 @@ function cargarTablaHistorial(tickets) {
   }
 }
 
-function getBadgeClass(estado) {
-  const estadoLower = estado?.toLowerCase() || '';
-  
-  switch (estadoLower) {
-    case 'creado':
-      return 'badge-created';
-    case 'en proceso':
-    case 'en-proceso':
-      return 'badge-processing';
-    case 'en camino':
-    case 'en-camino':
-      return 'badge-shipping';
-    case 'entregado':
-      return 'badge-delivered';
-    case 'revisar':
-      return 'badge-review';
-    case 'cancelado':
-      return 'badge-cancelled';
-    default:
-      return 'badge-default';
-  }
-}

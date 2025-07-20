@@ -84,6 +84,7 @@ router.get('/usuarios-bloqueados-porcentaje', porcentajeUsuariosBloqueados);
 
 // KPI: ACTIVIDADES
 router.get('/actividad-tickets', actividadTickets);
+router.get('/historial-tickets', actividadTickets);
 router.get('/tickets-entregados', ticketsEntregados);
 router.get('/tickets-en-proceso', ticketsEnProceso);
 router.get('/tickets-cancelados', ticketsCancelados);
