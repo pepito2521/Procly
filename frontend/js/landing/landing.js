@@ -59,6 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/app/auth/signup.html"
       })
     }
+
+    // BOTON: SER PARTNER
+    const btnSerPartner = document.querySelector('.partners .btn-large')
+    if (btnSerPartner) {
+      btnSerPartner.addEventListener("click", () => {
+        console.log("Botón Ser Partner clicked - redirecting to contact")
+        // Aquí puedes redirigir a una página de contacto para partners
+        window.location.href = "mailto:partners@procly.com?subject=Interés en ser Partner"
+      })
+    }
   
     // Header scroll effect
     let lastScrollTop = 0
