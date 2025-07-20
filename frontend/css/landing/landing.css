@@ -1189,7 +1189,7 @@
   /* PARTNERS SECTION */
   .partners {
     padding: 6rem 0;
-    background-color: var(--gray-50);
+    background-color: #508991;
   }
 
   @media (min-width: 768px) {
@@ -1288,6 +1288,28 @@
     font-size: 1.125rem;
     line-height: 1.6;
     margin-bottom: 2rem;
+  }
+
+  /* Estilos específicos para la sección partners simplificada */
+  .partners .section-title {
+    color: white;
+  }
+
+  .partners .section-description {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .partners .btn-large {
+    background: white;
+    color: #508991;
+    border: 2px solid white;
+    font-weight: 600;
+  }
+
+  .partners .btn-large:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #508991;
+    transform: translateY(-2px);
   }
 
   /* Responsive adjustments for partners */
