@@ -41,6 +41,15 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/app/index.html"
       })
     }
+
+    // BOTON: CREAR USUARIO
+    const btnCrearUsuario = document.getElementById("btn-crear-usuario")
+    if (btnCrearUsuario) {
+      btnCrearUsuario.addEventListener("click", () => {
+        console.log("Botón Crear Usuario clicked - redirecting to signup")
+        window.location.href = "/app/auth/signup.html"
+      })
+    }
   
     // Header scroll effect
     let lastScrollTop = 0

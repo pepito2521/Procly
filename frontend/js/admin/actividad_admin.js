@@ -16,6 +16,31 @@ async function cargarActividadTemplate() {
 
     const headers = { 'Authorization': `Bearer ${token}` };
 
+    // Función helper para manejar fetch con mejor manejo de errores
+    async function fetchWithErrorHandling(url, headers) {
+      try {
+        const response = await fetch(url, { headers });
+        if (!response.ok) {
+          console.warn(`Error HTTP ${response.status} para ${url}`);
+          return null;
+        }
+        const text = await response.text();
+        if (!text) {
+          console.warn(`Respuesta vacía para ${url}`);
+          return null;
+        }
+        try {
+          return JSON.parse(text);
+        } catch (parseError) {
+          console.warn(`Error parseando JSON para ${url}:`, text);
+          return null;
+        }
+      } catch (fetchError) {
+        console.warn(`Error en fetch para ${url}:`, fetchError);
+        return null;
+      }
+    }
+
     // Cargar KPIs y datos de actividad
     const [
       ticketsTotales,
@@ -24,28 +49,28 @@ async function cargarActividadTemplate() {
       ticketsCancelados,
       historialTickets
     ] = await Promise.all([
-      fetch('/stats/tickets-totales', { headers }).then(r => r.json()),
-      fetch('/stats/tickets-entregados', { headers }).then(r => r.json()),
-      fetch('/stats/tickets-en-proceso', { headers }).then(r => r.json()),
-      fetch('/stats/tickets-cancelados', { headers }).then(r => r.json()),
-      fetch('/stats/historial-tickets', { headers }).then(r => r.json())
+      fetchWithErrorHandling('/stats/tickets-totales', headers),
+      fetchWithErrorHandling('/stats/tickets-entregados', headers),
+      fetchWithErrorHandling('/stats/tickets-en-proceso', headers),
+      fetchWithErrorHandling('/stats/tickets-cancelados', headers),
+      fetchWithErrorHandling('/stats/historial-tickets', headers)
     ]);
 
     // Actualizar KPIs
-    document.getElementById("actividadTotales").textContent = ticketsTotales.total ?? 0;
+    document.getElementById("actividadTotales").textContent = ticketsTotales?.total ?? 0;
     document.getElementById("actividadTotalesSub").textContent = "Total de tickets procesados";
     
-    document.getElementById("actividadEntregados").textContent = ticketsEntregados.total ?? 0;
+    document.getElementById("actividadEntregados").textContent = ticketsEntregados?.total ?? 0;
     document.getElementById("actividadEntregadosSub").textContent = "Tickets entregados exitosamente";
     
-    document.getElementById("actividadEnProceso").textContent = ticketsEnProceso.total ?? 0;
+    document.getElementById("actividadEnProceso").textContent = ticketsEnProceso?.total ?? 0;
     document.getElementById("actividadEnProcesoSub").textContent = "Tickets en proceso actualmente";
     
-    document.getElementById("actividadCancelados").textContent = ticketsCancelados.total ?? 0;
+    document.getElementById("actividadCancelados").textContent = ticketsCancelados?.total ?? 0;
     document.getElementById("actividadCanceladosSub").textContent = "Tickets cancelados";
 
     // Cargar tabla de historial
-    cargarTablaHistorial(historialTickets.tickets || []);
+    cargarTablaHistorial(historialTickets?.tickets || []);
 
   } catch (error) {
     console.error("Error al cargar actividad:", error);

@@ -17,7 +17,32 @@ async function cargarKPIs() {
 
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    // Cargar todos los KPIs en paralelo
+    // Función helper para manejar fetch con mejor manejo de errores
+    async function fetchWithErrorHandling(url, headers) {
+      try {
+        const response = await fetch(url, { headers });
+        if (!response.ok) {
+          console.warn(`Error HTTP ${response.status} para ${url}`);
+          return null;
+        }
+        const text = await response.text();
+        if (!text) {
+          console.warn(`Respuesta vacía para ${url}`);
+          return null;
+        }
+        try {
+          return JSON.parse(text);
+        } catch (parseError) {
+          console.warn(`Error parseando JSON para ${url}:`, text);
+          return null;
+        }
+      } catch (fetchError) {
+        console.warn(`Error en fetch para ${url}:`, fetchError);
+        return null;
+      }
+    }
+
+    // Cargar todos los KPIs en paralelo con mejor manejo de errores
     const [
       gastoMensual,
       promedioMensual,
@@ -27,30 +52,39 @@ async function cargarKPIs() {
       usuariosNuevos,
       mesActual
     ] = await Promise.all([
-      fetch('/stats/gasto-mensual', { headers }).then(r => r.json()),
-      fetch('/stats/promedio-mensual', { headers }).then(r => r.json()),
-      fetch('/stats/acumulado-anual', { headers }).then(r => r.json()),
-      fetch('/stats/tickets-procesados', { headers }).then(r => r.json()),
-      fetch('/stats/usuarios-totales', { headers }).then(r => r.json()),
-      fetch('/stats/usuarios-nuevos-mes', { headers }).then(r => r.json()),
-      fetch('/stats/mes-actual', { headers }).then(r => r.json())
+      fetchWithErrorHandling('/stats/gasto-mensual', headers),
+      fetchWithErrorHandling('/stats/promedio-mensual', headers),
+      fetchWithErrorHandling('/stats/acumulado-anual', headers),
+      fetchWithErrorHandling('/stats/tickets-procesados', headers),
+      fetchWithErrorHandling('/stats/usuarios-totales', headers),
+      fetchWithErrorHandling('/stats/usuarios-nuevos-mes', headers),
+      fetchWithErrorHandling('/stats/mes-actual', headers)
     ]);
 
-    // Actualizar KPIs en el DOM
-    document.getElementById("kpi-gasto-mensual").textContent = `$${gastoMensual.gasto?.toLocaleString() ?? '0'}`;
-    document.getElementById("kpi-promedio-mensual").textContent = `$${promedioMensual.promedio?.toLocaleString() ?? '0'}`;
-    document.getElementById("kpi-acumulado").textContent = `$${acumulado.acumulado?.toLocaleString() ?? '0'}`;
-    document.getElementById("kpi-tickets-procesados").textContent = ticketsProcesados.total ?? '0';
-    document.getElementById("kpi-usuarios-totales").textContent = usuariosTotales.total ?? '0';
+    // Actualizar KPIs en el DOM con valores por defecto
+    document.getElementById("kpi-gasto-mensual").textContent = `$${(gastoMensual?.gasto || 0).toLocaleString()}`;
+    document.getElementById("kpi-promedio-mensual").textContent = `$${(promedioMensual?.promedio || 0).toLocaleString()}`;
+    document.getElementById("kpi-acumulado").textContent = `$${(acumulado?.acumulado || 0).toLocaleString()}`;
+    document.getElementById("kpi-tickets-procesados").textContent = ticketsProcesados?.total || '0';
+    document.getElementById("kpi-usuarios-totales").textContent = usuariosTotales?.total || '0';
     document.getElementById("kpi-usuarios-nuevos").textContent = 
-      usuariosNuevos.nuevos === 0 
+      (usuariosNuevos?.nuevos || 0) === 0 
         ? "Ningún usuario nuevo este mes" 
         : `${usuariosNuevos.nuevos} nuevo${usuariosNuevos.nuevos > 1 ? 's' : ''} este mes`;
-    document.getElementById("mesNombre").textContent = mesActual.nombre ?? 'Mes Actual';
-    document.getElementById("mesNumero").textContent = mesActual.numero ?? '';
+    document.getElementById("mesNombre").textContent = mesActual?.nombre || 'Mes Actual';
+    document.getElementById("mesNumero").textContent = mesActual?.numero || '';
 
   } catch (error) {
     console.error("Error al cargar KPIs:", error);
+    // Mostrar valores por defecto en caso de error
+    document.getElementById("kpi-gasto-mensual").textContent = '$0';
+    document.getElementById("kpi-promedio-mensual").textContent = '$0';
+    document.getElementById("kpi-acumulado").textContent = '$0';
+    document.getElementById("kpi-tickets-procesados").textContent = '0';
+    document.getElementById("kpi-usuarios-totales").textContent = '0';
+    document.getElementById("kpi-usuarios-nuevos").textContent = 'Ningún usuario nuevo este mes';
+    document.getElementById("mesNombre").textContent = 'Mes Actual';
+    document.getElementById("mesNumero").textContent = '';
   }
 }
 
@@ -60,19 +94,47 @@ async function cargarGrafico() {
     if (!token) return;
 
     const headers = { 'Authorization': `Bearer ${token}` };
-    const response = await fetch('/stats/gastos-mensuales', { headers });
-    const data = await response.json();
+    
+    // Función helper para manejar fetch con mejor manejo de errores
+    async function fetchWithErrorHandling(url, headers) {
+      try {
+        const response = await fetch(url, { headers });
+        if (!response.ok) {
+          console.warn(`Error HTTP ${response.status} para ${url}`);
+          return null;
+        }
+        const text = await response.text();
+        if (!text) {
+          console.warn(`Respuesta vacía para ${url}`);
+          return null;
+        }
+        try {
+          return JSON.parse(text);
+        } catch (parseError) {
+          console.warn(`Error parseando JSON para ${url}:`, text);
+          return null;
+        }
+      } catch (fetchError) {
+        console.warn(`Error en fetch para ${url}:`, fetchError);
+        return null;
+      }
+    }
 
+    const data = await fetchWithErrorHandling('/stats/gastos-mensuales', headers);
+    
     const ctx = document.getElementById('monthlyChart');
     if (!ctx) return;
+
+    // Si no hay datos, crear un gráfico vacío
+    const chartData = data || { labels: [], data: [] };
 
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: data.labels || [],
+        labels: chartData.labels || [],
         datasets: [{
           label: 'Gastos Mensuales',
-          data: data.data || [],
+          data: chartData.data || [],
           borderColor: '#508991',
           backgroundColor: 'rgba(80, 137, 145, 0.1)',
           tension: 0.4,

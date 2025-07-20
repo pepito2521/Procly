@@ -16,6 +16,31 @@ async function cargarDireccionesTemplate() {
 
     const headers = { 'Authorization': `Bearer ${token}` };
 
+    // Función helper para manejar fetch con mejor manejo de errores
+    async function fetchWithErrorHandling(url, headers) {
+      try {
+        const response = await fetch(url, { headers });
+        if (!response.ok) {
+          console.warn(`Error HTTP ${response.status} para ${url}`);
+          return null;
+        }
+        const text = await response.text();
+        if (!text) {
+          console.warn(`Respuesta vacía para ${url}`);
+          return null;
+        }
+        try {
+          return JSON.parse(text);
+        } catch (parseError) {
+          console.warn(`Error parseando JSON para ${url}:`, text);
+          return null;
+        }
+      } catch (fetchError) {
+        console.warn(`Error en fetch para ${url}:`, fetchError);
+        return null;
+      }
+    }
+
     // Cargar KPIs y listado de direcciones
     const [
       totalDirecciones,
@@ -23,19 +48,19 @@ async function cargarDireccionesTemplate() {
       direccionesBloqueadas,
       listadoDirecciones
     ] = await Promise.all([
-      fetch('/stats/direcciones-totales', { headers }).then(r => r.json()),
-      fetch('/stats/direcciones-activas', { headers }).then(r => r.json()),
-      fetch('/stats/direcciones-bloqueadas', { headers }).then(r => r.json()),
-      fetch('/stats/direcciones-listado', { headers }).then(r => r.json())
+      fetchWithErrorHandling('/stats/direcciones-totales', headers),
+      fetchWithErrorHandling('/stats/direcciones-activas', headers),
+      fetchWithErrorHandling('/stats/direcciones-bloqueadas', headers),
+      fetchWithErrorHandling('/stats/direcciones-listado', headers)
     ]);
 
     // Actualizar KPIs
-    document.getElementById("totalDirecciones").textContent = totalDirecciones.total ?? 0;
-    document.getElementById("DireccionesActivas").textContent = direccionesActivas.total ?? 0;
-    document.getElementById("DireccionesBloqueadas").textContent = direccionesBloqueadas.total ?? 0;
+    document.getElementById("totalDirecciones").textContent = totalDirecciones?.total ?? 0;
+    document.getElementById("DireccionesActivas").textContent = direccionesActivas?.total ?? 0;
+    document.getElementById("DireccionesBloqueadas").textContent = direccionesBloqueadas?.total ?? 0;
 
     // Cargar tabla de direcciones
-    cargarTablaDirecciones(listadoDirecciones.direcciones || []);
+    cargarTablaDirecciones(listadoDirecciones?.direcciones || []);
 
     // Configurar botón agregar dirección
     const btnAgregar = document.getElementById("btnAgregarDireccion");

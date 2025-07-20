@@ -19,6 +19,31 @@ async function cargarUsuariosTemplate() {
 
         const headers = { 'Authorization': `Bearer ${token}` };
 
+        // Función helper para manejar fetch con mejor manejo de errores
+        async function fetchWithErrorHandling(url, headers) {
+            try {
+                const response = await fetch(url, { headers });
+                if (!response.ok) {
+                    console.warn(`Error HTTP ${response.status} para ${url}`);
+                    return null;
+                }
+                const text = await response.text();
+                if (!text) {
+                    console.warn(`Respuesta vacía para ${url}`);
+                    return null;
+                }
+                try {
+                    return JSON.parse(text);
+                } catch (parseError) {
+                    console.warn(`Error parseando JSON para ${url}:`, text);
+                    return null;
+                }
+            } catch (fetchError) {
+                console.warn(`Error en fetch para ${url}:`, fetchError);
+                return null;
+            }
+        }
+
         // 1. KPIs y listado
         const [
             kpiTotal,
@@ -29,13 +54,13 @@ async function cargarUsuariosTemplate() {
             nuevos,
             kpiPorcentajeBloqueados
         ] = await Promise.all([
-            fetch('/stats/usuarios-totales', { headers }).then(r => r.json()),
-            fetch('/stats/usuarios-activos', { headers }).then(r => r.json()),
-            fetch('/stats/usuarios-bloqueados', { headers }).then(r => r.json()),
-            fetch('/stats/usuarios-gasto-total', { headers }).then(r => r.json()),
-            fetch('/stats/usuarios-activos-porcentaje', { headers }).then(r => r.json()),
-            fetch('/stats/usuarios-nuevos-mes', { headers }).then(r => r.json()),
-            fetch('/stats/usuarios-bloqueados-porcentaje', { headers }).then(r => r.json())
+            fetchWithErrorHandling('/stats/usuarios-totales', headers),
+            fetchWithErrorHandling('/stats/usuarios-activos', headers),
+            fetchWithErrorHandling('/stats/usuarios-bloqueados', headers),
+            fetchWithErrorHandling('/stats/usuarios-gasto-total', headers),
+            fetchWithErrorHandling('/stats/usuarios-activos-porcentaje', headers),
+            fetchWithErrorHandling('/stats/usuarios-nuevos-mes', headers),
+            fetchWithErrorHandling('/stats/usuarios-bloqueados-porcentaje', headers)
         ]);
 
         // Asignamos listado correctamente
@@ -44,15 +69,15 @@ async function cargarUsuariosTemplate() {
         // Logs para depuración
         console.log({kpiTotal, kpiActivos, kpiBloqueados, listado, kpiPorcentaje, nuevos, kpiPorcentajeBloqueados});
 
-        document.getElementById("totalUsuarios").textContent = kpiTotal.total ?? 0;
-        document.getElementById("usuariosActivos").textContent = kpiActivos.total ?? 0;
-        document.getElementById("usuariosBloqueados").textContent = kpiBloqueados.total ?? 0;
-        document.getElementById("porcentajeUsuariosActivos").textContent = `${kpiPorcentaje.porcentaje}% del total`;
+        document.getElementById("totalUsuarios").textContent = kpiTotal?.total ?? 0;
+        document.getElementById("usuariosActivos").textContent = kpiActivos?.total ?? 0;
+        document.getElementById("usuariosBloqueados").textContent = kpiBloqueados?.total ?? 0;
+        document.getElementById("porcentajeUsuariosActivos").textContent = `${kpiPorcentaje?.porcentaje ?? 0}% del total`;
         document.getElementById("usuariosNuevosMes").textContent =
-            nuevos.nuevos === 0
+            (nuevos?.nuevos ?? 0) === 0
                 ? "Ningún usuario nuevo este mes"
                 : `${nuevos.nuevos} nuevo${nuevos.nuevos > 1 ? 's' : ''} este mes`;
-        document.getElementById("porcentajeUsuariosBloqueados").textContent = `${kpiPorcentajeBloqueados.porcentaje}% del total`;
+        document.getElementById("porcentajeUsuariosBloqueados").textContent = `${kpiPorcentajeBloqueados?.porcentaje ?? 0}% del total`;
 
         // 2. Tabla
         tbody = document.getElementById("tablaUsuarios");
