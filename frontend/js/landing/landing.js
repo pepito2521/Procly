@@ -32,6 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Mobile menu clicked")
       })
     }
+
+    // BOTON: ACCEDER
+    const btnAcceder = document.getElementById("btn-acceder")
+    if (btnAcceder) {
+      btnAcceder.addEventListener("click", () => {
+        console.log("Botón Acceder clicked - redirecting to app")
+        window.location.href = "/app/index.html"
+      })
+    }
   
     // Header scroll effect
     let lastScrollTop = 0

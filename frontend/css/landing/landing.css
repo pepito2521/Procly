@@ -195,6 +195,10 @@
     text-decoration: none !important;
     transition: background 0.2s, box-shadow 0.2s, color 0.2s;
     cursor: pointer;
+    outline: none;
+    font-family: inherit;
+    border: none;
+    background-color: transparent;
 }
 
 .btn-header:hover {
@@ -235,7 +239,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Jul%2016%2C%202025%20at%2006_56_11%20PM-pnVAoZRyNORQ0hWBx4RuVPrP3HTFFA.png");
+    background-image: url("/assets/img/hero-background.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -244,7 +248,7 @@
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.05);
   }
   
   .hero-content {
@@ -451,7 +455,7 @@
 }
 
 .feature-img {
-    width: 260px;
+    width: 400px;
     height: auto;
     object-fit: contain;
     margin-bottom: 1rem;
