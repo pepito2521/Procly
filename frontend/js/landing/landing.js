@@ -50,6 +50,15 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/app/auth/signup.html"
       })
     }
+
+    // BOTON: CREAR MI PRIMER TICKET
+    const btnCrearTicket = document.querySelector('.btn-large')
+    if (btnCrearTicket) {
+      btnCrearTicket.addEventListener("click", () => {
+        console.log("Botón Crear mi primer ticket clicked - redirecting to signup")
+        window.location.href = "/app/auth/signup.html"
+      })
+    }
   
     // Header scroll effect
     let lastScrollTop = 0

@@ -108,6 +108,10 @@
   .estado-badge.en-progreso {
     background-color: #F49F0A;
   }
+
+  .estado-badge.propuestas {
+    background-color: #F49F0A;
+  }
   
   .estado-badge.en-camino {
     background-color: #F49F0A;
