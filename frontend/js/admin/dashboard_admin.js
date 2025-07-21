@@ -72,8 +72,6 @@ async function cargarKPIs() {
         ? "Ningún usuario nuevo este mes" 
         : `${Math.round(usuariosNuevos.nuevos).toLocaleString()} nuevo${usuariosNuevos.nuevos > 1 ? 's' : ''} este mes`;
     document.getElementById("kpi-total-direcciones").textContent = Math.round(totalDirecciones?.total || 0).toLocaleString();
-    document.getElementById("mesNombre").textContent = mesActual?.nombre || 'Mes Actual';
-    document.getElementById("mesNumero").textContent = mesActual?.numero || '';
 
   } catch (error) {
     console.error("Error al cargar KPIs:", error);
@@ -85,8 +83,6 @@ async function cargarKPIs() {
     document.getElementById("kpi-usuarios-totales").textContent = '0';
     document.getElementById("kpi-usuarios-nuevos").textContent = 'Ningún usuario nuevo este mes';
     document.getElementById("kpi-total-direcciones").textContent = '0';
-    document.getElementById("mesNombre").textContent = 'Mes Actual';
-    document.getElementById("mesNumero").textContent = '';
   }
 }
 

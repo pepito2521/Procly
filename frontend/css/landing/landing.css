@@ -955,7 +955,8 @@
   .laptop-mockup {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
+    min-width: 0;
     transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
     transition: transform 0.3s ease;
   }
@@ -999,8 +1000,9 @@
   @media (max-width: 1024px) {
     .preview-row {
       flex-direction: column;
-      gap: 3rem;
+      gap: 2rem;
       text-align: center;
+      margin-bottom: 2.5rem;
     }
 
     .preview-row.reverse {
@@ -1020,8 +1022,8 @@
     }
 
     .laptop-mockup {
+      max-width: 280px;
       transform: none;
-      max-width: 500px;
     }
 
     .laptop-mockup:hover {
@@ -1029,22 +1031,13 @@
     }
   }
 
-  @media (max-width: 768px) {
-    .dashboard-preview,
-    .activity-preview {
-      padding: 4rem 0;
-    }
-
-    .preview-title {
-      font-size: 1.75rem;
-    }
-
-    .preview-subtitle {
-      font-size: 1rem;
-    }
-
+  @media (max-width: 600px) {
     .laptop-mockup {
-      max-width: 400px;
+      max-width: 220px;
+    }
+    .preview-row {
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
   }
 
@@ -1097,8 +1090,8 @@
     left: 2rem;
     width: 3rem;
     height: 3rem;
-    background: #fff;
-    color: var(--primary-500);
+    background: var(--primary-500);
+    color: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;

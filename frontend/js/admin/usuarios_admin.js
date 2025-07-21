@@ -212,7 +212,7 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
     btnBloquear.textContent = estaBloqueado ? 'Activar' : 'Bloquear';
     btnBloquear.className = estaBloqueado ? 'btn-activar' : 'btn-eliminar';
     btnBloquear.onclick = async function() {
-      // Actualizar en Supabase
+      console.log('Intentando bloquear usuario:', idUsuario);
       const { data, error } = await supabase
         .from('profiles')
         .update({ bloqueado: !estaBloqueado })
@@ -220,9 +220,10 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
 
       if (error) {
         alert('Error al actualizar usuario: ' + error.message);
+        console.error('Error Supabase:', error);
       } else {
+        console.log('Usuario actualizado:', data);
         document.getElementById('popup-direccion-container').style.display = 'none';
-        // Refrescar la tabla de usuarios
         cargarUsuariosTemplate();
       }
     };
