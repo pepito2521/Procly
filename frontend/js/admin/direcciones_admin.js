@@ -155,7 +155,7 @@ function cargarTablaDirecciones(direcciones) {
 
 // Mostrar pop-up de agregar dirección
 async function cargarPopupAgregarDireccion() {
-  const response = await fetch('/components/pop-up-direccion.html');
+  const response = await fetch('/components/pop-up-nueva-direccion.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
@@ -167,7 +167,7 @@ async function cargarPopupAgregarDireccion() {
 
 // Mostrar pop-up de editar dirección
 async function cargarPopupEditarDireccion(idDireccion) {
-  const response = await fetch('/components/pop-up-editar.html');
+  const response = await fetch('/components/pop-up-editar-direccion.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
@@ -179,7 +179,7 @@ async function cargarPopupEditarDireccion(idDireccion) {
 
 // Mostrar pop-up de bloquear dirección
 async function cargarPopupBloquearDireccion(idDireccion) {
-  const response = await fetch('/components/pop-up-bloquear.html');
+  const response = await fetch('/components/pop-up-bloquear-direccion.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';

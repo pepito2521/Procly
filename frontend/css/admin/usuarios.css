@@ -46,3 +46,25 @@
 .usuarios-table td:last-child {
     text-align: right;
 }
+
+.estado-badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: white;
+    text-align: center;
+    border: none;
+    resize: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.estado-badge.activa {
+    background-color: #3E8914;
+}
+
+.estado-badge.bloqueada {
+    background-color: #A22C29;
+}

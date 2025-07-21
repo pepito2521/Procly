@@ -95,8 +95,8 @@ async function cargarUsuariosTemplate() {
                 <td>$${u.gasto_total?.toLocaleString() ?? '0'}</td>
                 <td>${u.limite_gasto ? `$${u.limite_gasto.toLocaleString()}` : '-'}</td>
                 <td>
-                    <span class="badge ${!u.bloqueado ? 'badge-success' : 'badge-danger'}">
-                        ${!u.bloqueado ? 'Activo' : 'Inactivo'}
+                    <span class="estado-badge ${!u.bloqueado ? 'activa' : 'bloqueada'}">
+                        ${!u.bloqueado ? 'Activo' : 'Bloqueado'}
                     </span>
                 </td>
                 <td>
@@ -151,14 +151,15 @@ async function cargarUsuariosTemplate() {
     tbody.querySelectorAll('.btn-eliminar').forEach((btn, i) => {
         btn.addEventListener('click', function() {
             const idUsuario = window.listadoUsuarios[i].profile_id;
-            cargarPopupBloquear(idUsuario);
+            const estaBloqueado = !!window.listadoUsuarios[i].bloqueado;
+            cargarPopupBloquear(idUsuario, estaBloqueado);
         });
     });
 }
 
 // Mostrar pop-up de límite
 async function cargarPopupLimite(idUsuario) {
-  const response = await fetch('/components/pop-up-limite.html');
+  const response = await fetch('/components/pop-up-limite-usuario.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
@@ -182,9 +183,9 @@ async function cargarPopupLimite(idUsuario) {
   // Aquí puedes precargar el límite actual si lo necesitas
 }
 
-// Mostrar pop-up de bloquear
-async function cargarPopupBloquear(idUsuario) {
-  const response = await fetch('/components/pop-up-bloquear.html');
+// Mostrar pop-up de bloquear/desbloquear
+async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
+  const response = await fetch('/components/pop-up-bloquear-usuario.html');
   const html = await response.text();
   document.getElementById('popup-direccion-container').innerHTML = html;
   document.getElementById('popup-direccion-container').style.display = 'block';
@@ -205,5 +206,25 @@ async function cargarPopupBloquear(idUsuario) {
     }
   });
 
-  // Aquí puedes agregar la lógica para confirmar el bloqueo
+  // Botón Bloquear/Activar
+  const btnBloquear = popup.querySelector('#confirmar-bloquear');
+  if (btnBloquear) {
+    btnBloquear.textContent = estaBloqueado ? 'Activar' : 'Bloquear';
+    btnBloquear.className = estaBloqueado ? 'btn-activar' : 'btn-eliminar';
+    btnBloquear.onclick = async function() {
+      // Actualizar en Supabase
+      const { data, error } = await supabase
+        .from('profiles')
+        .update({ bloqueado: !estaBloqueado })
+        .eq('profile_id', idUsuario);
+
+      if (error) {
+        alert('Error al actualizar usuario: ' + error.message);
+      } else {
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        // Refrescar la tabla de usuarios
+        cargarUsuariosTemplate();
+      }
+    };
+  }
 }
