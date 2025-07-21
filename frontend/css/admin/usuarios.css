@@ -24,6 +24,7 @@
 .usuarios-table {
     width: 100%;
     border-collapse: collapse;
+    height: 500px;
 }
 
 .usuarios-table th,
@@ -45,6 +46,12 @@
 
 .usuarios-table td:last-child {
     text-align: right;
+}
+
+.sin-limite {
+    font-style: italic;
+    font-weight: 300;
+    color: #6b7280;
 }
 
 .estado-badge {

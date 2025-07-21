@@ -89,6 +89,7 @@ function cargarTablaHistorial(tickets) {
   }
 
   tickets.forEach(ticket => {
+    const esEnProceso = !ticket.precio || ticket.precio === 'En proceso';
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${ticket.codigo_ticket || 'N/A'}</td>
@@ -99,7 +100,7 @@ function cargarTablaHistorial(tickets) {
           ${ticket.estado || 'Desconocido'}
         </span>
       </td>
-      <td>${ticket.precio || 'En proceso'}</td>
+      <td${esEnProceso ? ' class="precio-en-proceso"' : ''}>${ticket.precio || 'En proceso'}</td>
     `;
     tbody.appendChild(row);
   });

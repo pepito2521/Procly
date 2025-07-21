@@ -90,10 +90,13 @@ async function cargarUsuariosTemplate() {
 
         listado.usuarios.forEach(u => {
             const row = document.createElement("tr");
+            const limiteHtml = (u.limite_gasto && !isNaN(u.limite_gasto))
+                ? `$${u.limite_gasto.toLocaleString()}`
+                : '<span class="sin-limite">Sin Límite</span>';
             row.innerHTML = `
                 <td>${u.nombre} ${u.apellido}</td>
                 <td>$${u.gasto_total?.toLocaleString() ?? '0'}</td>
-                <td>${u.limite_gasto ? `$${u.limite_gasto.toLocaleString()}` : '-'}</td>
+                <td>${limiteHtml}</td>
                 <td>${u.saldo !== null && u.saldo !== undefined ? `$${u.saldo.toLocaleString()}` : '-'}</td>
                 <td>
                     <span class="estado-badge ${!u.bloqueado ? 'activa' : 'bloqueada'}">
