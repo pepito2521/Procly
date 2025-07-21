@@ -180,7 +180,28 @@ async function cargarPopupLimite(idUsuario) {
     }
   });
 
-  // Aquí puedes precargar el límite actual si lo necesitas
+  // Guardar límite de gasto
+  const form = document.getElementById('form-pop-up-limite');
+  if (form) {
+    form.onsubmit = async function(e) {
+      e.preventDefault();
+      const input = document.getElementById('input-limite');
+      const limite = Number(input.value);
+      try {
+        const resp = await fetch('/stats/limite-usuario', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profile_id: idUsuario, limite_gasto: limite })
+        });
+        const result = await resp.json();
+        if (!result.success) throw new Error(result.error || 'Error desconocido');
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        cargarUsuariosTemplate();
+      } catch (error) {
+        alert('Error al actualizar límite: ' + error.message);
+      }
+    };
+  }
 }
 
 // Mostrar pop-up de bloquear/desbloquear

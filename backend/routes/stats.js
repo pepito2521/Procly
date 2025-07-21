@@ -28,6 +28,8 @@ const {
     gastoTotalPorUsuario,
     usuariosBloqueados,
     porcentajeUsuariosBloqueados,
+    bloquearUsuario,
+    establecerLimiteGasto,
 
     // ACTIVIDAD
     actividadTickets,
@@ -82,7 +84,8 @@ router.get('/gasto-promedio-mensual', promedioMensual);
 router.get('/usuarios-gasto-total', gastoTotalPorUsuario);
 router.get('/usuarios-bloqueados', usuariosBloqueados);
 router.get('/usuarios-bloqueados-porcentaje', porcentajeUsuariosBloqueados);
-router.post('/bloquear-usuario', statsController.bloquearUsuario);
+router.post('/bloquear-usuario', bloquearUsuario);
+router.post('/limite-usuario', establecerLimiteGasto);
 
 // KPI: ACTIVIDADES
 router.get('/actividad-tickets', actividadTickets);

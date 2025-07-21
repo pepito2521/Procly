@@ -511,6 +511,24 @@ const getEmpresaId = async (userId) => {
         res.status(500).json({ error: err.message });
       }
     };
+
+    // ESTABLECER LIMITE DE GASTO A USUARIO (ADMIN)
+    const establecerLimiteGasto = async (req, res) => {
+      try {
+        const { profile_id, limite_gasto } = req.body;
+        if (!profile_id || typeof limite_gasto !== 'number') {
+          return res.status(400).json({ error: 'Datos incompletos o inválidos' });
+        }
+        const { data, error } = await supabaseService
+          .from('profiles')
+          .update({ limite_gasto })
+          .eq('profile_id', profile_id);
+        if (error) throw error;
+        res.json({ success: true, data });
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+    };
   
 // 4. ACTIVIDAD
 
@@ -743,5 +761,6 @@ module.exports = {
   porcentajeTicketsEntregados,
   porcentajeTicketsEnCurso,
   porcentajeTicketsCancelados,
-  bloquearUsuario
+  bloquearUsuario,
+  establecerLimiteGasto
 };
