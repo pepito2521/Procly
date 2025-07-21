@@ -71,9 +71,9 @@ router.post('/login', async (req, res) => {
         redirectUrl = '/app/admin/administrador.html';
         break;
       case 'proclier':
-        redirectUrl = '/app/proclier/menu_proclier.html';
+        redirectUrl = '/app/proclier/proclier.html';
         break;
-      default: // usuario
+      default:
         redirectUrl = '/app/user/usuario.html';
     }
     
