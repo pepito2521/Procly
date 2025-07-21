@@ -1,4 +1,4 @@
-import { cargarLoader } from './components/loader.js';
+import { cargarLoader } from '../components/loader.js';
 import { cargarNavbarProclier } from './components/navbar.js';
 
 
