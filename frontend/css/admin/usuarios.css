@@ -68,3 +68,20 @@
 .estado-badge.bloqueada {
     background-color: #A22C29;
 }
+
+.btn-activar:hover {
+    background-color: #d6e7e6 !important;
+    color: #1976d2;
+    border: 1px solid #1976d2;
+}
+
+.btn-activar,
+.btn-eliminar {
+    min-width: 120px;
+    width: 120px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}

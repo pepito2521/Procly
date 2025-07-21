@@ -69,6 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "mailto:partners@procly.com?subject=Interés en ser Partner"
       })
     }
+
+    // BOTÓN: AGENDAR REUNIÓN
+    const btnAgendarReunion = document.getElementById("btn-agendar-reunion");
+    if (btnAgendarReunion) {
+      btnAgendarReunion.addEventListener("click", () => {
+        window.open("https://calendar.app.google/9sDcWHJEbxj444J79", "_blank");
+      });
+    }
   
     // Header scroll effect
     let lastScrollTop = 0

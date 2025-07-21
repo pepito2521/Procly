@@ -481,9 +481,16 @@ const getEmpresaId = async (userId) => {
             .filter(t => t.user_id === u.profile_id)
             .reduce((acc, t) => acc + (t.precio_seleccionado || 0), 0);
     
+            // Cálculo de saldo
+            let saldo = null;
+            if (u.limite_gasto !== null && u.limite_gasto !== undefined && !isNaN(u.limite_gasto)) {
+                saldo = u.limite_gasto - gasto;
+            }
+
             return {
             ...u,
-            gasto_total: gasto
+            gasto_total: gasto,
+            saldo // Nuevo campo saldo
             };
         });
     

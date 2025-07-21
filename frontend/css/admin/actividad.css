@@ -58,6 +58,7 @@
     height: 500px;
     max-height: 500px;
     min-height: 300px;
+    margin: 10px 0px;
 }
   
 .tabla-con-scroll > table {

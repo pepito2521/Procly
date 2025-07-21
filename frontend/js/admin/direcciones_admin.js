@@ -41,25 +41,8 @@ async function cargarDireccionesTemplate() {
       }
     }
 
-    // Cargar KPIs y listado de direcciones
-    const [
-      totalDirecciones,
-      direccionesActivas,
-      direccionesBloqueadas,
-      listadoDirecciones
-    ] = await Promise.all([
-      fetchWithErrorHandling('/stats/direcciones-totales', headers),
-      fetchWithErrorHandling('/stats/direcciones-activas', headers),
-      fetchWithErrorHandling('/stats/direcciones-bloqueadas', headers),
-      fetchWithErrorHandling('/stats/direcciones-listado', headers)
-    ]);
-
-    // Actualizar KPIs
-    document.getElementById("totalDirecciones").textContent = totalDirecciones?.total ?? 0;
-    document.getElementById("DireccionesActivas").textContent = direccionesActivas?.total ?? 0;
-    document.getElementById("DireccionesBloqueadas").textContent = direccionesBloqueadas?.total ?? 0;
-
     // Cargar tabla de direcciones
+    const listadoDirecciones = await fetchWithErrorHandling('/stats/direcciones-listado', headers);
     cargarTablaDirecciones(listadoDirecciones?.direcciones || []);
 
     // Configurar botón agregar dirección
