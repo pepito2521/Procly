@@ -493,6 +493,24 @@ const getEmpresaId = async (userId) => {
         res.status(500).json({ error: err.message });
         }
     };
+
+    // BLOQUEAR/DESBLOQUEAR USUARIO (ADMIN)
+    const bloquearUsuario = async (req, res) => {
+      try {
+        const { profile_id, bloqueado } = req.body;
+        if (!profile_id || typeof bloqueado !== 'boolean') {
+          return res.status(400).json({ error: 'Datos incompletos' });
+        }
+        const { data, error } = await supabaseService
+          .from('profiles')
+          .update({ bloqueado })
+          .eq('profile_id', profile_id);
+        if (error) throw error;
+        res.json({ success: true, data });
+      } catch (err) {
+        res.status(500).json({ error: err.message });
+      }
+    };
   
 // 4. ACTIVIDAD
 
@@ -695,6 +713,7 @@ const getEmpresaId = async (userId) => {
     }
   };
 
+
 module.exports = {
   direccionesTotales,
   getDireccionesActivas,
@@ -723,5 +742,6 @@ module.exports = {
   tendenciaTicketsVsMesAnterior,
   porcentajeTicketsEntregados,
   porcentajeTicketsEnCurso,
-  porcentajeTicketsCancelados
+  porcentajeTicketsCancelados,
+  bloquearUsuario
 };

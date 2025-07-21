@@ -212,19 +212,18 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
     btnBloquear.textContent = estaBloqueado ? 'Activar' : 'Bloquear';
     btnBloquear.className = estaBloqueado ? 'btn-activar' : 'btn-eliminar';
     btnBloquear.onclick = async function() {
-      console.log('Intentando bloquear usuario:', idUsuario);
-      const { data, error } = await supabase
-        .from('profiles')
-        .update({ bloqueado: !estaBloqueado })
-        .eq('profile_id', idUsuario);
-
-      if (error) {
-        alert('Error al actualizar usuario: ' + error.message);
-        console.error('Error Supabase:', error);
-      } else {
-        console.log('Usuario actualizado:', data);
+      try {
+        const resp = await fetch('/stats/bloquear-usuario', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profile_id: idUsuario, bloqueado: !estaBloqueado })
+        });
+        const result = await resp.json();
+        if (!result.success) throw new Error(result.error || 'Error desconocido');
         document.getElementById('popup-direccion-container').style.display = 'none';
         cargarUsuariosTemplate();
+      } catch (error) {
+        alert('Error al actualizar usuario: ' + error.message);
       }
     };
   }

@@ -82,6 +82,7 @@ router.get('/gasto-promedio-mensual', promedioMensual);
 router.get('/usuarios-gasto-total', gastoTotalPorUsuario);
 router.get('/usuarios-bloqueados', usuariosBloqueados);
 router.get('/usuarios-bloqueados-porcentaje', porcentajeUsuariosBloqueados);
+router.post('/bloquear-usuario', statsController.bloquearUsuario);
 
 // KPI: ACTIVIDADES
 router.get('/actividad-tickets', actividadTickets);
@@ -93,5 +94,6 @@ router.get('/tendencia-tickets-vs-mes-anterior', tendenciaTicketsVsMesAnterior);
 router.get('/porcentaje-tickets-entregados', porcentajeTicketsEntregados);
 router.get('/porcentaje-tickets-en-curso', porcentajeTicketsEnCurso);
 router.get('/porcentaje-tickets-cancelados', porcentajeTicketsCancelados);
+
 
 module.exports = router;

@@ -901,15 +901,10 @@
     line-height: 1.6;
   }
 
-  /* PREVIEW SECTIONS */
-  .dashboard-preview,
-  .activity-preview {
+  /* PREVIEW SECTION */
+  .preview {
     padding: 6rem 0;
-    background-color: white;
-  }
-
-  .activity-preview {
-    background-color: var(--gray-50);
+    gap: 2rem;
   }
 
   .preview-row {
@@ -918,10 +913,12 @@
     gap: 4rem;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: white;
   }
 
   .preview-row.reverse {
     flex-direction: row-reverse;
+    background-color: var(--gray-50);
   }
 
   .preview-content {
@@ -955,7 +952,7 @@
   .laptop-mockup {
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 450px;
     min-width: 0;
     transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
     transition: transform 0.3s ease;
