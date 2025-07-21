@@ -187,10 +187,18 @@ async function cargarPopupLimite(idUsuario) {
       e.preventDefault();
       const input = document.getElementById('input-limite');
       const limite = Number(input.value);
+      const token = localStorage.getItem('supabaseToken');
+      if (!token) {
+        alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+        return;
+      }
       try {
         const resp = await fetch('/stats/limite-usuario', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({ profile_id: idUsuario, limite_gasto: limite })
         });
         const result = await resp.json();
@@ -233,10 +241,18 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
     btnBloquear.textContent = estaBloqueado ? 'Activar' : 'Bloquear';
     btnBloquear.className = estaBloqueado ? 'btn-activar' : 'btn-eliminar';
     btnBloquear.onclick = async function() {
+      const token = localStorage.getItem('supabaseToken');
+      if (!token) {
+        alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+        return;
+      }
       try {
         const resp = await fetch('/stats/bloquear-usuario', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
           body: JSON.stringify({ profile_id: idUsuario, bloqueado: !estaBloqueado })
         });
         const result = await resp.json();

@@ -918,17 +918,6 @@
 
   .preview-row.reverse {
     flex-direction: row-reverse;
-    background-color: var(--gray-50);
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    transform: translateX(-50%);
-    margin-left: -50vw;
-    margin-right: -50vw;
-    padding-left: 50vw;
-    padding-right: 50vw;
-    box-sizing: border-box;
   }
 
   .preview-content {
@@ -1015,14 +1004,6 @@
     .preview-row.reverse {
       flex-direction: column;
       margin-bottom: 3rem;
-      width: 100vw;
-      left: 50%;
-      right: 50%;
-      transform: translateX(-50%);
-      margin-left: -50vw;
-      margin-right: -50vw;
-      padding-left: 0;
-      padding-right: 0;
     }
 
     .preview-content {
