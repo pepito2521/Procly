@@ -57,8 +57,9 @@
     overflow-y: auto;
     height: 500px;
     max-height: 500px;
-    min-height: 300px;
-    margin: 10px 0px;
+    min-height: 200px;
+    margin: 10px 0;
+    padding: 8px 0px;
 }
   
 .tabla-con-scroll > table {
