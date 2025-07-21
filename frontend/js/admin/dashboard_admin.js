@@ -50,7 +50,7 @@ async function cargarKPIs() {
       ticketsProcesados,
       usuariosTotales,
       usuariosNuevos,
-      mesActual
+      totalDirecciones
     ] = await Promise.all([
       fetchWithErrorHandling('/stats/gasto-mensual', headers),
       fetchWithErrorHandling('/stats/promedio-mensual', headers),
@@ -58,19 +58,20 @@ async function cargarKPIs() {
       fetchWithErrorHandling('/stats/tickets-procesados', headers),
       fetchWithErrorHandling('/stats/usuarios-totales', headers),
       fetchWithErrorHandling('/stats/usuarios-nuevos-mes', headers),
-      fetchWithErrorHandling('/stats/mes-actual', headers)
+      fetchWithErrorHandling('/stats/direcciones-totales', headers)
     ]);
 
-    // Actualizar KPIs en el DOM con valores por defecto
-    document.getElementById("kpi-gasto-mensual").textContent = `$${(gastoMensual?.total || 0).toLocaleString()}`;
-    document.getElementById("kpi-promedio-mensual").textContent = `$${(promedioMensual?.promedio || 0).toLocaleString()}`;
-    document.getElementById("kpi-acumulado").textContent = `$${(acumulado?.total || 0).toLocaleString()}`;
-    document.getElementById("kpi-tickets-procesados").textContent = ticketsProcesados?.total || '0';
-    document.getElementById("kpi-usuarios-totales").textContent = usuariosTotales?.total || '0';
+    // Actualizar KPIs en el DOM con valores por defecto (solo enteros)
+    document.getElementById("kpi-gasto-mensual").textContent = `$${Math.round(gastoMensual?.total || 0).toLocaleString()}`;
+    document.getElementById("kpi-promedio-mensual").textContent = `$${Math.round(promedioMensual?.promedio || 0).toLocaleString()}`;
+    document.getElementById("kpi-acumulado").textContent = `$${Math.round(acumulado?.total || 0).toLocaleString()}`;
+    document.getElementById("kpi-tickets-procesados").textContent = Math.round(ticketsProcesados?.total || 0).toLocaleString();
+    document.getElementById("kpi-usuarios-totales").textContent = Math.round(usuariosTotales?.total || 0).toLocaleString();
     document.getElementById("kpi-usuarios-nuevos").textContent = 
       (usuariosNuevos?.nuevos || 0) === 0 
         ? "Ningún usuario nuevo este mes" 
-        : `${usuariosNuevos.nuevos} nuevo${usuariosNuevos.nuevos > 1 ? 's' : ''} este mes`;
+        : `${Math.round(usuariosNuevos.nuevos).toLocaleString()} nuevo${usuariosNuevos.nuevos > 1 ? 's' : ''} este mes`;
+    document.getElementById("kpi-total-direcciones").textContent = Math.round(totalDirecciones?.total || 0).toLocaleString();
     document.getElementById("mesNombre").textContent = mesActual?.nombre || 'Mes Actual';
     document.getElementById("mesNumero").textContent = mesActual?.numero || '';
 
@@ -83,6 +84,7 @@ async function cargarKPIs() {
     document.getElementById("kpi-tickets-procesados").textContent = '0';
     document.getElementById("kpi-usuarios-totales").textContent = '0';
     document.getElementById("kpi-usuarios-nuevos").textContent = 'Ningún usuario nuevo este mes';
+    document.getElementById("kpi-total-direcciones").textContent = '0';
     document.getElementById("mesNombre").textContent = 'Mes Actual';
     document.getElementById("mesNumero").textContent = '';
   }
