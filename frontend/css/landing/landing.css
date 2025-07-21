@@ -794,6 +794,8 @@
     .footer-bottom {
       flex-direction: row;
       justify-content: space-between;
+      align-items: center;
+      gap: 0;
     }
   }
   
@@ -804,13 +806,13 @@
   
   .footer-legal {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
   }
   
   .footer-legal-link {
-    font-size: 0.875rem;
     color: var(--gray-400);
     text-decoration: none;
+    font-size: 0.875rem;
     transition: color 0.2s;
   }
   
@@ -912,7 +914,7 @@
     align-items: center;
     gap: 4rem;
     max-width: 1200px;
-    margin: 0 auto 4.5rem auto;
+    margin: 0 auto 6rem auto;
     background-color: white;
   }
 
