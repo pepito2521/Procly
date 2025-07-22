@@ -334,4 +334,27 @@ export function initNuevoTicket() {
       console.error("Error al copiar:", err);
     });
   };
+
+  document.querySelectorAll('.info-icon').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      // Cierra otros tooltips
+      document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
+      // Abre el de esta card
+      const card = this.closest('.categoria-card');
+      card.classList.add('show-tooltip');
+      // Si no existe el tooltip, lo crea
+      if (!card.querySelector('.info-tooltip')) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'info-tooltip';
+        tooltip.textContent = this.dataset.info;
+        card.appendChild(tooltip);
+      }
+    });
+  });
+
+  // Cierra el tooltip al hacer click fuera
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
+  });
 }

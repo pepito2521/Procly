@@ -248,6 +248,7 @@
   transition: box-shadow 0.2s, transform 0.2s;
   min-height: 180px;
   min-width: 0;
+  position: relative;
 }
 
 .categoria-card:hover {
@@ -265,6 +266,7 @@
   height: 64px;
   border-radius: 50%;
   background-color: #F1F5F9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -274,6 +276,47 @@
 .admin-card-icon {
   width: 32px;
   height: 32px;
+}
+
+.info-icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: #f0f9fa;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.info-icon:hover {
+  background: #e0f2f1;
+}
+
+.info-tooltip {
+  position: absolute;
+  top: 32px;
+  left: 0;
+  background: #fff;
+  color: #333;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  min-width: 180px;
+  z-index: 10;
+  display: none;
+  pointer-events: none;
+}
+
+.categoria-card.show-tooltip .info-tooltip {
+  display: block;
+  pointer-events: auto;
 }
 
 @media (max-width: 1024px) {
