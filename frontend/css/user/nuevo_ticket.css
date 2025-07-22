@@ -246,7 +246,9 @@
   justify-content: center;
   cursor: pointer;
   transition: box-shadow 0.2s, transform 0.2s;
-  min-height: 180px;
+  height: 120px;
+  min-height: 120px;
+  max-height: 120px;
   min-width: 0;
   position: relative;
 }
@@ -289,7 +291,7 @@
   justify-content: center;
   width: 22px;
   height: 22px;
-  background: #f0f9fa;
+  background: #F1F5F9;
   border-radius: 50%;
   transition: background 0.2s;
 }
