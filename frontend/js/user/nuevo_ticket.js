@@ -17,10 +17,8 @@ export function initNuevoTicket() {
   //PROGRESS BAR
   function showStep(index) {
     if (step5Fijo && index !== steps.length - 1) {
-      console.log("Intento de cambiar de step bloqueado porque estamos en Step 5 fijo");
       return;
     }
-    console.log("Mostrando step:", index, "Total steps:", steps.length, "Stack:", new Error().stack);
     steps.forEach((step, i) => {
       step.style.display = i === index ? "block" : "none";
       step.classList.remove("slide-in");
@@ -54,7 +52,6 @@ export function initNuevoTicket() {
 
   function updateProgress(step) {
     const percentage = (step / (steps.length - 1)) * 100;
-    console.log("Avanzaste al step", step, "- % barra:", percentage);
     if (progressBar) {
       progressBar.style.width = `${percentage}%`;
     }
@@ -86,7 +83,6 @@ export function initNuevoTicket() {
       categoriaCards.forEach(c => c.classList.remove("selected"));
       card.classList.add("selected");
       categoriaSeleccionada = card.dataset.categoria;
-      console.log("Seleccionaste:", categoriaSeleccionada);
 
       if (currentStep === 0) {
         setTimeout(() => {
@@ -258,7 +254,6 @@ export function initNuevoTicket() {
   
 
       if (res.ok) {
-        console.log("nuevo_ticket.js: Ticket creado, avanzando a step", currentStep + 1);
         step5Fijo = true;
         currentStep++;
         showStep(currentStep);

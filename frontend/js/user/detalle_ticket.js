@@ -307,3 +307,15 @@ document.addEventListener("click", (e) => {
   const btn = document.getElementById("btn-seleccionar-propuesta");
   if (btn) btn.disabled = false;
 });
+
+// BOTON VOLVER A MIS TICKETS
+document.addEventListener("DOMContentLoaded", () => {
+  const btnVolver = document.getElementById('btn-volver-tickets');
+  if (btnVolver) {
+    btnVolver.addEventListener('click', () => {
+      import('/js/user/mis_tickets.js').then(mod => {
+        mod.initMisTickets();
+      });
+    });
+  }
+});
