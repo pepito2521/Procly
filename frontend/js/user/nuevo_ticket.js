@@ -6,6 +6,7 @@ export function initNuevoTicket() {
   let prevBtn;
   let currentStep = 0;
   let categoriaSeleccionada = '';
+  let step5Fijo = false;
 
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
@@ -15,6 +16,10 @@ export function initNuevoTicket() {
 
   //PROGRESS BAR
   function showStep(index) {
+    if (step5Fijo && index !== steps.length - 1) {
+      console.log("Intento de cambiar de step bloqueado porque estamos en Step 5 fijo");
+      return;
+    }
     console.log("Mostrando step:", index, "Total steps:", steps.length, "Stack:", new Error().stack);
     steps.forEach((step, i) => {
       step.style.display = i === index ? "block" : "none";
@@ -254,6 +259,7 @@ export function initNuevoTicket() {
 
       if (res.ok) {
         console.log("nuevo_ticket.js: Ticket creado, avanzando a step", currentStep + 1);
+        step5Fijo = true;
         currentStep++;
         showStep(currentStep);
         mostrarConfirmacion(data.codigo_ticket);
