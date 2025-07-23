@@ -289,15 +289,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  transition: background 0.2s;
-  background: none;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
 }
 
 .info-icon:hover {
-  background: #e0f2f1;
+  transform: scale(1.05);
 }
 
 .info-tooltip {

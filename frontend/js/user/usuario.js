@@ -3,6 +3,7 @@ import { supabase } from "/js/supabaseClient.js";
 import { mostrarLoader, ocultarLoader } from "/js/components/loader.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("usuario.js: DOMContentLoaded, inicializando panel de usuario");
   const secciones = {
     nuevo_ticket: {
       nombre: "Nuevo Ticket",
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageTitle = document.getElementById("pageTitle");
 
   async function cargarSeccion(seccion) {
+    console.log("usuario.js: cargarSeccion llamada con:", seccion, "Stack:", new Error().stack);
     const info = secciones[seccion];
     if (!info) return;
     try {

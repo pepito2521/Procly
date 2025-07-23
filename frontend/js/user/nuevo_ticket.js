@@ -253,7 +253,7 @@ export function initNuevoTicket() {
   
 
       if (res.ok) {
-        console.log('✅ Ticket creado con éxito:', data);
+        console.log("nuevo_ticket.js: Ticket creado, avanzando a step", currentStep + 1);
         currentStep++;
         showStep(currentStep);
         mostrarConfirmacion(data.codigo_ticket);
