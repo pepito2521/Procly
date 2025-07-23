@@ -128,11 +128,17 @@ async function cargarDetalleTicket(ticketId) {
     document.getElementById('dynamicContent').innerHTML = html;
 
     // Conectar el evento del botón volver
-    document.getElementById('btn-volver-tickets')?.addEventListener('click', () => {
-      import('/js/user/mis_tickets.js').then(mod => {
-        mod.initMisTickets();
+    const btnVolver = document.getElementById('btn-volver-tickets');
+    if (btnVolver) {
+      console.log("✅ Botón volver encontrado y evento conectado");
+      btnVolver.addEventListener('click', () => {
+        import('/js/user/mis_tickets.js').then(mod => {
+          mod.initMisTickets();
+        });
       });
-    });
+    } else {
+      console.warn("❌ No se encontró el botón volver");
+    }
 
     // Importar y ejecutar el JS del detalle
     const detalleModule = await import('/js/user/detalle_ticket.js');

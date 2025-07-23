@@ -40,6 +40,8 @@
   width: 100%;
   justify-content: center;
   align-items: flex-start;
+  padding: 0 2.5rem; /* Agrega margen lateral */
+  box-sizing: border-box;
 }
 
 @media (max-width: 900px) {
@@ -60,6 +62,10 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  min-width: 180px;
+  max-width: 220px;
+  flex-shrink: 0;
+  margin-right: 1.5rem;
 }
 
 .bloque-paso {
@@ -183,6 +189,19 @@
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   overflow: auto; 
+}
+
+.detalle-ticket-info {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  padding: 2rem 2rem 1.5rem 2rem;
+  overflow-x: hidden; /* Evita scroll horizontal */
+  overflow-y: auto;   /* Permite scroll vertical si es necesario */
+  box-sizing: border-box;
 }
 
 .detalle-ticket-info h2,
@@ -392,3 +411,8 @@
   opacity: 0.3;
 }
 
+.panel-dinamico {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 1.5rem;
+}
