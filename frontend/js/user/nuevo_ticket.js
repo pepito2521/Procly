@@ -15,7 +15,7 @@ export function initNuevoTicket() {
 
   //PROGRESS BAR
   function showStep(index) {
-    console.log("Mostrando step:", index, "Total steps:", steps.length);
+    console.log("Mostrando step:", index, "Total steps:", steps.length, "Stack:", new Error().stack);
     steps.forEach((step, i) => {
       step.style.display = i === index ? "block" : "none";
       step.classList.remove("slide-in");
