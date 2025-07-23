@@ -127,6 +127,13 @@ async function cargarDetalleTicket(ticketId) {
     const html = await response.text();
     document.getElementById('dynamicContent').innerHTML = html;
 
+    // Conectar el evento del botón volver
+    document.getElementById('btn-volver-tickets')?.addEventListener('click', () => {
+      import('/js/user/mis_tickets.js').then(mod => {
+        mod.initMisTickets();
+      });
+    });
+
     // Importar y ejecutar el JS del detalle
     const detalleModule = await import('/js/user/detalle_ticket.js');
     detalleModule.initDetalleTicket(ticketId);
