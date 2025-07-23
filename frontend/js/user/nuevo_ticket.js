@@ -357,4 +357,20 @@ export function initNuevoTicket() {
   document.addEventListener('click', () => {
     document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
   });
+
+  const form = document.getElementById('multiStepForm');
+  form.addEventListener('reset', () => {
+    console.log("⚠️ Formulario reseteado");
+  });
+
+  document.addEventListener('input', (e) => {
+    console.log("Evento input global:", e.target);
+  });
+  document.addEventListener('change', (e) => {
+    console.log("Evento change global:", e.target);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    console.log("⚠️ Cambió la visibilidad del documento:", document.visibilityState);
+  });
 }
