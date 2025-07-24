@@ -1,6 +1,5 @@
 .detalle-ticket-container {
   width: 100%;
-  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -11,24 +10,6 @@
   width: 100%;
   display: flex;
   align-items: flex-start;
-}
-
-.btn-volver {
-  background: #e5e7eb;
-  color: #374151;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1.25rem;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-left: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-
-.btn-volver:hover {
-  background: #d1d5db;
 }
 
 .btn-volver-mis-tickets {
@@ -49,7 +30,8 @@
 }
 
 .btn-volver-mis-tickets:hover {
-  background-color: #f9fafb;
+  background-color: #f3f4f6;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .detalle-ticket-main {
@@ -185,9 +167,9 @@
 /* COLUMNA DERECHA: DETALLES & PANEL DE ACCIONES */
 
 
-.detalle-ticket-info,
-.panel-dinamico {
+.detalle-ticket-info {
   width: 100%;
+  height: 100%;
   flex: 1 1 0;
   display: flex;
   flex-direction: column;
@@ -200,7 +182,21 @@
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   overflow: auto; 
-  height: 100%;
+}
+
+.panel-dinamico {
+  width: 100%;
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;               
+  padding: 1rem;
+  color: #090B0A;
+  background-color: white;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .detalle-ticket-info {
@@ -421,8 +417,4 @@
   cursor: default;
   pointer-events: none;
   opacity: 0.3;
-}
-
-.panel-dinamico {
-  margin-top: 1.5rem;
 }
