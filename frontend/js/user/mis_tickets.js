@@ -122,22 +122,16 @@ document.addEventListener('input', (e) => {
 // FUNCION PARA CARGAR EL DETALLE DEL TICKET
 async function cargarDetalleTicket(ticketId) {
   try {
-    // Cargar el HTML del detalle en el contenedor dinámico
     const response = await fetch('/app/user/components/detalle_ticket.html');
     const html = await response.text();
     document.getElementById('dynamicContent').innerHTML = html;
 
-    // Conectar el evento del botón volver
+    // BOTON VOLVER A MIS TICKETS
     const btnVolver = document.getElementById('btn-volver-tickets');
     if (btnVolver) {
-      console.log("✅ Botón volver encontrado y evento conectado");
       btnVolver.addEventListener('click', () => {
-        import('/js/user/mis_tickets.js').then(mod => {
-          mod.initMisTickets();
-        });
+        document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
       });
-    } else {
-      console.warn("❌ No se encontró el botón volver");
     }
 
     // Importar y ejecutar el JS del detalle
@@ -147,12 +141,9 @@ async function cargarDetalleTicket(ticketId) {
   } catch (error) {
     console.error('Error al cargar detalle del ticket:', error);
     document.getElementById('dynamicContent').innerHTML = `
-      <div style="text-align: center; padding: 2rem;">
-        <p style="color: #d32f2f; font-size: 1.1rem;">Error al cargar el detalle del ticket</p>
-        <p style="color: #666; margin-top: 0.5rem;">${error.message}</p>
-        <button onclick="window.history.back()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #508991; color: white; border: none; border-radius: 4px; cursor: pointer;">
-          Volver
-        </button>
+      <div class="error-detalle-ticket">
+        <p>❌ Error al cargar el detalle del ticket</p>
+        <p>${error.message || 'Ocurrió un error inesperado.'}</p>
       </div>
     `;
   }
