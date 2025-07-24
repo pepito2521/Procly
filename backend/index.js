@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 3000;
 
 // INICIAR EL SERVIDOR
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  const url = process.env.PORT ? `https://www.procly.net` : `http://localhost:${PORT}`;
+  console.log(`Servidor corriendo en ${url}`);
 });
 
