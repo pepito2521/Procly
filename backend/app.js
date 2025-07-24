@@ -29,8 +29,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // 🚀 RUTAS BACKEND
 app.use('/auth', require('./routes/auth'));
+console.log('Ruta /auth montada');
 app.use('/tickets', require('./routes/tickets'));
+console.log('Ruta /tickets montada');
 app.use('/stats', require('./routes/stats'));
+console.log('Ruta /stats montada');
 
 // 🌐 ARCHIVOS ESTATICOS DEL FRONTEND
 app.use(express.static(path.join(__dirname, '../frontend/public')));
@@ -64,6 +67,10 @@ app.get('/app/auth/*', (req, res) => {
 // 🚫 FALLBACK PARA RUTAS NO ENCONTRADAS
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/404.html'));
+});
+
+app.get('/ping', (req, res) => {
+  res.send('pong');
 });
 
 module.exports = app;

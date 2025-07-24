@@ -7,6 +7,7 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 router.post('/signup', async (req, res) => {
+  console.log('POST /auth/signup recibido');
   const { email, password, nombre, apellido, empresa_id } = req.body;
 
   // PASO 1: crear usuario en Supabase Auth
