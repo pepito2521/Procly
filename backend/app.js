@@ -8,17 +8,23 @@ dotenv.config();
 const app = express();
 
 // 🔐 MIDDLEWARES
+// app.use(cors({
+//   origin: [
+//     'https://procly.net',
+//     'https://www.procly.net',
+//     'http://localhost:3000',
+//   ],
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+//   preflightContinue: false,
+//   optionsSuccessStatus: 200
+// }));
+
+// DEBUG: Permitir cualquier origen temporalmente para debug de CORS
 app.use(cors({
-  origin: [
-    'https://procly.net',
-    'https://www.procly.net',
-    'http://localhost:3000',
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  preflightContinue: false,
-  optionsSuccessStatus: 200
+  origin: true,
+  credentials: true
 }));
 
 // Middleware para manejar OPTIONS preflight
