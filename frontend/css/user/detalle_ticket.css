@@ -2,7 +2,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 
 .detalle-ticket-header {
@@ -263,21 +262,10 @@
 #panel-estado-dinamico {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
-  min-height: 200px;
-  text-align: center;
-}
-
-#panel-estado-dinamico svg.icono {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 1rem;
-}
-
-#panel-estado-dinamico p {
-  font-size: 1.2rem;
-  color: #333;
+  min-height: 150px;
+  text-align: left;
 }
 
 .detalle-grid {
