@@ -70,13 +70,13 @@ app.get('/app/auth/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/app/index.html'));
 });
 
+app.get('/ping', (req, res) => {
+  res.send('pong');
+});
+
 // 🚫 FALLBACK PARA RUTAS NO ENCONTRADAS
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/404.html'));
-});
-
-app.get('/ping', (req, res) => {
-  res.send('pong');
 });
 
 module.exports = app;
