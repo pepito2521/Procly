@@ -1,107 +1,42 @@
-async function esperarLottie() {
-  let intentos = 0;
-  while (!window.lottie && intentos < 20) {
-    await new Promise(res => setTimeout(res, 100));
-    intentos++;
-  }
-  console.log("¿Lottie está disponible?", !!window.lottie);
-  return !!window.lottie;
-}
+// LOADER SIMPLE Y FUNCIONAL
 
-export async function mostrarLoader() {
+export function mostrarLoader() {
   console.log("[Loader] mostrarLoader llamado");
   
-  try {
-    // Crear el loader si no existe
-    if (!document.getElementById('loader')) {
-      console.log("[Loader] No existe #loader, creando loader básico...");
-      
-      // Crear loader básico directamente
-      const loader = document.createElement('div');
-      loader.id = 'loader';
-      loader.className = 'glass-loader';
-      loader.innerHTML = `
-        <div class="spinner">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="40" r="36" stroke="#508991" stroke-width="4" stroke-linecap="round" stroke-dasharray="113.097" stroke-dashoffset="113.097">
-              <animate attributeName="stroke-dashoffset" dur="1s" values="113.097;0;113.097" repeatCount="indefinite"/>
-            </circle>
-          </svg>
-        </div>
-      `;
-      
-      document.body.appendChild(loader);
-      console.log("[Loader] Loader básico creado y agregado al DOM");
-    }
+  let loader = document.getElementById('loader');
   
-    const loader = document.getElementById('loader');
-    if (loader) {
-      // Usar setProperty con !important para sobrescribir cualquier estilo inline
-      loader.style.setProperty('display', 'flex', 'important');
-      console.log("[Loader] Loader mostrado correctamente con !important");
-    }
-    
-    document.body.classList.add('oculto');
-    
-  } catch (error) {
-    console.error("[Loader] Error en mostrarLoader:", error);
-    mostrarLoaderBasico();
+  // Si no existe el loader, lo creamos
+  if (!loader) {
+    console.log("[Loader] Creando loader...");
+    loader = document.createElement('div');
+    loader.id = 'loader';
+    loader.className = 'simple-loader';
+    loader.innerHTML = `
+      <div class="spinner-container">
+        <div class="spinner"></div>
+        <p class="loading-text">Cargando...</p>
+      </div>
+    `;
+    document.body.appendChild(loader);
+    console.log("[Loader] Loader creado y agregado al DOM");
   }
-}
-
-function mostrarFallbackSpinner() {
-  console.log("[Loader] Mostrando fallback spinner");
-  const loaderAnimation = document.getElementById('loader-animation');
-  const fallbackSpinner = document.getElementById('fallback-spinner');
   
-  if (loaderAnimation) loaderAnimation.style.display = 'none';
-  if (fallbackSpinner) fallbackSpinner.style.display = 'block';
+  // Mostrar el loader
+  loader.classList.add('show');
+  console.log("[Loader] Loader mostrado correctamente");
 }
 
-function mostrarLoaderBasico() {
-  console.log("[Loader] Mostrando loader básico");
-  // Crear un loader básico si todo falla
-  const loaderBasico = document.createElement('div');
-  loaderBasico.id = 'loader-basico';
-  loaderBasico.className = 'glass-loader';
-  loaderBasico.innerHTML = `
-    <div class="spinner">
-      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="40" cy="40" r="36" stroke="#508991" stroke-width="4" stroke-linecap="round" stroke-dasharray="113.097" stroke-dashoffset="113.097">
-          <animate attributeName="stroke-dashoffset" dur="1s" values="113.097;0;113.097" repeatCount="indefinite"/>
-        </circle>
-      </svg>
-    </div>
-  `;
-  document.body.appendChild(loaderBasico);
-  document.body.classList.add('oculto');
-}
-
-//OCULTAR LOADER
 export function ocultarLoader() {
   console.log("[Loader] ocultarLoader llamado");
-  document.body.classList.remove('oculto');
   
   const loader = document.getElementById('loader');
-  const loaderBasico = document.getElementById('loader-basico');
-  
   if (loader) {
-    loader.classList.add('fade-out');
-    setTimeout(() => {
-      loader.style.setProperty('display', 'none', 'important');
-      loader.classList.remove('fade-out');
-    }, 500);
-  }
-  
-  if (loaderBasico) {
-    loaderBasico.classList.add('fade-out');
-    setTimeout(() => {
-      loaderBasico.remove();
-    }, 500);
+    loader.classList.remove('show');
+    console.log("[Loader] Loader ocultado correctamente");
   }
 }
 
-// FUNCIÓN DE PRUEBA PARA TESTEAR EL LOADER
+// FUNCIÓN DE PRUEBA
 export function testLoader() {
   console.log("[Loader] Iniciando test del loader...");
   mostrarLoader();
@@ -112,5 +47,17 @@ export function testLoader() {
   }, 3000);
 }
 
-// Hacer disponible para testing desde consola
+// FUNCIÓN DE PRUEBA MÁS LARGA
+export function testLoaderLargo() {
+  console.log("[Loader] Iniciando test largo del loader (5 segundos)...");
+  mostrarLoader();
+  
+  setTimeout(() => {
+    console.log("[Loader] Ocultando loader después de 5 segundos...");
+    ocultarLoader();
+  }, 5000);
+}
+
+// Hacer disponibles para testing desde consola
 window.testLoader = testLoader;
+window.testLoaderLargo = testLoaderLargo;
