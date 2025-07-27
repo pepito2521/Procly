@@ -36,8 +36,9 @@ export async function mostrarLoader() {
   
     const loader = document.getElementById('loader');
     if (loader) {
-      loader.style.display = 'flex';
-      console.log("[Loader] Loader mostrado correctamente");
+      // Usar setProperty con !important para sobrescribir cualquier estilo inline
+      loader.style.setProperty('display', 'flex', 'important');
+      console.log("[Loader] Loader mostrado correctamente con !important");
     }
     
     document.body.classList.add('oculto');
@@ -87,7 +88,7 @@ export function ocultarLoader() {
   if (loader) {
     loader.classList.add('fade-out');
     setTimeout(() => {
-      loader.style.display = 'none';
+      loader.style.setProperty('display', 'none', 'important');
       loader.classList.remove('fade-out');
     }, 500);
   }
