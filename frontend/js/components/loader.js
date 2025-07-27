@@ -8,7 +8,6 @@ async function esperarLottie() {
   return !!window.lottie;
 }
 
-//MOSTRAR LOADER
 export async function mostrarLoader() {
   console.log("[Loader] mostrarLoader llamado");
   
@@ -24,7 +23,7 @@ export async function mostrarLoader() {
       div.innerHTML = html;
       document.body.appendChild(div.firstElementChild);
     }
-
+  
     const loader = document.getElementById('loader');
     const loaderAnimation = document.getElementById('loader-animation');
     const fallbackSpinner = document.getElementById('fallback-spinner');
@@ -32,28 +31,11 @@ export async function mostrarLoader() {
     if (loader) {
       loader.style.display = 'flex';
       
-      // Intentar cargar Lottie
-      const lottieDisponible = await esperarLottie();
+      // Ocultar el contenedor de Lottie y mostrar directamente el fallback
+      if (loaderAnimation) loaderAnimation.style.display = 'none';
+      if (fallbackSpinner) fallbackSpinner.style.display = 'block';
       
-      if (lottieDisponible && loaderAnimation) {
-        console.log("[Loader] Lottie disponible, cargando animación...");
-        try {
-          window.lottie.loadAnimation({
-            container: loaderAnimation,
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: '/assets/lottie/loader.json',
-          });
-          fallbackSpinner.style.display = 'none';
-        } catch (error) {
-          console.warn("[Loader] Error cargando animación Lottie:", error);
-          mostrarFallbackSpinner();
-        }
-      } else {
-        console.warn("[Loader] Lottie NO disponible, usando fallback spinner");
-        mostrarFallbackSpinner();
-      }
+      console.log("[Loader] Mostrando fallback spinner directamente");
     }
     
     document.body.classList.add('oculto');
@@ -66,6 +48,7 @@ export async function mostrarLoader() {
 }
 
 function mostrarFallbackSpinner() {
+  console.log("[Loader] Mostrando fallback spinner");
   const loaderAnimation = document.getElementById('loader-animation');
   const fallbackSpinner = document.getElementById('fallback-spinner');
   
@@ -74,6 +57,7 @@ function mostrarFallbackSpinner() {
 }
 
 function mostrarLoaderBasico() {
+  console.log("[Loader] Mostrando loader básico");
   // Crear un loader básico si todo falla
   const loaderBasico = document.createElement('div');
   loaderBasico.id = 'loader-basico';
