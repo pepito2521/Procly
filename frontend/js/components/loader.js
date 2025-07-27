@@ -12,37 +12,38 @@ export async function mostrarLoader() {
   console.log("[Loader] mostrarLoader llamado");
   
   try {
+    // Crear el loader si no existe
     if (!document.getElementById('loader')) {
-      console.log("[Loader] No existe #loader, cargando HTML...");
-      const res = await fetch('/components/loader.html');
-      if (!res.ok) {
-        throw new Error(`Error cargando loader HTML: ${res.status}`);
-      }
-      const html = await res.text();
-      const div = document.createElement('div');
-      div.innerHTML = html;
-      document.body.appendChild(div.firstElementChild);
+      console.log("[Loader] No existe #loader, creando loader básico...");
+      
+      // Crear loader básico directamente
+      const loader = document.createElement('div');
+      loader.id = 'loader';
+      loader.className = 'glass-loader';
+      loader.innerHTML = `
+        <div class="spinner">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="36" stroke="#508991" stroke-width="4" stroke-linecap="round" stroke-dasharray="113.097" stroke-dashoffset="113.097">
+              <animate attributeName="stroke-dashoffset" dur="1s" values="113.097;0;113.097" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+      `;
+      
+      document.body.appendChild(loader);
+      console.log("[Loader] Loader básico creado y agregado al DOM");
     }
   
     const loader = document.getElementById('loader');
-    const loaderAnimation = document.getElementById('loader-animation');
-    const fallbackSpinner = document.getElementById('fallback-spinner');
-    
     if (loader) {
       loader.style.display = 'flex';
-      
-      // Ocultar el contenedor de Lottie y mostrar directamente el fallback
-      if (loaderAnimation) loaderAnimation.style.display = 'none';
-      if (fallbackSpinner) fallbackSpinner.style.display = 'block';
-      
-      console.log("[Loader] Mostrando fallback spinner directamente");
+      console.log("[Loader] Loader mostrado correctamente");
     }
     
     document.body.classList.add('oculto');
     
   } catch (error) {
     console.error("[Loader] Error en mostrarLoader:", error);
-    // En caso de error, mostrar un loader básico
     mostrarLoaderBasico();
   }
 }
