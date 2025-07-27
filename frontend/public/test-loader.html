@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Loader</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div style="padding: 2rem; text-align: center;">
+    <h1>Test del Loader</h1>
+    <p>Esta página es para probar el funcionamiento del loader.</p>
+    <button onclick="testLoader()" style="padding: 1rem 2rem; font-size: 1.2rem; margin: 1rem;">
+      Probar Loader (3 segundos)
+    </button>
+    <br>
+    <button onclick="mostrarLoader()" style="padding: 1rem 2rem; font-size: 1.2rem; margin: 1rem;">
+      Mostrar Loader
+    </button>
+    <br>
+    <button onclick="ocultarLoader()" style="padding: 1rem 2rem; font-size: 1.2rem; margin: 1rem;">
+      Ocultar Loader
+    </button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <script type="module">
+    import { mostrarLoader, ocultarLoader, testLoader } from '/js/components/loader.js';
+    
+    // Hacer disponibles globalmente para los botones
+    window.mostrarLoader = mostrarLoader;
+    window.ocultarLoader = ocultarLoader;
+    window.testLoader = testLoader;
+  </script>
+</body>
+</html> 

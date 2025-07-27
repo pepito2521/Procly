@@ -163,6 +163,16 @@ text-decoration: none;
   visibility: hidden;
 }
 
+/* ANIMACIÓN DEL SPINNER */
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* BOTÓN FLOTANTE WHATSAPP */
 
 .whatsapp-float {

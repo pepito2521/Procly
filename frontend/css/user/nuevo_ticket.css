@@ -273,6 +273,7 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  margin-bottom: 18px;
 }
 
 .admin-card-icon {
@@ -323,7 +324,7 @@
   font-size: 1.1rem;
   font-weight: 400;
   color: #374151;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   margin-bottom: 0;
 }
 
