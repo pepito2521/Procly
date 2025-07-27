@@ -2,7 +2,6 @@
 import { supabase } from "/js/supabaseClient.js";
 
 export function initDirecciones() {
-  console.log("Inicializando Direcciones Admin...");
   cargarDireccionesTemplate();
 }
 

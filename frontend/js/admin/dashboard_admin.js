@@ -2,7 +2,6 @@
 import { supabase } from "/js/supabaseClient.js";
 
 export function initDashboard() {
-  console.log("Inicializando Dashboard Admin...");
   cargarKPIs();
   cargarGrafico();
 }

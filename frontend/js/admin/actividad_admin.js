@@ -2,7 +2,6 @@
 import { supabase } from "/js/supabaseClient.js";
 
 export function initActividad() {
-  console.log("Inicializando Actividad Admin...");
   cargarActividadTemplate();
 }
 

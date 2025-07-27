@@ -2,7 +2,6 @@
 import { supabase } from "/js/supabaseClient.js";
 
 export function initUsuarios() {
-  console.log("Inicializando Usuarios Admin...");
   cargarUsuariosTemplate();
 }
 

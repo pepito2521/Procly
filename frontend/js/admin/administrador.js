@@ -1,4 +1,5 @@
 import { supabase } from "/js/supabaseClient.js";
+import { mostrarLoader, ocultarLoader } from "/js/components/loader.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const secciones = {
@@ -53,9 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!info) return;
     
     try {
-      // Mostrar loader si existe
-      const loader = document.getElementById("loader-placeholder");
-      if (loader) loader.style.display = "block";
+      await mostrarLoader();
 
       const resp = await fetch(`/app/admin/components/${info.archivo}`);
       const html = await resp.text();
@@ -78,9 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error cargando sección:", e);
       dynamicContent.innerHTML = `<p style='padding:2rem;'>No se pudo cargar la sección.</p>`;
     } finally {
-      // Ocultar loader si existe
-      const loader = document.getElementById("loader-placeholder");
-      if (loader) loader.style.display = "none";
+      ocultarLoader();
     }
   }
 
