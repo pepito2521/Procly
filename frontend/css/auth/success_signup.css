@@ -8,8 +8,8 @@
 }
 
 .success-animation {
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
     margin-bottom: 1.5rem;
 }
 
@@ -54,8 +54,8 @@
 /* Responsive */
 @media (max-width: 768px) {
     .success-animation {
-        width: 100px;
-        height: 100px;
+        width: 140px;
+        height: 140px;
         margin-bottom: 1rem;
     }
     
