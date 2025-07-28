@@ -36,6 +36,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/auth', require('./routes/auth'));
 app.use('/tickets', require('./routes/tickets'));
 app.use('/stats', require('./routes/stats'));
+app.use('/emails', require('./routes/emails')); // Nueva ruta para emails
 
 // RUTA DE PING (también antes del catch-all)
 app.get('/ping', (req, res) => {

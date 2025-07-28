@@ -3,6 +3,7 @@ const router = express.Router();
 const requireAuth = require('../middleware/requireAuth');
 const {
     crearTicket,
+    actualizarEstadoTicket,
     obtenerDirecciones,
     obtenerTickets,
     obtenerTicketPorId,
@@ -24,6 +25,7 @@ router.get('/kpi-cancelados', kpiTicketsCanceladosUsuario);
 // RUTAS TICKETS
 router.get('/direcciones', obtenerDirecciones);
 router.post('/', crearTicket);
+router.put('/estado', actualizarEstadoTicket);
 router.get('/', obtenerTickets);
 router.get('/:id', obtenerTicketPorId);
 router.post('/:id/seleccionar', seleccionarPropuesta);

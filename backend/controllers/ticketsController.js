@@ -1,4 +1,5 @@
 const { supabase } = require('../config/supabase');
+const { manejarEmailTicketCreado, enviarEmailCambioEstado } = require('./emailController');
 
 // CREAR TICKET
 
@@ -24,9 +25,11 @@ const crearTicket = async (req, res) => {
 
     const user_id = req.user?.id || req.body.user_id;
     const codigo_ticket = generarCodigoTicket();
+    
+    // Obtener perfil del usuario (incluyendo email para emails)
     const { data: perfil, error: errorPerfil } = await supabase
       .from('profiles')
-      .select('empresa_id')
+      .select('empresa_id, email, nombre, apellido')
       .eq('profile_id', user_id)
       .maybeSingle();
 
@@ -35,6 +38,7 @@ const crearTicket = async (req, res) => {
       return res.status(404).json({ error: 'Perfil de usuario no encontrado' });
     }
 
+    // Crear el ticket
     const { error } = await supabase.from('tickets').insert({
       user_id,
       empresa_id: perfil.empresa_id,
@@ -52,11 +56,91 @@ const crearTicket = async (req, res) => {
 
     if (error) throw error;
 
+    // Preparar datos del ticket para el email
+    const ticketData = {
+      codigo_ticket,
+      categoria,
+      descripcion,
+      presupuesto: limite === true || limite === 'si' ? presupuesto : null,
+      fecha_entrega,
+      nombre: perfil.nombre,
+      apellido: perfil.apellido
+    };
+
+    // Enviar emails usando el emailController (en segundo plano)
+    manejarEmailTicketCreado(ticketData, perfil.email)
+      .then(results => {
+        console.log('📧 Resultados de emails:', {
+          emailUsuario: results.emailUsuario.success ? '✅ Enviado' : '❌ Falló',
+          emailAdmin: results.emailAdmin.success ? '✅ Enviado' : '❌ Falló'
+        });
+      })
+      .catch(error => {
+        console.error('❌ Error general en emails:', error);
+      });
+
     res.status(201).json({ message: 'Ticket creado con éxito', codigo_ticket });
 
   } catch (err) {
     console.error('Error al crear ticket:', err.message);
     res.status(500).json({ error: 'No se pudo crear el ticket', detalle: err.message });
+  }
+};
+
+// ACTUALIZAR ESTADO DE TICKET (para el panel de admin)
+const actualizarEstadoTicket = async (req, res) => {
+  try {
+    const { ticket_id, nuevo_estado, comentario } = req.body;
+
+    // Obtener el ticket actual
+    const { data: ticket, error: errorTicket } = await supabase
+      .from('tickets')
+      .select('*')
+      .eq('ticket_id', ticket_id)
+      .single();
+
+    if (errorTicket) throw errorTicket;
+    if (!ticket) {
+      return res.status(404).json({ error: 'Ticket no encontrado' });
+    }
+
+    const estadoAnterior = ticket.estado;
+
+    // Actualizar el estado del ticket
+    const { error: errorUpdate } = await supabase
+      .from('tickets')
+      .update({ 
+        estado: nuevo_estado,
+        comentario_admin: comentario || null,
+        fecha_actualizacion: new Date().toISOString()
+      })
+      .eq('ticket_id', ticket_id);
+
+    if (errorUpdate) throw errorUpdate;
+
+    // Enviar email de cambio de estado usando el emailController (en segundo plano)
+    enviarEmailCambioEstado(ticket_id, nuevo_estado, comentario)
+      .then(result => {
+        if (result.success) {
+          console.log('✅ Email de cambio de estado enviado correctamente');
+        } else {
+          console.error('❌ Error enviando email de cambio de estado:', result.error);
+        }
+      })
+      .catch(error => {
+        console.error('❌ Error general en email de cambio de estado:', error);
+      });
+
+    res.json({ 
+      message: 'Estado del ticket actualizado con éxito',
+      ticket_id,
+      estado_anterior: estadoAnterior,
+      nuevo_estado
+    });
+
+  } catch (err) {
+    console.error('Error al actualizar estado del ticket:', err.message);
+    res.status(500).json({ error: 'No se pudo actualizar el estado del ticket', detalle: err.message });
   }
 };
 
@@ -220,6 +304,7 @@ const kpiTicketsCanceladosUsuario = async (req, res) => {
 
 module.exports = {
   crearTicket,
+  actualizarEstadoTicket,
   obtenerDirecciones,
   obtenerTickets,
   obtenerTicketPorId,
