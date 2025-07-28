@@ -8,26 +8,18 @@ dotenv.config();
 const app = express();
 
 // 🔐 MIDDLEWARES
-// app.use(cors({
-//   origin: [
-//     'https://procly.net',
-//     'https://www.procly.net',
-//     'http://localhost:3000',
-//   ],
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-//   preflightContinue: false,
-//   optionsSuccessStatus: 200
-// }));
-
-// DEBUG: Permitir cualquier origen temporalmente para debug de CORS
 app.use(cors({
-  origin: true,
-  credentials: true
+  origin: [
+    'https://procly.net',
+    'https://www.procly.net',
+    'http://localhost:3000',
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  preflightContinue: false,
+  optionsSuccessStatus: 200
 }));
-
-app.options('*', cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,12 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/auth', require('./routes/auth'));
 app.use('/tickets', require('./routes/tickets'));
 app.use('/stats', require('./routes/stats'));
-app.use('/emails', require('./routes/emails')); // Nueva ruta para emails
+app.use('/emails', require('./routes/emails'));
 
-// RUTA DE PING (también antes del catch-all)
-app.get('/ping', (req, res) => {
-  res.send('pong');
-});
 
 // 🌐 ARCHIVOS ESTÁTICOS DEL FRONTEND
 app.use(express.static(path.join(__dirname, '../frontend/public')));
