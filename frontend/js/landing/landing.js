@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnAgendarReunion = document.getElementById("btn-agendar-reunion");
     if (btnAgendarReunion) {
       btnAgendarReunion.addEventListener("click", () => {
-        window.open("https://calendar.app.google/9sDcWHJEbxj444J79", "_blank");
+        window.open("https://calendar.app.google/4pULoKgKVGCSPRTUA", "_blank");
       });
     }
   
