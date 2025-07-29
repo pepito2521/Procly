@@ -24,14 +24,40 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Mobile menu functionality
     const mobileMenuBtn = document.getElementById("mobile-menu-btn")
+    const mobileMenu = document.getElementById("mobile-menu")
+    const mobileMenuClose = document.getElementById("mobile-menu-close")
     const navDesktop = document.querySelector(".nav-desktop")
-  
+
     if (mobileMenuBtn) {
       mobileMenuBtn.addEventListener("click", () => {
-        // Toggle mobile menu (you can implement this based on your needs)
-        console.log("Mobile menu clicked")
+        mobileMenu.classList.add("active")
+        document.body.style.overflow = "hidden" // Prevenir scroll
       })
     }
+
+    if (mobileMenuClose) {
+      mobileMenuClose.addEventListener("click", () => {
+        mobileMenu.classList.remove("active")
+        document.body.style.overflow = "" // Restaurar scroll
+      })
+    }
+
+    // Cerrar menú al hacer clic en un enlace
+    const mobileNavLinks = document.querySelectorAll(".mobile-nav-link")
+    mobileNavLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("active")
+        document.body.style.overflow = ""
+      })
+    })
+
+    // Cerrar menú al hacer clic fuera
+    mobileMenu.addEventListener("click", (e) => {
+      if (e.target === mobileMenu) {
+        mobileMenu.classList.remove("active")
+        document.body.style.overflow = ""
+      }
+    })
 
     // BOTON: SIGN IN
     const btnSignIn = document.getElementById("btn-signin")
@@ -47,6 +73,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnSignUp) {
       btnSignUp.addEventListener("click", () => {
         console.log("Botón Sign Up clicked - redirecting to signup")
+        window.location.href = "/app/auth/signup.html"
+      })
+    }
+
+    // BOTONES MÓVILES: SIGN IN Y SIGN UP
+    const btnSignInMobile = document.getElementById("btn-signin-mobile")
+    if (btnSignInMobile) {
+      btnSignInMobile.addEventListener("click", () => {
+        console.log("Botón Sign In móvil clicked - redirecting to app")
+        window.location.href = "/app/index.html"
+      })
+    }
+
+    const btnSignUpMobile = document.getElementById("btn-signup-mobile")
+    if (btnSignUpMobile) {
+      btnSignUpMobile.addEventListener("click", () => {
+        console.log("Botón Sign Up móvil clicked - redirecting to signup")
         window.location.href = "/app/auth/signup.html"
       })
     }
