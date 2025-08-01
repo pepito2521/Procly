@@ -1622,8 +1622,161 @@
   text-align: left;
 }
 
-.news-btn {
-  width: fit-content;
-  align-self: flex-start;
-}
+  .news-btn {
+    width: fit-content;
+    align-self: flex-start;
+  }
+
+  /* SECTION-BASED TRANSITIONS */
+  .section-transition {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .section-transition.section-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ELEMENT ANIMATIONS */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .animate-on-scroll.element-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* STAGGERED ANIMATIONS FOR SPECIFIC ELEMENTS */
+  .steps-grid .step-card {
+    transition-delay: calc(var(--animation-order, 0) * 0.1s);
+  }
+
+  .testimonials-grid .testimonial-card {
+    transition-delay: calc(var(--animation-order, 0) * 0.15s);
+  }
+
+  .pricing-grid .pricing-card {
+    transition-delay: calc(var(--animation-order, 0) * 0.1s);
+  }
+
+  .partners-grid .partner-category {
+    transition-delay: calc(var(--animation-order, 0) * 0.1s);
+  }
+
+  /* HERO SECTION SPECIAL ANIMATION */
+  .hero {
+    animation: heroEntrance 1.2s ease-out;
+  }
+
+  @keyframes heroEntrance {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* TAIL SPEND SECTION SPECIAL ANIMATION */
+  .tail-spend-content {
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* PREVIEW SECTION SPECIAL ANIMATION */
+  .preview-row {
+    animation: slideInFromSide 0.8s ease-out both;
+  }
+
+  .preview-row:nth-child(odd) {
+    animation: slideInFromLeft 0.8s ease-out both;
+  }
+
+  .preview-row:nth-child(even) {
+    animation: slideInFromRight 0.8s ease-out both;
+  }
+
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* ENHANCED HOVER EFFECTS */
+  .step-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+
+  .pricing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  }
+
+  .partner-category:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+
+  /* SMOOTH SCROLLING ENHANCEMENT */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Account for fixed header */
+  }
+
+  /* PERFORMANCE OPTIMIZATIONS */
+  .section-transition,
+  .animate-on-scroll {
+    will-change: opacity, transform;
+  }
+
+  /* REDUCED MOTION SUPPORT */
+  @media (prefers-reduced-motion: reduce) {
+    .section-transition,
+    .animate-on-scroll,
+    .hero,
+    .tail-spend-content,
+    .preview-row {
+      animation: none;
+      transition: none;
+    }
+  }
 

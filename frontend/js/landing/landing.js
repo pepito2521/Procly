@@ -222,7 +222,37 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     })
   
-    // Intersection Observer for animations
+    // SECTION-BASED TRANSITIONS
+    const sectionTransitionOptions = {
+      threshold: 0.15,
+      rootMargin: "0px 0px -10% 0px",
+    }
+
+    const sectionTransitionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Add entrance animation class
+          entry.target.classList.add('section-visible')
+          
+          // Animate child elements with staggered delay
+          const animatedChildren = entry.target.querySelectorAll('.animate-on-scroll')
+          animatedChildren.forEach((child, index) => {
+            setTimeout(() => {
+              child.classList.add('element-visible')
+            }, index * 150) // Staggered animation
+          })
+        }
+      })
+    }, sectionTransitionOptions)
+
+    // Observe all sections for transitions
+    const allSections = document.querySelectorAll('section')
+    allSections.forEach(section => {
+      section.classList.add('section-transition')
+      sectionTransitionObserver.observe(section)
+    })
+
+    // Enhanced element animations
     const animationObserverOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",
@@ -231,19 +261,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = "1"
-          entry.target.style.transform = "translateY(0)"
+          entry.target.classList.add('element-visible')
         }
       })
     }, animationObserverOptions)
   
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content")
+    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content, .step-card, .partner-category")
   
     animatedElements.forEach((el) => {
-      el.style.opacity = "0"
-      el.style.transform = "translateY(20px)"
-      el.style.transition = "opacity 0.6s ease, transform 0.6s ease"
+      el.classList.add('animate-on-scroll')
       observer.observe(el)
     })
   

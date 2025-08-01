@@ -128,7 +128,7 @@
                 </div>
                 
                 <div class="steps-grid">
-                    <div class="step-card">
+                    <div class="step-card animate-on-scroll" style="--animation-order: 0;">
                         <div class="step-number">01</div>
                         <div class="step-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
@@ -141,7 +141,7 @@
                         </p>
                     </div>
                     
-                    <div class="step-card">
+                    <div class="step-card animate-on-scroll" style="--animation-order: 1;">
                         <div class="step-number">02</div>
                         <div class="step-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
@@ -154,7 +154,7 @@
                         </p>
                     </div>
                     
-                    <div class="step-card">
+                    <div class="step-card animate-on-scroll" style="--animation-order: 2;">
                         <div class="step-number">03</div>
                         <div class="step-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
@@ -272,7 +272,7 @@
                 </div>
 
                 <div class="testimonials-grid">
-                    <div class="testimonial-card">
+                    <div class="testimonial-card animate-on-scroll" style="--animation-order: 0;">
                         <div class="testimonial-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -292,7 +292,7 @@
                         </div>
                     </div>
 
-                    <div class="testimonial-card">
+                    <div class="testimonial-card animate-on-scroll" style="--animation-order: 1;">
                         <div class="testimonial-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -312,7 +312,7 @@
                         </div>
                     </div>
 
-                    <div class="testimonial-card">
+                    <div class="testimonial-card animate-on-scroll" style="--animation-order: 2;">
                         <div class="testimonial-stars">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -347,7 +347,7 @@
                 </div>
 
                 <div class="pricing-grid">
-                    <div class="pricing-card">
+                    <div class="pricing-card animate-on-scroll" style="--animation-order: 0;">
                         <div class="pricing-header">
                             <h3 class="pricing-title">Starter</h3>
                             <p class="pricing-subtitle">Perfecto para equipos pequeños</p>
@@ -376,7 +376,7 @@
                         <button class="btn-pricing-secondary">Comenzar Gratis</button>
                     </div>
 
-                    <div class="pricing-card pricing-popular">
+                    <div class="pricing-card pricing-popular animate-on-scroll" style="--animation-order: 1;">
                         <div class="popular-badge">Más Popular</div>
                         <div class="pricing-header">
                             <h3 class="pricing-title">Professional</h3>
@@ -410,11 +410,13 @@
                         <button class="btn-pricing-primary">Comenzar Ahora</button>
                     </div>
 
-                    <div class="pricing-card">
+                    <div class="pricing-card animate-on-scroll" style="--animation-order: 2;">
                         <div class="pricing-header">
                             <h3 class="pricing-title">Enterprise</h3>
-                            <p class="pricing-subtitle">Para organizaciones grandes</p>
-                            <div class="pricing-price">Personalizado</div>
+                            <p class="pricing-subtitle">Para grandes organizaciones</p>
+                            <div class="pricing-price">
+                                €99<span class="pricing-period">/mes</span>
+                            </div>
                         </div>
                         <div class="pricing-features">
                             <div class="pricing-feature">
@@ -423,15 +425,19 @@
                             </div>
                             <div class="pricing-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Integraciones personalizadas</span>
+                                <span>SSO y LDAP</span>
                             </div>
                             <div class="pricing-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Seguridad avanzada</span>
+                                <span>Compliance avanzado</span>
                             </div>
                             <div class="pricing-feature">
                                 <i class="fas fa-check"></i>
-                                <span>Soporte 24/7 dedicado</span>
+                                <span>Gerente de cuenta</span>
+                            </div>
+                            <div class="pricing-feature">
+                                <i class="fas fa-check"></i>
+                                <span>Onboarding personalizado</span>
                             </div>
                         </div>
                         <button class="btn-pricing-secondary">Contactar Ventas</button>
@@ -468,8 +474,7 @@
           Últimas novedades de nuestra empresa
         </h2>
         <div class="news-cards">
-          <!-- TARJETA 1: EMPRELATAM (ECL13)-->
-          <div class="news-card">
+          <div class="news-card animate-on-scroll" style="--animation-order: 0;">
             <img src="/assets/img/emprelatam-1.png" alt="Noticia 1" class="news-img">
             <div class="news-card-content">
               <img src="/assets/img/emprelatam-2.png" alt="Emprelatam" class="news-logo">
@@ -477,8 +482,7 @@
               <a href="https://emprelatam.com/exploracion" class="btn-primary news-btn" target="_blank" rel="noopener noreferrer">Leer más</a>
             </div>
           </div>
-          <!-- TARJETA 2: ECOVADIS -->
-          <div class="news-card">
+          <div class="news-card animate-on-scroll" style="--animation-order: 1;">
             <img src="/assets/img/ecovadis.jpg" alt="Noticia 2" class="news-img">
             <div class="news-card-content">
               <img src="/assets/img/ecovadis-logo.png" alt="Ecovadis" class="news-logo">
@@ -486,12 +490,11 @@
               <a href="https://ecovadis.com/es/enterprise/" class="btn-primary news-btn" target="_blank" rel="noopener noreferrer">Leer más</a>
             </div>
           </div>
-          <!-- TARJETA 3: MAVERICK BUYING -->
-          <div class="news-card">
+          <div class="news-card animate-on-scroll" style="--animation-order: 2;">
             <img src="/assets/img/corporate.jpg" alt="Noticia 3" class="news-img">
             <div class="news-card-content">
               <h3 class="news-title">Deteniendo el Maverick Buying</h3>
-              <p class="news-description">El Maverick Buying nace de la falta de procesos simples. En Procly, creemos que si el camino oficial es fácil y claro, el equipo lo va a seguir. Y eso se traduce en eficiencia, control y ahorro real para tu empresa.</p>
+              <p class="news-description">El Maverick Buying nace de la falta de procesos simples. En Procly, creemos que si el camino oficial es fácil y claro, el equipo lo va a seguir. Y eso se traduce en eficiencia, control y ahorro.</p>
               <a href="#" class="btn-primary news-btn">Leer más</a>
             </div>
           </div>
