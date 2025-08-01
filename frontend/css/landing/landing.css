@@ -506,38 +506,7 @@
     }
   }
 
-  .tail-spend-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-  }
 
-  @media (min-width: 768px) {
-    .tail-spend-title {
-      font-size: 3rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .tail-spend-title {
-      font-size: 3.5rem;
-    }
-  }
-
-  .tail-spend-description {
-    font-size: 1.125rem;
-    color: var(--gray-600);
-    margin-bottom: 2rem;
-    line-height: 1.7;
-  }
-
-  @media (min-width: 768px) {
-    .tail-spend-description {
-      font-size: 1.25rem;
-    }
-  }
 
 
 
@@ -550,7 +519,7 @@
 
   .tail-spend-chart {
     background-color: transparent;
-    max-width: 90%;
+    max-width: 80%;
     height: auto;
     border-radius: 1rem;
     transition: transform 0.3s ease;
@@ -558,13 +527,13 @@
 
   @media (min-width: 768px) {
     .tail-spend-chart {
-      max-width: 80%;
+      max-width: 65%;
     }
   }
 
   @media (min-width: 1024px) {
     .tail-spend-chart {
-      max-width: 70%;
+      max-width: 55%;
     }
   }
 
@@ -575,16 +544,6 @@
   @media (max-width: 1023px) {
     .tail-spend-problem {
       padding: 4rem 0;
-    }
-
-    .tail-spend-title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .tail-spend-description {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
     }
   }
   
