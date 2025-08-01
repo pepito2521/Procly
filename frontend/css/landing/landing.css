@@ -493,26 +493,16 @@
   }
 
   .tail-spend-content {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 3rem;
     align-items: center;
+    text-align: center;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .tail-spend-content {
-      grid-template-columns: 1fr 1fr;
       gap: 4rem;
-    }
-  }
-
-  .tail-spend-text {
-    order: 2;
-  }
-
-  @media (min-width: 1024px) {
-    .tail-spend-text {
-      order: 1;
     }
   }
 
@@ -549,72 +539,33 @@
     }
   }
 
-  .tail-spend-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
 
-  .stat-item {
-    text-align: center;
-    padding: 1rem;
-    background: white;
-    border-radius: 0.75rem;
-    box-shadow: var(--shadow);
-    transition: transform 0.2s ease;
-  }
-
-  .stat-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .stat-number {
-    display: block;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .stat-number {
-      font-size: 2.5rem;
-    }
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    color: var(--gray-600);
-    font-weight: 500;
-  }
-
-  @media (min-width: 768px) {
-    .stat-label {
-      font-size: 1rem;
-    }
-  }
 
   .tail-spend-visual {
-    order: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  @media (min-width: 1024px) {
-    .tail-spend-visual {
-      order: 2;
-    }
+    width: 100%;
   }
 
   .tail-spend-chart {
     background-color: transparent;
-    max-width: 100%;
+    max-width: 90%;
     height: auto;
     border-radius: 1rem;
     transition: transform 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .tail-spend-chart {
+      max-width: 80%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .tail-spend-chart {
+      max-width: 70%;
+    }
   }
 
   .tail-spend-chart:hover {
@@ -634,23 +585,6 @@
     .tail-spend-description {
       font-size: 1rem;
       margin-bottom: 1.5rem;
-    }
-
-    .tail-spend-stats {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .stat-item {
-      padding: 0.75rem;
-    }
-
-    .stat-number {
-      font-size: 1.75rem;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
     }
   }
   
