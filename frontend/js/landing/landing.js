@@ -1,7 +1,9 @@
 // Smooth scrolling for navigation links
 document.addEventListener("DOMContentLoaded", () => {
-    // Handle navigation links
+    // Handle navigation links with enhanced UX
     const navLinks = document.querySelectorAll('a[href^="#"]')
+    const header = document.querySelector(".header")
+    const headerHeight = header ? header.offsetHeight : 0
   
     navLinks.forEach((link) => {
       link.addEventListener("click", function (e) {
@@ -11,8 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetSection = document.querySelector(targetId)
   
         if (targetSection) {
-          const headerHeight = document.querySelector(".header").offsetHeight
-          const targetPosition = targetSection.offsetTop - headerHeight
+          // Add active state to clicked link
+          navLinks.forEach(l => l.classList.remove('active'))
+          this.classList.add('active')
+  
+          const targetPosition = targetSection.offsetTop - headerHeight - 20 // Extra padding
   
           window.scrollTo({
             top: targetPosition,
@@ -20,6 +25,92 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         }
       })
+    })
+
+    // Intersection Observer for active navigation highlighting
+    const sections = document.querySelectorAll('section[id]')
+    const navItems = document.querySelectorAll('.nav-link, .mobile-nav-link')
+    
+    const observerOptions = {
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0.1
+    }
+    
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const currentId = entry.target.getAttribute('id')
+          
+          // Update active state in navigation
+          navItems.forEach(item => {
+            item.classList.remove('active')
+            if (item.getAttribute('href') === `#${currentId}`) {
+              item.classList.add('active')
+            }
+          })
+        }
+      })
+    }, observerOptions)
+    
+    sections.forEach(section => {
+      sectionObserver.observe(section)
+    })
+
+    // Smooth scroll to top button
+    const scrollToTopBtn = document.createElement('button')
+    scrollToTopBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm48-88a8,8,0,0,1-8,8H128v40a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h40V80a8,8,0,0,1,16,0v40h24A8,8,0,0,1,176,128Z"></path>
+      </svg>
+    `
+    scrollToTopBtn.className = 'scroll-to-top-btn'
+    document.body.appendChild(scrollToTopBtn)
+
+    // Show/hide scroll to top button
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          scrollToTopBtn.classList.add('show')
+        } else {
+          scrollToTopBtn.classList.remove('show')
+        }
+      })
+    }, { threshold: 0.1 })
+
+    // Observe hero section for scroll to top button
+    const heroSection = document.querySelector('.hero')
+    if (heroSection) {
+      scrollObserver.observe(heroSection)
+    }
+
+    // Scroll to top functionality
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    })
+
+    // Enhanced header behavior
+    let lastScrollY = window.scrollY
+    
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY
+      
+      if (currentScrollY > 100) {
+        header.classList.add('scrolled')
+      } else {
+        header.classList.remove('scrolled')
+      }
+      
+      // Hide/show header on scroll
+      if (currentScrollY > lastScrollY && currentScrollY > 200) {
+        header.classList.add('header-hidden')
+      } else {
+        header.classList.remove('header-hidden')
+      }
+      
+      lastScrollY = currentScrollY
     })
   
     // Mobile menu functionality
@@ -121,23 +212,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   
-    // Header scroll effect
+    // Header scroll effect (using existing header variable)
     let lastScrollTop = 0
-    const header = document.querySelector(".header")
-  
-    window.addEventListener("scroll", () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-  
-      if (scrollTop > lastScrollTop && scrollTop > 100) {
-        // Scrolling down
-        header.style.transform = "translateY(-100%)"
-      } else {
-        // Scrolling up
-        header.style.transform = "translateY(0)"
-      }
-  
-      lastScrollTop = scrollTop
-    })
   
     // Add transition to header
     header.style.transition = "transform 0.3s ease-in-out"
@@ -180,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   
     // Intersection Observer for animations
-    const observerOptions = {
+    const animationObserverOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",
     }
@@ -192,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
           entry.target.style.transform = "translateY(0)"
         }
       })
-    }, observerOptions)
+    }, animationObserverOptions)
   
     // Observe elements for animation
     const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content")

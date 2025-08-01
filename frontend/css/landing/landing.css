@@ -70,7 +70,16 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
-    transition: background 0.3s, backdrop-filter 0.3s;
+    transition: background 0.3s, backdrop-filter 0.3s, transform 0.3s ease-in-out;
+  }
+
+  .glass-header.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 20px 0 rgba(31, 38, 135, 0.15);
+  }
+
+  .glass-header.header-hidden {
+    transform: translateY(-100%);
   }
 
   .header-content {
@@ -132,6 +141,16 @@
   
   .nav-link:hover {
     color: var(--primary);
+  }
+
+  .nav-link.active {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .mobile-nav-link.active {
+    color: var(--primary);
+    font-weight: 600;
   }
   
   .header-actions {
@@ -1606,4 +1625,58 @@
 .news-btn {
   width: fit-content;
   align-self: flex-start;
+}
+
+/* SCROLL TO TOP BUTTON */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  z-index: 1000;
+}
+
+.scroll-to-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top-btn:hover {
+  background-color: var(--primary-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.scroll-to-top-btn svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .scroll-to-top-btn svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
 }
