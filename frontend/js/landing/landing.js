@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, observerOptions)
   
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row")
+    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content")
   
     animatedElements.forEach((el) => {
       el.style.opacity = "0"
