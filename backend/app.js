@@ -8,6 +8,15 @@ dotenv.config();
 const app = express();
 
 // 🔐 MIDDLEWARES
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      res.redirect(`https://${req.header('host')}${req.url}`);
+    } else {
+      next();
+    }
+  });
+}
 app.use(cors({
   origin: [
     'https://procly.net',
@@ -23,6 +32,15 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// 🔒 HEADERS DE SEGURIDAD
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
 
 // 🚀 RUTAS BACKEND (¡SIEMPRE ANTES DEL CATCH-ALL!)
 app.use('/auth', require('./routes/auth'));
