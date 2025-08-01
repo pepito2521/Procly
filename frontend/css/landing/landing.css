@@ -509,6 +509,9 @@
   .tail-spend-problem {
     padding: 6rem 0;
     background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-50) 100%);
+    border-radius: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
   }
 
   .tail-spend-content {
@@ -563,6 +566,19 @@
   @media (max-width: 1023px) {
     .tail-spend-problem {
       padding: 4rem 0;
+      border-radius: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .tail-spend-problem {
+      border-radius: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tail-spend-problem {
+      border-radius: 1rem;
     }
   }
   
@@ -1020,6 +1036,7 @@
     gap: 1rem;
     padding-top: 2rem;
     border-top: 1px solid var(--gray-800);
+    overflow: hidden;
   }
   
   @media (min-width: 768px) {
@@ -1028,6 +1045,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 0;
+      min-height: 0;
     }
   }
 
@@ -1043,6 +1061,7 @@
     color: var(--gray-400);
     text-align: left;
     flex-shrink: 0;
+    max-width: 300px;
   }
 
   @media (max-width: 767px) {
@@ -1061,9 +1080,10 @@
   .footer-legal {
     display: flex;
     gap: 2rem;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-end;
     flex: 1;
+    min-width: 0;
   }
   
   .footer-legal-link {
@@ -1099,6 +1119,20 @@
     
     .footer-legal-link {
       font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .footer-legal {
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .footer-legal {
+      gap: 1.5rem;
     }
   }
   
@@ -1327,9 +1361,6 @@
     padding: 6rem 0;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
     position: relative;
-    border-radius: 0 0 3rem 3rem;
-    margin: 0 1rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
   }
 
@@ -1341,7 +1372,6 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.9) 50%, rgba(241, 245, 249, 0.8) 100%);
-    border-radius: 0 0 3rem 3rem;
     z-index: 1;
   }
 
