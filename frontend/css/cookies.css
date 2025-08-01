@@ -1,4 +1,4 @@
-.privacy-content {
+.cookies-content {
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
@@ -9,7 +9,7 @@
     color: var(--gray-700);
 }
 
-.privacy-content h1 {
+.cookies-content h1 {
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--gray-900);
@@ -24,49 +24,60 @@
     text-align: center;
 }
 
-.privacy-content h2 {
+.cookies-content h2 {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--gray-900);
     margin: 2rem 0 1rem 0;
 }
 
-.privacy-content p {
+.cookies-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 1.5rem 0 0.75rem 0;
+}
+
+.cookies-content p {
     margin-bottom: 1rem;
     color: var(--gray-700);
 }
 
-.privacy-content ul {
+.cookies-content ul {
     margin: 1rem 0;
     padding-left: 1.5rem;
 }
 
-.privacy-content li {
+.cookies-content li {
     margin-bottom: 0.5rem;
     color: var(--gray-700);
 }
 
-.privacy-content section {
+.cookies-content section {
     margin-bottom: 2rem;
 }
 
-.privacy-content a {
+.cookies-content a {
     color: var(--blue-600);
     text-decoration: none;
     transition: color 0.2s;
 }
 
-.privacy-content a:hover {
+.cookies-content a:hover {
     color: var(--blue-700);
     text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-    .privacy-content h1 {
+    .cookies-content h1 {
         font-size: 2rem;
     }
     
-    .privacy-content h2 {
+    .cookies-content h2 {
         font-size: 1.25rem;
     }
-}
+    
+    .cookies-content h3 {
+        font-size: 1.1rem;
+    }
+} 

@@ -1041,12 +1041,14 @@
   .footer-copyright {
     font-size: 0.875rem;
     color: var(--gray-400);
-    text-align: center;
+    text-align: left;
+    flex-shrink: 0;
   }
 
   @media (max-width: 767px) {
     .footer-copyright {
       font-size: 0.8rem;
+      text-align: center;
     }
   }
 
@@ -1059,8 +1061,9 @@
   .footer-legal {
     display: flex;
     gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    flex: 1;
   }
   
   .footer-legal-link {
@@ -1080,6 +1083,8 @@
       flex-direction: column;
       gap: 0.75rem;
       align-items: center;
+      justify-content: center;
+      flex: none;
     }
     
     .footer-legal-link {
