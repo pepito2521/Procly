@@ -626,7 +626,7 @@
   
   /* SECTIONS */
   .section-header {
-    text-align: left;
+    text-align: center;
     margin-bottom: 4rem;
   }
   
@@ -635,7 +635,7 @@
     font-weight: 700;
     color: var(--gray-900);
     margin: 1.5rem 0;
-    text-align: left;
+    text-align: center;
   }
   
   @media (min-width: 768px) {
@@ -654,8 +654,8 @@
     font-size: 1.25rem;
     color: var(--gray-600);
     max-width: 48rem;
-    margin: 0;
-    text-align: left;
+    margin: 0 auto;
+    text-align: center;
   }
   
   /* Testimonials */
@@ -1311,18 +1311,7 @@
     object-fit: cover;
   }
 
-  /* Add a subtle gradient overlay to the laptop screen */
-  .laptop-screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.05) 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
+  /* Removed gradient overlay to keep SVG images transparent */
 
   /* Responsive adjustments for preview sections */
   @media (max-width: 1024px) {
@@ -1396,6 +1385,21 @@
     font-size: 1.125rem;
     color: var(--gray-600);
     line-height: 1.6;
+    text-align: left;
+  }
+
+  .profile-subtitle {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin-bottom: 0.75rem;
+    text-align: left;
+  }
+
+  .profile-subdescription {
+    font-size: 1rem;
+    color: var(--gray-600);
+    line-height: 1.5;
     text-align: left;
   }
 
