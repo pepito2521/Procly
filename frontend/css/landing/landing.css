@@ -1265,7 +1265,7 @@
 
   .preview-title {
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 400;
     color: var(--gray-900);
     margin-bottom: 1.5rem;
     line-height: 1.2;
@@ -1815,6 +1815,19 @@
   .news-btn {
     width: fit-content;
     align-self: flex-start;
+    margin-top: auto;
+  }
+
+  /* Estilos específicos para botones "Leer más" con estilo btn-volver-inicio */
+  .news-btn.btn-volver-inicio {
+    margin-top: 1rem;
+    justify-content: flex-start;
+  }
+
+  .news-btn.btn-volver-inicio svg {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
   }
 
   /* RESPONSIVE NEWS CARDS */
