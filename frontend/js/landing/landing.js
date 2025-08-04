@@ -171,6 +171,14 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     }
 
+    // BOTÓN: EMPEZAR AHORA (Sign Up)
+    const btnEmpezarAhora = document.getElementById("btn-empezar-ahora");
+    if (btnEmpezarAhora) {
+      btnEmpezarAhora.addEventListener("click", () => {
+        window.location.href = "/app/auth/signup.html";
+      });
+    }
+
     // BOTÓN: AGENDAR REUNIÓN
     const btnAgendarReunion = document.getElementById("btn-agendar-reunion");
     if (btnAgendarReunion) {
@@ -267,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, animationObserverOptions)
   
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content, .step-card, .partner-category")
+    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content, .step-card, .partner-category, .problem-card")
   
     animatedElements.forEach((el) => {
       el.classList.add('animate-on-scroll')
