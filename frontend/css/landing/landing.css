@@ -529,57 +529,6 @@
     text-align: left;
   }
 
-  /* TAIL SPEND PROBLEMS CARDS */
-  .tail-spend-problems {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .problem-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    text-align: left;
-  }
-
-  .problem-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .problem-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #ef4444, #dc2626);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    color: white;
-  }
-
-  .problem-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1f2937;
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-
-  .problem-description {
-    font-size: 0.9rem;
-    color: #6b7280;
-    line-height: 1.5;
-    margin: 0;
-  }
-
   .tail-spend-visual {
     flex: 1;
     display: flex;
@@ -615,24 +564,6 @@
       text-align: left;
     }
     
-    .tail-spend-problems {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    
-    .problem-card {
-      padding: 1.25rem;
-    }
-    
-    .problem-title {
-      font-size: 1rem;
-    }
-    
-    .problem-description {
-      font-size: 0.85rem;
-    }
-    
     .tail-spend-visual {
       order: -1; /* El gráfico va arriba en móvil */
     }
@@ -640,7 +571,7 @@
 
   .tail-spend-chart {
     background-color: transparent;
-    max-width: 104%; /* 80% + 30% = 104% */
+    max-width: 106%; /* 104% + 2% = 106% */
     height: auto;
     border-radius: 1rem;
     transition: transform 0.3s ease;
@@ -648,13 +579,13 @@
 
   @media (min-width: 768px) {
     .tail-spend-chart {
-      max-width: 84.5%; /* 65% + 30% = 84.5% */
+      max-width: 86.5%; /* 84.5% + 2% = 86.5% */
     }
   }
 
   @media (min-width: 1024px) {
     .tail-spend-chart {
-      max-width: 71.5%; /* 55% + 30% = 71.5% */
+      max-width: 73.5%; /* 71.5% + 2% = 73.5% */
     }
   }
 

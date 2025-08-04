@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, animationObserverOptions)
   
     // Observe elements for animation
-    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content, .step-card, .partner-category, .problem-card")
+    const animatedElements = document.querySelectorAll(".feature-card, .testimonial-card, .pricing-card, .preview-row, .tail-spend-content, .step-card, .partner-category, #perfil-usuario .preview-row")
   
     animatedElements.forEach((el) => {
       el.classList.add('animate-on-scroll')
