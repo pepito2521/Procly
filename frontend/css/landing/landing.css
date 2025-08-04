@@ -513,16 +513,23 @@
 
   .tail-spend-content {
     display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    flex-direction: row;
+    gap: 4rem;
     align-items: center;
-    text-align: center;
+    justify-content: space-between;
   }
 
-  @media (min-width: 768px) {
-    .tail-spend-content {
-      gap: 4rem;
-    }
+  .tail-spend-text {
+    flex: 1;
+    text-align: left;
+    max-width: 45%;
+  }
+
+  .tail-spend-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 
@@ -534,6 +541,24 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+  }
+
+  /* RESPONSIVE TAIL SPEND */
+  @media (max-width: 768px) {
+    .tail-spend-content {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+    
+    .tail-spend-text {
+      max-width: 100%;
+      text-align: center;
+    }
+    
+    .tail-spend-visual {
+      order: -1; /* El gráfico va arriba en móvil */
+    }
   }
 
   .tail-spend-chart {
@@ -1661,8 +1686,7 @@
     .partners {
       border-radius: 1.5rem;
     }
-  }
-
+    
     .partners-grid {
       gap: 1.5rem;
     }
@@ -1686,10 +1710,12 @@
 
   /* NEWS SECTION */
   .news-cards {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .news-card {
@@ -1698,7 +1724,7 @@
     box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     overflow: hidden;
     max-width: 350px;
-    flex: 1 1 300px;
+    width: 100%;
     display: flex;
     flex-direction: column;
   }
@@ -1741,6 +1767,25 @@
   .news-btn {
     width: fit-content;
     align-self: flex-start;
+  }
+
+  /* RESPONSIVE NEWS CARDS */
+  @media (max-width: 768px) {
+    .news-cards {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+    
+    .news-card {
+      max-width: 100%;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .news-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   /* SECTION-BASED TRANSITIONS */
