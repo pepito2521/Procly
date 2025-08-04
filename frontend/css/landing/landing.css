@@ -1711,7 +1711,7 @@
   /* NEWS SECTION */
   .news-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     justify-content: center;
     max-width: 1200px;
@@ -1785,6 +1785,12 @@
   @media (min-width: 769px) and (max-width: 1024px) {
     .news-cards {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .news-cards {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
