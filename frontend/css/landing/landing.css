@@ -1417,6 +1417,14 @@
     white-space: nowrap;
   }
 
+  .preview-description {
+    font-size: 1.25rem;
+    color: var(--gray-600);
+    max-width: 48rem;
+    margin: 0;
+    text-align: left;
+  }
+
   @media (max-width: 768px) {
     .profile-title {
       font-size: 1.75rem;
