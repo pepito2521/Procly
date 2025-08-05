@@ -60,6 +60,15 @@ app.use('/components', express.static(path.join(__dirname, '../frontend/componen
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/landing/index.html'));
 });
+
+// 📄 RUTAS PARA ARCHIVOS IMPORTANTES
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/sitemap.xml'));
+});
+app.get('/robots.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/robots.txt'));
+});
+
 app.get('/app', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/app/index.html'));
 });
