@@ -654,8 +654,8 @@
     font-size: 1.25rem;
     color: var(--gray-600);
     max-width: 48rem;
-    margin: 0;
-    text-align: left;
+    margin: 0 auto;
+    text-align: center;
   }
   
   /* Testimonials */
@@ -1409,14 +1409,11 @@
 
   /* Nueva clase específica para descripciones de perfiles */
   .profile-description {
-    font-size: 1rem;
+    font-size: 1.25rem;
     color: var(--gray-600);
-    line-height: 1.5;
-    text-align: left;
+    max-width: 48rem;
     margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    text-align: left;
   }
 
   @media (max-width: 768px) {
