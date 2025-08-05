@@ -1411,9 +1411,10 @@
   .profile-description {
     font-size: 1.25rem;
     color: var(--gray-600);
-    max-width: 48rem;
+    max-width: 100%;
     margin: 0;
     text-align: left;
+    white-space: nowrap;
   }
 
   @media (max-width: 768px) {
