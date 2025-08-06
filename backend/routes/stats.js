@@ -98,5 +98,10 @@ router.get('/porcentaje-tickets-entregados', porcentajeTicketsEntregados);
 router.get('/porcentaje-tickets-en-curso', porcentajeTicketsEnCurso);
 router.get('/porcentaje-tickets-cancelados', porcentajeTicketsCancelados);
 
+// Rutas adicionales para compatibilidad con el frontend
+router.get('/tickets-entregados-porcentaje', porcentajeTicketsEntregados);
+router.get('/tickets-cancelados-porcentaje', porcentajeTicketsCancelados);
+router.get('/tickets-en-proceso-porcentaje', porcentajeTicketsEnCurso);
+
 
 module.exports = router;
