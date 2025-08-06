@@ -250,6 +250,29 @@
   max-height: 120px;
   min-width: 0;
   position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.categoria-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+.categoria-card .info-icon,
+.categoria-card .admin-card-icon-circle,
+.categoria-card h3 {
+  position: relative;
+  z-index: 2;
 }
 
 .categoria-card:hover {
