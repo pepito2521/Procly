@@ -263,8 +263,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(0.5px);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
   z-index: 1;
 }
 
@@ -343,14 +342,15 @@
 .categoria-card h3 {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #111827;
+  color: white;
   margin: 0;
   text-align: center;
   position: absolute;
-  top: 50%;
+  bottom: 12px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   z-index: 2;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 1024px) {
