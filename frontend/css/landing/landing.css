@@ -561,7 +561,7 @@
 
   .tail-spend-chart {
     background-color: transparent;
-    max-width: 92.8%; /* 116% - 20% = 92.8% */
+    max-width: 83.5%; /* 92.8% - 10% = 83.5% */
     height: auto;
     border-radius: 1rem;
     transition: transform 0.3s ease;
@@ -569,13 +569,13 @@
 
   @media (min-width: 768px) {
     .tail-spend-chart {
-      max-width: 77.2%; /* 96.5% - 20% = 77.2% */
+      max-width: 69.5%; /* 77.2% - 10% = 69.5% */
     }
   }
 
   @media (min-width: 1024px) {
     .tail-spend-chart {
-      max-width: 66.8%; /* 83.5% - 20% = 66.8% */
+      max-width: 60.1%; /* 66.8% - 10% = 60.1% */
     }
   }
 
