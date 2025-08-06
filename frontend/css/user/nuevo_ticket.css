@@ -245,9 +245,9 @@
   justify-content: center;
   cursor: pointer;
   transition: box-shadow 0.2s, transform 0.2s;
-  height: 140px;
-  min-height: 140px;
-  max-height: 140px;
+  height: 180px;
+  min-height: 180px;
+  max-height: 180px;
   min-width: 0;
   position: relative;
   background-size: cover;
@@ -312,6 +312,7 @@
   width: 18px;
   height: 18px;
   transition: transform 0.2s;
+  color: white;
 }
 
 .info-icon:hover {
