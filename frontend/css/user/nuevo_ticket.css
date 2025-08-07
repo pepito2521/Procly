@@ -690,5 +690,39 @@ select option[disabled][selected] {
   color: #b0b0b0 !important;
 }
 
+/* BOTONES CON ESTILO NAV-ITEM */
+.btn2.nav-style {
+  width: auto;
+  min-width: fit-content;
+  height: auto;
+  line-height: normal;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  background-color: white;
+  color: #374151;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid rgba(15, 46, 46, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn2.nav-style:hover {
+  background-color: #f9fafb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn2.nav-style:active {
+  transform: translateY(1px);
+}
+
 
 
