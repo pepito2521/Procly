@@ -780,6 +780,34 @@ select option[disabled][selected] {
   padding: 12px 16px !important;
   font-weight: 500 !important;
   transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* ESTILOS PARA EL STEP UNIFICADO (PRESUPUESTO Y DATOS DE ENTREGA) */
+.form-step .form-group:first-child {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.form-step .form-group:first-child h2 {
+  margin-bottom: 1rem;
+  color: #374151;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* ESTILOS PARA EL SVG DENTRO DE LOS BOTONES */
+.btn2.nav-active svg,
+.formulario-ticket .btn2.nav-active svg,
+.form-step .btn2.nav-active svg,
+.button-group .btn2.nav-active svg {
+  width: 16px !important;
+  height: 16px !important;
+  fill: currentColor !important;
+  flex-shrink: 0 !important;
 }
 
 

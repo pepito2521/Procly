@@ -6,7 +6,7 @@ export function initNuevoTicket() {
   let prevBtn;
   let currentStep = 0;
   let categoriaSeleccionada = '';
-  let step5Fijo = false;
+  let step4Fijo = false;
 
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
@@ -16,7 +16,7 @@ export function initNuevoTicket() {
 
   //PROGRESS BAR
   function showStep(index) {
-    if (step5Fijo && index !== steps.length - 1) {
+    if (step4Fijo && index !== steps.length - 1) {
       return;
     }
     steps.forEach((step, i) => {
@@ -43,15 +43,20 @@ export function initNuevoTicket() {
   
     if (index === steps.length - 1) {
       progressBarContainer.style.setProperty('display', 'none', 'important');
-
     } else {
       progressBarContainer.style.display = "flex";
+    }
+
+    // Cargar direcciones cuando se muestre el step 3 (presupuesto y datos de entrega)
+    if (index === 2) {
+      cargarDirecciones();
     }
 
   }
 
   function updateProgress(step) {
-    const percentage = (step / (steps.length - 1)) * 100;
+    // Ahora tenemos 4 steps: 0, 1, 2, 3 (confirmación)
+    const percentage = (step / 3) * 100;
     if (progressBar) {
       progressBar.style.width = `${percentage}%`;
     }
@@ -93,7 +98,7 @@ export function initNuevoTicket() {
     });
   });
 
-  // STEP 3: PRESUPUESTO
+  // STEP 3: PRESUPUESTO Y DATOS DE ENTREGA
   const radiosLimite = document.querySelectorAll('input[name="limite"]');
   const presupuestoInputGroup = document.getElementById("presupuestoInputGroup");
 
@@ -141,7 +146,7 @@ export function initNuevoTicket() {
   showStep(currentStep);
 
 
-  // STEP 4: DIRECCION DE ENTREGA Y FECHA
+  // CARGAR DIRECCIONES PARA EL STEP 3
 
 
   async function cargarDirecciones() {
@@ -180,8 +185,6 @@ export function initNuevoTicket() {
       console.error('Error al cargar direcciones:', err);
     }
   }
-  
-  cargarDirecciones();
 
   // DATE PICKER
   flatpickr("#fecha_entrega", {
@@ -254,7 +257,7 @@ export function initNuevoTicket() {
   
 
       if (res.ok) {
-        step5Fijo = true;
+        step4Fijo = true;
         currentStep++;
         showStep(currentStep);
         mostrarConfirmacion(data.codigo_ticket);

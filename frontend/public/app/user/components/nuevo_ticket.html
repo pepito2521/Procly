@@ -135,51 +135,57 @@
         </div>
       </div>
       <div class="button-group">
-        <button type="button" class="btn2 nav-active">Siguiente</button>
+        <button type="button" class="btn2 nav-active">
+          Siguiente
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+          </svg>
+        </button>
       </div>
     </section>
 
-    <!-- STEP 3: Presupuesto -->
+    <!-- STEP 3: Presupuesto y Datos de Entrega -->
     <section class="form-step" id="step-3" style="display:none">
-      <h2>¿Querés establecer un presupuesto límite?</h2>
-      <div class="presupuesto-opciones">
-        <label class="opcion-card">
-          <input type="radio" name="limite" value="si" />
-          <span>Sí</span>
-        </label>
-        <label class="opcion-card">
-          <input type="radio" name="limite" value="no" />
-          <span>No</span>
-        </label>
-      </div>
-      
-        <div class="form-group"id="presupuestoInputGroup" style="display: none;">
+      <div class="form-group">
+        <h2>¿Querés establecer un presupuesto límite?</h2>
+        <div class="presupuesto-opciones">
+          <label class="opcion-card">
+            <input type="radio" name="limite" value="si" />
+            <span>Sí</span>
+          </label>
+          <label class="opcion-card">
+            <input type="radio" name="limite" value="no" />
+            <span>No</span>
+          </label>
+        </div>
+        
+        <div class="form-group" id="presupuestoInputGroup" style="display: none;">
           <div class="input-with-unit">
             <input type="text" name="presupuesto" placeholder="Ingresá tu presupuesto máximo (opcional)" />
-
             <span class="unidad">ARS</span>
           </div>
         </div>
-      <div class="button-group">
-        <button type="button" class="btn2 nav-active">Siguiente</button>
       </div>
-    </section>
 
-    <!-- STEP 4: Datos de entrega -->
-    <section class="form-step" id="step-4" style="display:none">
       <div class="form-group">
         <select name="direccion_entrega" id="direccion_entrega" required>
           <option value="" disabled selected hidden>Seleccioná la Dirección de Entrega</option>
         </select>                        
         <input type="text" id="fecha_entrega" class="input-fecha" name="fecha_entrega" placeholder="Seleccioná la Fecha de Entrega" required>
       </div>
+
       <div class="button-group">
-        <button type="submit" class="btn2 nav-active">Crear Ticket</button>
+        <button type="submit" class="btn2 nav-active">
+          Crear Ticket
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+          </svg>
+        </button>
       </div>
     </section>
 
-    <!-- STEP 5: Confirmación -->
-    <section class="form-step" id="step-5" style="display:none">
+    <!-- STEP 4: Confirmación -->
+    <section class="form-step" id="step-4" style="display:none">
       <div class="success-content">
         <div id="success-animation" style="width: 200px; height: 200px; margin: 0 auto 1.5rem auto;"></div>
         <h2>¡Ticket creado con éxito!</h2>
