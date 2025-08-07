@@ -147,25 +147,23 @@
     <!-- STEP 3: Presupuesto y Datos de Entrega -->
     <section class="form-step" id="step-3" style="display:none">
       <div class="form-group">
-        <h2>¿Querés establecer un presupuesto límite?</h2>
         <select name="limite" id="limite" required>
-          <option value="" disabled selected hidden>¿Querés establecer un presupuesto límite?</option>
+          <option value="" selected>¿Querés establecer un presupuesto límite?</option>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
         
-        <div class="form-group" id="presupuestoInputGroup" style="display: none;">
+        <div id="presupuestoInputGroup" style="display: none;">
           <div class="input-with-unit">
             <input type="text" name="presupuesto" placeholder="Ingresá tu presupuesto máximo (opcional)" />
             <span class="unidad">ARS</span>
           </div>
         </div>
-      </div>
 
-      <div class="form-group">
         <select name="direccion_entrega" id="direccion_entrega" required>
-          <option value="" disabled selected hidden>Seleccioná la Dirección de Entrega</option>
+          <option value="" selected>Seleccioná la Dirección de Entrega</option>
         </select>                        
+        
         <input type="text" id="fecha_entrega" class="input-fecha" name="fecha_entrega" placeholder="Seleccioná la Fecha de Entrega" required>
       </div>
 

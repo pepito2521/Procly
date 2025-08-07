@@ -60,6 +60,19 @@
   gap: 2rem;
 }
 
+/* Estilos específicos para el Step 3 */
+#step-3 .form-group {
+  gap: 2rem;
+}
+
+#step-3 .form-group > * {
+  margin-bottom: 0;
+}
+
+#step-3 .form-group > *:last-child {
+  margin-bottom: 0;
+}
+
 .form-step .form-group {
   margin-bottom: 1.5rem;
 }
@@ -152,6 +165,12 @@
 
 .form-group select option[disabled] {
   color: #9CA3AF;
+}
+
+/* Mejorar la visualización del placeholder en selects */
+.form-group select option[value=""] {
+  color: #9CA3AF;
+  font-style: italic;
 }
 
 /* EFETO DE TRANSICION ENTRE STEPS */
