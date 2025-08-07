@@ -560,11 +560,11 @@ input[type="number"] {
 }
 
 .copiar-btn {
-  margin: 0 0.5rem;
-  padding: 0.5rem;
+  margin: 0 0.25rem;
+  padding: 0.25rem;
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -572,12 +572,13 @@ input[type="number"] {
   align-items: center;
   justify-content: center;
   color: #6b7280;
+  vertical-align: middle;
 }
 
 .copiar-btn:hover {
   background-color: rgba(255, 255, 255, 1);
   color: #508991;
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 /* PROGRESS BAR */
@@ -791,6 +792,38 @@ select option[disabled][selected] {
   height: 16px !important;
   fill: currentColor !important;
   flex-shrink: 0 !important;
+}
+
+/* Estilos para campos con error */
+.form-group input.error,
+.form-group textarea.error,
+.form-group select.error {
+  border: 2px solid #d32f2f !important;
+  background-color: #fff5f5 !important;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1) !important;
+}
+
+.form-group input.error:focus,
+.form-group textarea.error:focus,
+.form-group select.error:focus {
+  border-color: #d32f2f !important;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
+}
+
+/* Estilos para contenedor de opciones con error */
+.presupuesto-opciones.error {
+  border: 2px solid #d32f2f !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  background-color: #fff5f5 !important;
+}
+
+.error-message {
+  color: #d32f2f !important;
+  font-size: 12px !important;
+  margin-top: 4px !important;
+  text-align: left !important;
+  font-weight: 500 !important;
 }
 
 

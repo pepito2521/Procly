@@ -62,14 +62,142 @@ export function initNuevoTicket() {
     }
   }
   
+  // Event listeners para botones de navegación
   document.querySelectorAll(".next-btn, .btn2").forEach(btn => {
     btn.addEventListener("click", () => {
+      // Validación específica para step 2
+      if (currentStep === 1) {
+        if (!validarStep2()) {
+          return; // No avanzar si la validación falla
+        }
+      }
+      
+      // Validación específica para step 3
+      if (currentStep === 2) {
+        if (!validarStep3()) {
+          return; // No avanzar si la validación falla
+        }
+      }
+      
       if (currentStep < steps.length - 1) {
         currentStep++;
         showStep(currentStep);
       }
     });
   });
+
+  // Función para validar step 2
+  function validarStep2() {
+    const nombreInput = document.querySelector('input[name="nombre"]');
+    const descripcionInput = document.querySelector('textarea[name="descripcion"]');
+    
+    let isValid = true;
+    
+    // Validar nombre
+    if (!nombreInput || !nombreInput.value.trim()) {
+      mostrarError(nombreInput, 'El nombre del ticket es obligatorio');
+      isValid = false;
+    } else {
+      removerError(nombreInput);
+    }
+    
+    // Validar descripción
+    if (!descripcionInput || !descripcionInput.value.trim()) {
+      mostrarError(descripcionInput, 'La descripción es obligatoria');
+      isValid = false;
+    } else {
+      removerError(descripcionInput);
+    }
+    
+    return isValid;
+  }
+
+  // Función para validar step 3
+  function validarStep3() {
+    const limiteSelect = document.querySelector('select[name="limite"]');
+    const presupuestoInput = document.querySelector('input[name="presupuesto"]');
+    const direccionSelect = document.querySelector('select[name="direccion_entrega"]');
+    const fechaInput = document.querySelector('input[name="fecha_entrega"]');
+    
+    let isValid = true;
+    
+    // Validar que se haya seleccionado un límite
+    if (!limiteSelect || !limiteSelect.value || limiteSelect.value === '') {
+      mostrarError(limiteSelect, 'Debés seleccionar si querés establecer un límite');
+      isValid = false;
+    } else {
+      removerError(limiteSelect);
+    }
+    
+    // Validar presupuesto solo si límite = "Sí"
+    if (limiteSelect && limiteSelect.value === 'si') {
+      if (!presupuestoInput || !presupuestoInput.value.trim()) {
+        mostrarError(presupuestoInput, 'El presupuesto es obligatorio cuando seleccionás "Sí"');
+        isValid = false;
+      } else {
+        removerError(presupuestoInput);
+      }
+    } else {
+      // Si límite = "No", limpiar cualquier error del presupuesto
+      if (presupuestoInput) {
+        removerError(presupuestoInput);
+      }
+    }
+    
+    // Validar dirección de entrega
+    if (!direccionSelect || !direccionSelect.value || direccionSelect.value === '') {
+      mostrarError(direccionSelect, 'La dirección de entrega es obligatoria');
+      isValid = false;
+    } else {
+      removerError(direccionSelect);
+    }
+    
+    // Validar fecha de entrega
+    if (!fechaInput || !fechaInput.value.trim()) {
+      mostrarError(fechaInput, 'La fecha de entrega es obligatoria');
+      isValid = false;
+    } else {
+      removerError(fechaInput);
+    }
+    
+    return isValid;
+  }
+
+  // Función para mostrar error
+  function mostrarError(input, mensaje) {
+    if (!input) return;
+    
+    // Remover error previo si existe
+    removerError(input);
+    
+    // Agregar clase de error
+    input.classList.add('error');
+    
+    // Crear mensaje de error
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = mensaje;
+    errorDiv.style.color = '#d32f2f';
+    errorDiv.style.fontSize = '12px';
+    errorDiv.style.marginTop = '4px';
+    errorDiv.style.textAlign = 'left';
+    
+    // Insertar después del input
+    input.parentNode.insertBefore(errorDiv, input.nextSibling);
+  }
+
+  // Función para remover error
+  function removerError(input) {
+    if (!input) return;
+    
+    input.classList.remove('error');
+    
+    // Remover mensaje de error si existe
+    const errorMessage = input.parentNode.querySelector('.error-message');
+    if (errorMessage) {
+      errorMessage.remove();
+    }
+  }
 
   document.querySelectorAll(".progress-bar-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -99,22 +227,18 @@ export function initNuevoTicket() {
   });
 
   // STEP 3: PRESUPUESTO Y DATOS DE ENTREGA
-  const radiosLimite = document.querySelectorAll('input[name="limite"]');
+  const limiteSelect = document.querySelector('select[name="limite"]');
   const presupuestoInputGroup = document.getElementById("presupuestoInputGroup");
 
-  radiosLimite.forEach(radio => {
-    radio.addEventListener("change", () => {
-      document.querySelectorAll('.opcion-card').forEach(card => card.classList.remove('selected'));
-      const card = radio.closest('.opcion-card');
-      if (card) card.classList.add('selected');
-
-      if (radio.value === "si" && radio.checked) {
+  if (limiteSelect) {
+    limiteSelect.addEventListener("change", () => {
+      if (limiteSelect.value === "si") {
         presupuestoInputGroup.style.display = "block";
-      } else if (radio.value === "no" && radio.checked) {
+      } else if (limiteSelect.value === "no") {
         presupuestoInputGroup.style.display = "none";
       }
     });
-  });
+  }
 
   const presupuestoInput = document.querySelector('input[name="presupuesto"]');
   if (presupuestoInput) {
@@ -145,6 +269,49 @@ export function initNuevoTicket() {
   }
   showStep(currentStep);
 
+  // Event listeners para limpiar errores cuando el usuario escriba
+  document.querySelectorAll('input[name="nombre"], textarea[name="descripcion"]').forEach(input => {
+    input.addEventListener('input', () => {
+      if (input.value.trim()) {
+        removerError(input);
+      }
+    });
+  });
+
+  // Event listeners para limpiar errores en step 3
+  document.querySelectorAll('input[name="presupuesto"], select[name="direccion_entrega"], select[name="limite"], input[name="fecha_entrega"]').forEach(input => {
+    input.addEventListener('input', () => {
+      if (input.value.trim()) {
+        removerError(input);
+      }
+    });
+    
+    // Para select también escuchar el evento change
+    if (input.tagName === 'SELECT') {
+      input.addEventListener('change', () => {
+        if (input.value && input.value !== '') {
+          removerError(input);
+        }
+      });
+    }
+  });
+
+  // Event listener para select de límite (validación)
+  const limiteSelectValidation = document.querySelector('select[name="limite"]');
+  if (limiteSelectValidation) {
+    limiteSelectValidation.addEventListener("change", () => {
+      // Limpiar error del select
+      removerError(limiteSelectValidation);
+      
+      // Si selecciona "No", limpiar error del presupuesto
+      if (limiteSelectValidation.value === 'no') {
+        const presupuestoInput = document.querySelector('input[name="presupuesto"]');
+        if (presupuestoInput) {
+          removerError(presupuestoInput);
+        }
+      }
+    });
+  }
 
   // CARGAR DIRECCIONES PARA EL STEP 3
 

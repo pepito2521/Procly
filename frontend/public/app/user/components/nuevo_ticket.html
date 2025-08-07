@@ -148,16 +148,11 @@
     <section class="form-step" id="step-3" style="display:none">
       <div class="form-group">
         <h2>¿Querés establecer un presupuesto límite?</h2>
-        <div class="presupuesto-opciones">
-          <label class="opcion-card">
-            <input type="radio" name="limite" value="si" />
-            <span>Sí</span>
-          </label>
-          <label class="opcion-card">
-            <input type="radio" name="limite" value="no" />
-            <span>No</span>
-          </label>
-        </div>
+        <select name="limite" id="limite" required>
+          <option value="" disabled selected hidden>¿Querés establecer un presupuesto límite?</option>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
         
         <div class="form-group" id="presupuestoInputGroup" style="display: none;">
           <div class="input-with-unit">
@@ -188,12 +183,11 @@
     <section class="form-step" id="step-4" style="display:none">
       <div class="success-content">
         <div id="success-animation" style="width: 200px; height: 200px; margin: 0 auto 1.5rem auto;"></div>
-        <h2>¡Ticket <strong id="codigoTicketTexto">...</strong> creado con éxito!</h2>
-        <span id="copiarIcono" class="copiar-btn" onclick="copiarCodigoTicket()" data-codigo="">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+        <h2>¡Ticket <strong id="codigoTicketTexto">...</strong> creado con éxito! <span id="copiarIcono" class="copiar-btn" onclick="copiarCodigoTicket()" data-codigo="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 256 256">
             <path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path>
           </svg>
-        </span>
+        </span></h2>
         <div style="margin-top: 2rem;">
           <button type="button" class="btn2 nav-active" id="verMisTicketsBtn">
             Ver mis tickets
