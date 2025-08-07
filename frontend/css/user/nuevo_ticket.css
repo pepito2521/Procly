@@ -574,9 +574,11 @@ input[type="number"] {
 
 /* BOTONES DE PASO ENTRE STEPS & SUBMIT*/
 
-.button-group {
-  display: flex;
-  justify-content: flex-end;
+.button-group,
+.formulario-ticket .button-group,
+.form-step .button-group {
+  display: flex !important;
+  justify-content: flex-end !important;
 }
 
 .submit-btn-container {
@@ -726,7 +728,9 @@ select option[disabled][selected] {
 
 /* BOTONES CON ESTILO NAV-ITEM ACTIVE */
 .btn2.nav-active,
-.nuevo-ticket-container .btn2.nav-active {
+.nuevo-ticket-container .btn2.nav-active,
+.formulario-ticket .btn2.nav-active,
+.form-step .btn2.nav-active {
   width: auto !important;
   min-width: fit-content !important;
   height: auto !important;
@@ -761,6 +765,21 @@ select option[disabled][selected] {
 .nuevo-ticket-container .btn2.nav-active:active {
   transform: translateY(0px) !important;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* CLASE ESPECÍFICA PARA BOTONES SIGUIENTE Y CREAR TICKET */
+.btn2.nav-active,
+.formulario-ticket .btn2.nav-active,
+.form-step .btn2.nav-active,
+.button-group .btn2.nav-active {
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
 }
 
 
