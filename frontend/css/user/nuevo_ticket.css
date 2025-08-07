@@ -506,53 +506,25 @@ input[type="number"] {
   padding: 2rem;
 }
 
-.ticket-confirmacion-flex {
+/* ESTILOS PARA EL TÍTULO CON CÓDIGO DE TICKET */
+.success-content h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-/* ESTILOS MEJORADOS PARA EL CÓDIGO DEL TICKET */
-.ticket-code {
-  background: linear-gradient(135deg, #3E8914 0%, #508991 100%);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-family: 'Courier New', monospace;
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 4px 12px rgba(62, 137, 20, 0.3);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  display: inline-block;
-  min-width: 200px;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   text-align: center;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
 }
 
-.ticket-code::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
+.success-content h2 strong {
+  color: #508991;
+  font-weight: 700;
 }
 
-.ticket-code:hover::before {
-  left: 100%;
-}
-
-.ticket-code:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(62, 137, 20, 0.4);
+/* ESTILOS PARA EL CÓDIGO DE TICKET EN EL TÍTULO */
+#codigoTicketTexto {
+  color: #508991;
+  font-weight: 700;
 }
 
 #copiarIcono svg {
@@ -588,18 +560,24 @@ input[type="number"] {
 }
 
 .copiar-btn {
-  margin: 0 1rem;
-  padding: 0.5rem 0.5rem;
-  background-color: #F3F4F6;
-  border: none;
+  margin: 0 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e5e7eb;
   border-radius: 6px;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
 }
 
 .copiar-btn:hover {
-  background-color: #E5E7EB;
+  background-color: rgba(255, 255, 255, 1);
+  color: #508991;
+  transform: scale(1.05);
 }
 
 /* PROGRESS BAR */
@@ -789,7 +767,6 @@ select option[disabled][selected] {
 .form-step .form-group:first-child {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
 }
 
 .form-step .form-group:first-child h2 {
@@ -797,6 +774,12 @@ select option[disabled][selected] {
   color: #374151;
   font-size: 1.25rem;
   font-weight: 600;
+}
+
+/* ESTILOS PARA EL BOTÓN "VER MIS TICKETS" EN EL STEP DE CONFIRMACIÓN */
+.success-content .btn2.nav-active {
+  margin: 0 auto;
+  display: block;
 }
 
 /* ESTILOS PARA EL SVG DENTRO DE LOS BOTONES */

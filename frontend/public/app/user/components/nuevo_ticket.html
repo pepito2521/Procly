@@ -188,17 +188,19 @@
     <section class="form-step" id="step-4" style="display:none">
       <div class="success-content">
         <div id="success-animation" style="width: 200px; height: 200px; margin: 0 auto 1.5rem auto;"></div>
-        <h2>¡Ticket creado con éxito!</h2>
-        <div class="ticket-confirmacion-flex">
-          <span id="codigoTicketTexto" class="ticket-code">...</span>
-          <span id="copiarIcono" class="copiar-btn" onclick="copiarCodigoTicket()" data-codigo="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-              <path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path>
-            </svg>
-          </span>
-        </div>
+        <h2>¡Ticket <strong id="codigoTicketTexto">...</strong> creado con éxito!</h2>
+        <span id="copiarIcono" class="copiar-btn" onclick="copiarCodigoTicket()" data-codigo="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path>
+          </svg>
+        </span>
         <div style="margin-top: 2rem;">
-          <button type="button" class="btn2 sm" id="verMisTicketsBtn">Ver mis tickets</button>
+          <button type="button" class="btn2 nav-active" id="verMisTicketsBtn">
+            Ver mis tickets
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
