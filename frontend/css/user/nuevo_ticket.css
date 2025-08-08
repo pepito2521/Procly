@@ -62,7 +62,7 @@
 
 /* Estilos específicos para el Step 3 */
 #step-3 .form-group {
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 #step-3 .form-group > * {
@@ -107,6 +107,13 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.form-group input:hover,
+.form-group input:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
 .form-group textarea {
   height: 120px;
   resize: none;
@@ -123,6 +130,13 @@
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group textarea:hover,
+.form-group textarea:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  outline: none;
 }
 
 .form-group select {

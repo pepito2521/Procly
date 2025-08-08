@@ -50,6 +50,10 @@ export function initNuevoTicket() {
     // Cargar direcciones cuando se muestre el step 3 (presupuesto y datos de entrega)
     if (index === 2) {
       cargarDirecciones();
+      // Configurar los event listeners para los selects
+      setTimeout(() => {
+        setupSelectListeners();
+      }, 100);
     }
 
   }
@@ -345,11 +349,46 @@ export function initNuevoTicket() {
           option.textContent = `${dir.nombre} – ${dir.direccion}`;
           select.appendChild(option);
         });
+
+        // Agregar event listener para el select de direcciones
+        select.addEventListener('change', function() {
+          if (this.value && this.value !== '') {
+            this.setAttribute('data-selected', 'true');
+          } else {
+            this.removeAttribute('data-selected');
+          }
+        });
       } else {
         console.error('Error al traer direcciones:', data.error);
       }
     } catch (err) {
       console.error('Error al cargar direcciones:', err);
+    }
+  }
+
+  // Agregar event listeners para los selects cuando se carga el step 3
+  function setupSelectListeners() {
+    const limiteSelect = document.getElementById('limite');
+    const direccionSelect = document.getElementById('direccion_entrega');
+    
+    if (limiteSelect) {
+      limiteSelect.addEventListener('change', function() {
+        if (this.value && this.value !== '') {
+          this.setAttribute('data-selected', 'true');
+        } else {
+          this.removeAttribute('data-selected');
+        }
+      });
+    }
+    
+    if (direccionSelect) {
+      direccionSelect.addEventListener('change', function() {
+        if (this.value && this.value !== '') {
+          this.setAttribute('data-selected', 'true');
+        } else {
+          this.removeAttribute('data-selected');
+        }
+      });
     }
   }
 
