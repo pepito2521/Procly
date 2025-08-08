@@ -1,49 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuario - Procly</title>
-    
-    <!-- Preload de recursos críticos -->
-    <link rel="preload" href="/css/style.css" as="style">
-    <link rel="preload" href="/css/user/usuario.css" as="style">
-    <link rel="preload" href="/js/supabaseClient.js" as="script">
-    
-    <!-- Preload de fuentes críticas -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    
-    <!-- DNS prefetch para recursos externos -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link rel="dns-prefetch" href="https://www.procly.net">
-    
-    <!-- Estilos críticos inline -->
-    <style>
-        /* Estilos críticos para el primer render */
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #F9F9F9;
-        }
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .content-wrapper {
-            flex: 1;
-            padding: 2rem;
-        }
-    </style>
-    
-    <!-- Estilos no críticos -->
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/user/usuario.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/assets/logo/icon_32.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Usuario | PROCLY</title>
+  <link rel="icon" type="image/png" href="/assets/logo/icon_32.png" />
+  <link rel="apple-touch-icon" href="/assets/logo/icon_32.png" />
+  <link rel="shortcut icon" href="/assets/logo/icon_32.png" />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/user/nuevo_ticket.css">
+  <link rel="stylesheet" href="/css/user/mis_tickets.css">
+  <link rel="stylesheet" href="/css/user/manual.css">
+  <link rel="stylesheet" href="/css/user/detalle_ticket.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <meta name="robots" content="noindex, nofollow" />
 </head>
 <body>
   <div class="sidebar-container">
@@ -121,84 +94,16 @@
           </div>
         </header>
         <main class="content-area">
-            <div id="dynamicContent">
-                <div class="content-card">
-                  <div class="card-header">
-                    <div class="card-icon-container">
-                      <img src="/assets/icons/plus-circle.svg" alt="Nuevo Ticket" class="card-icon" loading="lazy" decoding="async">
-                    </div>
-                    <h3 class="card-title">Nuevo Ticket</h3>
-                  </div>
-                  <p class="card-description">Creá un nuevo ticket de compra</p>
-                  <div class="card-content">
-                    <button class="action-button" onclick="cargarNuevoTicket()">
-                      Crear Ticket
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="content-card">
-                  <div class="card-header">
-                    <div class="card-icon-container">
-                      <img src="/assets/icons/list.svg" alt="Mis Tickets" class="card-icon" loading="lazy" decoding="async">
-                    </div>
-                    <h3 class="card-title">Mis Tickets</h3>
-                  </div>
-                  <p class="card-description">Revisá el estado de tus tickets</p>
-                  <div class="card-content">
-                    <button class="action-button" onclick="cargarMisTickets()">
-                      Ver Tickets
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="content-card">
-                  <div class="card-header">
-                    <div class="card-icon-container">
-                      <img src="/assets/icons/book.svg" alt="Manual" class="card-icon" loading="lazy" decoding="async">
-                    </div>
-                    <h3 class="card-title">Manual</h3>
-                  </div>
-                  <p class="card-description">Consultá la documentación</p>
-                  <div class="card-content">
-                    <button class="action-button" onclick="cargarManual()">
-                      Ver Manual
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-            </div>
+            <div id="dynamicContent"></div>
         </main>
     </div>
     <!-- WHATSAPP 
     <a href="https://wa.me/34643615319" class="whatsapp-float" target="_blank" aria-label="Chatear por WhatsApp">
         <img src="/assets/img/whatsapp2.svg" alt="WhatsApp" />
     </a> -->
-    <!-- Scripts optimizados -->
-    <script type="module" src="/js/supabaseClient.js"></script>
     <script type="module" src="/js/user/usuario.js"></script>
-    
-    <!-- Scripts no críticos cargados de forma asíncrona -->
-    <script async src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
-    <script async src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js"></script>
-    
-    <!-- Service Worker para cache -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => console.log('SW registered'))
-                    .catch(error => console.log('SW registration failed'));
-            });
-        }
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 </body>
 </html>
