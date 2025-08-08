@@ -8,11 +8,6 @@
     <!-- Preload de recursos críticos -->
     <link rel="preload" href="/css/style.css" as="style">
     <link rel="preload" href="/css/user/usuario.css" as="style">
-    <link rel="preload" href="/css/user/nuevo_ticket.css" as="style">
-    <link rel="preload" href="/css/user/mis_tickets.css" as="style">
-    <link rel="preload" href="/css/user/detalle_ticket.css" as="style">
-    <link rel="preload" href="/css/user/manual.css" as="style">
-    <link rel="preload" href="/css/sidebar.css" as="style">
     <link rel="preload" href="/js/supabaseClient.js" as="script">
     
     <!-- Preload de fuentes críticas -->
@@ -46,12 +41,6 @@
     <!-- Estilos no críticos -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/user/usuario.css">
-    <link rel="stylesheet" href="/css/user/nuevo_ticket.css">
-    <link rel="stylesheet" href="/css/user/mis_tickets.css">
-    <link rel="stylesheet" href="/css/user/detalle_ticket.css">
-    <link rel="stylesheet" href="/css/user/manual.css">
-    <link rel="stylesheet" href="/css/sidebar.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/logo/icon_32.png">
@@ -132,7 +121,61 @@
           </div>
         </header>
         <main class="content-area">
-            <div id="dynamicContent"></div>
+            <div id="dynamicContent">
+                <div class="content-card">
+                  <div class="card-header">
+                    <div class="card-icon-container">
+                      <img src="/assets/icons/plus-circle.svg" alt="Nuevo Ticket" class="card-icon" loading="lazy" decoding="async">
+                    </div>
+                    <h3 class="card-title">Nuevo Ticket</h3>
+                  </div>
+                  <p class="card-description">Creá un nuevo ticket de compra</p>
+                  <div class="card-content">
+                    <button class="action-button" onclick="cargarNuevoTicket()">
+                      Crear Ticket
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="content-card">
+                  <div class="card-header">
+                    <div class="card-icon-container">
+                      <img src="/assets/icons/list.svg" alt="Mis Tickets" class="card-icon" loading="lazy" decoding="async">
+                    </div>
+                    <h3 class="card-title">Mis Tickets</h3>
+                  </div>
+                  <p class="card-description">Revisá el estado de tus tickets</p>
+                  <div class="card-content">
+                    <button class="action-button" onclick="cargarMisTickets()">
+                      Ver Tickets
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="content-card">
+                  <div class="card-header">
+                    <div class="card-icon-container">
+                      <img src="/assets/icons/book.svg" alt="Manual" class="card-icon" loading="lazy" decoding="async">
+                    </div>
+                    <h3 class="card-title">Manual</h3>
+                  </div>
+                  <p class="card-description">Consultá la documentación</p>
+                  <div class="card-content">
+                    <button class="action-button" onclick="cargarManual()">
+                      Ver Manual
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+            </div>
         </main>
     </div>
     <!-- WHATSAPP 
