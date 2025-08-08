@@ -1039,31 +1039,32 @@
   }
   
   .footer-bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--gray-800);
-    overflow: hidden;
-  }
-  
-  @media (min-width: 768px) {
-    .footer-bottom {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0;
-      min-height: 0;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gray-800);
+  overflow: hidden;
+}
 
-  @media (max-width: 767px) {
-    .footer-bottom {
-      text-align: center;
-      gap: 1.5rem;
-    }
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    min-height: 0;
   }
+}
+
+@media (max-width: 767px) {
+  .footer-bottom {
+    text-align: center;
+    gap: 1.5rem;
+  }
+}
   
   .footer-copyright {
     font-size: 0.875rem;
@@ -1086,64 +1087,7 @@
     }
   }
   
-  .footer-legal {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    flex: 1;
-    min-width: 0;
-  }
-  
-  .footer-legal-link {
-    color: var(--gray-400);
-    text-decoration: none;
-    font-size: 0.875rem;
-    transition: color 0.2s;
-    white-space: nowrap;
-  }
-  
-  .footer-legal-link:hover {
-    color: white;
-  }
 
-  @media (max-width: 767px) {
-    .footer-legal {
-      flex-direction: column;
-      gap: 0.75rem;
-      align-items: center;
-      justify-content: center;
-      flex: none;
-    }
-    
-    .footer-legal-link {
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .footer-legal {
-      gap: 0.5rem;
-    }
-    
-    .footer-legal-link {
-      font-size: 0.75rem;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .footer-legal {
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .footer-legal {
-      gap: 1.5rem;
-    }
-  }
   
   /* Smooth scrolling */
   html {
