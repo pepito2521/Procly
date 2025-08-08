@@ -48,8 +48,14 @@ self.addEventListener('fetch', event => {
         
         // Si no está en cache, hacer fetch y cachear
         return fetch(event.request).then(response => {
-          // No cachear requests no exitosos
+          // No cachear requests no exitosos o no soportados
           if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          
+          // No cachear requests de chrome-extension o POST
+          if (event.request.url.startsWith('chrome-extension://') || 
+              event.request.method === 'POST') {
             return response;
           }
           
@@ -59,6 +65,9 @@ self.addEventListener('fetch', event => {
           caches.open(CACHE_NAME)
             .then(cache => {
               cache.put(event.request, responseToCache);
+            })
+            .catch(error => {
+              console.log('Error cacheando:', error);
             });
           
           return response;
