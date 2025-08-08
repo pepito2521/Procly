@@ -69,6 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Hacer la función global para que funcione desde onclick
+  window.cargarSeccion = cargarSeccion;
+
   function marcarActivo(seccion) {
     document.querySelectorAll('.nav-item').forEach(btn => {
       btn.classList.toggle('active', btn.getAttribute('data-section') === seccion);
@@ -146,6 +149,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (nombreElem) nombreElem.textContent = nombre || 'Usuario';
     }
 
+  // Inicializar la aplicación
+  inicializarSidebar();
+  inicializarLogoutDirecto();
+  mostrarNombreUsuario();
+  
+  // Cargar dashboard inicial
+  cargarDashboardInicial();
+  
+  // Event listeners para navegación
   document.querySelectorAll('.nav-item').forEach(btn => {
     btn.addEventListener('click', () => {
       const seccion = btn.getAttribute('data-section');
@@ -153,8 +165,70 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  cargarSeccion('nuevo_ticket');
-  inicializarSidebar();
-  inicializarLogoutDirecto();
-  mostrarNombreUsuario();
+  // Función para cargar el dashboard inicial
+  function cargarDashboardInicial() {
+    const dashboardHTML = `
+      <div class="content-card" onclick="cargarSeccion('nuevo_ticket')">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <img src="/assets/icons/plus-circle.svg" alt="Nuevo Ticket" class="card-icon" loading="lazy" decoding="async">
+          </div>
+          <h3 class="card-title">Nuevo Ticket</h3>
+        </div>
+        <p class="card-description">Creá un nuevo ticket de compra</p>
+        <div class="card-content">
+          <button class="action-button">
+            Crear Ticket
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="content-card" onclick="cargarSeccion('mis_tickets')">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <img src="/assets/icons/list.svg" alt="Mis Tickets" class="card-icon" loading="lazy" decoding="async">
+          </div>
+          <h3 class="card-title">Mis Tickets</h3>
+        </div>
+        <p class="card-description">Revisá el estado de tus tickets</p>
+        <div class="card-content">
+          <button class="action-button">
+            Ver Tickets
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="content-card" onclick="cargarSeccion('manual')">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <img src="/assets/icons/book.svg" alt="Manual" class="card-icon" loading="lazy" decoding="async">
+          </div>
+          <h3 class="card-title">Manual</h3>
+        </div>
+        <p class="card-description">Consultá la documentación</p>
+        <div class="card-content">
+          <button class="action-button">
+            Ver Manual
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    `;
+    
+    dynamicContent.innerHTML = dashboardHTML;
+    pageTitle.textContent = "Dashboard";
+    document.getElementById("pageIcon").innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+      </svg>
+    `;
+  }
 });
