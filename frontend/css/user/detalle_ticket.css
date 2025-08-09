@@ -145,12 +145,12 @@
   height: 4px;
   background-color: #ddd;
   border-radius: 20px;
-  position: relative;
-  top: 22px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1;
   flex: 1;
   margin: 0 1rem;
-  transform: translateY(-2px);
 }
 
 .bloque-paso:last-child .linea-vertical {
