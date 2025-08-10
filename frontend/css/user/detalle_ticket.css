@@ -67,8 +67,8 @@
   .linea-vertical {
     width: 4px;
     height: 30px;
-    position: relative;
-    top: auto;
+    position: flex-start;
+    margin-top: 24px;
     left: auto;
     transform: none;
   }
@@ -235,8 +235,7 @@
   width: 100%;
   flex: 1 1 0;
   display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;               
+  flex-direction: column;           
   padding: 1rem;
   color: #090B0A;
   background-color: white;
@@ -313,7 +312,7 @@
   flex-direction: column;
   align-items: left;
   justify-content: center;
-  min-height: 150px;
+  min-height: 100px;
   text-align: left;
 }
 
