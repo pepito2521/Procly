@@ -181,19 +181,28 @@
   color: #9CA3AF;
 }
 
-/* Mejorar la visualización del placeholder en selects */
-.form-group select option[value=""] {
-  color: #9CA3AF;
-  font-style: italic;
-}
-
 /* Estilos para selects con valor seleccionado */
 .form-group select {
-  color: #9CA3AF; /* Color por defecto (placeholder) */
+  color: #9CA3AF !important; /* Color por defecto (placeholder) */
 }
 
 .form-group select[data-selected="true"] {
-  color: #090B0A; /* Color cuando hay valor seleccionado */
+  color: #090B0A !important; /* Color cuando hay valor seleccionado */
+}
+
+/* Estilos más específicos para asegurar que funcionen */
+#step-3 .form-group select {
+  color: #9CA3AF !important;
+}
+
+#step-3 .form-group select[data-selected="true"] {
+  color: #090B0A !important;
+}
+
+/* DEBUG: Estilo temporal para verificar que el CSS se aplique */
+.form-group select[data-selected="true"] {
+  background-color: #e8f5e8 !important; /* Verde claro para debug */
+  border: 2px solid #4CAF50 !important; /* Borde verde para debug */
 }
 
 /* Asegurar que las opciones tengan el color correcto */
@@ -877,6 +886,7 @@ select option[disabled][selected] {
   text-align: left !important;
   font-weight: 500 !important;
 }
+
 
 
 
