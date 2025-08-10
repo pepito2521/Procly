@@ -368,25 +368,45 @@ export function initNuevoTicket() {
 
   // Agregar event listeners para los selects cuando se carga el step 3
   function setupSelectListeners() {
+    console.log('🔧 Configurando event listeners para selects...');
     const limiteSelect = document.getElementById('limite');
     const direccionSelect = document.getElementById('direccion_entrega');
     
+    console.log('📋 Select límite encontrado:', limiteSelect);
+    console.log('📋 Select dirección encontrado:', direccionSelect);
+    
     if (limiteSelect) {
+      // Verificar estado inicial
+      if (limiteSelect.value && limiteSelect.value !== '') {
+        limiteSelect.setAttribute('data-selected', 'true');
+      }
+      
       limiteSelect.addEventListener('change', function() {
+        console.log('🔍 Select límite cambió:', this.value);
         if (this.value && this.value !== '') {
           this.setAttribute('data-selected', 'true');
+          console.log('✅ Atributo data-selected agregado');
         } else {
           this.removeAttribute('data-selected');
+          console.log('❌ Atributo data-selected removido');
         }
       });
     }
     
     if (direccionSelect) {
+      // Verificar estado inicial
+      if (direccionSelect.value && direccionSelect.value !== '') {
+        direccionSelect.setAttribute('data-selected', 'true');
+      }
+      
       direccionSelect.addEventListener('change', function() {
+        console.log('🔍 Select dirección cambió:', this.value);
         if (this.value && this.value !== '') {
           this.setAttribute('data-selected', 'true');
+          console.log('✅ Atributo data-selected agregado');
         } else {
           this.removeAttribute('data-selected');
+          console.log('❌ Atributo data-selected removido');
         }
       });
     }

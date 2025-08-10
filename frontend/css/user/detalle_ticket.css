@@ -84,7 +84,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 2rem;
+  padding: 0.5rem 2rem;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -219,7 +219,7 @@
   display: flex;
   flex-direction: column;
   margin: 0;                
-  padding: 2rem;
+  padding: 0.5rem 2rem;
   color: #090B0A;
   background-color: white;
   border: none;

@@ -187,6 +187,25 @@
   font-style: italic;
 }
 
+/* Estilos para selects con valor seleccionado */
+.form-group select {
+  color: #9CA3AF; /* Color por defecto (placeholder) */
+}
+
+.form-group select[data-selected="true"] {
+  color: #090B0A; /* Color cuando hay valor seleccionado */
+}
+
+/* Asegurar que las opciones tengan el color correcto */
+.form-group select option {
+  color: #090B0A;
+}
+
+.form-group select option[value=""] {
+  color: #9CA3AF;
+  font-style: italic;
+}
+
 /* EFETO DE TRANSICION ENTRE STEPS */
 
 
