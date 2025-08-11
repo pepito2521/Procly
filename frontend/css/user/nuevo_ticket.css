@@ -186,10 +186,34 @@
   color: #090B0A !important; /* Color cuando hay valor seleccionado */
 }
 
+/* Asegurar que el texto del select sea visible */
+.form-group select {
+  line-height: 1.2 !important;
+  min-height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Estilos específicos para el texto interno del select */
+.form-group select option {
+  padding: 8px 12px !important;
+  line-height: 1.2 !important;
+}
+
 /* DEBUG: Estilo temporal para verificar que el CSS se aplique */
 .form-group select[data-selected="true"] {
   background-color: #e8f5e8 !important; /* Verde claro para debug */
   border: 2px solid #4CAF50 !important; /* Borde verde para debug */
+}
+
+/* Forzar que el texto del select sea visible */
+.form-group select {
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 /* Asegurar que las opciones tengan el color correcto */
@@ -298,50 +322,17 @@
   max-height: 180px;
   min-width: 0;
   position: relative;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   overflow: hidden;
 }
 
-/* FALLBACK IMAGES WEBP */
-@supports not (background-image: url('/assets/img/categorias/webp/tecnologia.webp')) {
-  .categoria-card[data-categoria="Tecnologia"] {
-    background-image: url('/assets/img/categorias/tecnologia.jpg') !important;
-  }
-  .categoria-card[data-categoria="Software"] {
-    background-image: url('/assets/img/categorias/software.jpg') !important;
-  }
-  .categoria-card[data-categoria="Merchandising"] {
-    background-image: url('/assets/img/categorias/merchandising.jpg') !important;
-  }
-  .categoria-card[data-categoria="Libreria"] {
-    background-image: url('/assets/img/categorias/libreria.jpg') !important;
-  }
-  .categoria-card[data-categoria="Eventos"] {
-    background-image: url('/assets/img/categorias/eventos.jpg') !important;
-  }
-  .categoria-card[data-categoria="Catering"] {
-    background-image: url('/assets/img/categorias/catering.jpg') !important;
-  }
-  .categoria-card[data-categoria="EPP"] {
-    background-image: url('/assets/img/categorias/epp.jpg') !important;
-  }
-  .categoria-card[data-categoria="Limpieza"] {
-    background-image: url('/assets/img/categorias/limpieza.jpg') !important;
-  }
-  .categoria-card[data-categoria="Supermercado"] {
-    background-image: url('/assets/img/categorias/supermercado.jpg') !important;
-  }
-  .categoria-card[data-categoria="Salud"] {
-    background-image: url('/assets/img/categorias/salud.png') !important;
-  }
-  .categoria-card[data-categoria="Courier"] {
-    background-image: url('/assets/img/categorias/courier.jpg') !important;
-  }
-  .categoria-card[data-categoria="Otros"] {
-    background-image: url('/assets/img/categorias/otros.jpg') !important;
-  }
+.categoria-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .categoria-card::before {
@@ -357,7 +348,7 @@
 
 .categoria-card .info-icon {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
 }
 
 .categoria-card:hover {
@@ -393,7 +384,7 @@
   top: 8px;
   left: 8px;
   cursor: pointer;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -438,7 +429,7 @@
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2;
+  z-index: 3;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
