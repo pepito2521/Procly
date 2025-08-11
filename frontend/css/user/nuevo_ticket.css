@@ -528,7 +528,7 @@ input[type="number"] {
   background-position: right 1rem center;
   background-size: 16px;
   border: none;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
 }
 
 /* Estilos de placeholder para el datepicker */
@@ -907,7 +907,7 @@ input[type="number"] {
   background-position: right 1rem center;
   background-size: 16px;
   border: none;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
 }
 
 .form-group select:hover {
