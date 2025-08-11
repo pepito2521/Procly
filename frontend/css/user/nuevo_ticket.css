@@ -139,92 +139,7 @@
   outline: none;
 }
 
-.form-group select {
-  height: 40px;
-  line-height: 40px;
-  width: 100%;
-  padding: 1.5rem;
-  box-sizing: border-box;
-  color: #9CA3AF; /* Color por defecto (placeholder) */
-  background-color: white;
-  border: none;
-  resize: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: 'Inter', sans-serif;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  background-size: 1rem;
-  padding-right: 2.5rem;
-  display: flex;
-  align-items: center;
-}
 
-.form-group select:hover,
-.form-group select:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-  outline: none;
-}
-
-.form-group select option {
-  color: #090B0A;
-}
-
-.form-group select option[disabled] {
-  color: #9CA3AF;
-}
-
-/* Estilos para selects con valor seleccionado */
-.form-group select[data-selected="true"] {
-  color: #090B0A !important; /* Color cuando hay valor seleccionado */
-}
-
-/* Asegurar que el texto del select sea visible */
-.form-group select {
-  line-height: 1.2 !important;
-  min-height: 40px !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Estilos específicos para el texto interno del select */
-.form-group select option {
-  padding: 8px 12px !important;
-  line-height: 1.2 !important;
-}
-
-/* DEBUG: Estilo temporal para verificar que el CSS se aplique */
-.form-group select[data-selected="true"] {
-  background-color: #e8f5e8 !important; /* Verde claro para debug */
-  border: 2px solid #4CAF50 !important; /* Borde verde para debug */
-}
-
-/* Forzar que el texto del select sea visible */
-.form-group select {
-  font-size: 1rem !important;
-  font-weight: 400 !important;
-  text-align: left !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-}
-
-/* Asegurar que las opciones tengan el color correcto */
-.form-group select option {
-  color: #090B0A;
-}
-
-.form-group select option[value=""] {
-  color: #9CA3AF;
-  font-style: italic;
-}
 
 /* EFETO DE TRANSICION ENTRE STEPS */
 
@@ -951,7 +866,7 @@ select option[disabled][selected] {
 }
 
 .form-group select option:hover {
-  background-color: #F8FFF8;
+  background-color: #F3F4F6;
 }
 
 /* Estado de error */
@@ -980,30 +895,11 @@ select option[disabled][selected] {
 /* Estado cuando hay valor seleccionado */
 .form-group select[data-selected="true"] {
   color: #090B0A !important;
+  border-color: #6B7280;
+  background-color: #F9FAFB;
 }
 
-/* Asegurar que el texto del select se muestre */
-.form-group select {
-  color: #9CA3AF;
-}
 
-.form-group select:not([data-selected="true"]) {
-  color: #9CA3AF;
-}
-
-.form-group select[data-selected="true"] {
-  color: #090B0A !important;
-}
-
-/* Estilos específicos para el texto del select */
-.form-group select option:checked {
-  color: #374151;
-  font-weight: 500;
-}
-
-.form-group select option:hover {
-  background-color: #F3F4F6;
-}
 
 /* Responsive */
 @media (max-width: 768px) {
