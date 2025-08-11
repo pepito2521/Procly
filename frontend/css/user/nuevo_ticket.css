@@ -914,9 +914,7 @@ select option[disabled][selected] {
   box-sizing: border-box;
   color: #9CA3AF;
   background-color: white;
-  border: 2px solid #E8F5E8;
-  border-bottom: 2px solid #4CAF50;
-  border-left: 2px solid #4CAF50;
+  border: 2px solid #E5E7EB;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
@@ -935,16 +933,16 @@ select option[disabled][selected] {
 }
 
 .form-group select:hover {
-  border-color: #4CAF50;
-  background-color: #F8FFF8;
-  box-shadow: 0 2px 4px rgba(76, 175, 80, 0.1);
+  border-color: #9CA3AF;
+  background-color: #F9FAFB;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .form-group select:focus {
   outline: none;
-  border-color: #4CAF50;
-  background-color: #F8FFF8;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  border-color: #6B7280;
+  background-color: #F9FAFB;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
 }
 
 .form-group select option {
@@ -973,8 +971,8 @@ select option[disabled][selected] {
 }
 
 .form-group select option:checked {
-  background-color: #E8F5E8;
-  color: #4CAF50;
+  background-color: #F3F4F6;
+  color: #374151;
   font-weight: 500;
 }
 
@@ -986,18 +984,8 @@ select option[disabled][selected] {
 /* Estado cuando hay valor seleccionado */
 .form-group select[data-selected="true"] {
   color: #090B0A !important;
-  border-color: #4CAF50;
-  background-color: #F8FFF8;
-}
-
-/* Forzar que se muestre el texto seleccionado */
-.form-group select option {
-  color: #090B0A;
-}
-
-.form-group select option[value=""] {
-  color: #9CA3AF;
-  font-style: italic;
+  border-color: #6B7280;
+  background-color: #F9FAFB;
 }
 
 /* Asegurar que el texto del select se muestre */
@@ -1015,12 +1003,12 @@ select option[disabled][selected] {
 
 /* Estilos específicos para el texto del select */
 .form-group select option:checked {
-  color: #090B0A;
+  color: #374151;
   font-weight: 500;
 }
 
 .form-group select option:hover {
-  background-color: #F8FFF8;
+  background-color: #F3F4F6;
 }
 
 /* Responsive */
