@@ -219,11 +219,21 @@
     <!-- STEP 3: Presupuesto y Datos de Entrega -->
     <section class="form-step" id="step-3" style="display:none">
       <div class="form-group">
-        <select name="limite" id="limite" required>
-          <option value="" selected>¿Querés establecer un presupuesto límite?</option>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
+        <div class="custom-select" id="limite" data-selected="false">
+          <div class="custom-select__trigger">
+            <span class="custom-select__selected">¿Querés establecer un presupuesto límite?</span>
+            <div class="custom-select__arrow"></div>
+          </div>
+          <div class="custom-select__options">
+            <span class="custom-select__option" data-value="si">Sí</span>
+            <span class="custom-select__option" data-value="no">No</span>
+          </div>
+          <select name="limite" style="display: none;">
+            <option value="" selected>¿Querés establecer un presupuesto límite?</option>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+          </select>
+        </div>
         
         <div id="presupuestoInputGroup" style="display: none;">
           <div class="input-with-unit">
@@ -232,9 +242,18 @@
           </div>
         </div>
 
-        <select name="direccion_entrega" id="direccion_entrega" required>
-          <option value="" selected>Seleccioná la Dirección de Entrega</option>
-        </select>                        
+        <div class="custom-select" id="direccion_entrega" data-selected="false">
+          <div class="custom-select__trigger">
+            <span class="custom-select__selected">Seleccioná la Dirección de Entrega</span>
+            <div class="custom-select__arrow"></div>
+          </div>
+          <div class="custom-select__options">
+            <!-- Las opciones se cargarán dinámicamente -->
+          </div>
+          <select name="direccion_entrega" style="display: none;">
+            <option value="" selected>Seleccioná la Dirección de Entrega</option>
+          </select>
+        </div>                        
         
         <input type="text" id="fecha_entrega" class="input-fecha" name="fecha_entrega" placeholder="Seleccioná la Fecha de Entrega" required>
       </div>
