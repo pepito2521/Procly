@@ -9,13 +9,86 @@
   <link rel="shortcut icon" href="/assets/logo/icon_32.png" />
   <meta name="msapplication-TileColor" content="#ffffff" />
   <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/user/nuevo_ticket.css">
-  <link rel="stylesheet" href="/css/user/mis_tickets.css">
-  <link rel="stylesheet" href="/css/user/manual.css">
-  <link rel="stylesheet" href="/css/user/detalle_ticket.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <link rel="stylesheet" href="/css/sidebar.css">
+  <!-- CSS CRÍTICO INLINE PARA PRIMER RENDER -->
+  <style>
+    /* ===== CSS CRÍTICO PARA PRIMER RENDER ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #090B0A; background-color: #f8fafc; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+    .header { background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .btn { padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.2s ease; }
+    .btn-primary { background-color: #2e7d32; color: white; }
+    .btn-primary:hover { background-color: #1b5e20; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1rem; }
+    .sidebar { background: white; box-shadow: 2px 0 4px rgba(0,0,0,0.1); }
+    .main-content { background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 2rem; }
+    .hidden { display: none !important; }
+    .text-center { text-align: center; }
+    .mt-4 { margin-top: 1rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    
+    /* Estilos críticos del sidebar */
+    .sidebar-container { display: flex; min-height: 100vh; }
+    .sidebar { width: 280px; flex-shrink: 0; }
+    .main-content { flex: 1; }
+    .sidebar-header { padding: 1.5rem; border-bottom: 1px solid #e5e7eb; }
+    .sidebar-nav { padding: 1rem 0; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 1.5rem; width: 100%; border: none; background: none; cursor: pointer; color: #6b7280; transition: all 0.2s ease; }
+    .nav-item:hover { background-color: #f3f4f6; color: #374151; }
+    .nav-item.active { background-color: #ecfdf5; color: #059669; }
+    .nav-icon { width: 20px; height: 20px; }
+    .nav-text { font-weight: 500; }
+    
+    /* Estilos críticos del header */
+    .top-header { background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 2rem; }
+    .header-content { display: flex; justify-content: space-between; align-items: center; }
+    .page-title { font-size: 1.5rem; font-weight: 600; color: #111827; }
+    .greeting { color: #6b7280; }
+    
+    /* Estilos críticos del contenido */
+    .content-area { padding: 2rem; }
+    #dynamicContent { min-height: 400px; }
+  </style>
+  
+  <!-- GOOGLE FONTS OPTIMIZADO -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
+  
+  <!-- CSS NO CRÍTICO CARGADO ASÍNCRONAMENTE -->
+  <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/css/sidebar.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/sidebar.css"></noscript>
+  
+  <!-- CSS ESPECÍFICO DE USUARIO CARGADO CUANDO SE NECESITE -->
+  <script>
+    // Cargar CSS específico solo cuando se necesite
+    function loadUserCSS(section) {
+      const cssFiles = {
+        'nuevo_ticket': '/css/user/nuevo_ticket.css',
+        'mis_tickets': '/css/user/mis_tickets.css',
+        'manual': '/css/user/manual.css',
+        'detalle_ticket': '/css/user/detalle_ticket.css'
+      };
+      
+      if (cssFiles[section] && !document.querySelector(`link[href="${cssFiles[section]}"]`)) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = cssFiles[section];
+        document.head.appendChild(link);
+      }
+      
+      // Cargar Flatpickr CSS solo cuando se necesite (nuevo_ticket)
+      if (section === 'nuevo_ticket' && !document.querySelector('link[href*="flatpickr"]')) {
+        const flatpickrLink = document.createElement('link');
+        flatpickrLink.rel = 'stylesheet';
+        flatpickrLink.href = 'https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css';
+        document.head.appendChild(flatpickrLink);
+      }
+    }
+  </script>
   <meta name="robots" content="noindex, nofollow" />
 </head>
 <body>
@@ -103,7 +176,7 @@
     </a> -->
     <script type="module" src="/js/user/usuario.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/es.min.js"></script>
 </body>
 </html>

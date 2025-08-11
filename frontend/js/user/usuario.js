@@ -45,6 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await mostrarLoader();
 
+      // Cargar CSS específico de la sección
+      if (window.loadUserCSS) {
+        window.loadUserCSS(seccion);
+      }
+
       const resp = await fetch(`/app/user/components/${info.archivo}`);
       const html = await resp.text();
       dynamicContent.innerHTML = html;
