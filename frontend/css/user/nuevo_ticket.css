@@ -263,7 +263,21 @@
 
 .categoria-card .info-icon {
   position: absolute;
+  top: 8px;
+  left: 8px;
+  cursor: pointer;
   z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+  color: white;
+}
+
+.categoria-card .info-icon:hover {
+  transform: scale(1.05);
 }
 
 .categoria-card:hover {
@@ -292,25 +306,6 @@
 .admin-card-icon {
   width: 32px;
   height: 32px;
-}
-
-.info-icon {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  cursor: pointer;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  transition: transform 0.2s;
-  color: white;
-}
-
-.info-icon:hover {
-  transform: scale(1.05);
 }
 
 .info-tooltip {
