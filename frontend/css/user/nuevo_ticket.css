@@ -554,6 +554,10 @@ input[type="number"] {
   outline: none;
 }
 
+.input-fecha:not(:placeholder-shown) {
+  color: #090B0A !important;
+}
+
 /* STEP 5: TICKET CREADO */
 
 .success-content {
@@ -723,11 +727,6 @@ input[type="number"] {
 
 .hidden {
   display: none !important;
-}
-
-select:invalid,
-select option[disabled][selected] {
-  color: #b0b0b0 !important;
 }
 
 /* BOTONES CON ESTILO NAV-ITEM */
@@ -960,24 +959,13 @@ select option[disabled][selected] {
   color: #090B0A !important;
 }
 
-/* Estilos para cuando se selecciona una opción válida */
-.form-group select:not([data-selected="true"]):not([value=""]) {
+.form-group select option {
   color: #090B0A !important;
 }
 
-/* Estilos para el placeholder (opción vacía) */
-.form-group select[value=""] {
-  color: #9CA3AF !important;
-}
-
-/* Estilos específicos para las opciones placeholder de los selects */
 .form-group select option[value=""] {
   color: #9CA3AF !important;
   font-style: italic;
-}
-
-.form-group select option:not([value=""]) {
-  color: #090B0A !important;
 }
 
 

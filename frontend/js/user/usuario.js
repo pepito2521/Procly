@@ -57,6 +57,14 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("pageIcon").innerHTML = info.icon;
       marcarActivo(seccion);
 
+      // DETECTAR AUTOMÁTICAMENTE SI SE CARGÓ DETALLE_TICKET
+      if (html.includes('detalle-ticket-container')) {
+        console.log('🎯 Detectado detalle_ticket.html, cargando CSS...');
+        if (window.loadUserCSS) {
+          window.loadUserCSS('detalle_ticket');
+        }
+      }
+
       if (info.js) {
         import(info.js)
           .then(mod => {

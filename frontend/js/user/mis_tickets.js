@@ -126,6 +126,12 @@ async function cargarDetalleTicket(ticketId) {
     const html = await response.text();
     document.getElementById('dynamicContent').innerHTML = html;
 
+    // CARGAR CSS DE DETALLE_TICKET AUTOMÁTICAMENTE
+    console.log('🎯 Cargando CSS de detalle_ticket desde mis_tickets...');
+    if (window.loadUserCSS) {
+      window.loadUserCSS('detalle_ticket');
+    }
+
     // BOTON VOLVER A MIS TICKETS
     const btnVolver = document.getElementById('btn-volver-tickets');
     if (btnVolver) {
