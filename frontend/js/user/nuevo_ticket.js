@@ -385,6 +385,11 @@ export function initNuevoTicket() {
         console.log('🔍 Select límite cambió:', this.value);
         if (this.value && this.value !== '') {
           this.setAttribute('data-selected', 'true');
+          // Forzar que se muestre el texto seleccionado
+          const selectedOption = this.options[this.selectedIndex];
+          if (selectedOption) {
+            this.textContent = selectedOption.textContent;
+          }
           console.log('✅ Atributo data-selected agregado');
         } else {
           this.removeAttribute('data-selected');
@@ -403,6 +408,11 @@ export function initNuevoTicket() {
         console.log('🔍 Select dirección cambió:', this.value);
         if (this.value && this.value !== '') {
           this.setAttribute('data-selected', 'true');
+          // Forzar que se muestre el texto seleccionado
+          const selectedOption = this.options[this.selectedIndex];
+          if (selectedOption) {
+            this.textContent = selectedOption.textContent;
+          }
           console.log('✅ Atributo data-selected agregado');
         } else {
           this.removeAttribute('data-selected');
