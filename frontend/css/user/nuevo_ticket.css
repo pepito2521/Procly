@@ -145,7 +145,7 @@
   width: 100%;
   padding: 1.5rem;
   box-sizing: border-box;
-  color: #090B0A;
+  color: #9CA3AF; /* Color por defecto (placeholder) */
   background-color: white;
   border: none;
   resize: none;
@@ -182,21 +182,8 @@
 }
 
 /* Estilos para selects con valor seleccionado */
-.form-group select {
-  color: #9CA3AF !important; /* Color por defecto (placeholder) */
-}
-
 .form-group select[data-selected="true"] {
   color: #090B0A !important; /* Color cuando hay valor seleccionado */
-}
-
-/* Estilos más específicos para asegurar que funcionen */
-#step-3 .form-group select {
-  color: #9CA3AF !important;
-}
-
-#step-3 .form-group select[data-selected="true"] {
-  color: #090B0A !important;
 }
 
 /* DEBUG: Estilo temporal para verificar que el CSS se aplique */
