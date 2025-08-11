@@ -474,7 +474,7 @@ input[type="number"] {
   padding: 12px 1.5rem;
   padding-right: 3rem;
   box-sizing: border-box;
-  color: rgb(9, 11, 10);
+  color: #9CA3AF;
   background-color: white;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
@@ -488,6 +488,22 @@ input[type="number"] {
   background-size: 16px;
   border: none;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Estilos de placeholder para el datepicker */
+.input-fecha::placeholder {
+  color: #9CA3AF;
+  opacity: 1;
+}
+
+.input-fecha::-webkit-input-placeholder {
+  color: #9CA3AF;
+  opacity: 1;
+}
+
+.input-fecha::-moz-placeholder {
+  color: #9CA3AF;
+  opacity: 1;
 }
 
 .input-fecha:hover,
@@ -835,7 +851,7 @@ select option[disabled][selected] {
   padding: 12px 1.5rem;
   padding-right: 3rem;
   box-sizing: border-box;
-  color: rgb(9, 11, 10);
+  color: #9CA3AF;
   background-color: white;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
@@ -901,6 +917,16 @@ select option[disabled][selected] {
 
 .form-group select[data-selected="true"] {
   color: #090B0A !important;
+}
+
+/* Estilos para cuando se selecciona una opción válida */
+.form-group select:not([data-selected="true"]):not([value=""]) {
+  color: #090B0A;
+}
+
+/* Estilos para el placeholder (opción vacía) */
+.form-group select[value=""] {
+  color: #9CA3AF;
 }
 
 
