@@ -474,7 +474,7 @@ input[type="number"] {
   padding: 12px 1.5rem;
   padding-right: 3rem;
   box-sizing: border-box;
-  color: #9CA3AF;
+  color: #9CA3AF !important;
   background-color: white;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
@@ -851,7 +851,7 @@ select option[disabled][selected] {
   padding: 12px 1.5rem;
   padding-right: 3rem;
   box-sizing: border-box;
-  color: #9CA3AF;
+  color: #9CA3AF !important;
   background-color: white;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
@@ -921,12 +921,22 @@ select option[disabled][selected] {
 
 /* Estilos para cuando se selecciona una opción válida */
 .form-group select:not([data-selected="true"]):not([value=""]) {
-  color: #090B0A;
+  color: #090B0A !important;
 }
 
 /* Estilos para el placeholder (opción vacía) */
 .form-group select[value=""] {
-  color: #9CA3AF;
+  color: #9CA3AF !important;
+}
+
+/* Estilos específicos para las opciones placeholder de los selects */
+.form-group select option[value=""] {
+  color: #9CA3AF !important;
+  font-style: italic;
+}
+
+.form-group select option:not([value=""]) {
+  color: #090B0A !important;
 }
 
 
