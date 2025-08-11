@@ -304,6 +304,46 @@
   overflow: hidden;
 }
 
+/* FALLBACK IMAGES WEBP */
+@supports not (background-image: url('/assets/img/categorias/webp/tecnologia.webp')) {
+  .categoria-card[data-categoria="Tecnologia"] {
+    background-image: url('/assets/img/categorias/tecnologia.jpg') !important;
+  }
+  .categoria-card[data-categoria="Software"] {
+    background-image: url('/assets/img/categorias/software.jpg') !important;
+  }
+  .categoria-card[data-categoria="Merchandising"] {
+    background-image: url('/assets/img/categorias/merchandising.jpg') !important;
+  }
+  .categoria-card[data-categoria="Libreria"] {
+    background-image: url('/assets/img/categorias/libreria.jpg') !important;
+  }
+  .categoria-card[data-categoria="Eventos"] {
+    background-image: url('/assets/img/categorias/eventos.jpg') !important;
+  }
+  .categoria-card[data-categoria="Catering"] {
+    background-image: url('/assets/img/categorias/catering.jpg') !important;
+  }
+  .categoria-card[data-categoria="EPP"] {
+    background-image: url('/assets/img/categorias/epp.jpg') !important;
+  }
+  .categoria-card[data-categoria="Limpieza"] {
+    background-image: url('/assets/img/categorias/limpieza.jpg') !important;
+  }
+  .categoria-card[data-categoria="Supermercado"] {
+    background-image: url('/assets/img/categorias/supermercado.jpg') !important;
+  }
+  .categoria-card[data-categoria="Salud"] {
+    background-image: url('/assets/img/categorias/salud.png') !important;
+  }
+  .categoria-card[data-categoria="Courier"] {
+    background-image: url('/assets/img/categorias/courier.jpg') !important;
+  }
+  .categoria-card[data-categoria="Otros"] {
+    background-image: url('/assets/img/categorias/otros.jpg') !important;
+  }
+}
+
 .categoria-card::before {
   content: '';
   position: absolute;
