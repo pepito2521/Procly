@@ -128,14 +128,9 @@ export function initNuevoTicket() {
     // Validar que se haya seleccionado un límite
     if (!limiteSelect || !limiteSelect.value || limiteSelect.value === '') {
       mostrarError(limiteSelect, 'Debés seleccionar si querés establecer un límite');
-      // Mostrar error en el select personalizado
-      const customLimiteSelect = document.getElementById('limite');
-      if (customLimiteSelect) customLimiteSelect.classList.add('error');
       isValid = false;
     } else {
       removerError(limiteSelect);
-      const customLimiteSelect = document.getElementById('limite');
-      if (customLimiteSelect) customLimiteSelect.classList.remove('error');
     }
     
     // Validar presupuesto solo si límite = "Sí"
@@ -156,14 +151,9 @@ export function initNuevoTicket() {
     // Validar dirección de entrega
     if (!direccionSelect || !direccionSelect.value || direccionSelect.value === '') {
       mostrarError(direccionSelect, 'La dirección de entrega es obligatoria');
-      // Mostrar error en el select personalizado
-      const customDireccionSelect = document.getElementById('direccion_entrega');
-      if (customDireccionSelect) customDireccionSelect.classList.add('error');
       isValid = false;
     } else {
       removerError(direccionSelect);
-      const customDireccionSelect = document.getElementById('direccion_entrega');
-      if (customDireccionSelect) customDireccionSelect.classList.remove('error');
     }
     
     // Validar fecha de entrega
@@ -212,16 +202,7 @@ export function initNuevoTicket() {
       errorMessage.remove();
     }
     
-    // Remover error de selects personalizados si corresponde
-    if (input.name === 'limite') {
-      const customLimiteSelect = document.getElementById('limite');
-      if (customLimiteSelect) customLimiteSelect.classList.remove('error');
-    }
-    
-    if (input.name === 'direccion_entrega') {
-      const customDireccionSelect = document.getElementById('direccion_entrega');
-      if (customDireccionSelect) customDireccionSelect.classList.remove('error');
-    }
+
   }
 
   document.querySelectorAll(".progress-bar-btn").forEach(btn => {
@@ -360,30 +341,25 @@ export function initNuevoTicket() {
       const data = await res.json();
   
       if (res.ok) {
-        const customSelect = document.getElementById('direccion_entrega');
-        const hiddenSelect = customSelect.querySelector('select');
-        const optionsContainer = customSelect.querySelector('.custom-select__options');
-        
-        // Limpiar opciones existentes
-        hiddenSelect.innerHTML = '<option value="" selected>Seleccioná la Dirección de Entrega</option>';
-        optionsContainer.innerHTML = '';
+        const select = document.getElementById('direccion_entrega');
+  
+        select.innerHTML = '<option value="" disabled selected>Seleccioná la Dirección de Entrega</option>';
   
         data.forEach((dir, index) => {
-          // Agregar opción al select oculto
           const option = document.createElement('option');
           option.value = dir.direccion_id;
           option.textContent = `${dir.nombre} – ${dir.direccion}`;
-          hiddenSelect.appendChild(option);
-          
-          // Agregar opción al select personalizado
-          const customOption = document.createElement('span');
-          customOption.className = 'custom-select__option';
-          customOption.dataset.value = dir.direccion_id;
-          customOption.textContent = `${dir.nombre} – ${dir.direccion}`;
-          optionsContainer.appendChild(customOption);
+          select.appendChild(option);
         });
 
-        console.log('✅ Direcciones cargadas en select personalizado');
+        // Agregar event listener para el select de direcciones
+        select.addEventListener('change', function() {
+          if (this.value && this.value !== '') {
+            this.setAttribute('data-selected', 'true');
+          } else {
+            this.removeAttribute('data-selected');
+          }
+        });
       } else {
         console.error('Error al traer direcciones:', data.error);
       }
@@ -392,81 +368,49 @@ export function initNuevoTicket() {
     }
   }
 
-  // Agregar event listeners para los selects personalizados cuando se carga el step 3
+  // Agregar event listeners para los selects cuando se carga el step 3
   function setupSelectListeners() {
-    console.log('🔧 Configurando event listeners para selects personalizados...');
+    console.log('🔧 Configurando event listeners para selects...');
+    const limiteSelect = document.getElementById('limite');
+    const direccionSelect = document.getElementById('direccion_entrega');
     
-    // Configurar select personalizado de límite
-    setupCustomSelect('limite');
+    console.log('📋 Select límite encontrado:', limiteSelect);
+    console.log('📋 Select dirección encontrado:', direccionSelect);
     
-    // Configurar select personalizado de dirección
-    setupCustomSelect('direccion_entrega');
-  }
-
-  // Función para configurar un select personalizado
-  function setupCustomSelect(selectId) {
-    const customSelect = document.getElementById(selectId);
-    const hiddenSelect = customSelect.querySelector('select');
-    const trigger = customSelect.querySelector('.custom-select__trigger');
-    const options = customSelect.querySelector('.custom-select__options');
-    const selectedSpan = customSelect.querySelector('.custom-select__selected');
-    
-    console.log(`🔧 Configurando select personalizado: ${selectId}`);
-    
-    // Toggle del dropdown
-    trigger.addEventListener('click', () => {
-      customSelect.classList.toggle('open');
-    });
-    
-    // Cerrar dropdown al hacer click fuera
-    document.addEventListener('click', (e) => {
-      if (!customSelect.contains(e.target)) {
-        customSelect.classList.remove('open');
+    if (limiteSelect) {
+      // Verificar estado inicial
+      if (limiteSelect.value && limiteSelect.value !== '') {
+        limiteSelect.setAttribute('data-selected', 'true');
       }
-    });
+      
+      limiteSelect.addEventListener('change', function() {
+        console.log('🔍 Select límite cambió:', this.value);
+        if (this.value && this.value !== '') {
+          this.setAttribute('data-selected', 'true');
+          console.log('✅ Atributo data-selected agregado');
+        } else {
+          this.removeAttribute('data-selected');
+          console.log('❌ Atributo data-selected removido');
+        }
+      });
+    }
     
-    // Manejar selección de opciones
-    options.addEventListener('click', (e) => {
-      if (e.target.classList.contains('custom-select__option')) {
-        const value = e.target.dataset.value;
-        const text = e.target.textContent;
-        
-        // Actualizar el select oculto
-        hiddenSelect.value = value;
-        
-        // Actualizar el texto mostrado
-        selectedSpan.textContent = text;
-        
-        // Actualizar estado visual
-        customSelect.setAttribute('data-selected', 'true');
-        
-        // Remover selección previa
-        options.querySelectorAll('.custom-select__option').forEach(opt => {
-          opt.classList.remove('selected');
-        });
-        
-        // Marcar opción seleccionada
-        e.target.classList.add('selected');
-        
-        // Cerrar dropdown
-        customSelect.classList.remove('open');
-        
-        // Trigger change event en el select oculto
-        const event = new Event('change', { bubbles: true });
-        hiddenSelect.dispatchEvent(event);
-        
-        console.log(`✅ ${selectId} seleccionado:`, value, text);
+    if (direccionSelect) {
+      // Verificar estado inicial
+      if (direccionSelect.value && direccionSelect.value !== '') {
+        direccionSelect.setAttribute('data-selected', 'true');
       }
-    });
-    
-    // Verificar estado inicial
-    if (hiddenSelect.value && hiddenSelect.value !== '') {
-      customSelect.setAttribute('data-selected', 'true');
-      const selectedOption = options.querySelector(`[data-value="${hiddenSelect.value}"]`);
-      if (selectedOption) {
-        selectedOption.classList.add('selected');
-        selectedSpan.textContent = selectedOption.textContent;
-      }
+      
+      direccionSelect.addEventListener('change', function() {
+        console.log('🔍 Select dirección cambió:', this.value);
+        if (this.value && this.value !== '') {
+          this.setAttribute('data-selected', 'true');
+          console.log('✅ Atributo data-selected agregado');
+        } else {
+          this.removeAttribute('data-selected');
+          console.log('❌ Atributo data-selected removido');
+        }
+      });
     }
   }
 
