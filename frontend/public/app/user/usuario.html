@@ -9,23 +9,14 @@
   <link rel="shortcut icon" href="/assets/logo/icon_32.png" />
   <meta name="msapplication-TileColor" content="#ffffff" />
   <meta name="theme-color" content="#ffffff" />
-  <!-- CSS CRÍTICO CARGADO CON PRIORIDAD ALTA -->
-  <link rel="stylesheet" href="/css/critical.css">
-  
-  <!-- GOOGLE FONTS OPTIMIZADO -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
-  
-  <!-- CSS NO CRÍTICO CARGADO ASÍNCRONAMENTE -->
   <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="/css/sidebar.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/sidebar.css"></noscript>
-  
-  <!-- CSS ESPECÍFICO DE USUARIO CARGADO CUANDO SE NECESITE -->
   <script>
-    // Cargar CSS específico solo cuando se necesite
     function loadUserCSS(section) {
       const cssFiles = {
         'nuevo_ticket': '/css/user/nuevo_ticket.css',
@@ -41,7 +32,6 @@
         document.head.appendChild(link);
       }
       
-      // Cargar Flatpickr CSS solo cuando se necesite (nuevo_ticket)
       if (section === 'nuevo_ticket' && !document.querySelector('link[href*="flatpickr"]')) {
         const flatpickrLink = document.createElement('link');
         flatpickrLink.rel = 'stylesheet';
@@ -52,6 +42,7 @@
   </script>
   <meta name="robots" content="noindex, nofollow" />
 </head>
+
 <body>
   <div class="sidebar-container">
     <!-- SIDEBAR -->

@@ -96,7 +96,7 @@
   width: 100%;
   padding: 1.5rem;
   box-sizing: border-box;
-  color: #090B0A;
+  color: #9CA3AF !important;
   background-color: white;
   border: none;
   resize: none;
@@ -114,6 +114,22 @@
   outline: none;
 }
 
+/* Estilos de placeholder para inputs de texto */
+.form-group input::placeholder {
+  color: #9CA3AF !important;
+  opacity: 1;
+}
+
+.form-group input::-webkit-input-placeholder {
+  color: #9CA3AF !important;
+  opacity: 1;
+}
+
+.form-group input::-moz-placeholder {
+  color: #9CA3AF !important;
+  opacity: 1;
+}
+
 .form-group textarea {
   height: 120px;
   resize: none;
@@ -121,7 +137,7 @@
   padding: 1.5rem;
   width: 100%;
   box-sizing: border-box;
-  color: #090B0A;
+  color: #9CA3AF !important;
   background-color: white;
   border: none;
   resize: none;
@@ -137,6 +153,31 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
   outline: none;
+}
+
+/* Estilos de placeholder para textareas */
+.form-group textarea::placeholder {
+  color: #9CA3AF !important;
+  opacity: 1;
+}
+
+.form-group textarea::-webkit-input-placeholder {
+  color: #9CA3AF !important;
+  opacity: 1;
+}
+
+.form-group textarea::-moz-placeholder {
+  color: #9CA3AF !important;
+  opacity: 1;
+}
+
+/* Estilos para cuando los inputs y textareas tienen contenido */
+.form-group input:not(:placeholder-shown) {
+  color: #090B0A !important;
+}
+
+.form-group textarea:not(:placeholder-shown) {
+  color: #090B0A !important;
 }
 
 
