@@ -838,7 +838,7 @@ select option[disabled][selected] {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234CAF50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 16px;
@@ -868,13 +868,11 @@ select option[disabled][selected] {
 
 /* Estado de error */
 .form-group select.error {
-  border: 2px solid #d32f2f !important;
   background-color: #fff5f5 !important;
   box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1) !important;
 }
 
 .form-group select.error:focus {
-  border-color: #d32f2f !important;
   box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2) !important;
 }
 
