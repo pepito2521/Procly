@@ -921,11 +921,9 @@ select option[disabled][selected] {
   font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
-  /* Eliminar flecha nativa del navegador */
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  /* Agregar flecha personalizada */
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234CAF50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 1rem center;
@@ -933,14 +931,12 @@ select option[disabled][selected] {
 }
 
 .form-group select:hover {
-  border-color: #9CA3AF;
   background-color: #F9FAFB;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .form-group select:focus {
   outline: none;
-  border-color: #6B7280;
   background-color: #F9FAFB;
   box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
 }
@@ -984,8 +980,6 @@ select option[disabled][selected] {
 /* Estado cuando hay valor seleccionado */
 .form-group select[data-selected="true"] {
   color: #090B0A !important;
-  border-color: #6B7280;
-  background-color: #F9FAFB;
 }
 
 /* Asegurar que el texto del select se muestre */
