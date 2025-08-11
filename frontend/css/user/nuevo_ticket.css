@@ -827,9 +827,8 @@ select option[disabled][selected] {
   padding: 12px 1.5rem;
   padding-right: 3rem;
   box-sizing: border-box;
-  color: #9CA3AF;
+  color: rgb(9, 11, 10);
   background-color: white;
-  border: 2px solid #E5E7EB;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
@@ -846,13 +845,11 @@ select option[disabled][selected] {
 }
 
 .form-group select:hover {
-  background-color: #F9FAFB;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .form-group select:focus {
   outline: none;
-  background-color: #F9FAFB;
   box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1);
 }
 
@@ -892,13 +889,9 @@ select option[disabled][selected] {
   font-style: italic;
 }
 
-/* Estado cuando hay valor seleccionado */
 .form-group select[data-selected="true"] {
   color: #090B0A !important;
-  border-color: #6B7280;
-  background-color: #F9FAFB;
 }
-
 
 
 /* Responsive */
