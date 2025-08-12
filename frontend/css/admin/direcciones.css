@@ -23,30 +23,41 @@
     margin-bottom: 16px;
 }
 
-.direcciones-table {
+.empresas-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.direcciones-table th,
-.direcciones-table td {
-    padding: 12px 16px;
+.empresas-table th,
+.empresas-table td {
+    padding: 8px 12px;
     border-bottom: 1px solid #e5e7eb;
     font-size: 14px;
+    line-height: 1.4;
 }
 
-.direcciones-table th {
+.empresas-table th {
     text-align: left;
     color: #6b7280;
     font-weight: 500;
+    background-color: #f9fafb;
+    border-bottom: 2px solid #e5e7eb;
 }
 
-.direcciones-table th:last-child {
+.empresas-table th:last-child {
     text-align: right;
 }
 
-.direcciones-table td:last-child {
+.empresas-table td:last-child {
     text-align: right;
+}
+
+.empresas-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.empresas-table tbody tr:hover {
+    background-color: #f8fafc;
 }
 
 .dashboard-overview {
@@ -101,7 +112,50 @@
     white-space: nowrap;
 }
 
-.chart-card-direcciones {
+/* BOTONES DE ACCIÓN */
+.acciones-btns {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.btn-editar,
+.btn-eliminar {
+    min-width: 100px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.btn-editar {
+    background-color: #1976d2;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #1565c0;
+    transform: translateY(-1px);
+}
+
+.btn-eliminar {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #c62828;
+    transform: translateY(-1px);
+}
+
+.chart-card-empresas {
     background: white;
     padding: 24px;
     border-radius: 8px;
@@ -109,6 +163,5 @@
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    height: 650px;
-    min-height: 650px;
+    min-height: 500px;
 }

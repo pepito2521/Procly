@@ -41,7 +41,7 @@ async function cargarDireccionesTemplate() {
     }
 
     // Cargar tabla de direcciones
-    const listadoDirecciones = await fetchWithErrorHandling('/stats/direcciones-listado', headers);
+    const listadoDirecciones = await fetchWithErrorHandling('/stats/direcciones', headers);
     cargarTablaDirecciones(listadoDirecciones?.direcciones || []);
 
     // Configurar botón agregar dirección

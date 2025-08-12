@@ -66,20 +66,24 @@ async function cargarActividadTemplate() {
         // Logs para depuración
         console.log({kpiTotal, kpiEntregados, kpiEnProceso, kpiCancelados, listadoTickets, kpiPorcentajeEntregados, kpiPorcentajeEnProceso, kpiPorcentajeCancelados});
 
-        document.getElementById("totalTickets").textContent = kpiTotal?.total ?? 0;
-        document.getElementById("ticketsEntregados").textContent = kpiEntregados?.total ?? 0;
-        document.getElementById("ticketsEnProceso").textContent = kpiEnProceso?.total ?? 0;
-        document.getElementById("ticketsCancelados").textContent = kpiCancelados?.total ?? 0;
-        document.getElementById("porcentajeEntregados").textContent = `${kpiPorcentajeEntregados?.porcentaje ?? 0}% del total`;
-        document.getElementById("porcentajeEnProceso").textContent = `${kpiPorcentajeEnProceso?.porcentaje ?? 0}% del total`;
-        document.getElementById("porcentajeCancelados").textContent = `${kpiPorcentajeCancelados?.porcentaje ?? 0}% del total`;
+        // Actualizar las tarjetas de resumen con los IDs correctos
+        document.getElementById("actividadTotales").textContent = kpiTotal?.total ?? 0;
+        document.getElementById("actividadEntregados").textContent = kpiEntregados?.total ?? 0;
+        document.getElementById("actividadEnProceso").textContent = kpiEnProceso?.total ?? 0;
+        document.getElementById("actividadCancelados").textContent = kpiCancelados?.total ?? 0;
+        
+        // Actualizar los subtítulos con porcentajes
+        document.getElementById("actividadTotalesSub").textContent = `Total de tickets de la empresa`;
+        document.getElementById("actividadEntregadosSub").textContent = `${kpiPorcentajeEntregados?.porcentaje ?? 0}% del total`;
+        document.getElementById("actividadEnProcesoSub").textContent = `${kpiPorcentajeEnProceso?.porcentaje ?? 0}% del total`;
+        document.getElementById("actividadCanceladosSub").textContent = `${kpiPorcentajeCancelados?.porcentaje ?? 0}% del total`;
 
         // 2. Tabla
         tbody = document.getElementById("tablaActividad");
         tbody.innerHTML = "";
 
         if (!listadoTickets || !listadoTickets.tickets || listadoTickets.tickets.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6">⚠️ No hay tickets disponibles</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay tickets disponibles</td></tr>`;
             return;
         }
 
@@ -89,20 +93,20 @@ async function cargarActividadTemplate() {
         console.error("Error al cargar actividad:", error);
         const tbodyError = document.getElementById("tablaActividad");
         if (tbodyError) {
-            tbodyError.innerHTML = `<tr><td colspan="6">❌ Error al cargar actividad</td></tr>`;
+            tbodyError.innerHTML = `<tr><td colspan="5">❌ Error al cargar actividad</td></tr>`;
         }
         return;
     }
 
     // BUSCADOR DE TICKETS
-    const inputBuscador = document.getElementById("buscadorActividad");
+    const inputBuscador = document.getElementById("buscadorTickets");
     inputBuscador?.addEventListener("input", (e) => {
         const valor = e.target.value.toLowerCase();
         const filas = tbody.querySelectorAll("tr");
         filas.forEach((fila) => {
-            const textoNombre = fila.children[0]?.textContent.toLowerCase() ?? "";
-            const textoDescripcion = fila.children[1]?.textContent.toLowerCase() ?? "";
-            fila.style.display = (textoNombre.includes(valor) || textoDescripcion.includes(valor)) ? "" : "none";
+            const textoCodigo = fila.children[0]?.textContent.toLowerCase() ?? "";
+            const textoNombre = fila.children[1]?.textContent.toLowerCase() ?? "";
+            fila.style.display = (textoCodigo.includes(valor) || textoNombre.includes(valor)) ? "" : "none";
         });
     });
 }
@@ -127,30 +131,15 @@ function cargarTablaHistorial(tickets) {
         const estadoClass = `estado-badge ${ticket.estado?.toLowerCase().replace(' ', '-') || 'creado'}`;
         
         row.innerHTML = `
+            <td>${ticket.codigo_ticket || 'N/A'}</td>
             <td>${nombreTicket}</td>
             <td>${nombreUsuario} ${apellidoUsuario}</td>
-            <td class="${precioClass}">$${precio}</td>
             <td>
                 <span class="${estadoClass}">
                     ${ticket.estado || 'Creado'}
                 </span>
             </td>
-            <td>
-                <div class="acciones-btns">
-                    <button class="btn-editar" onclick="editarTicket(${ticket.ticket_id})">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1976d2" viewBox="0 0 256 256">
-                            <path d="M227.31,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.31,64l24-24L216,84.69Z"></path>
-                        </svg>
-                        Editar
-                    </button>
-                    <button class="btn-eliminar" onclick="cambiarEstadoTicket(${ticket.ticket_id})">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#d32f2f" viewBox="0 0 256 256">
-                            <path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path>
-                        </svg>
-                        Estado
-                    </button>
-                </div>
-            </td>
+            <td class="${precioClass}">${precio === 'En proceso' ? precio : `$${precio}`}</td>
         `;
         tbody.appendChild(row);
     });
