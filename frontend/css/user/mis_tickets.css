@@ -60,6 +60,14 @@
     font-weight: 500;
 }
 
+.tickets-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.tickets-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
 .tickets-table th:last-child {
     text-align: center;
 }

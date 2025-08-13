@@ -52,6 +52,14 @@
     font-weight: 500;
 }
 
+.actividades-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.actividades-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
 .tabla-con-scroll {
     border: none;
     border-radius: 8px;
