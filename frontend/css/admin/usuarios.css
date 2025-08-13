@@ -27,20 +27,21 @@
     height: 500px;
 }
 
+.usuarios-table tbody tr {
+    height: 54px;
+}
+
 .usuarios-table th,
 .usuarios-table td {
-    padding: 8px 12px;
+    padding: 12px 16px;
     border-bottom: 1px solid #e5e7eb;
     font-size: 14px;
-    line-height: 1.4;
 }
 
 .usuarios-table th {
     text-align: left;
     color: #6b7280;
     font-weight: 500;
-    background-color: #f9fafb;
-    border-bottom: 2px solid #e5e7eb;
 }
 
 .usuarios-table th:last-child {

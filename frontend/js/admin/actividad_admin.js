@@ -122,10 +122,19 @@ function cargarTablaHistorial(tickets) {
         const nombreTicket = ticket.nombre_ticket || ticket.nombre || 'Sin nombre';
         const nombreUsuario = ticket.nombre || 'Sin nombre';
         const apellidoUsuario = ticket.apellido || '';
-        const precio = ticket.precio_seleccionado || ticket.presupuesto || 'En proceso';
         
-        // Aplicar clase especial para precios "En proceso"
-        const precioClass = precio === 'En proceso' ? 'precio-en-proceso' : '';
+        // LÓGICA CORREGIDA PARA EL PRECIO
+        let precio;
+        let precioClass = '';
+        
+        if (ticket.precio_seleccionado && ticket.precio_seleccionado !== null && ticket.precio_seleccionado > 0) {
+            // Si hay precio seleccionado, mostrarlo formateado
+            precio = `$${Number(ticket.precio_seleccionado).toLocaleString()}`;
+        } else {
+            // Si no hay precio seleccionado, mostrar "En proceso"
+            precio = 'En proceso';
+            precioClass = 'precio-en-proceso';
+        }
         
         // Aplicar badge class correctamente
         const estadoClass = `estado-badge ${ticket.estado?.toLowerCase().replace(' ', '-') || 'creado'}`;
@@ -139,7 +148,7 @@ function cargarTablaHistorial(tickets) {
                     ${ticket.estado || 'Creado'}
                 </span>
             </td>
-            <td class="${precioClass}">${precio === 'En proceso' ? precio : `$${precio}`}</td>
+            <td class="${precioClass}">${precio}</td>
         `;
         tbody.appendChild(row);
     });

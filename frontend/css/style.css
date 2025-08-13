@@ -348,8 +348,9 @@ text-decoration: none;
   transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
 }
 .btn-editar:hover {
-  background-color: #d6e7e6;
+  background-color: #f5f7fa;
   color: #0f2e2e;
+  border: 1px solid #d1d5db;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 

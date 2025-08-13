@@ -30,18 +30,15 @@
 
 .empresas-table th,
 .empresas-table td {
-    padding: 8px 12px;
+    padding: 12px 16px;
     border-bottom: 1px solid #e5e7eb;
     font-size: 14px;
-    line-height: 1.4;
 }
 
 .empresas-table th {
     text-align: left;
     color: #6b7280;
     font-weight: 500;
-    background-color: #f9fafb;
-    border-bottom: 2px solid #e5e7eb;
 }
 
 .empresas-table th:last-child {
@@ -96,38 +93,37 @@
 
 .btn-editar,
 .btn-eliminar {
-    min-width: 100px;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 12px;
-    font-weight: 500;
+    height: 35px;
+    line-height: 35px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    transition: all 0.2s ease;
-}
-
-.btn-editar {
-    background-color: #1976d2;
-    color: white;
+    gap: 0.5rem;
+    text-decoration: none;
+    background-color: white;
+    color: #0f2e2e;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    border: 1px solid rgba(15, 46, 46, 0.2);
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
+    min-width: 100px;
 }
 
 .btn-editar:hover {
-    background-color: #1565c0;
-    transform: translateY(-1px);
-}
-
-.btn-eliminar {
-    background-color: #d32f2f;
-    color: white;
+    background-color: #f5f7fa;
+    color: #0f2e2e;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .btn-eliminar:hover {
-    background-color: #c62828;
-    transform: translateY(-1px);
+    background-color: #ffeaea;
+    color: #0f2e2e;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .chart-card-empresas {
