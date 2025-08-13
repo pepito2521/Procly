@@ -340,11 +340,7 @@ async function cargarDireccionEntrega(direccionId, token) {
     const direccion = direcciones.find(d => d.direccion_id === direccionId);
     
     if (direccion) {
-      let direccionCompleta = `${direccion.nombre} - ${direccion.direccion}`;
-      if (direccion.ciudad && direccion.provincia) {
-        direccionCompleta += `, ${direccion.ciudad}, ${direccion.provincia}`;
-      }
-      document.getElementById("ticket-direccion").textContent = direccionCompleta;
+      document.getElementById("ticket-direccion").textContent = direccion.nombre;
     } else {
       document.getElementById("ticket-direccion").textContent = "Dirección no encontrada";
     }
