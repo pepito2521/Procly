@@ -344,10 +344,12 @@
 /* DESCRIPCIÓN EN FILA COMPLETA */
 .detalle-descripcion {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5rem;
   margin: 1rem;
   grid-column: 1 / -1;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 /* PANEL DINAMICO: PROPUESTAS */
