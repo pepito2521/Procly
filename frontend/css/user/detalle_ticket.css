@@ -235,7 +235,7 @@
   flex: 1 1 0;
   display: flex;
   flex-direction: column;           
-  padding: 0 1rem 1rem1rem;
+  padding: 0 1rem 1rem 1rem;
   color: #090B0A;
   background-color: white;
   border: none;
@@ -390,7 +390,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  border-radius: 20px;
+  border-radius: 8px;
   background-color: #f9f9f9;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
