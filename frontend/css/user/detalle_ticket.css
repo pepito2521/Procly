@@ -349,7 +349,7 @@
   margin: 1rem;
   grid-column: 1 / -1;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 /* PANEL DINAMICO: PROPUESTAS */
