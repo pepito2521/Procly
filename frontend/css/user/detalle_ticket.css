@@ -374,41 +374,45 @@
 /* PANEL DINAMICO: PROPUESTAS */
 .propuestas-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 0.5rem;
   padding: 1rem 0;
   overflow: visible;
   max-height: none;
+  align-items: center;
 }
 
 .card-propuesta {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
   border-radius: 20px;
   background-color: #f9f9f9;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: left;
   position: relative;
-  width: 150px;
+  width: 300px;
   border:none;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card-propuesta img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }
 
-.card-propuesta p {
-  font-weight: 400;
+.card-propuesta .detalle-valor {
+  font-weight: 500;
   color: #333;
-  font-size:  0.6rem;
+  font-size: 0.9rem;
+  flex: 1;
+  margin: 0 1rem;
+  text-align: center;
 }
 
 .card-propuesta:hover {
@@ -422,8 +426,9 @@
 
 .acciones-propuesta {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
 
 .icono-ver,
@@ -440,14 +445,40 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-#btn-seleccionar-propuesta{
+#btn-seleccionar-propuesta {
   width: 100%;
   max-width: 516px;
   margin-top: 1rem;
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+#btn-seleccionar-propuesta:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4a7d85 0%, #669aa2 100%);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+#btn-seleccionar-propuesta:active:not(:disabled) {
+  transform: translateY(0px);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
 }
 
 #btn-seleccionar-propuesta:disabled {
   cursor: default;
   pointer-events: none;
   opacity: 0.3;
+  background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%);
+  transform: none;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
 }

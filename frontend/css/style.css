@@ -172,13 +172,6 @@ text-decoration: none;
   margin: 0 auto 20px;
 }
 
-.loading-text {
-  color: #508991;
-  font-size: 16px;
-  font-weight: 500;
-  margin: 0;
-}
-
 @keyframes mltShdSpin {
   0% {
     box-shadow: 0 -0.83em 0 -0.4em,

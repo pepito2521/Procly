@@ -11,7 +11,6 @@ export function mostrarLoader() {
     loader.innerHTML = `
       <div class="spinner-container">
         <div class="spinner"></div>
-        <p class="loading-text">Cargando...</p>
       </div>
     `;
     document.body.appendChild(loader);
