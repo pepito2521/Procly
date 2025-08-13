@@ -235,7 +235,7 @@
   flex: 1 1 0;
   display: flex;
   flex-direction: column;           
-  padding: 1rem;
+  padding: 0 1rem 1rem1rem;
   color: #090B0A;
   background-color: white;
   border: none;
@@ -377,7 +377,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1.5rem;
-  margin-top: 0.5rem;
   padding: 1rem 0;
   overflow: visible;
   max-height: none;
@@ -451,7 +450,7 @@
 #btn-seleccionar-propuesta {
   width: auto;
   min-width: 200px;
-  margin: 2rem auto 0;
+  margin: 1rem auto 0;
   background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
   color: white;
   font-family: 'Inter', sans-serif;
