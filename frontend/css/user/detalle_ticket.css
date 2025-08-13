@@ -319,7 +319,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem 3rem;
-  margin: 1rem;
+  margin: 1rem 1rem 1rem 2rem;
 }
 
 .detalle-item {

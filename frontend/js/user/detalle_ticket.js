@@ -340,7 +340,7 @@ async function cargarDireccionEntrega(direccionId, token) {
     const direccion = direcciones.find(d => d.direccion_id === direccionId);
     
     if (direccion) {
-      const direccionCompleta = `${direccion.nombre} - ${direccion.direccion}`;
+      let direccionCompleta = `${direccion.nombre} - ${direccion.direccion}`;
       if (direccion.ciudad && direccion.provincia) {
         direccionCompleta += `, ${direccion.ciudad}, ${direccion.provincia}`;
       }
