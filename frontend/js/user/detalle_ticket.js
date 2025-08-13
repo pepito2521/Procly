@@ -67,6 +67,11 @@ async function fetchTicket(ticketId, token) {
     estadoContainer.appendChild(estadoSpan);
     document.getElementById("ticket-presupuesto").textContent = data.presupuesto ?? "Sin límite";
     document.getElementById("ticket-fecha").textContent = data.fecha_entrega ?? "No asignada";
+    if (data.direccion_id) {
+      await cargarDireccionEntrega(data.direccion_id, token);
+    } else {
+      document.getElementById("ticket-direccion").textContent = "No especificada";
+    }
 
     actualizarProgreso(data.estado);
     mostrarPanelPorEstado(data.estado, data);
@@ -319,3 +324,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// FUNCIÓN: CARGAR DIRECCIÓN DE ENTREGA
+async function cargarDireccionEntrega(direccionId, token) {
+  try {
+    const res = await fetch(`https://www.procly.net/tickets/direcciones`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!res.ok) {
+      throw new Error("No se pudo obtener las direcciones");
+    }
+
+    const direcciones = await res.json();
+    const direccion = direcciones.find(d => d.direccion_id === direccionId);
+    
+    if (direccion) {
+      const direccionCompleta = `${direccion.nombre} - ${direccion.direccion}`;
+      if (direccion.ciudad && direccion.provincia) {
+        direccionCompleta += `, ${direccion.ciudad}, ${direccion.provincia}`;
+      }
+      document.getElementById("ticket-direccion").textContent = direccionCompleta;
+    } else {
+      document.getElementById("ticket-direccion").textContent = "Dirección no encontrada";
+    }
+  } catch (error) {
+    console.error("Error al cargar dirección:", error);
+    document.getElementById("ticket-direccion").textContent = "Error al cargar dirección";
+  }
+}

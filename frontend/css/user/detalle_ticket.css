@@ -235,7 +235,7 @@
   flex: 1 1 0;
   display: flex;
   flex-direction: column;           
-  padding: 0 1rem 1rem 1rem;
+  padding: 1rem;
   color: #090B0A;
   background-color: white;
   border: none;
@@ -339,6 +339,15 @@
 .detalle-valor {
   color:   #2f3e46;;
   font-size: 1rem;
+}
+
+/* DESCRIPCIÓN EN FILA COMPLETA */
+.detalle-descripcion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem;
+  grid-column: 1 / -1;
 }
 
 /* PANEL DINAMICO: PROPUESTAS */
