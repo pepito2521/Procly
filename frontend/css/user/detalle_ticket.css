@@ -324,13 +324,15 @@
 
 .detalle-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .detalle-label {
   font-weight: 600;
-  color: #334155;
+  color: #6b7280;
   margin-bottom: 0.25rem;
 }
 

@@ -1,4 +1,3 @@
-// NAVEGACION MODULAR
 import { supabase } from "/js/supabaseClient.js";
 import { mostrarLoader, ocultarLoader } from "/js/components/loader.js";
 

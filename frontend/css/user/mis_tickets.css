@@ -61,7 +61,7 @@
 }
 
 .tickets-table th:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .tickets-table td:last-child {
@@ -131,46 +131,6 @@
   width: 22px;
   height: 22px;
   transition: transform 0.2s;
-}
-
-/* ESTADOS */
-
-.estado-badge {
-  display: inline-block;
-  padding: 0.3rem 1rem;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.8rem;
-  color: white;
-  text-align: center;
-  border: none;
-  resize: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.estado-badge.creado {
-  background-color: #F49F0A;
-}
-
-.estado-badge.en-progreso {
-  background-color: #F49F0A;
-}
-
-.estado-badge.en-camino {
-  background-color: #F49F0A;
-}
-
-.estado-badge.entregado {
-  background-color: #3E8914;
-}
-
-.estado-badge.revisar {
-  background-color: #F49F0A;
-}
-
-.estado-badge.cancelado {
-  background-color: #A22C29;
 }
 
 /* KPIS: MIS TICKETS */

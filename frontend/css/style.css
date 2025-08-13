@@ -616,6 +616,99 @@ input:checked + .slider:before {
   font-weight: 500;
 }
 
+/* ===== ESTADO BADGES - COMPONENTE GLOBAL ===== */
+.estado-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid;
+  resize: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  transition: all 0.2s ease;
+}
+
+.estado-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ESTADOS DE TICKETS */
+.estado-badge.creado,
+.estado-badge.en-progreso,
+.estado-badge.en-proceso,
+.estado-badge.en-camino,
+.estado-badge.propuestas,
+.estado-badge.revisar {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.estado-badge.creado:hover,
+.estado-badge.en-progreso:hover,
+.estado-badge.en-proceso:hover,
+.estado-badge.en-camino:hover,
+.estado-badge.propuestas:hover,
+.estado-badge.revisar:hover {
+  background-color: #fde68a;
+}
+
+.estado-badge.entregado {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.estado-badge.entregado:hover {
+  background-color: #a7f3d0;
+}
+
+.estado-badge.cancelado {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.estado-badge.cancelado:hover {
+  background-color: #fecaca;
+}
+
+/* ESTADOS DE USUARIOS/DIRECCIONES */
+.estado-badge.activa {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.estado-badge.activa:hover {
+  background-color: #a7f3d0;
+}
+
+.estado-badge.bloqueada {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.estado-badge.bloqueada:hover {
+  background-color: #fecaca;
+}
+
+.estado-badge.inactiva {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  border-color: #d1d5db;
+}
+
+.estado-badge.inactiva:hover {
+  background-color: #d1d5db;
+}
+
 
 
 
