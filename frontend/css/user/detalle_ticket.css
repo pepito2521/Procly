@@ -374,13 +374,15 @@
 /* PANEL DINAMICO: PROPUESTAS */
 .propuestas-container {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   margin-top: 0.5rem;
   padding: 1rem 0;
   overflow: visible;
   max-height: none;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .card-propuesta {
@@ -394,7 +396,8 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
   position: relative;
-  width: 300px;
+  width: 280px;
+  min-width: 280px;
   border:none;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -446,9 +449,9 @@
 }
 
 #btn-seleccionar-propuesta {
-  width: 100%;
-  max-width: 516px;
-  margin-top: 1rem;
+  width: auto;
+  min-width: 200px;
+  margin: 2rem auto 0;
   background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
   color: white;
   font-family: 'Inter', sans-serif;
@@ -456,11 +459,12 @@
   font-weight: 500;
   border: none;
   border-radius: 8px;
-  padding: 12px 16px;
+  padding: 12px 24px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  display: block;
 }
 
 #btn-seleccionar-propuesta:hover:not(:disabled) {
