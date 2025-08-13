@@ -188,7 +188,7 @@
 
 .paso-activo span {
   opacity: 1;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .icono-circulo.cancelado {
@@ -319,7 +319,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem 3rem;
-  margin: 1rem 1rem 1rem 2rem;
+  margin: 1rem 1rem 2rem 1rem;
 }
 
 .detalle-item {
