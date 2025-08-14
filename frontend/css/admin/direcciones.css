@@ -2,8 +2,9 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+    height: 100%;
+    min-height: 0;
 }
-
 
 /* TABLA DE DIRECCIONES */
 .table-header {
@@ -83,48 +84,6 @@
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     white-space: nowrap;
-}
-
-/* BOTONES DE ACCIÓN */
-.acciones-btns {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-}
-
-.btn-editar,
-.btn-eliminar {
-    height: 35px;
-    line-height: 35px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    text-decoration: none;
-    background-color: white;
-    color: #0f2e2e;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    border: 1px solid rgba(15, 46, 46, 0.2);
-    border-radius: 8px;
-    padding: 0.6rem 1.2rem;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
-    min-width: 100px;
-}
-
-.btn-editar:hover {
-    background-color: #f5f7fa;
-    color: #0f2e2e;
-    border: 1px solid #d1d5db;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.btn-eliminar:hover {
-    background-color: #ffeaea;
-    color: #0f2e2e;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .chart-card-empresas {

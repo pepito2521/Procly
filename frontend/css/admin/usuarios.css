@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
+    height: 100%;
+    min-height: 0;
 }
 
 .table-header {
@@ -65,21 +67,4 @@
     font-style: italic;
     font-weight: 300;
     color: #6b7280;
-}
-
-.btn-activar:hover {
-    background-color: #d6e7e6 !important;
-    color: #1976d2;
-    border: 1px solid #1976d2;
-}
-
-.btn-activar,
-.btn-eliminar {
-    min-width: 120px;
-    width: 120px;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
 }

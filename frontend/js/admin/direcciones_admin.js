@@ -81,16 +81,16 @@ function cargarTablaDirecciones(direcciones) {
       </td>
       <td>
         <div class="acciones-btns">
-          <button class="btn-editar" data-id="${direccion.direccion_id}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1976d2" viewBox="0 0 256 256">
+          <button class="btn-gris" data-id="${direccion.direccion_id}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
               <path d="M227.31,73.37,182.63,28.69a16,16,0,0,0-22.63,0L36.69,152.05A16,16,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A16,16,0,0,0,103.95,219.31L227.31,95.95a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.69,147.31,64l24-24L216,84.69Z"></path>
             </svg>
             Editar
           </button>
-          <button class="btn-eliminar" data-id="${direccion.direccion_id}">
+          <button class="btn-rojo" data-id="${direccion.direccion_id}">
             ${direccion.is_active 
-              ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#d32f2f" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
-              : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1976d2" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
+              ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
+              : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
             }
           </button>
         </div>
@@ -120,14 +120,14 @@ function cargarTablaDirecciones(direcciones) {
   }
 
   // Configurar botones de acción
-  tbody.querySelectorAll('.btn-editar').forEach(btn => {
+  tbody.querySelectorAll('.btn-gris').forEach(btn => {
     btn.addEventListener('click', function() {
       const idDireccion = this.getAttribute('data-id');
       cargarPopupEditarDireccion(idDireccion);
     });
   });
 
-  tbody.querySelectorAll('.btn-eliminar').forEach(btn => {
+  tbody.querySelectorAll('.btn-rojo').forEach(btn => {
     btn.addEventListener('click', function() {
       const idDireccion = this.getAttribute('data-id');
       cargarPopupBloquearDireccion(idDireccion);
@@ -175,7 +175,7 @@ function configurarPopupDireccion() {
   const popup = document.getElementById('pop-up-direccion');
   if (!popup) return;
 
-  const btnCancelar = popup.querySelector('.btn-cancelar');
+  const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
       document.getElementById('popup-direccion-container').style.display = 'none';
@@ -194,7 +194,7 @@ function configurarPopupBloquear() {
   const popup = document.getElementById('pop-up-bloquear');
   if (!popup) return;
 
-  const btnCancelar = popup.querySelector('.btn-cancelar');
+  const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
       document.getElementById('popup-direccion-container').style.display = 'none';

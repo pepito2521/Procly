@@ -770,9 +770,130 @@ table th {
   font-weight: 500;
 }
 
-/* Altura de filas optimizada para todas las tablas */
 table tbody tr {
-  height: 48px; /* Altura consistente en toda la aplicación */
+  height: 48px;
+}
+
+
+/* ===== BOTONES GLOBALES ===== */
+/* Botón Verde - Mismo estilo que btn-primary */
+.btn-verde {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  height: 35px;
+  line-height: 35px;
+  gap: 8px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-weight: 500;
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+}
+
+.btn-verde:hover {
+  background: linear-gradient(135deg, #4a7d85 0%, #669aa2 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+}
+
+.btn-verde:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón Gris - Mismo estilo que btn-editar */
+.btn-gris {
+  height: 35px;
+  line-height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  background-color: white;
+  color: #0f2e2e;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid rgba(15, 46, 46, 0.2);
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.3s;
+  min-width: 100px;
+}
+
+.btn-gris:hover {
+  background-color: #f5f7fa;
+  color: #0f2e2e;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-gris:active {
+  background-color: #e5e7eb;
+  transform: translateY(0px);
+}
+
+/* Botón Rojo - Estilo similar a btn-primary pero con gama de rojos */
+.btn-rojo {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  height: 35px;
+  line-height: 35px;
+  gap: 8px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-weight: 500;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+}
+
+.btn-rojo:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
+}
+
+.btn-rojo:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para iconos en todos los botones */
+.btn-verde svg,
+.btn-gris svg,
+.btn-rojo svg {
+  fill: currentColor;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* ===== OVERVIEW GLOBALES ===== */
+/* Todos los contenedores overview deben ocupar el 100% de altura */
+[class*="-overview"] {
+  height: 100% !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 

@@ -104,16 +104,16 @@ async function cargarUsuariosTemplate() {
                 </td>
                 <td>
                     <div class="acciones-btns">
-                        <button class="btn-cancelar">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0f2e2e" viewBox="0 0 256 256">
+                        <button class="btn-gris">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
                                 <path d="M200,168a48.05,48.05,0,0,1-48,48H136v16a8,8,0,0,1-16,0V216H104a48.05,48.05,0,0,1-48-48,8,8,0,0,1,16,0,32,32,0,0,0,32,32h48a32,32,0,0,0,0-64H112a48,48,0,0,1,0-96h8V24a8,8,0,0,1,16,0V40h8a48.05,48.05,0,0,1,48,48,8,8,0,0,1-16,0,32,32,0,0,0-32-32H112a32,32,0,0,0,0,64h40A48.05,48.05,0,0,1,200,168Z"></path>
                             </svg>
                             Límite
                         </button>
-                        <button class="btn-eliminar">
+                        <button class="btn-rojo">
                             ${u.bloqueado
-                                ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1976d2" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
-                                : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#d32f2f" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
+                                ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
+                                : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
                             }
                         </button>
                     </div>
@@ -144,14 +144,14 @@ async function cargarUsuariosTemplate() {
 
     window.listadoUsuarios = listado.usuarios;
 
-    tbody.querySelectorAll('.btn-cancelar').forEach((btn, i) => {
+    tbody.querySelectorAll('.btn-gris').forEach((btn, i) => {
         btn.addEventListener('click', function() {
             const idUsuario = window.listadoUsuarios[i].profile_id;
             cargarPopupLimite(idUsuario);
         });
     });
 
-    tbody.querySelectorAll('.btn-eliminar').forEach((btn, i) => {
+    tbody.querySelectorAll('.btn-rojo').forEach((btn, i) => {
         btn.addEventListener('click', function() {
             const idUsuario = window.listadoUsuarios[i].profile_id;
             const estaBloqueado = !!window.listadoUsuarios[i].bloqueado;
@@ -170,7 +170,7 @@ async function cargarPopupLimite(idUsuario) {
 
   // Botón cancelar
   const popup = document.getElementById('pop-up-limite');
-  const btnCancelar = popup.querySelector('.btn-cancelar');
+  const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
       document.getElementById('popup-direccion-container').style.display = 'none';
@@ -225,7 +225,7 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
 
   // Botón cancelar
   const popup = document.getElementById('pop-up-bloquear');
-  const btnCancelar = popup.querySelector('.btn-cancelar');
+  const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
       document.getElementById('popup-direccion-container').style.display = 'none';
@@ -242,7 +242,7 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
   const btnBloquear = popup.querySelector('#confirmar-bloquear');
   if (btnBloquear) {
     btnBloquear.textContent = estaBloqueado ? 'Activar' : 'Bloquear';
-    btnBloquear.className = estaBloqueado ? 'btn-activar' : 'btn-eliminar';
+    btnBloquear.className = estaBloqueado ? 'btn-verde' : 'btn-rojo';
     btnBloquear.onclick = async function() {
       const token = localStorage.getItem('supabaseToken');
       if (!token) {
