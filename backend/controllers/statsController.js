@@ -12,6 +12,14 @@ const getEmpresaId = async (userId) => {
   return data.empresa_id;
 };
 
+// FUNCIÓN PARA FORMATEAR PRECIOS EN FORMATO ARGENTINO
+const formatearPrecioARS = (precio) => {
+  if (precio == null || precio === undefined || precio === 0) {
+    return 'En proceso';
+  }
+  return `${Number(precio).toLocaleString('es-AR').replace(/,/g, '.')} ARS`;
+};
+
 
 // 1. DIRECCIONES
 
@@ -567,9 +575,7 @@ const getEmpresaId = async (userId) => {
             nombre_ticket: t.nombre ?? '',
             estado: t.estado,
             categoria: t.categoria,
-            precio: (t.precio_seleccionado != null && Number(t.precio_seleccionado) > 0)
-                ? `$${Number(t.precio_seleccionado).toLocaleString()}`
-                : 'En proceso'
+            precio: formatearPrecioARS(t.precio_seleccionado)
         }));
     
         res.json({ tickets: resultado });

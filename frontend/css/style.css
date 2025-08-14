@@ -781,6 +781,7 @@ table tbody tr {
   width: fit-content;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   height: 35px;
   line-height: 35px;
   gap: 8px;
@@ -789,7 +790,7 @@ table tbody tr {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
+  text-align: center;
   font-weight: 500;
   background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
   color: white;
@@ -836,7 +837,8 @@ table tbody tr {
   background-color: #f5f7fa;
   color: #0f2e2e;
   border: 1px solid #d1d5db;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
 }
 
 .btn-gris:active {
@@ -844,11 +846,12 @@ table tbody tr {
   transform: translateY(0px);
 }
 
-/* Botón Rojo - Estilo similar a btn-primary pero con gama de rojos */
+/* Botón Rojo - Estilo similar a btn-primary pero con gama de rojos oscuros */
 .btn-rojo {
   width: fit-content;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   height: 35px;
   line-height: 35px;
   gap: 8px;
@@ -857,9 +860,9 @@ table tbody tr {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: left;
+  text-align: center;
   font-weight: 500;
-  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
   color: white;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
@@ -868,7 +871,7 @@ table tbody tr {
 }
 
 .btn-rojo:hover {
-  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
   transform: translateY(-1px);
   box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
 }
@@ -885,15 +888,6 @@ table tbody tr {
   fill: currentColor;
   width: 1rem;
   height: 1rem;
-}
-
-/* ===== OVERVIEW GLOBALES ===== */
-/* Todos los contenedores overview deben ocupar el 100% de altura */
-[class*="-overview"] {
-  height: 100% !important;
-  min-height: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
 }
 
 
