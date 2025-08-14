@@ -179,13 +179,9 @@
 
 .kpi-value {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
   color: #111827;
   transition: font-weight 0.2s ease;
-}
-
-.kpi-card:hover .kpi-value {
-  font-weight: 700;
 }
 
 .kpi-title-row {

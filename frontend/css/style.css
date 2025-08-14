@@ -862,7 +862,7 @@ table tbody tr {
   transition: all 0.2s ease;
   text-align: center;
   font-weight: 500;
-  background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
   color: white;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
@@ -871,7 +871,7 @@ table tbody tr {
 }
 
 .btn-rojo:hover {
-  background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
+  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
   transform: translateY(-1px);
   box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15);
 }

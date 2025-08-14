@@ -166,7 +166,7 @@ async function cargarGrafico() {
             ticks: {
               color: '#6b7280',
               callback: function(value) {
-                return '$' + value.toLocaleString();
+                return value.toLocaleString('es-AR').replace(/,/g, '.') + ' ARS';
               }
             }
           },
