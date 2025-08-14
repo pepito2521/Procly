@@ -155,8 +155,8 @@ async function cargarPopupEditarDireccion(idDireccion) {
   document.getElementById('popup-direccion-container').style.display = 'block';
   document.getElementById('pop-up-editar').style.display = 'flex';
 
-  // Aquí puedes precargar los datos de la dirección
-  // configurarPopupDireccion(idDireccion);
+  // Configurar formulario y botones
+  configurarPopupEditarDireccion(idDireccion);
 }
 
 // Mostrar pop-up de bloquear dirección
@@ -178,6 +178,7 @@ function configurarPopupDireccion() {
   const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     };
   }
@@ -185,9 +186,33 @@ function configurarPopupDireccion() {
   // Cerrar haciendo click fuera
   popup.addEventListener('click', function(event) {
     if (event.target === popup) {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     }
   });
+}
+
+function configurarPopupEditarDireccion(idDireccion) {
+  const popup = document.getElementById('pop-up-editar');
+  if (!popup) return;
+
+  // Botón cancelar
+  const btnCancelar = popup.querySelector('.btn-gris');
+  if (btnCancelar) {
+    btnCancelar.onclick = function() {
+      popup.style.display = 'none';
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    };
+  }
+
+  // Cerrar haciendo click fuera
+  popup.addEventListener('click', function(event) {
+    if (event.target === popup) {
+      popup.style.display = 'none';
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    }
+  });
+
 }
 
 function configurarPopupBloquear() {
@@ -197,6 +222,7 @@ function configurarPopupBloquear() {
   const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     };
   }
@@ -204,6 +230,7 @@ function configurarPopupBloquear() {
   // Cerrar haciendo click fuera
   popup.addEventListener('click', function(event) {
     if (event.target === popup) {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     }
   });

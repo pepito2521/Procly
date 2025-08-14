@@ -26,7 +26,8 @@
 .usuarios-table {
     width: 100%;
     border-collapse: collapse;
-    height: 500px;
+    flex: 1;
+    min-height: 0;
 }
 
 .usuarios-table tbody tr {

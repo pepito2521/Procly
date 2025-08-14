@@ -173,30 +173,39 @@ async function cargarPopupLimite(idUsuario) {
   const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     };
   }
   // Cerrar haciendo click fuera
   popup.addEventListener('click', function(event) {
     if (event.target === popup) {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     }
   });
 
-  // Guardar límite de gasto
   const form = document.getElementById('form-pop-up-limite');
   if (form) {
     form.onsubmit = async function(e) {
       e.preventDefault();
       const input = document.getElementById('input-limite');
       const limite = Number(input.value);
+      if (!limite || limite <= 0) {
+        alert('Por favor, ingresa un límite válido mayor a 0');
+        return;
+      }
+      
       const token = localStorage.getItem('supabaseToken');
       if (!token) {
         alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
         return;
       }
+      
       try {
-        const resp = await fetch('/stats/limite-usuario', {
+        console.log('🔄 Enviando límite:', { profile_id: idUsuario, limite_gasto: limite });
+        
+        const resp = await fetch('https://www.procly.net/stats/limite-usuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -204,12 +213,31 @@ async function cargarPopupLimite(idUsuario) {
           },
           body: JSON.stringify({ profile_id: idUsuario, limite_gasto: limite })
         });
+        
+        console.log('📡 Respuesta del servidor:', resp.status, resp.statusText);
+        
+        if (!resp.ok) {
+          throw new Error(`Error del servidor: ${resp.status} ${resp.statusText}`);
+        }
+        
         const result = await resp.json();
-        if (!result.success) throw new Error(result.error || 'Error desconocido');
+        console.log('✅ Resultado:', result);
+        
+        if (!result.success) {
+          throw new Error(result.error || 'Error desconocido');
+        }
+        
+        // Cerrar pop-up y recargar tabla
+        popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
         cargarUsuariosTemplate();
+        
+        // Mostrar mensaje de éxito
+        alert('✅ Límite establecido correctamente');
+        
       } catch (error) {
-        alert('Error al actualizar límite: ' + error.message);
+        console.error('❌ Error al actualizar límite:', error);
+        alert('❌ Error al actualizar límite: ' + error.message);
       }
     };
   }
@@ -228,12 +256,14 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
   const btnCancelar = popup.querySelector('.btn-gris');
   if (btnCancelar) {
     btnCancelar.onclick = function() {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     };
   }
   // Cerrar haciendo click fuera
   popup.addEventListener('click', function(event) {
     if (event.target === popup) {
+      popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     }
   });
@@ -250,7 +280,7 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
         return;
       }
       try {
-        const resp = await fetch('/stats/bloquear-usuario', {
+        const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -258,10 +288,18 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
           },
           body: JSON.stringify({ profile_id: idUsuario, bloqueado: !estaBloqueado })
         });
+        
+        if (!resp.ok) {
+          throw new Error(`Error del servidor: ${resp.status} ${resp.statusText}`);
+        }
+        
         const result = await resp.json();
         if (!result.success) throw new Error(result.error || 'Error desconocido');
+        
+        popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
         cargarUsuariosTemplate();
+        alert(`✅ Usuario ${estaBloqueado ? 'activado' : 'bloqueado'} correctamente`);
       } catch (error) {
         alert('Error al actualizar usuario: ' + error.message);
       }

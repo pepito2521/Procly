@@ -544,7 +544,7 @@ input:checked + .slider:before {
 /* CONTENT AREA */
 .content-area {
   flex: 1;
-  padding: 16px 32px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -888,6 +888,22 @@ table tbody tr {
   fill: currentColor;
   width: 1rem;
   height: 1rem;
+}
+
+/* ===== CHART-CARD GLOBALES ===== */
+/* Todos los chart-card deben expandirse para llenar el espacio disponible */
+[class*="chart-card"] {
+  flex: 1 !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Las tablas dentro de chart-card deben expandirse para llenar el espacio */
+[class*="chart-card"] table {
+  flex: 1 !important;
+  min-height: 0 !important;
 }
 
 
