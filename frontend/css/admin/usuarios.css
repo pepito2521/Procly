@@ -28,14 +28,15 @@
 }
 
 .usuarios-table tbody tr {
-    height: 54px;
+    height: 48px;
 }
 
 .usuarios-table th,
 .usuarios-table td {
-    padding: 12px 16px;
+    padding: 8px 16px;
     border-bottom: 1px solid #e5e7eb;
     font-size: 14px;
+    line-height: 1.4;
 }
 
 .usuarios-table th {
