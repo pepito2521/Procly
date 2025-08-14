@@ -205,14 +205,13 @@ function configurarPopupEditarDireccion(idDireccion) {
     };
   }
 
-  // Cerrar haciendo click fuera
   popup.addEventListener('click', function(event) {
     if (event.target === popup) {
       popup.style.display = 'none';
       document.getElementById('popup-direccion-container').style.display = 'none';
     }
   });
-
+  cargarDatosDireccion(idDireccion);
 }
 
 function configurarPopupBloquear() {
@@ -234,4 +233,64 @@ function configurarPopupBloquear() {
       document.getElementById('popup-direccion-container').style.display = 'none';
     }
   });
+}
+
+// Función para cargar y auto-completar los datos de una dirección
+async function cargarDatosDireccion(idDireccion) {
+  try {
+    console.log('🔄 Cargando datos de dirección:', idDireccion);
+    
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+      return;
+    }
+
+    // Obtener los datos de la dirección desde la tabla
+    const fila = document.querySelector(`[data-id="${idDireccion}"]`);
+    if (!fila) {
+      console.error('❌ No se encontró la fila de la dirección');
+      return;
+    }
+
+    // Extraer los datos de la fila de la tabla
+    const nombre = fila.children[0]?.textContent?.trim() || '';
+    const direccion = fila.children[1]?.textContent?.trim() || '';
+    const ciudadProvincia = fila.children[2]?.textContent?.trim() || '';
+    const estado = fila.children[3]?.textContent?.trim() || '';
+    
+    // Separar ciudad y provincia si están juntas
+    let ciudad = '';
+    let provincia = '';
+    if (ciudadProvincia.includes('/')) {
+      [ciudad, provincia] = ciudadProvincia.split('/').map(s => s.trim());
+    } else {
+      ciudad = ciudadProvincia;
+    }
+
+    console.log('📋 Datos extraídos:', { nombre, direccion, ciudad, provincia, estado });
+
+    // Auto-completar los campos del formulario
+    const inputNombre = document.getElementById('editar-nombre');
+    const inputDireccion = document.getElementById('editar-direccion');
+    const inputCiudad = document.getElementById('editar-ciudad');
+    const inputProvincia = document.getElementById('editar-provincia');
+    const inputCodigoPostal = document.getElementById('editar-codigo_postal');
+    const inputPais = document.getElementById('editar-pais');
+    const checkboxActiva = document.getElementById('editar-activa');
+
+    if (inputNombre) inputNombre.value = nombre;
+    if (inputDireccion) inputDireccion.value = direccion;
+    if (inputCiudad) inputCiudad.value = ciudad;
+    if (inputProvincia) inputProvincia.value = provincia;
+    if (inputCodigoPostal) inputCodigoPostal.value = ''; // No tenemos este dato en la tabla
+    if (inputPais) inputPais.value = 'Argentina'; // Valor por defecto
+    if (checkboxActiva) checkboxActiva.checked = estado === 'Activa';
+
+    console.log('✅ Campos auto-completados correctamente');
+
+  } catch (error) {
+    console.error('❌ Error al cargar datos de dirección:', error);
+    alert('Error al cargar los datos de la dirección');
+  }
 }
