@@ -89,6 +89,7 @@ async function cargarUsuariosTemplate() {
 
         listado.usuarios.forEach(u => {
             const row = document.createElement("tr");
+            row.setAttribute('data-id', u.profile_id);
             const limiteHtml = (u.limite_gasto && !isNaN(u.limite_gasto))
                 ? `$${u.limite_gasto.toLocaleString()}`
                 : '<span class="sin-limite">Sin Límite</span>';
@@ -227,12 +228,11 @@ async function cargarPopupLimite(idUsuario) {
           throw new Error(result.error || 'Error desconocido');
         }
         
-        // Cerrar pop-up y recargar tabla
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
-        cargarUsuariosTemplate();
-        
-        // Mostrar mensaje de éxito
+
+        await actualizarDatosUsuario(idUsuario, limite);
+
         alert('✅ Límite establecido correctamente');
         
       } catch (error) {
@@ -240,6 +240,70 @@ async function cargarPopupLimite(idUsuario) {
         alert('❌ Error al actualizar límite: ' + error.message);
       }
     };
+  }
+}
+
+// Función para actualizar solo los datos necesarios después de cambios
+async function actualizarDatosUsuario(profileId, nuevoLimite = null, nuevoEstado = null) {
+  try {
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) return;
+
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    // 1. Actualizar la fila específica en la tabla
+    const filaUsuario = document.querySelector(`tr[data-id="${profileId}"]`);
+    if (filaUsuario) {
+      // Actualizar límite si se cambió
+      if (nuevoLimite !== null) {
+        const tdLimite = filaUsuario.querySelector('td:nth-child(3)');
+        if (tdLimite) {
+          tdLimite.innerHTML = nuevoLimite > 0 
+            ? `$${nuevoLimite.toLocaleString()}` 
+            : '<span class="sin-limite">Sin Límite</span>';
+        }
+      }
+
+      // Actualizar estado si se cambió
+      if (nuevoEstado !== null) {
+        const tdEstado = filaUsuario.querySelector('td:nth-child(5)');
+        if (tdEstado) {
+          const nuevoBadge = nuevoEstado 
+            ? '<span class="estado-badge activa">Activa</span>'
+            : '<span class="estado-badge bloqueada">Bloqueada</span>';
+          tdEstado.innerHTML = nuevoBadge;
+        }
+      }
+    }
+
+    // 2. Actualizar KPIs relevantes
+    const [
+      kpiTotal,
+      kpiActivos,
+      kpiBloqueados,
+      kpiPorcentaje,
+      kpiPorcentajeBloqueados
+    ] = await Promise.all([
+      fetch('/stats/usuarios-totales', { headers }).then(r => r.json()),
+      fetch('/stats/usuarios-activos', { headers }).then(r => r.json()),
+      fetch('/stats/usuarios-bloqueados', { headers }).then(r => r.json()),
+      fetch('/stats/usuarios-activos-porcentaje', { headers }).then(r => r.json()),
+      fetch('/stats/usuarios-bloqueados-porcentaje', { headers }).then(r => r.json())
+    ]);
+
+    // Actualizar KPIs en la interfaz
+    document.getElementById("totalUsuarios").textContent = kpiTotal?.total ?? 0;
+    document.getElementById("usuariosActivos").textContent = kpiActivos?.total ?? 0;
+    document.getElementById("usuariosBloqueados").textContent = kpiBloqueados?.total ?? 0;
+    document.getElementById("porcentajeUsuariosActivos").textContent = `${kpiPorcentaje?.porcentaje ?? 0}% del total`;
+    document.getElementById("porcentajeUsuariosBloqueados").textContent = `${kpiPorcentajeBloqueados?.porcentaje ?? 0}% del total`;
+
+    console.log('✅ Datos actualizados correctamente');
+
+  } catch (error) {
+    console.error('❌ Error al actualizar datos:', error);
+    // Si falla la actualización parcial, recargar todo
+    cargarUsuariosTemplate();
   }
 }
 
@@ -298,7 +362,10 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
         
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
-        cargarUsuariosTemplate();
+        
+        // Actualizar solo los datos necesarios
+        await actualizarDatosUsuario(idUsuario, null, !estaBloqueado);
+        
         alert(`✅ Usuario ${estaBloqueado ? 'activado' : 'bloqueado'} correctamente`);
       } catch (error) {
         alert('Error al actualizar usuario: ' + error.message);

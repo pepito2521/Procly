@@ -64,6 +64,8 @@
     flex: 1;
     min-height: 0;
     overflow: visible;
+    display: flex;
+    flex-direction: column;
 }
 
 .chart-title {
@@ -84,6 +86,7 @@
 }
 
 #monthlyChart {
-    max-height: 320px;
-    height: 320px;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
 }

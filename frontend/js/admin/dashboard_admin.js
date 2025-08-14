@@ -154,6 +154,15 @@ async function cargarGrafico() {
         plugins: {
           legend: {
             display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const value = context.parsed.y;
+                if (value === null || value === undefined) return '';
+                return 'Gastos Mensuales: ' + value.toLocaleString('es-AR').replace(/,/g, '.') + ' ARS';
+              }
+            }
           }
         },
         scales: {
