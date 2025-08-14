@@ -161,6 +161,13 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.kpi-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
 }
 
 .kpi-title {
@@ -172,8 +179,13 @@
 
 .kpi-value {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   color: #111827;
+  transition: font-weight 0.2s ease;
+}
+
+.kpi-card:hover .kpi-value {
+  font-weight: 700;
 }
 
 .kpi-title-row {
