@@ -52,7 +52,7 @@
   .progreso-ticket {
     flex-direction: column;
     gap: 1rem;
-    padding: 1rem 1.5rem;
+    padding: 2rem;
   }
   
   .contenedor-icono-linea {
@@ -84,7 +84,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 1rem 2rem;
+  padding: 2rem;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -339,17 +339,6 @@
 .detalle-valor {
   color:   #2f3e46;;
   font-size: 1rem;
-}
-
-/* DESCRIPCIÓN EN FILA COMPLETA */
-.detalle-descripcion {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  margin: 1rem;
-  grid-column: 1 / -1;
-  align-items: flex-start;
-  justify-content: flex-start;
 }
 
 /* PANEL DINAMICO: PROPUESTAS */

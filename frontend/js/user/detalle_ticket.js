@@ -58,7 +58,7 @@ async function fetchTicket(ticketId, token) {
     // MOSTRAR DATOS BASICOS DEL TICKET
     document.getElementById("ticket-id").textContent = data.codigo_ticket;
     document.getElementById("ticket-nombre").textContent = data.nombre;
-    document.getElementById("ticket-descripcion").textContent = data.descripcion;
+
     const estadoSpan = document.createElement("span");
     estadoSpan.classList.add("estado-badge", data.estado.toLowerCase().replace(/\s+/g, "-"));
     estadoSpan.textContent = data.estado;
