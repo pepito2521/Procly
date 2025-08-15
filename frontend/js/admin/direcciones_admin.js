@@ -166,7 +166,7 @@ async function cargarPopupAgregarDireccion() {
         pais: form.pais.value.trim()
       };
       try {
-        const resp = await fetch('/stats/nueva-direccion', {
+        const resp = await fetch('/stats/nueva_direccion', {
           method: 'POST',
           headers,
           body: JSON.stringify(data)

@@ -154,11 +154,15 @@ async function cargarUsuariosTemplate() {
         });
     });
 
-    tbody.querySelectorAll('.btn-rojo').forEach((btn, i) => {
+    tbody.querySelectorAll('.btn-rojo, .btn-verde').forEach((btn, i) => {
         btn.addEventListener('click', function() {
             const idUsuario = window.listadoUsuarios[i].profile_id;
             const estaBloqueado = !!window.listadoUsuarios[i].bloqueado;
-            cargarPopupBloquear(idUsuario, estaBloqueado);
+            if (estaBloqueado) {
+                cargarPopupActivar(idUsuario);
+            } else {
+                cargarPopupBloquear(idUsuario, estaBloqueado);
+            }
         });
     });
 }
@@ -364,11 +368,72 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
         
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
+        // Mostrar spinner
+        const spinner = document.querySelector('.glass-loader');
+        if (spinner) spinner.style.display = 'flex';
         await cargarUsuariosTemplate();
+        if (spinner) spinner.style.display = 'none';
         
         alert(`✅ Usuario ${estaBloqueado ? 'activado' : 'bloqueado'} correctamente`);
       } catch (error) {
         alert('Error al actualizar usuario: ' + error.message);
+      }
+    };
+  }
+}
+
+// Pop-up para activar usuario
+async function cargarPopupActivar(idUsuario) {
+  const response = await fetch('/components/pop-up-activar-usuario.html');
+  const html = await response.text();
+  document.getElementById('popup-direccion-container').innerHTML = html;
+  document.getElementById('popup-direccion-container').style.display = 'block';
+  const popup = document.getElementById('pop-up-activar');
+  popup.style.display = 'flex';
+
+  // Botón cancelar
+  const btnCancelar = popup.querySelector('.btn-gris');
+  if (btnCancelar) {
+    btnCancelar.onclick = function() {
+      popup.style.display = 'none';
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    };
+  }
+  // Cerrar haciendo click fuera
+  popup.addEventListener('click', function(event) {
+    if (event.target === popup) {
+      popup.style.display = 'none';
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    }
+  });
+  // Botón activar
+  const btnActivar = document.getElementById('confirmar-activar');
+  if (btnActivar) {
+    btnActivar.onclick = async function() {
+      try {
+        const token = localStorage.getItem('supabaseToken');
+        if (!token) {
+          alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+          return;
+        }
+        const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ profile_id: idUsuario, bloqueado: false })
+        });
+        if (!resp.ok) throw new Error('No se pudo activar el usuario');
+        popup.style.display = 'none';
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        // Mostrar spinner
+        const spinner = document.querySelector('.glass-loader');
+        if (spinner) spinner.style.display = 'flex';
+        await cargarUsuariosTemplate();
+        if (spinner) spinner.style.display = 'none';
+      } catch (error) {
+        alert('Error al activar el usuario: ' + error.message);
       }
     };
   }

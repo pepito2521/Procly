@@ -774,9 +774,8 @@ table tbody tr {
   height: 56px;
 }
 
-
 /* ===== BOTONES GLOBALES ===== */
-/* Botón Verde - Mismo estilo que btn-primary */
+/* BOTON VERDE */
 .btn-verde {
   width: fit-content;
   display: inline-flex;
@@ -784,6 +783,7 @@ table tbody tr {
   justify-content: center;
   height: 35px;
   line-height: 35px;
+  min-width: 120px;
   gap: 8px;
   padding: 0 14px;
   border: none;
@@ -811,10 +811,11 @@ table tbody tr {
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Botón Gris - Mismo estilo que btn-editar */
+/* BOTON GRIS */
 .btn-gris {
   height: 35px;
   line-height: 35px;
+  min-width: 120px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -846,9 +847,10 @@ table tbody tr {
   transform: translateY(0px);
 }
 
-/* Botón Rojo - Estilo similar a btn-primary pero con gama de rojos oscuros */
+/* BOTON ROJO */
 .btn-rojo {
   width: fit-content;
+  min-width: 120px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -881,7 +883,6 @@ table tbody tr {
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para iconos en todos los botones */
 .btn-verde svg,
 .btn-gris svg,
 .btn-rojo svg {
