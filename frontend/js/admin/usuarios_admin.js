@@ -90,14 +90,16 @@ async function cargarUsuariosTemplate() {
         listado.usuarios.forEach(u => {
             const row = document.createElement("tr");
             row.setAttribute('data-id', u.profile_id);
+            const gastoAcumulado = u.gasto_total !== null && u.gasto_total !== undefined ? `${Number(u.gasto_total).toLocaleString('es-AR').replace(/,/g, '.')} ARS` : '-';
             const limiteHtml = (u.limite_gasto && !isNaN(u.limite_gasto))
-                ? `$${u.limite_gasto.toLocaleString()}`
+                ? `${Number(u.limite_gasto).toLocaleString('es-AR').replace(/,/g, '.')} ARS`
                 : '<span class="sin-limite">Sin Límite</span>';
+            const saldo = u.saldo !== null && u.saldo !== undefined ? `${Number(u.saldo).toLocaleString('es-AR').replace(/,/g, '.')} ARS` : '-';
             row.innerHTML = `
                 <td>${u.nombre} ${u.apellido}</td>
-                <td>$${u.gasto_total?.toLocaleString() ?? '0'}</td>
+                <td>${gastoAcumulado}</td>
                 <td>${limiteHtml}</td>
-                <td>${u.saldo !== null && u.saldo !== undefined ? `$${u.saldo.toLocaleString()}` : '-'}</td>
+                <td>${saldo}</td>
                 <td>
                     <span class="estado-badge ${!u.bloqueado ? 'activa' : 'bloqueada'}">
                         ${!u.bloqueado ? 'Activo' : 'Bloqueado'}
@@ -111,7 +113,7 @@ async function cargarUsuariosTemplate() {
                             </svg>
                             Límite
                         </button>
-                        <button class="btn-rojo">
+                        <button class="${u.bloqueado ? 'btn-verde' : 'btn-rojo'}">
                             ${u.bloqueado
                                 ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
                                 : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
@@ -259,7 +261,7 @@ async function actualizarDatosUsuario(profileId, nuevoLimite = null, nuevoEstado
         const tdLimite = filaUsuario.querySelector('td:nth-child(3)');
         if (tdLimite) {
           tdLimite.innerHTML = nuevoLimite > 0 
-            ? `$${nuevoLimite.toLocaleString()}` 
+            ? `${Number(nuevoLimite).toLocaleString('es-AR').replace(/,/g, '.')} ARS` 
             : '<span class="sin-limite">Sin Límite</span>';
         }
       }

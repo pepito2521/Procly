@@ -169,7 +169,6 @@
   align-items: flex-start;
   justify-content: center;
   transition: all 0.2s ease;
-  cursor: pointer;
 }
 
 .kpi-card:hover {

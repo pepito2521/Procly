@@ -262,8 +262,8 @@ async function cargarDatosDireccion(idDireccion) {
     // Separar ciudad y provincia si están juntas
     let ciudad = '';
     let provincia = '';
-    if (ciudadProvincia.includes('/')) {
-      [ciudad, provincia] = ciudadProvincia.split('/').map(s => s.trim());
+    if (ciudadProvincia.includes(',')) {
+      [ciudad, provincia] = ciudadProvincia.split(',').map(s => s.trim());
     } else {
       ciudad = ciudadProvincia;
     }

@@ -35,7 +35,7 @@
 .detalle-ticket-main {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1rem;
   width: 100%;
   justify-content: flex-start;
   align-items: stretch;
@@ -45,14 +45,14 @@
 
 @media (max-width: 900px) {
   .detalle-ticket-main {
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: stretch;
   }
   
   .progreso-ticket {
     flex-direction: column;
     gap: 1rem;
-    padding: 2rem;
+    padding: 1.5rem 2rem;
   }
   
   .contenedor-icono-linea {
@@ -84,7 +84,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);

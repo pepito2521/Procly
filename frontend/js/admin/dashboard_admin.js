@@ -60,10 +60,10 @@ async function cargarKPIs() {
       fetchWithErrorHandling('/stats/direcciones-totales', headers)
     ]);
 
-    // Actualizar KPIs en el DOM con valores por defecto (solo enteros)
-    document.getElementById("kpi-gasto-mensual").textContent = `$${Math.round(gastoMensual?.total || 0).toLocaleString()}`;
-    document.getElementById("kpi-promedio-mensual").textContent = `$${Math.round(promedioMensual?.promedio || 0).toLocaleString()}`;
-    document.getElementById("kpi-acumulado").textContent = `$${Math.round(acumulado?.total || 0).toLocaleString()}`;
+    // Actualizar KPIs en el DOM con formato ARS y punto como separador de miles
+    document.getElementById("kpi-gasto-mensual").textContent = `${Math.round(gastoMensual?.total || 0).toLocaleString('es-AR').replace(/,/g, '.')} ARS`;
+    document.getElementById("kpi-promedio-mensual").textContent = `${Math.round(promedioMensual?.promedio || 0).toLocaleString('es-AR').replace(/,/g, '.')} ARS`;
+    document.getElementById("kpi-acumulado").textContent = `${Math.round(acumulado?.total || 0).toLocaleString('es-AR').replace(/,/g, '.')} ARS`;
     document.getElementById("kpi-tickets-procesados").textContent = Math.round(ticketsProcesados?.total || 0).toLocaleString();
     document.getElementById("kpi-usuarios-totales").textContent = Math.round(usuariosTotales?.total || 0).toLocaleString();
     document.getElementById("kpi-usuarios-nuevos").textContent = 
