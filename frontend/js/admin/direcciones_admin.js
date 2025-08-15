@@ -88,10 +88,8 @@ function cargarTablaDirecciones(direcciones) {
             Editar
           </button>
           <button class="btn-rojo" data-id="${direccion.direccion_id}">
-            ${direccion.is_active 
-              ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
-              : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`
-            }
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M216.49,72.49l-40-40A12,12,0,0,0,168,28H88A12,12,0,0,0,76,40V56H40A12,12,0,0,0,28,68V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V80A12,12,0,0,0,216.49,72.49ZM88,44h80V56H88ZM208,208H48V80H208ZM104,120a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,120Zm0,32a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,152Zm0,32a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,184Z"></path></svg>
+            Eliminar
           </button>
         </div>
       </td>
@@ -130,7 +128,7 @@ function cargarTablaDirecciones(direcciones) {
   tbody.querySelectorAll('.btn-rojo').forEach(btn => {
     btn.addEventListener('click', function() {
       const idDireccion = this.getAttribute('data-id');
-      cargarPopupBloquearDireccion(idDireccion);
+      cargarPopupEliminarDireccion(idDireccion);
     });
   });
 }
@@ -292,5 +290,60 @@ async function cargarDatosDireccion(idDireccion) {
   } catch (error) {
     console.error('❌ Error al cargar datos de dirección:', error);
     alert('Error al cargar los datos de la dirección');
+  }
+}
+
+// --- 3. Nueva función para cargar el pop-up de eliminar dirección ---
+async function cargarPopupEliminarDireccion(idDireccion) {
+  const response = await fetch('/components/pop-up-eliminar-direccion.html');
+  const html = await response.text();
+  document.getElementById('popup-direccion-container').innerHTML = html;
+  document.getElementById('popup-direccion-container').style.display = 'block';
+  const popup = document.getElementById('pop-up-eliminar');
+  popup.style.display = 'flex';
+
+  // Cerrar al hacer click fuera del contenido
+  popup.addEventListener('click', function(event) {
+    if (event.target === popup) {
+      popup.style.display = 'none';
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    }
+  });
+
+  // Botón cancelar
+  const btnCancelar = document.getElementById('cancelar-eliminar');
+  if (btnCancelar) {
+    btnCancelar.onclick = function() {
+      popup.style.display = 'none';
+      document.getElementById('popup-direccion-container').style.display = 'none';
+    };
+  }
+
+  // Botón eliminar
+  const btnEliminar = document.getElementById('confirmar-eliminar');
+  if (btnEliminar) {
+    btnEliminar.onclick = async function() {
+      try {
+        const token = localStorage.getItem('supabaseToken');
+        if (!token) {
+          alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+          return;
+        }
+        const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+        const resp = await fetch('/stats/eliminar-direccion', {
+          method: 'DELETE',
+          headers,
+          body: JSON.stringify({ direccion_id: idDireccion })
+        });
+        if (!resp.ok) throw new Error('No se pudo eliminar la dirección');
+        // Cerrar pop-up
+        popup.style.display = 'none';
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        // Recargar tabla
+        cargarDireccionesTemplate();
+      } catch (error) {
+        alert('Error al eliminar la dirección: ' + error.message);
+      }
+    };
   }
 }
