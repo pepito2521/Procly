@@ -145,6 +145,40 @@ async function cargarPopupAgregarDireccion() {
 
   // Configurar formulario y botones
   configurarPopupDireccion();
+
+  // Agregar event listener para el submit del formulario
+  const form = document.getElementById('form-pop-up-direccion');
+  if (form) {
+    form.onsubmit = async function(e) {
+      e.preventDefault();
+      const token = localStorage.getItem('supabaseToken');
+      if (!token) {
+        alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+        return;
+      }
+      const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+      const data = {
+        nombre: form.nombre.value.trim(),
+        direccion: form.direccion.value.trim(),
+        ciudad: form.ciudad.value.trim(),
+        provincia: form.provincia.value.trim(),
+        codigo_postal: form.codigo_postal.value.trim(),
+        pais: form.pais.value.trim()
+      };
+      try {
+        const resp = await fetch('/stats/nueva-direccion', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(data)
+        });
+        if (!resp.ok) throw new Error('No se pudo agregar la dirección');
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        cargarDireccionesTemplate();
+      } catch (error) {
+        alert('Error al agregar la dirección: ' + error.message);
+      }
+    };
+  }
 }
 
 // Mostrar pop-up de editar dirección

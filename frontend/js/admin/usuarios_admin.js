@@ -364,9 +364,7 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
         
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
-        
-        // Actualizar solo los datos necesarios
-        await actualizarDatosUsuario(idUsuario, null, !estaBloqueado);
+        await cargarUsuariosTemplate();
         
         alert(`✅ Usuario ${estaBloqueado ? 'activado' : 'bloqueado'} correctamente`);
       } catch (error) {

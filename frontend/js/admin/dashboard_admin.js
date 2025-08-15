@@ -72,6 +72,18 @@ async function cargarKPIs() {
         : `${Math.round(usuariosNuevos.nuevos).toLocaleString()} nuevo${usuariosNuevos.nuevos > 1 ? 's' : ''} este mes`;
     document.getElementById("kpi-total-direcciones").textContent = Math.round(totalDirecciones?.total || 0).toLocaleString();
 
+    // Texto informativo para summary-subtext
+    const ticketsSub = document.getElementById("actividadTotalesSub");
+    if (ticketsSub) {
+      const total = Math.round(ticketsProcesados?.total || 0);
+      ticketsSub.textContent = total > 0 ? `Total de tickets registrados` : 'Sin tickets';
+    }
+    const direccionesSub = document.getElementById("kpi-direcciones-nuevas");
+    if (direccionesSub) {
+      const total = Math.round(totalDirecciones?.total || 0);
+      direccionesSub.textContent = total > 0 ? `Total de direcciones registradas` : 'Sin direcciones';
+    }
+
   } catch (error) {
     console.error("Error al cargar KPIs:", error);
     // Mostrar valores por defecto en caso de error
