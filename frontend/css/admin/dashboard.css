@@ -51,7 +51,7 @@
 
 .summary-subtext {
     font-size: 14px;
-    color: #6b7280;
+    color: #008000;
     margin-top: 6px;
 }
 
@@ -88,6 +88,6 @@
     flex: 1;
     min-height: 0;
     width: 100%;
-    max-height: 450px;
+    max-height: 400px;
     height: 100%;
 }

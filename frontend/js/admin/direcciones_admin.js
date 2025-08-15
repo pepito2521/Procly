@@ -88,7 +88,9 @@ function cargarTablaDirecciones(direcciones) {
             Editar
           </button>
           <button class="btn-rojo" data-id="${direccion.direccion_id}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M216.49,72.49l-40-40A12,12,0,0,0,168,28H88A12,12,0,0,0,76,40V56H40A12,12,0,0,0,28,68V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V80A12,12,0,0,0,216.49,72.49ZM88,44h80V56H88ZM208,208H48V80H208ZM104,120a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,120Zm0,32a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,152Zm0,32a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,184Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M216,48H176V40a24,24,0,0,0-24-24H104A24,24,0,0,0,80,40v8H40a8,8,0,0,0,0,16h8V208a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V64h8a8,8,0,0,0,0-16ZM96,40a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96Zm96,168H64V64H192ZM112,104v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm48,0v64a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"></path>
+            </svg>
             Eliminar
           </button>
         </div>

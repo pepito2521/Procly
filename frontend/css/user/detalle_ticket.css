@@ -347,7 +347,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1.5rem;
-  padding: 1rem 0;
+  padding: 2rem 0 1rem 0;
   overflow: visible;
   max-height: none;
   justify-content: center;
@@ -380,7 +380,7 @@
 
 .card-propuesta .detalle-valor {
   font-weight: 500;
-  color: #333;
+  color: #2f3e46;
   font-size: 0.9rem;
   flex: 1;
   margin: 0 1rem;
@@ -388,7 +388,7 @@
 }
 
 .card-propuesta:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
 .card-propuesta.selected {
@@ -412,9 +412,9 @@
 
 .icono-ver:hover,
 .icono-descarga:hover {
-  background-color: #e0f2f1;
+  background-color: #f3f4f6;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 #btn-seleccionar-propuesta {
