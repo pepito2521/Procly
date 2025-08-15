@@ -88,3 +88,42 @@
     flex-shrink: 0;
     margin-bottom: 16px;
 }
+
+/* Input límite usuario con unidad */
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.input-limite {
+  width: 100%;
+  padding-right: 48px;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  margin-bottom: 1.5rem;
+}
+.input-unidad {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 1rem;
+  pointer-events: none;
+  font-weight: 500;
+}
+/* Ocultar flechas en Chrome, Safari, Edge, Opera */
+.input-limite::-webkit-outer-spin-button,
+.input-limite::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Ocultar flechas en Firefox */
+.input-limite {
+  -moz-appearance: textfield;
+}

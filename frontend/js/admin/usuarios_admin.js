@@ -247,6 +247,18 @@ async function cargarPopupLimite(idUsuario) {
       }
     };
   }
+
+  // Formateo en tiempo real del input de límite
+  const inputLimite = document.getElementById('input-limite');
+  if (inputLimite) {
+    inputLimite.addEventListener('input', function(e) {
+      // Elimina todo lo que no sea número
+      let valor = this.value.replace(/\D/g, '');
+      // Formatea con separador de miles
+      valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      this.value = valor;
+    });
+  }
 }
 
 // Función para actualizar solo los datos necesarios después de cambios
