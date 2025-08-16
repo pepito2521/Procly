@@ -197,7 +197,8 @@ async function cargarPopupLimite(idUsuario) {
     form.onsubmit = async function(e) {
       e.preventDefault();
       const input = document.getElementById('input-limite');
-      const limite = Number(input.value);
+      const valorSinSeparadores = input.value.replace(/\./g, '');
+      const limite = Number(valorSinSeparadores);
       if (!limite || limite <= 0) {
         alert('Por favor, ingresa un límite válido mayor a 0');
         return;
@@ -386,7 +387,18 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
         await cargarUsuariosTemplate();
         if (spinner) spinner.style.display = 'none';
         
-        alert(`✅ Usuario ${estaBloqueado ? 'activado' : 'bloqueado'} correctamente`);
+        const btn = document.querySelector(`tr[data-id="${idUsuario}"] .btn-rojo, .btn-verde`);
+        if (btn) {
+          btn.onclick = null;
+          btn.addEventListener('click', function() {
+            const estaBloqueadoAhora = btn.classList.contains('btn-rojo');
+            if (estaBloqueadoAhora) {
+              cargarPopupBloquear(idUsuario, true);
+            } else {
+              cargarPopupBloquear(idUsuario, false);
+            }
+          });
+        }
         // Actualizar fila y array global
         const fila = document.querySelector(`tr[data-id="${idUsuario}"]`);
         if (fila) {

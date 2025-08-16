@@ -99,6 +99,8 @@ function cargarTablaDirecciones(direcciones) {
     tbody.appendChild(row);
   });
 
+  window.listadoDirecciones = direcciones;
+
   // Configurar buscador
   const inputBuscador = document.getElementById("buscadorDirecciones");
   if (inputBuscador) {
@@ -347,7 +349,11 @@ async function cargarPopupEliminarDireccion(idDireccion) {
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
         // Recargar tabla
-        cargarDireccionesTemplate();
+        // Mostrar spinner
+        const spinner = document.querySelector('.glass-loader');
+        if (spinner) spinner.style.display = 'flex';
+        await cargarDireccionesTemplate();
+        if (spinner) spinner.style.display = 'none';
       } catch (error) {
         alert('Error al eliminar la dirección: ' + error.message);
       }
