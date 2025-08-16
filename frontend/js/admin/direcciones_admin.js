@@ -248,6 +248,47 @@ function configurarPopupEditarDireccion(idDireccion) {
     }
   });
   cargarDatosDireccion(idDireccion);
+
+  // --- NUEVO: submit edición ---
+  const form = document.getElementById('form-pop-up-editar');
+  if (form) {
+    form.onsubmit = async function(e) {
+      e.preventDefault();
+      const token = localStorage.getItem('supabaseToken');
+      if (!token) {
+        alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+        return;
+      }
+      const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
+      const data = {
+        nombre: form.nombre.value.trim(),
+        direccion: form.direccion.value.trim(),
+        ciudad: form.ciudad.value.trim(),
+        provincia: form.provincia.value.trim(),
+        codigo_postal: form.codigo_postal.value.trim(),
+        pais: form.pais.value.trim(),
+        is_active: form.is_active.checked
+      };
+      // Mostrar spinner
+      const spinner = document.querySelector('.glass-loader');
+      if (spinner) spinner.style.display = 'flex';
+      try {
+        const resp = await fetch(`/stats/direcciones/${idDireccion}`, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify(data)
+        });
+        if (!resp.ok) throw new Error('No se pudo editar la dirección');
+        popup.style.display = 'none';
+        document.getElementById('popup-direccion-container').style.display = 'none';
+        await cargarDireccionesTemplate();
+      } catch (error) {
+        alert('Error al editar la dirección: ' + error.message);
+      } finally {
+        if (spinner) spinner.style.display = 'none';
+      }
+    };
+  }
 }
 
 function configurarPopupBloquear() {
