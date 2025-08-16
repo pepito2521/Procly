@@ -238,10 +238,11 @@ async function cargarPopupLimite(idUsuario) {
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
 
+        const spinner = document.querySelector('.glass-loader');
+        if (spinner) spinner.style.display = 'flex';
         await actualizarDatosUsuario(idUsuario, limite);
+        if (spinner) spinner.style.display = 'none';
 
-        alert('✅ Límite establecido correctamente');
-        
       } catch (error) {
         console.error('❌ Error al actualizar límite:', error);
         alert('❌ Error al actualizar límite: ' + error.message);
