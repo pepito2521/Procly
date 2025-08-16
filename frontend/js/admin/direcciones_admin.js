@@ -175,7 +175,7 @@ async function cargarPopupAgregarDireccion() {
         });
         if (!resp.ok) throw new Error('No se pudo agregar la dirección');
         document.getElementById('popup-direccion-container').style.display = 'none';
-        cargarDireccionesTemplate();
+        await cargarDireccionesTemplate();
       } catch (error) {
         alert('Error al agregar la dirección: ' + error.message);
       }
