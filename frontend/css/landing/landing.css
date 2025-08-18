@@ -135,7 +135,7 @@
   
   .nav-link {
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--gray-600);
     text-decoration: none;
     transition: color 0.2s;
@@ -147,12 +147,12 @@
 
   .nav-link.active {
     color: var(--primary);
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .mobile-nav-link.active {
     color: var(--primary);
-    font-weight: 600;
+    font-weight: 500;
   }
   
   .header-actions {
@@ -310,7 +310,7 @@
   
   .mobile-nav-link {
     font-size: 1.5rem;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--gray-700);
     text-decoration: none;
     transition: color 0.2s;
