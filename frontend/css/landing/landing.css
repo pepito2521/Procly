@@ -1,4 +1,3 @@
-/* Reset y Variables */
 * {
     margin: 0;
     padding: 0;
@@ -40,11 +39,18 @@
     --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   }
   
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.6;
-    color: var(--gray-900);
-    background-color: white;
+  body, html {
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  .hero-description, .section-description, .footer-description {
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-weight: 400;
   }
   
   .container {

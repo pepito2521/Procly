@@ -170,22 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "mailto:partners@procly.com?subject=Interés en ser Partner"
       })
     }
-
-    // BOTÓN: EMPEZAR AHORA (Sign Up)
-    const btnEmpezarAhora = document.getElementById("btn-empezar-ahora");
-    if (btnEmpezarAhora) {
-      btnEmpezarAhora.addEventListener("click", () => {
-        window.location.href = "/app/auth/signup.html";
-      });
-    }
-
-    // BOTÓN: AGENDAR REUNIÓN
-    const btnAgendarReunion = document.getElementById("btn-agendar-reunion");
-    if (btnAgendarReunion) {
-      btnAgendarReunion.addEventListener("click", () => {
-        window.open("https://calendar.app.google/4pULoKgKVGCSPRTUA", "_blank");
-      });
-    }
   
     // Header scroll effect (using existing header variable)
     let lastScrollTop = 0
