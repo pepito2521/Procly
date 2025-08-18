@@ -532,10 +532,6 @@
     text-align: center;
   }
 
-  .tail-spend-text .section-description {
-    text-align: center;
-  }
-
   .tail-spend-visual {
     width: 100%;
     display: flex;
@@ -650,7 +646,7 @@
     font-size: 1.25rem;
     font-weight: 400;
     color: var(--gray-600);
-    max-width: 48rem;
+    max-width: 52rem;
     margin: 0 auto;
     text-align: center;
   }
@@ -1323,18 +1319,6 @@
   .profile-header {
     margin-bottom: 3rem;
     text-align: left;
-  }
-
-  /* Estilos específicos para section-title y section-description en perfiles */
-  .profile-header .section-title {
-    text-align: left;
-    margin: 0 0 1rem 0;
-  }
-
-  .profile-header .section-description {
-    text-align: left;
-    margin: 0;
-    max-width: none;
   }
 
   .profile-title {
@@ -2030,4 +2014,13 @@
 
 #tail-spend .section-title {
   white-space: nowrap;
+  text-align: center;
+}
+
+.tail-spend-hoverable {
+  transition: filter 0.2s;
+}
+.tail-spend-hoverable:hover {
+  content: url('/assets/img/tail_spend_hover.svg');
+  filter: brightness(1.08);
 }
