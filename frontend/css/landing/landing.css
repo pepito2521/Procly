@@ -522,38 +522,41 @@
 /* Transición sutil para el gráfico tail_spend */
 .tail-spend-visual {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .tail-spend-hoverable {
   display: block;
   max-width: 100%;
   height: auto;
-  transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
-  position: relative;
-  z-index: 1;
-}
-.tail-spend-hoverable::after {
-  content: '';
-  display: none;
-}
-.tail-spend-hoverable[data-hover='true'] {
-  opacity: 0;
-}
-.tail-spend-hoverable + .tail-spend-hoverable {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 2;
-  opacity: 0;
-  pointer-events: none;
   transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
 }
-.tail-spend-hoverable:hover + .tail-spend-hoverable,
-.tail-spend-hoverable:focus + .tail-spend-hoverable {
+.tail-spend-hoverable:first-child {
+  opacity: 1;
+  z-index: 1;
+  position: relative;
+  pointer-events: auto;
+}
+.tail-spend-hoverable:last-child {
+  opacity: 0;
+  z-index: 2;
+}
+.tail-spend-visual:hover .tail-spend-hoverable:first-child,
+.tail-spend-visual:focus .tail-spend-hoverable:first-child {
+  opacity: 0;
+}
+.tail-spend-visual:hover .tail-spend-hoverable:last-child,
+.tail-spend-visual:focus .tail-spend-hoverable:last-child {
   opacity: 1;
 }
 
   /* SECCION: TAIL SPEND PROBLEM */
   .tail-spend-problem {
-    padding: 6rem 0;
+    padding: 2rem 0;
     background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-50) 100%);
   }
 
@@ -630,7 +633,7 @@
 
   @media (max-width: 1023px) {
     .tail-spend-problem {
-      padding: 4rem 0;
+      padding: 2rem 0;
     }
   }
   
@@ -1201,7 +1204,7 @@
 /* SECCIÓN PARTNERS/PROVEEDORES */
 .partners-cta {
   background: linear-gradient(90deg, #f0f9fa 0%, #d9f0f2 100%);
-  padding: 3rem 0 4rem 0;
+  padding: 2rem 0 2rem 0;
   text-align: center;
 }
 
@@ -1227,7 +1230,7 @@
 
   /* PREVIEW SECTION */
   .preview {
-    padding: 6rem 0;
+    padding: 2rem 0;
     gap: 2rem;
   }
 
@@ -1417,7 +1420,7 @@
 
   /* HOW IT WORKS SECTION */
   .how-it-works {
-    padding: 6rem 0;
+    padding: 2rem 0;
     background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
     position: relative;
     transition: all 0.3s ease;
@@ -1441,7 +1444,7 @@
 
   @media (min-width: 768px) {
     .how-it-works {
-      padding: 8rem 0;
+      padding: 2rem 0;
     }
   }
 
@@ -1557,7 +1560,7 @@
   /* Responsive adjustments for how it works */
   @media (max-width: 768px) {
     .how-it-works {
-      padding: 4rem 0;
+      padding: 2rem 0;
       margin: 0 0.5rem;
       border-radius: 0 0 2rem 2rem;
     }
@@ -1597,7 +1600,7 @@
 
   /* PARTNERS SECTION */
   .partners {
-    padding: 3rem 0;
+    padding: 2rem 0;
     background-color: #508991;
     border-radius: 0;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -1606,7 +1609,7 @@
 
   @media (min-width: 768px) {
     .partners {
-      padding: 4rem 0;
+      padding: 2rem 0;
     }
   }
 
