@@ -2027,3 +2027,7 @@
       transition: none;
     }
   }
+
+#tail-spend .section-title {
+  white-space: nowrap;
+}
