@@ -499,17 +499,57 @@
     font-weight: 500;
     color: var(--primary);
     background-color: transparent;
-    border: 2px solid var(--primary);
+    border: 1.5px solid #d1d5db;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
     text-decoration: none !important;
-  }
+}
+.btn-hero-secondary svg {
+  stroke: var(--primary);
+  fill: none;
+  transition: stroke 0.18s;
+}
+.btn-hero-secondary:hover {
+  background: #f3f4f6;
+  color: var(--primary);
+  border-color: #b7e2e6;
+}
+.btn-hero-secondary:hover svg {
+  stroke: var(--primary);
+}
 
-  .btn-hero-secondary:hover {
-    background-color: var(--primary);
-    color: white;
-  }
+/* Transición sutil para el gráfico tail_spend */
+.tail-spend-visual {
+  position: relative;
+}
+.tail-spend-hoverable {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
+  position: relative;
+  z-index: 1;
+}
+.tail-spend-hoverable::after {
+  content: '';
+  display: none;
+}
+.tail-spend-hoverable[data-hover='true'] {
+  opacity: 0;
+}
+.tail-spend-hoverable + .tail-spend-hoverable {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
+}
+.tail-spend-hoverable:hover + .tail-spend-hoverable,
+.tail-spend-hoverable:focus + .tail-spend-hoverable {
+  opacity: 1;
+}
 
   /* SECCION: TAIL SPEND PROBLEM */
   .tail-spend-problem {
@@ -527,9 +567,12 @@
   }
 
   .tail-spend-text {
-    width: 100%;
-    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    width: 100%;
   }
 
   .tail-spend-visual {
@@ -2015,6 +2058,8 @@
 #tail-spend .section-title {
   white-space: nowrap;
   text-align: center;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .tail-spend-hoverable {
