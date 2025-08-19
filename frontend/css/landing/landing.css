@@ -1621,6 +1621,21 @@
   }
 }
 
+#how-it-works .section-header {
+  position: sticky;
+  top: 0;
+  background: #f6f9fa;
+  z-index: 3;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+@media (max-width: 900px) {
+  #how-it-works .section-header {
+    position: static;
+    padding-bottom: 1rem;
+  }
+}
+
   .btn-large {
     padding: 1.25rem 2.5rem;
     font-size: 1.25rem;
