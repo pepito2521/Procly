@@ -302,22 +302,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Handle pricing card hover effects
     const pricingCards = document.querySelectorAll(".pricing-card")
-  
-    pricingCards.forEach((card) => {
-      card.addEventListener("mouseenter", function () {
-        this.style.transform = "translateY(-5px)"
+    if (pricingCards && typeof pricingCards.forEach === 'function') {
+      pricingCards.forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px)"
+        })
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)"
+        })
       })
-  
-      card.addEventListener("mouseleave", function () {
-        this.style.transform = "translateY(0)"
+      pricingCards.forEach((card) => {
+        card.style.transition = "transform 0.3s ease, box-shadow 0.3s ease"
       })
-    })
-  
-    // Add transition to pricing cards
-    pricingCards.forEach((card) => {
-      card.style.transition = "transform 0.3s ease, box-shadow 0.3s ease"
-    })
-  
+    }
+
     // HOW IT WORKS ANIMATED STEPS
     (function() {
       const steps = document.querySelectorAll('.how-step');
@@ -335,19 +333,23 @@ document.addEventListener("DOMContentLoaded", () => {
         step.addEventListener('click', () => activateStep(idx));
       });
 
-      // Scroll automático con IntersectionObserver
-      if ('IntersectionObserver' in window) {
-        contents.forEach((content, idx) => {
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                activateStep(idx);
-              }
-            });
-          }, { threshold: 0.5 });
-          observer.observe(content);
-        });
-      }
+      // Scroll automático basado en la posición dentro de la sección
+      const section = document.getElementById('how-it-works');
+      if (!section) return;
+      window.addEventListener('scroll', () => {
+        const rect = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        if (rect.top > windowHeight * 0.5 || rect.bottom < windowHeight * 0.2) return;
+        // Calcula el porcentaje de scroll dentro de la sección
+        const scrollY = window.scrollY + windowHeight/2;
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const rel = (scrollY - sectionTop) / sectionHeight;
+        let idx = 0;
+        if (rel > 0.66) idx = 2;
+        else if (rel > 0.33) idx = 1;
+        activateStep(idx);
+      });
     })();
   
     console.log("Procly landing page loaded successfully!")
