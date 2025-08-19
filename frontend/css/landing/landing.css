@@ -536,8 +536,8 @@
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
-  transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
+  transform: translateX(-50%) scale(1);
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
   pointer-events: none;
 }
 .tail-spend-hoverable:first-child {
@@ -558,6 +558,7 @@
 
   /* SECCION: TAIL SPEND PROBLEM */
   .tail-spend-problem {
+    min-height: 100vh;
     padding: 2rem 0 4rem 0;
     background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-50) 100%);
   }
@@ -2073,4 +2074,9 @@
 .tail-spend-hoverable:hover {
   content: url('/assets/img/tail_spend_hover.svg');
   filter: brightness(1.08);
+}
+
+.tail-spend-highlight {
+  color: #508991;
+  font-weight: 500;
 }
