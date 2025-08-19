@@ -320,11 +320,13 @@ document.addEventListener("DOMContentLoaded", () => {
     (function() {
       const steps = document.querySelectorAll('.how-step');
       const contents = document.querySelectorAll('.how-content');
+      const cta = document.querySelector('.how-it-works-cta');
       if (!steps.length || !contents.length) return;
 
       function activateStep(idx) {
         steps.forEach((s, i) => s.classList.toggle('active', i === idx));
         contents.forEach((c, i) => c.classList.toggle('active', i === idx));
+        if (cta) cta.style.display = (idx === 2) ? 'flex' : 'none';
       }
 
       steps.forEach((step, idx) => {
@@ -339,15 +341,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         const scrollY = window.scrollY;
-        // Solo aplica sticky en desktop
         if (window.innerWidth <= 900) return;
-        // Calcula el avance relativo dentro de la sección (0 a 1)
         const rel = (scrollY + windowHeight/2 - sectionTop) / sectionHeight;
         let idx = 0;
         if (rel > 2/3) idx = 2;
         else if (rel > 1/3) idx = 1;
         activateStep(idx);
       });
+      // Inicialmente oculto si no es el paso 3
+      if (cta) cta.style.display = 'none';
     })();
   
     console.log("Procly landing page loaded successfully!")
