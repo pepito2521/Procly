@@ -1422,18 +1422,19 @@
   }
 
   /* HOW IT WORKS SECTION */
-.how-it-works-section {
-  width: 100%;
-  background: #f6f9fa;
-  padding: 0 0 3rem 0;
+#how-it-works {
+  min-height: 300vh;
+  position: relative;
 }
 .how-it-works-container {
-  max-width: 1100px;
-  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
-  gap: 3rem;
-  align-items: flex-start;
-  padding: 3rem 1.5rem 0 1.5rem;
+  align-items: center;
+  justify-content: center;
+  background: #f6f9fa;
+  z-index: 2;
 }
 .how-it-works-steps {
   flex: 0 0 50%;
@@ -1480,6 +1481,7 @@
 }
 .step-title {
   font-size: 1.25rem;
+  font-weight: 400;
 }
 .how-it-works-content {
   flex: 0 0 50%;
@@ -1526,7 +1528,7 @@
 .how-desc {
   font-size: 1.25rem;
   color: #222e2e;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.5;
 }
 .how-it-works-cta {
@@ -1558,10 +1560,15 @@
 
 /* Responsive */
 @media (max-width: 900px) {
+  #how-it-works {
+    min-height: unset;
+  }
   .how-it-works-container {
-    flex-direction: column;
-    gap: 2rem;
+    position: static;
+    height: auto;
     padding: 2rem 0.5rem 0 0.5rem;
+    flex-direction: column;
+    align-items: stretch;
   }
   .how-it-works-steps, .how-it-works-content {
     flex: 1 1 100%;
