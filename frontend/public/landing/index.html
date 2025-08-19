@@ -186,66 +186,53 @@
         </section>
 
         <!-- SECCION: ¿COMO FUNCIONA? -->
-        <section id="how-it-works" class="how-it-works">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">¿Cómo funciona Procly?</h2>
-                    <p class="section-description">
-                        Procly organiza, centraliza y simplifica las compras no estratégicas en 3 pasos sencillos para que tu equipo no pierda tiempo ni control
-                    </p>
+        <section id="how-it-works" class="how-it-works-section">
+          <div class="how-it-works-container">
+            <ul class="how-it-works-steps">
+              <li class="how-step active" data-step="1">
+                <span class="step-number">01</span>
+                <span class="step-title">Detalla tu necesidad</span>
+              </li>
+              <li class="how-step" data-step="2">
+                <span class="step-number">02</span>
+                <span class="step-title">Recibí Propuestas</span>
+              </li>
+              <li class="how-step" data-step="3">
+                <span class="step-number">03</span>
+                <span class="step-title">Selecciona y recibe</span>
+              </li>
+            </ul>
+            <div class="how-it-works-content">
+              <div class="how-content active" data-step="1">
+                <div class="how-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M208,112H48a16,16,0,0,0-16,16v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V128A16,16,0,0,0,208,112Zm0,40H48V128H208v24Zm0-112H48A16,16,0,0,0,32,56V80A16,16,0,0,0,48,96H208a16,16,0,0,0,16-16V56A16,16,0,0,0,208,40Zm0,40H48V56H208V80ZM160,216a8,8,0,0,1-8,8H136v16a8,8,0,0,1-16,0V224H104a8,8,0,0,1,0-16h16V192a8,8,0,0,1,16,0v16h16A8,8,0,0,1,160,216Z"></path></svg>
                 </div>
-                
-                <div class="steps-grid">
-                    <div class="step-card animate-on-scroll" style="--animation-order: 0;">
-                        <div class="step-number">01</div>
-                        <div class="step-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
-                                <path d="M208,112H48a16,16,0,0,0-16,16v24a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V128A16,16,0,0,0,208,112Zm0,40H48V128H208v24Zm0-112H48A16,16,0,0,0,32,56V80A16,16,0,0,0,48,96H208a16,16,0,0,0,16-16V56A16,16,0,0,0,208,40Zm0,40H48V56H208V80ZM160,216a8,8,0,0,1-8,8H136v16a8,8,0,0,1-16,0V224H104a8,8,0,0,1,0-16h16V192a8,8,0,0,1,16,0v16h16A8,8,0,0,1,160,216Z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Crea un ticket</h3>
-                        <p class="step-description">
-                            Detalla tu necesidad de compras de manera clara y específica. Incluye toda la información relevante para obtener las mejores propuestas.
-                        </p>
-                    </div>
-                    
-                    <div class="step-card animate-on-scroll" style="--animation-order: 1;">
-                        <div class="step-number">02</div>
-                        <div class="step-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
-                                <path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Recibe 3 propuestas</h3>
-                        <p class="step-description">
-                            Nuestros partners estratégicos analizarán tu solicitud y te enviarán hasta 3 propuestas competitivas adaptadas a tus necesidades.
-                        </p>
-                    </div>
-                    
-                    <div class="step-card animate-on-scroll" style="--animation-order: 2;">
-                        <div class="step-number">03</div>
-                        <div class="step-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" viewBox="0 0 256 256">
-                                <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="step-title">Selecciona y recibe</h3>
-                        <p class="step-description">
-                            Elige la mejor propuesta y recibe tu pedido en las direcciones de entrega habilitadas de manera rápida y segura.
-                        </p>
-                    </div>
+                <div class="how-desc">
+                  Detalla tu necesidad de compras de manera clara y específica. Incluye toda la información relevante para obtener las mejores propuestas.
                 </div>
-                
-                <div class="how-it-works-cta">
-                    <button class="btn-primary btn-large">
-                        Crear mi primer ticket
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
-                            <path d="M224.49,136.49l-72,72a12,12,0,0,1-17-17L187,140H40a12,12,0,0,1,0-24H187L135.51,64.49a12,12,0,0,1,17-17l72,72A12,12,0,0,1,224.49,136.49Z"></path>
-                        </svg>
-                    </button>
-                    <p class="cta-subtitle">Comienza ahora y obtén las mejores propuestas para tu empresa</p>
+              </div>
+              <div class="how-content" data-step="2">
+                <div class="how-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"></path></svg>
                 </div>
+                <div class="how-desc">
+                  Nuestros partners estratégicos analizarán tu solicitud y te enviarán hasta 3 propuestas competitivas adaptadas a tus necesidades.
+                </div>
+              </div>
+              <div class="how-content" data-step="3">
+                <div class="how-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"></path></svg>
+                </div>
+                <div class="how-desc">
+                  Elige la mejor propuesta y recibe tu pedido en las direcciones de entrega habilitadas de manera rápida y segura.
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="how-it-works-cta">
+            <button class="btn-how-cta">Crear mi primer ticket</button>
+            <p class="how-it-works-note">Comienza ahora y obtén las mejores propuestas para tu empresa</p>
+          </div>
         </section>
 
         <!-- SECCION: PERFIL ADMINISTRADOR -->

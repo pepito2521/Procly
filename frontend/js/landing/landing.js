@@ -318,6 +318,41 @@ document.addEventListener("DOMContentLoaded", () => {
       card.style.transition = "transform 0.3s ease, box-shadow 0.3s ease"
     })
   
+    // HOW IT WORKS ANIMATED STEPS
+    (function() {
+      const steps = document.querySelectorAll('.how-step');
+      const contents = document.querySelectorAll('.how-content');
+      if (!steps.length || !contents.length) return;
+
+      // Helper para activar paso
+      function activateStep(idx) {
+        steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+        contents.forEach((c, i) => c.classList.toggle('active', i === idx));
+      }
+
+      // Click manual en pasos
+      steps.forEach((step, idx) => {
+        step.addEventListener('click', () => activateStep(idx));
+      });
+
+      // Scroll automático: activa el paso según el scroll de la sección
+      const section = document.getElementById('how-it-works');
+      if (!section) return;
+      window.addEventListener('scroll', () => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top > window.innerHeight * 0.3 || rect.bottom < window.innerHeight * 0.3) return;
+        // Calcula el porcentaje de scroll dentro de la sección
+        const scrollY = window.scrollY + window.innerHeight/2;
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const rel = (scrollY - sectionTop) / sectionHeight;
+        let idx = 0;
+        if (rel > 0.66) idx = 2;
+        else if (rel > 0.33) idx = 1;
+        activateStep(idx);
+      });
+    })();
+  
     console.log("Procly landing page loaded successfully!")
   })
   
