@@ -329,16 +329,22 @@ document.addEventListener("DOMContentLoaded", () => {
       function activateStep(idx, scrollDirection = 'down') {
         // Remover clases de animación anteriores
         contents.forEach(c => {
-          c.classList.remove('slide-up', 'slide-down');
+          const inner = c.querySelector('.how-content-inner');
+          if (inner) {
+            inner.classList.remove('slide-up', 'slide-down');
+          }
         });
 
         // Aplicar efecto según dirección del scroll
         if (idx !== currentStep) {
           const targetContent = contents[idx];
-          if (scrollDirection === 'up') {
-            targetContent.classList.add('slide-up');
-          } else {
-            targetContent.classList.add('slide-down');
+          const targetInner = targetContent.querySelector('.how-content-inner');
+          if (targetInner) {
+            if (scrollDirection === 'up') {
+              targetInner.classList.add('slide-up');
+            } else {
+              targetInner.classList.add('slide-down');
+            }
           }
         }
 
