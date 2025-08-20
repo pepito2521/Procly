@@ -327,40 +327,56 @@ document.addEventListener("DOMContentLoaded", () => {
       let currentStep = 0;
 
       function activateStep(idx, scrollDirection = 'down') {
-        // Remover clases de animación anteriores
-        contents.forEach(c => {
-          const inner = c.querySelector('.how-content-inner');
-          if (inner) {
-            inner.classList.remove('slide-up', 'slide-down');
-          }
-        });
-
-        // Cambiar el step activo primero
-        steps.forEach((s, i) => s.classList.toggle('active', i === idx));
-        contents.forEach((c, i) => c.classList.toggle('active', i === idx));
-        if (cta) cta.style.display = 'flex';
+        // Si es el mismo step, no hacer nada
+        if (idx === currentStep) return;
         
-        // Aplicar efecto de animación después de un pequeño delay
-        if (idx !== currentStep) {
+        // Obtener el step actual y el nuevo
+        const currentContent = contents[currentStep];
+        const newContent = contents[idx];
+        const currentInner = currentContent?.querySelector('.how-content-inner');
+        const newInner = newContent?.querySelector('.how-content-inner');
+        
+        if (currentInner && newInner) {
+          // 1. El contenido actual se desliza hacia abajo y desaparece
+          currentInner.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+          currentInner.style.transform = 'translateY(40px)';
+          currentInner.style.opacity = '0';
+          
+          // 2. Después de que desaparece, cambiar el step activo
           setTimeout(() => {
-            const targetContent = contents[idx];
-            const targetInner = targetContent.querySelector('.how-content-inner');
-            if (targetInner) {
-              if (scrollDirection === 'up') {
-                targetInner.classList.add('slide-up');
-                // Remover la clase después de la animación
-                setTimeout(() => {
-                  targetInner.classList.remove('slide-up');
-                }, 600);
-              } else {
-                targetInner.classList.add('slide-down');
-                // Remover la clase después de la animación
-                setTimeout(() => {
-                  targetInner.classList.remove('slide-down');
-                }, 600);
+            steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+            contents.forEach((c, i) => c.classList.toggle('active', i === idx));
+            if (cta) cta.style.display = 'flex';
+            
+            // 3. Preparar el nuevo contenido para que aparezca desde abajo
+            newInner.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
+            newInner.style.transform = 'translateY(40px)';
+            newInner.style.opacity = '0';
+            
+            // 4. Forzar un reflow para que la transición funcione
+            newInner.offsetHeight;
+            
+            // 5. Animar la entrada del nuevo contenido
+            setTimeout(() => {
+              newInner.style.transform = 'translateY(0)';
+              newInner.style.opacity = '1';
+            }, 50);
+            
+            // 6. Resetear el contenido anterior
+            setTimeout(() => {
+              if (currentInner) {
+                currentInner.style.transition = '';
+                currentInner.style.transform = '';
+                currentInner.style.opacity = '';
               }
-            }
-          }, 50);
+            }, 400);
+            
+          }, 400);
+        } else {
+          // Fallback si no hay elementos internos
+          steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+          contents.forEach((c, i) => c.classList.toggle('active', i === idx));
+          if (cta) cta.style.display = 'flex';
         }
         
         currentStep = idx;
