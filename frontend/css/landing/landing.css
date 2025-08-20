@@ -515,10 +515,108 @@
   color: var(--primary);
   border-color: #d1d5db;
 }
-.btn-hero-secondary:hover svg {
-  fill: var(--primary);
-  color: var(--primary);
-}
+  .btn-hero-secondary:hover svg {
+    fill: var(--primary);
+    color: var(--primary);
+  }
+
+  /* Partners Logo Carousel */
+  .partners-carousel-container {
+    margin-top: 4rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .partners-carousel-container::before,
+  .partners-carousel-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .partners-carousel-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.9), transparent);
+  }
+
+  .partners-carousel-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+  }
+
+  .partners-carousel {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .partners-track {
+    display: flex;
+    animation: scroll-left 30s linear infinite;
+    width: max-content;
+  }
+
+  .partners-track:hover {
+    animation-play-state: paused;
+  }
+
+  .partner-logo {
+    flex-shrink: 0;
+    margin: 0 2rem;
+    padding: 1rem;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+
+  .partner-logo:hover {
+    transform: scale(1.1);
+  }
+
+  .partner-img {
+    height: 40px;
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
+
+  .partner-logo:hover .partner-img {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Responsive adjustments for carousel */
+  @media (max-width: 768px) {
+    .partners-carousel-container {
+      margin-top: 3rem;
+    }
+    
+    .partner-logo {
+      margin: 0 1rem;
+    }
+    
+    .partner-img {
+      height: 30px;
+    }
+    
+    .partners-carousel-container::before,
+    .partners-carousel-container::after {
+      width: 50px;
+    }
+  }
 
 /* Transición sutil para el gráfico tail_spend */
 .tail-spend-visual {

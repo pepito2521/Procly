@@ -405,6 +405,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     console.log("Procly landing page loaded successfully!")
+
+    // PARTNERS LOGO CAROUSEL
+    const partnersCarousel = document.querySelector('.partners-carousel');
+    const partnersTrack = document.querySelector('.partners-track');
+    
+    if (partnersCarousel && partnersTrack) {
+        // Pause animation on hover
+        partnersCarousel.addEventListener('mouseenter', () => {
+            partnersTrack.style.animationPlayState = 'paused';
+        });
+        
+        partnersCarousel.addEventListener('mouseleave', () => {
+            partnersTrack.style.animationPlayState = 'running';
+        });
+        
+        // Add click functionality to logos (optional)
+        const partnerLogos = document.querySelectorAll('.partner-logo');
+        partnerLogos.forEach(logo => {
+            logo.addEventListener('click', () => {
+                // You can add functionality here, like opening partner details
+                console.log('Partner logo clicked:', logo.querySelector('img').alt);
+            });
+        });
+        
+        console.log('Partners carousel initialized successfully!');
+    }
   })
   
   // Utility functions
