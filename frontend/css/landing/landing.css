@@ -1238,7 +1238,7 @@
 
   /* PREVIEW SECTION */
   .preview {
-    padding: 2rem 0 4rem 0;
+    padding: 4rem 0 4rem 0;
     gap: 2rem;
   }
 
@@ -1310,9 +1310,6 @@
     object-fit: cover;
   }
 
-  /* Removed gradient overlay to keep SVG images transparent */
-
-  /* Responsive adjustments for preview sections */
   @media (max-width: 1024px) {
     .preview-row {
       flex-direction: column;
@@ -1441,7 +1438,7 @@
   justify-content: flex-start;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  padding: 4rem 1.5rem 1rem 1.5rem;
 }
 
 .how-it-works-content-wrapper {
@@ -1490,7 +1487,7 @@
   position: absolute;
   left: 60px;
   bottom: 0;
-  width: 200px;
+  width: 300px;
   height: 2px;
   background: #e5e7eb;
 }
@@ -1516,7 +1513,7 @@
 
 .step-title {
   font-size: 2.25rem;
-  font-weight: 500;
+  font-weight: 300;
   color: var(--gray-900);
   line-height: 1.2;
   margin-bottom: 0.5rem;
@@ -1538,7 +1535,7 @@
   min-width: 0;
   position: relative;
   min-height: 180px;
-  max-height: 220px;
+  max-height: 300px;
 }
 
 .how-content {
@@ -2199,4 +2196,14 @@
 .tail-spend-highlight {
   color: #508991;
   font-weight: 500;
+}
+
+.how-content .section-description {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--gray-600);
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.6;
 }
