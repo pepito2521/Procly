@@ -1431,20 +1431,19 @@
   min-height: 300vh;
   position: relative;
 }
+
 .how-it-works-container {
   position: sticky;
   top: 0;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-  background: #f6f9fa;
-  z-index: 2;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 3rem 1.5rem 0 1.5rem;
+  padding: 2rem 1.5rem 1rem 1.5rem;
 }
+
 .how-it-works-content-wrapper {
   display: flex;
   gap: 3rem;
@@ -1452,9 +1451,10 @@
   justify-content: center;
   flex: 1;
   width: 100%;
-  max-height: 350px;
+  max-height: 280px;
   overflow: visible;
 }
+
 .how-it-works-steps {
   flex: 0 0 50%;
   min-width: 0;
@@ -1463,8 +1463,9 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
 }
+
 .how-step {
   display: flex;
   align-items: center;
@@ -1475,12 +1476,14 @@
   font-weight: 400;
   cursor: pointer;
   position: relative;
-  padding-bottom: 1rem;
+  padding-bottom: 0.75rem;
 }
+
 .how-step.active {
   opacity: 1;
   font-weight: 700;
 }
+
 .how-step:not(:last-child)::after {
   content: '';
   position: absolute;
@@ -1490,6 +1493,7 @@
   height: 2px;
   background: #e5e7eb;
 }
+
 .step-number {
   background: #508991;
   color: #fff;
@@ -1503,45 +1507,17 @@
   font-weight: 600;
   margin-right: 0.5rem;
 }
+
 .how-step:not(.active) .step-number {
   background: #e5e7eb;
   color: #7b8a8b;
-  font-weight: 500;
 }
+
 .step-title {
   font-size: 1.125rem;
   font-weight: 400;
 }
-.how-it-works-content {
-  flex: 0 0 50%;
-  min-width: 0;
-  position: relative;
-  min-height: 200px;
-  max-height: 300px;
-}
-.how-content {
-  display: none;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.5s, transform 0.5s;
-  background: #fff;
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
-  padding: 2rem 2rem 1.5rem 2rem;
-  min-height: 180px;
-  max-height: 280px;
-  z-index: 1;
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  overflow: hidden;
-}
-.how-content.active {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  z-index: 2;
-  position: relative;
-}
+
 .how-icon {
   width: 64px;
   height: 64px;
@@ -1552,11 +1528,46 @@
   color: #508991;
   font-size: 4rem;
 }
+
+.how-it-works-content {
+  flex: 0 0 50%;
+  min-width: 0;
+  position: relative;
+  min-height: 180px;
+  max-height: 220px;
+}
+
+.how-content {
+  display: none;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s, transform 0.5s;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
+  padding: 1.5rem 2rem 1rem 2rem;
+  min-height: 160px;
+  max-height: 200px;
+  z-index: 1;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  overflow: hidden;
+}
+
+.how-content.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 2;
+  position: relative;
+}
+
 .how-icon svg {
   width: 100%;
   height: 100%;
   display: block;
 }
+
 .how-desc {
   font-size: 1.25rem;
   font-weight: 300;
