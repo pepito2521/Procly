@@ -335,22 +335,33 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
 
-        // Aplicar efecto según dirección del scroll
-        if (idx !== currentStep) {
-          const targetContent = contents[idx];
-          const targetInner = targetContent.querySelector('.how-content-inner');
-          if (targetInner) {
-            if (scrollDirection === 'up') {
-              targetInner.classList.add('slide-up');
-            } else {
-              targetInner.classList.add('slide-down');
-            }
-          }
-        }
-
+        // Cambiar el step activo primero
         steps.forEach((s, i) => s.classList.toggle('active', i === idx));
         contents.forEach((c, i) => c.classList.toggle('active', i === idx));
         if (cta) cta.style.display = 'flex';
+        
+        // Aplicar efecto de animación después de un pequeño delay
+        if (idx !== currentStep) {
+          setTimeout(() => {
+            const targetContent = contents[idx];
+            const targetInner = targetContent.querySelector('.how-content-inner');
+            if (targetInner) {
+              if (scrollDirection === 'up') {
+                targetInner.classList.add('slide-up');
+                // Remover la clase después de la animación
+                setTimeout(() => {
+                  targetInner.classList.remove('slide-up');
+                }, 600);
+              } else {
+                targetInner.classList.add('slide-down');
+                // Remover la clase después de la animación
+                setTimeout(() => {
+                  targetInner.classList.remove('slide-down');
+                }, 600);
+              }
+            }
+          }, 50);
+        }
         
         currentStep = idx;
       }

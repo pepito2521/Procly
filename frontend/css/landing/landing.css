@@ -1512,7 +1512,7 @@
 }
 
 .step-title {
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 200;
   color: var(--gray-900);
   line-height: 1.2;
@@ -1539,8 +1539,8 @@
 }
 
 .how-content {
-  display: none;
-  opacity: 0;
+  display: block;
+  opacity: 1;
   transition: opacity 0.5s ease;
   background: #fff;
   border-radius: 1.5rem;
@@ -1556,10 +1556,13 @@
 }
 
 .how-content.active {
-  display: block;
-  opacity: 1;
   z-index: 2;
   position: relative;
+}
+
+.how-content:not(.active) {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .how-content-inner {
