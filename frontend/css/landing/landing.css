@@ -532,10 +532,10 @@
   .partners-title {
     text-align: center;
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 200;
     color: var(--gray-600);
     margin-bottom: 2rem;
-    opacity: 0.8;
+    opacity: 0.6;
   }
 
   .partners-carousel-container::before,
