@@ -528,6 +528,15 @@
     position: relative;
   }
 
+  .partners-title {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+    opacity: 0.8;
+  }
+
   .partners-carousel-container::before,
   .partners-carousel-container::after {
     content: '';
@@ -1528,28 +1537,25 @@
 }
 
 .how-it-works-container {
-  position: sticky;
-  top: 0;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 4rem 1.5rem 1rem 1.5rem;
+  padding: 4rem 1.5rem 2rem 1.5rem;
 }
 
-.how-it-works-content-wrapper {
-  display: flex;
-  gap: 3rem;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  width: 100%;
-  max-height: 320px;
-  overflow: visible;
-  margin-top: 2rem;
-}
+  .how-it-works-content-wrapper {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    max-height: 400px;
+    overflow: visible;
+    margin-top: 2rem;
+  }
 
 .how-it-works-steps {
   flex: 0 0 50%;
@@ -1578,16 +1584,6 @@
 .how-step.active {
   opacity: 1;
   font-weight: 700;
-}
-
-.how-step:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 60px;
-  bottom: 0;
-  width: 300px;
-  height: 2px;
-  background: #e5e7eb;
 }
 
 .step-number {
@@ -1642,22 +1638,22 @@
   max-height: 300px;
 }
 
-.how-content {
-  display: block;
-  opacity: 1;
-  transition: opacity 0.5s ease;
-  background: #fff;
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
-  padding: 2rem;
-  min-height: 290px;
-  max-height: 300px;
-  max-width: 450px;
-  z-index: 1;
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  overflow: hidden;
-}
+  .how-content {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
+    padding: 2rem;
+    min-height: 250px;
+    max-height: 350px;
+    max-width: 450px;
+    z-index: 1;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    overflow: hidden;
+  }
 
 .how-content.active {
   z-index: 2;

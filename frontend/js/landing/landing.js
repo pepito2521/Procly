@@ -329,54 +329,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Si es el mismo step, no hacer nada
         if (idx === currentStep) return;
         
-        // Obtener el step actual y el nuevo
-        const currentContent = contents[currentStep];
-        const newContent = contents[idx];
-        const currentInner = currentContent?.querySelector('.how-content-inner');
-        const newInner = newContent?.querySelector('.how-content-inner');
-        
-        if (currentInner && newInner) {
-          // 1. El contenido actual se desliza hacia abajo y desaparece
-          currentInner.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-          currentInner.style.transform = 'translateY(40px)';
-          currentInner.style.opacity = '0';
-          
-          // 2. Después de que desaparece, cambiar el step activo
-          setTimeout(() => {
-            steps.forEach((s, i) => s.classList.toggle('active', i === idx));
-            contents.forEach((c, i) => c.classList.toggle('active', i === idx));
-            if (cta) cta.style.display = 'flex';
-            
-            // 3. Preparar el nuevo contenido para que aparezca desde abajo
-            newInner.style.transition = 'transform 0.4s ease, opacity 0.4s ease';
-            newInner.style.transform = 'translateY(40px)';
-            newInner.style.opacity = '0';
-            
-            // 4. Forzar un reflow para que la transición funcione
-            newInner.offsetHeight;
-            
-            // 5. Animar la entrada del nuevo contenido
-            setTimeout(() => {
-              newInner.style.transform = 'translateY(0)';
-              newInner.style.opacity = '1';
-            }, 50);
-            
-            // 6. Resetear el contenido anterior
-            setTimeout(() => {
-              if (currentInner) {
-                currentInner.style.transition = '';
-                currentInner.style.transform = '';
-                currentInner.style.opacity = '';
-              }
-            }, 400);
-            
-          }, 400);
-        } else {
-          // Fallback si no hay elementos internos
-          steps.forEach((s, i) => s.classList.toggle('active', i === idx));
-          contents.forEach((c, i) => c.classList.toggle('active', i === idx));
-          if (cta) cta.style.display = 'flex';
-        }
+        // Cambiar directamente el step activo
+        steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+        contents.forEach((c, i) => c.classList.toggle('active', i === idx));
+        if (cta) cta.style.display = 'flex';
         
         currentStep = idx;
       }
