@@ -1456,33 +1456,36 @@
 .how-it-works-steps {
   flex: 0 0 50%;
   min-width: 0;
-}
-.how-it-works-content {
-  flex: 0 0 50%;
-  min-width: 0;
-  position: relative;
-  min-height: 240px;
-}
-.how-it-works-cta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 2rem;
-  gap: 0.5rem;
+  gap: 2rem;
 }
 .how-step {
   display: flex;
   align-items: center;
   gap: 1.2rem;
-  opacity: 0.5;
+  opacity: 0.4;
   transition: opacity 0.3s, font-weight 0.3s;
   font-size: 1.5rem;
   font-weight: 400;
   cursor: pointer;
+  position: relative;
 }
 .how-step.active {
   opacity: 1;
   font-weight: 700;
+}
+.how-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 44px;
+  width: 2px;
+  height: 2rem;
+  background: #e5e7eb;
 }
 .step-number {
   background: #508991;
@@ -1505,6 +1508,12 @@
 .step-title {
   font-size: 1.25rem;
   font-weight: 400;
+}
+.how-it-works-content {
+  flex: 0 0 50%;
+  min-width: 0;
+  position: relative;
+  min-height: 240px;
 }
 .how-content {
   display: none;
@@ -1547,6 +1556,13 @@
   color: #222e2e;
   font-weight: 300;
   line-height: 1.5;
+}
+.how-it-works-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 0.5rem;
 }
 .how-it-works-note {
   color: #7b8a8b;
