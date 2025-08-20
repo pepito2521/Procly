@@ -323,10 +323,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const cta = document.querySelector('.how-it-works-cta');
       if (!steps.length || !contents.length) return;
 
-      function activateStep(idx) {
+      let lastScrollY = window.scrollY;
+      let currentStep = 0;
+
+      function activateStep(idx, scrollDirection = 'down') {
+        // Remover clases de animación anteriores
+        contents.forEach(c => {
+          c.classList.remove('slide-up', 'slide-down');
+        });
+
+        // Aplicar efecto según dirección del scroll
+        if (idx !== currentStep) {
+          const targetContent = contents[idx];
+          if (scrollDirection === 'up') {
+            targetContent.classList.add('slide-up');
+          } else {
+            targetContent.classList.add('slide-down');
+          }
+        }
+
         steps.forEach((s, i) => s.classList.toggle('active', i === idx));
         contents.forEach((c, i) => c.classList.toggle('active', i === idx));
         if (cta) cta.style.display = 'flex';
+        
+        currentStep = idx;
       }
 
       steps.forEach((step, idx) => {
@@ -335,18 +355,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const section = document.getElementById('how-it-works');
       if (!section) return;
+      
       window.addEventListener('scroll', () => {
         const sectionRect = section.getBoundingClientRect();
         const windowHeight = window.innerHeight || document.documentElement.clientHeight;
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         const scrollY = window.scrollY;
+        
         if (window.innerWidth <= 900) return;
+        
         const rel = (scrollY + windowHeight/2 - sectionTop) / sectionHeight;
         let idx = 0;
         if (rel > 2/3) idx = 2;
         else if (rel > 1/3) idx = 1;
-        activateStep(idx);
+        
+        // Determinar dirección del scroll
+        const scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
+        
+        if (idx !== currentStep) {
+          activateStep(idx, scrollDirection);
+        }
+        
+        lastScrollY = scrollY;
       });
     })();
 
