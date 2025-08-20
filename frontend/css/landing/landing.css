@@ -1438,10 +1438,10 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 1rem 1.5rem;
+  padding: 1rem 1.5rem 1rem 1.5rem;
 }
 
 .how-it-works-content-wrapper {
@@ -1453,6 +1453,7 @@
   width: 100%;
   max-height: 280px;
   overflow: visible;
+  margin-top: 2rem;
 }
 
 .how-it-works-steps {
