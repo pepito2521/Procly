@@ -1553,10 +1553,13 @@
 }
 .how-desc {
   font-size: 1.25rem;
-  color: #222e2e;
   font-weight: 300;
-  line-height: 1.5;
+  color: var(--gray-600);
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: center;
 }
+
 .how-it-works-cta {
   display: flex;
   flex-direction: column;
