@@ -316,17 +316,16 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     }
 
-    // HOW IT WORKS ANIMATED STEPS
+    // HOW IT WORKS HOVER STEPS
     (function() {
       const steps = document.querySelectorAll('.how-step');
       const contents = document.querySelectorAll('.how-content');
       const cta = document.querySelector('.how-it-works-cta');
       if (!steps.length || !contents.length) return;
 
-      let lastScrollY = window.scrollY;
       let currentStep = 0;
 
-      function activateStep(idx, scrollDirection = 'down') {
+      function activateStep(idx) {
         // Si es el mismo step, no hacer nada
         if (idx === currentStep) return;
         
@@ -382,36 +381,18 @@ document.addEventListener("DOMContentLoaded", () => {
         currentStep = idx;
       }
 
+      // Add hover event listeners to each step title
       steps.forEach((step, idx) => {
-        step.addEventListener('click', () => activateStep(idx));
+        const stepTitle = step.querySelector('.step-title');
+        if (stepTitle) {
+          stepTitle.addEventListener('mouseenter', () => {
+            activateStep(idx);
+          });
+        }
       });
 
-      const section = document.getElementById('how-it-works');
-      if (!section) return;
-      
-      window.addEventListener('scroll', () => {
-        const sectionRect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const scrollY = window.scrollY;
-        
-        if (window.innerWidth <= 900) return;
-        
-        const rel = (scrollY + windowHeight/2 - sectionTop) / sectionHeight;
-        let idx = 0;
-        if (rel > 2/3) idx = 2;
-        else if (rel > 1/3) idx = 1;
-        
-        // Determinar dirección del scroll
-        const scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
-        
-        if (idx !== currentStep) {
-          activateStep(idx, scrollDirection);
-        }
-        
-        lastScrollY = scrollY;
-      });
+      // Initialize with first step active
+      activateStep(0);
     })();
 
     // BOTON: CREAR MI PRIMER TICKET (HOW IT WORKS)

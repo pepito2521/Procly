@@ -1512,11 +1512,17 @@
 }
 
 .step-title {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 200;
   color: var(--gray-900);
   line-height: 1.2;
   margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.step-title:hover {
+  transform: scale(1.05);
 }
 
 .how-icon {
@@ -1546,9 +1552,9 @@
   border-radius: 1.5rem;
   box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
   padding: 2rem;
-  min-height: 300px;
-  max-height: 320px;
-  max-width: 420px;
+  min-height: 290px;
+  max-height: 300px;
+  max-width: 450px;
   z-index: 1;
   position: absolute;
   top: 0; left: 0; right: 0;
