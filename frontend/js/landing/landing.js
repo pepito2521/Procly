@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
       function activateStep(idx) {
         steps.forEach((s, i) => s.classList.toggle('active', i === idx));
         contents.forEach((c, i) => c.classList.toggle('active', i === idx));
-        if (cta) cta.style.display = (idx === 2) ? 'flex' : 'none';
+        if (cta) cta.style.display = 'flex';
       }
 
       steps.forEach((step, idx) => {
@@ -348,8 +348,6 @@ document.addEventListener("DOMContentLoaded", () => {
         else if (rel > 1/3) idx = 1;
         activateStep(idx);
       });
-      // Inicialmente oculto si no es el paso 3
-      if (cta) cta.style.display = 'none';
     })();
 
     // BOTON: CREAR MI PRIMER TICKET (HOW IT WORKS)
