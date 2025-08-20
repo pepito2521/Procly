@@ -351,6 +351,15 @@ document.addEventListener("DOMContentLoaded", () => {
       // Inicialmente oculto si no es el paso 3
       if (cta) cta.style.display = 'none';
     })();
+
+    // BOTON: CREAR MI PRIMER TICKET (HOW IT WORKS)
+    const btnCrearTicketHowItWorks = document.querySelector('.how-it-works-cta .btn-hero-primary');
+    if (btnCrearTicketHowItWorks) {
+      btnCrearTicketHowItWorks.addEventListener('click', () => {
+        console.log("Botón Crear mi primer ticket (how-it-works) clicked - redirecting to signup");
+        window.location.href = "https://www.procly.net/app/auth/signup.html";
+      });
+    }
   
     console.log("Procly landing page loaded successfully!")
   })

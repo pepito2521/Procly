@@ -1452,6 +1452,8 @@
   justify-content: center;
   flex: 1;
   width: 100%;
+  max-height: 400px;
+  overflow: hidden;
 }
 .how-it-works-steps {
   flex: 0 0 50%;
@@ -1469,7 +1471,7 @@
   gap: 1.2rem;
   opacity: 0.4;
   transition: opacity 0.3s, font-weight 0.3s;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 400;
   cursor: pointer;
   position: relative;
@@ -1491,12 +1493,12 @@
   background: #508991;
   color: #fff;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
   margin-right: 0.5rem;
 }
@@ -1506,14 +1508,15 @@
   font-weight: 500;
 }
 .step-title {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 400;
 }
 .how-it-works-content {
   flex: 0 0 50%;
   min-width: 0;
   position: relative;
-  min-height: 240px;
+  min-height: 200px;
+  max-height: 300px;
 }
 .how-content {
   display: none;
@@ -1523,11 +1526,13 @@
   background: #fff;
   border-radius: 1.5rem;
   box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
-  padding: 2.5rem 2.5rem 2rem 2.5rem;
-  min-height: 220px;
+  padding: 2rem 2rem 1.5rem 2rem;
+  min-height: 180px;
+  max-height: 280px;
   z-index: 1;
   position: absolute;
   top: 0; left: 0; right: 0;
+  overflow: hidden;
 }
 .how-content.active {
   display: block;
@@ -1537,14 +1542,14 @@
   position: relative;
 }
 .how-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 1.5rem auto;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1.25rem auto;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #508991;
-  font-size: 3rem;
+  font-size: 4rem;
 }
 .how-icon svg {
   width: 100%;
@@ -1552,12 +1557,9 @@
   display: block;
 }
 .how-desc {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 300;
-  color: var(--gray-600);
-  max-width: 52rem;
-  margin: 0 auto;
-  text-align: center;
+  line-height: 1.5;
 }
 
 .how-it-works-cta {
