@@ -526,7 +526,7 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    background-color: var(--gray-50);
+    background-color: var(--gray-50) !important;
   }
 
   .partners-title {
@@ -551,23 +551,25 @@
 
   .partners-carousel-container::before {
     left: 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.9), transparent);
+    background: linear-gradient(to right, var(--gray-50), transparent);
   }
 
   .partners-carousel-container::after {
     right: 0;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), transparent);
+    background: linear-gradient(to left, var(--gray-50), transparent);
   }
 
   .partners-carousel {
     width: 100%;
     overflow: hidden;
+    background-color: transparent;
   }
 
   .partners-track {
     display: flex;
     animation: scroll-left 30s linear infinite;
     width: max-content;
+    background-color: transparent;
   }
 
   .partners-track:hover {
@@ -1416,6 +1418,30 @@
     opacity: 1;
   }
 
+  /* Profile Panel specific styles */
+  .profile-panel .preview-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent;
+  }
+
+  .profile-panel .preview-content {
+    flex: 1;
+    max-width: 500px;
+    text-align: left;
+  }
+
+  .profile-panel .preview-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 600px;
+  }
+
 
 
   /* Responsive Profile Toggle */
@@ -1445,6 +1471,21 @@
       max-width: 100%;
       text-align: center;
     }
+
+    .profile-panel .preview-row {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+    
+    .profile-panel .preview-content {
+      max-width: 100%;
+      text-align: center;
+    }
+    
+    .profile-panel .preview-visual {
+      max-width: 100%;
+    }
   }
 
   /* PREVIEW SECTION */
@@ -1470,6 +1511,14 @@
     flex: 1;
     max-width: 500px;
     text-align: left;
+  }
+
+  .preview-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
   }
 
   .preview-title {
