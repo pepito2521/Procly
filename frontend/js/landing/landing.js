@@ -329,10 +329,32 @@ document.addEventListener("DOMContentLoaded", () => {
         // Si es el mismo step, no hacer nada
         if (idx === currentStep) return;
         
-        // Cambiar directamente el step activo
+        // Agregar clase de transición al contenido actual
+        const currentContent = contents[currentStep];
+        if (currentContent) {
+          currentContent.classList.add('exiting');
+        }
+        
+        // Agregar clase de entrada al nuevo contenido
+        const newContent = contents[idx];
+        if (newContent) {
+          newContent.classList.add('entering');
+        }
+        
+        // Cambiar el step activo
         steps.forEach((s, i) => s.classList.toggle('active', i === idx));
         contents.forEach((c, i) => c.classList.toggle('active', i === idx));
         if (cta) cta.style.display = 'flex';
+        
+        // Remover clases de transición después de la animación
+        setTimeout(() => {
+          if (currentContent) {
+            currentContent.classList.remove('exiting');
+          }
+          if (newContent) {
+            newContent.classList.remove('entering');
+          }
+        }, 600); // Duración de la transición
         
         currentStep = idx;
       }

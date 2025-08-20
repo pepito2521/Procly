@@ -3,6 +3,13 @@ const { supabaseService } = require('../config/supabase');
 // Registrar nuevo partner
 const registrarPartner = async (req, res) => {
     try {
+        console.log('Solicitud recibida en registrarPartner:', {
+            body: req.body,
+            headers: req.headers,
+            method: req.method,
+            url: req.url
+        });
+        
         const {
             nombre_fantasia,
             razon_social,

@@ -1440,6 +1440,35 @@
     text-align: left;
   }
 
+  .profile-panel .preview-content p {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-panel .preview-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .profile-panel .preview-content li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .profile-panel .preview-content li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #508991;
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
   .profile-panel .preview-visual {
     flex: 1;
     display: flex;
@@ -1486,6 +1515,14 @@
     
     .profile-panel .preview-content {
       max-width: 100%;
+      text-align: center;
+    }
+
+    .profile-panel .preview-content p {
+      text-align: center;
+    }
+
+    .profile-panel .preview-content li {
       text-align: center;
     }
     
@@ -1794,40 +1831,70 @@
   min-width: 0;
   position: relative;
   min-height: 180px;
-  max-height: 300px;
+  max-height: 280px;
 }
 
   .how-content {
     display: block;
     opacity: 1;
-    transition: opacity 0.5s ease;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     background: #fff;
     border-radius: 1.5rem;
     box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
     padding: 2rem;
     min-height: 250px;
-    max-height: 350px;
+    max-height: 260px;
     max-width: 450px;
     z-index: 1;
     position: absolute;
     top: 0; left: 0; right: 0;
     overflow: hidden;
+    transform: translateY(0);
   }
 
 .how-content.active {
   z-index: 2;
   position: relative;
+  transform: translateY(0);
+}
+
+.how-content.active .how-content-inner {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .how-content:not(.active) {
   opacity: 0;
   pointer-events: none;
+  transform: translateY(20px);
 }
 
 .how-content-inner {
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Efecto de entrada para contenido activo */
+.how-content.entering .how-content-inner {
+  transform: translateY(25px);
+  opacity: 0;
+}
+
+.how-content.entering.active .how-content-inner {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Efecto de salida para contenido inactivo */
+.how-content.exiting .how-content-inner {
+  transform: translateY(-25px);
+  opacity: 0;
+}
+
+.how-content:not(.active) .how-content-inner {
+  transform: translateY(15px);
+  opacity: 0.7;
 }
 
 .how-icon svg {
@@ -1840,7 +1907,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 4rem;
   gap: 0.5rem;
 }
 .how-it-works-note {
@@ -2455,6 +2522,7 @@
   font-weight: 500;
 }
 
+/* Estilos específicos para section-description dentro de how-content */
 .how-content .section-description {
   font-size: 1.25rem !important;
   font-weight: 300 !important;
@@ -2467,4 +2535,42 @@
   letter-spacing: normal !important;
   text-transform: none !important;
   font-style: normal !important;
+  /* Asegurar que no haya otros estilos sobrescribiendo */
+  font-variant: normal !important;
+  font-stretch: normal !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+  background: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Estilos más específicos para asegurar que se apliquen */
+.how-it-works-content .how-content .section-description,
+.how-it-works-container .how-content .section-description {
+  font-size: 1.25rem !important;
+  font-weight: 300 !important;
+  color: var(--gray-600) !important;
+  line-height: 1.6 !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+  max-width: 52rem !important;
+}
+
+/* Reset completo de estilos heredados para section-description en how-content */
+.how-content .section-description,
+.how-it-works-content .how-content .section-description,
+.how-it-works-container .how-content .section-description,
+#how-it-works .how-content .section-description {
+  all: unset !important;
+  display: block !important;
+  font-size: 1.25rem !important;
+  font-weight: 300 !important;
+  color: var(--gray-600) !important;
+  line-height: 1.6 !important;
+  text-align: center !important;
+  margin: 0 auto 1rem auto !important;
+  max-width: 52rem !important;
+  font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif !important;
 }

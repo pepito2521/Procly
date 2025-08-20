@@ -19,15 +19,28 @@ document.addEventListener('DOMContentLoaded', function() {
         setLoadingState(true);
         
         try {
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Add timestamp
-            data.fecha_registro = new Date().toISOString();
-            data.estado = 'pendiente';
+            // Prepare data manually to ensure correct field names
+            const data = {
+                nombre_fantasia: form.nombreFantasia.value.trim(),
+                razon_social: form.razonSocial.value.trim(),
+                nombre_contacto: form.nombreContacto.value.trim(),
+                email: form.email.value.trim(),
+                telefono: form.telefono.value.trim(),
+                categoria: form.categoria.value,
+                mensaje: form.mensaje.value.trim()
+            };
             
             // Send to backend
-            const response = await fetch('/api/partners/registrar', {
+            // Determinar la URL base del backend
+            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const baseUrl = isLocalhost ? 'http://localhost:3000' : 'https://www.procly.net';
+            
+            console.log('Hostname actual:', window.location.hostname);
+            console.log('¿Es localhost?', isLocalhost);
+            console.log('URL del backend:', `${baseUrl}/api/partners/registrar`);
+            console.log('Datos a enviar:', data);
+            
+            const response = await fetch(`${baseUrl}/api/partners/registrar`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
