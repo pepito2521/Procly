@@ -1343,6 +1343,131 @@
     line-height: 1.6;
   }
 
+  /* SECCION: USER PROFILES */
+  .user-profiles-section {
+    padding: 6rem 0;
+    background: white;
+  }
+
+  /* Profile Toggle */
+  .profile-toggle {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+    background: white;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border: none;
+    background: transparent;
+    color: var(--gray-600);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .profile-btn.active {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(80, 137, 145, 0.3);
+  }
+
+  .profile-btn:hover:not(.active) {
+    background: var(--gray-100);
+    color: var(--gray-700);
+  }
+
+  .profile-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Profile Content */
+  .profile-content {
+    position: relative;
+    min-height: 600px;
+  }
+
+  .profile-panel {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .profile-panel.active {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Profile Badge */
+  .profile-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-badge.user {
+    background: var(--primary-100);
+    color: var(--primary);
+  }
+
+  .profile-badge.admin {
+    background: var(--green-100);
+    color: var(--green-600);
+  }
+
+  .profile-badge svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Responsive Profile Toggle */
+  @media (max-width: 768px) {
+    .profile-toggle {
+      margin: 2rem 1rem;
+      flex-direction: column;
+      max-width: 100%;
+    }
+    
+    .profile-btn {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+    }
+    
+    .profile-content {
+      min-height: 500px;
+    }
+    
+    .preview-row {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+    
+    .preview-content {
+      max-width: 100%;
+    }
+  }
+
   /* PREVIEW SECTION */
   .preview {
     padding: 4rem 0 4rem 0;

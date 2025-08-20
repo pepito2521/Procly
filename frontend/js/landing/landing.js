@@ -387,6 +387,34 @@ document.addEventListener("DOMContentLoaded", () => {
         
         console.log('Partners carousel initialized successfully!');
     }
+
+    // PROFILE TOGGLE FUNCTIONALITY
+    const profileBtns = document.querySelectorAll('.profile-btn');
+    const profilePanels = document.querySelectorAll('.profile-panel');
+    
+    if (profileBtns.length && profilePanels.length) {
+        profileBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const profile = btn.getAttribute('data-profile');
+                
+                // Update active button
+                profileBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update active panel
+                profilePanels.forEach(panel => {
+                    panel.classList.remove('active');
+                    if (panel.id === `${profile}-panel`) {
+                        panel.classList.add('active');
+                    }
+                });
+                
+                console.log(`Profile switched to: ${profile}`);
+            });
+        });
+        
+        console.log('Profile toggle initialized successfully!');
+    }
   })
   
   // Utility functions
