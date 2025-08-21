@@ -177,6 +177,39 @@
                         <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos más sobre tu empresa y los productos/servicios que ofreces..."></textarea>
                     </div>
                     
+                    <div class="form-group full-width">
+                        <label for="brochure">Brochure Institucional (opcional)</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="brochure" name="brochure" accept=".pdf,.doc,.docx,.ppt,.pptx" class="file-input">
+                            <div class="file-upload-area" id="fileUploadArea">
+                                <div class="file-upload-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+                                        <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"></path>
+                                    </svg>
+                                </div>
+                                <div class="file-upload-text">
+                                    <span class="upload-main-text">Arrastra tu archivo aquí o <strong>haz clic para seleccionar</strong></span>
+                                    <span class="upload-sub-text">PDF, DOC, DOCX, PPT, PPTX (máx. 5MB)</span>
+                                </div>
+                            </div>
+                            <div class="file-selected" id="fileSelected" style="display: none;">
+                                <div class="file-info">
+                                    <div class="file-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                                            <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"></path>
+                                        </svg>
+                                    </div>
+                                    <span class="file-name"></span>
+                                    <button type="button" class="file-remove" id="fileRemove">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                                            <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-group checkbox-group">
                         <div class="checkbox-wrapper">
                             <input type="checkbox" id="aceptarPoliticas" name="aceptarPoliticas" required>

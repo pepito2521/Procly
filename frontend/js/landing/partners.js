@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const successModal = document.getElementById('successModal');
     const modalClose = document.getElementById('modalClose');
     const modalOk = document.getElementById('modalOk');
+    
+    // File upload elements
+    const fileInput = document.getElementById('brochure');
+    const fileUploadArea = document.getElementById('fileUploadArea');
+    const fileSelected = document.getElementById('fileSelected');
+    const fileRemove = document.getElementById('fileRemove');
+    let selectedFile = null;
 
     // Form submission handler
     form.addEventListener('submit', async function(e) {
@@ -19,33 +26,33 @@ document.addEventListener('DOMContentLoaded', function() {
         setLoadingState(true);
         
         try {
-            // Prepare data manually to ensure correct field names
-            const data = {
-                nombre_fantasia: form.nombreFantasia.value.trim(),
-                razon_social: form.razonSocial.value.trim(),
-                nombre_contacto: form.nombreContacto.value.trim(),
-                email: form.email.value.trim(),
-                telefono: form.telefono.value.trim(),
-                categoria: form.categoria.value,
-                mensaje: form.mensaje.value.trim()
-            };
-            
-            // Send to backend
             // Determinar la URL base del backend
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             const baseUrl = isLocalhost ? 'http://localhost:3000' : 'https://www.procly.net';
             
+            // Prepare form data to handle file upload
+            const formData = new FormData();
+            formData.append('nombre_fantasia', form.nombreFantasia.value.trim());
+            formData.append('razon_social', form.razonSocial.value.trim());
+            formData.append('nombre_contacto', form.nombreContacto.value.trim());
+            formData.append('email', form.email.value.trim());
+            formData.append('telefono', form.telefono.value.trim());
+            formData.append('categoria', form.categoria.value);
+            formData.append('mensaje', form.mensaje.value.trim());
+            
+            // Add file if selected
+            if (selectedFile) {
+                formData.append('brochure', selectedFile);
+            }
+            
             console.log('Hostname actual:', window.location.hostname);
             console.log('¿Es localhost?', isLocalhost);
             console.log('URL del backend:', `${baseUrl}/api/partners/registrar`);
-            console.log('Datos a enviar:', data);
+            console.log('Datos a enviar:', Object.fromEntries(formData));
             
             const response = await fetch(`${baseUrl}/api/partners/registrar`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
+                body: formData // No Content-Type header for multipart/form-data
             });
 
             if (!response.ok) {
@@ -57,8 +64,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (result.success) {
                 // Show success modal
                 showSuccessModal();
-                // Reset form
+                // Reset form and file
                 form.reset();
+                removeFile();
             } else {
                 throw new Error(result.error || 'Error desconocido');
             }
@@ -262,6 +270,107 @@ document.addEventListener('DOMContentLoaded', function() {
         
         e.target.value = value;
     });
+
+    // File upload functionality
+    function initFileUpload() {
+        // Click event for file upload area
+        fileUploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // File input change event
+        fileInput.addEventListener('change', handleFileSelect);
+
+        // Drag and drop events
+        fileUploadArea.addEventListener('dragover', handleDragOver);
+        fileUploadArea.addEventListener('drop', handleFileDrop);
+        fileUploadArea.addEventListener('dragleave', handleDragLeave);
+
+        // Remove file event
+        fileRemove.addEventListener('click', removeFile);
+    }
+
+    function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) {
+            validateAndSetFile(file);
+        }
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        fileUploadArea.classList.add('dragover');
+    }
+
+    function handleFileDrop(e) {
+        e.preventDefault();
+        fileUploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            validateAndSetFile(files[0]);
+        }
+    }
+
+    function handleDragLeave(e) {
+        e.preventDefault();
+        fileUploadArea.classList.remove('dragover');
+    }
+
+    function validateAndSetFile(file) {
+        // Validate file type
+        const allowedTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+            showError('Tipo de archivo no permitido. Solo se aceptan archivos PDF, DOC, DOCX, PPT y PPTX.');
+            return;
+        }
+
+        // Validate file size (5MB max)
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            showError('El archivo es demasiado grande. El tamaño máximo permitido es 5MB.');
+            return;
+        }
+
+        // Set the file
+        selectedFile = file;
+        showSelectedFile(file);
+    }
+
+    function showSelectedFile(file) {
+        const fileName = file.name;
+        const fileSize = formatFileSize(file.size);
+        
+        // Update UI
+        fileUploadArea.style.display = 'none';
+        fileSelected.style.display = 'block';
+        fileSelected.querySelector('.file-name').textContent = `${fileName} (${fileSize})`;
+    }
+
+    function removeFile() {
+        selectedFile = null;
+        fileInput.value = '';
+        fileUploadArea.style.display = 'block';
+        fileSelected.style.display = 'none';
+        fileUploadArea.classList.remove('dragover');
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // Initialize file upload
+    initFileUpload();
 
     // Initialize page
     console.log('Partners page loaded successfully!');

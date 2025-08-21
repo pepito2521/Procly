@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { registrarPartner, obtenerPartners, actualizarEstadoPartner } = require('../controllers/partnersController');
+const { registrarPartner, obtenerPartners, actualizarEstadoPartner, uploadBrochure } = require('../controllers/partnersController');
 
 // POST /api/partners/registrar - Registrar nuevo partner
-router.post('/registrar', registrarPartner);
+router.post('/registrar', uploadBrochure, registrarPartner);
 
 // GET /api/partners - Obtener todos los partners (para admin)
 router.get('/', obtenerPartners);

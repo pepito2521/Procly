@@ -623,3 +623,125 @@
         font-size: 1rem;
     }
 }
+
+/* File upload styles */
+.file-upload-container {
+    position: relative;
+    width: 100%;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-upload-area:hover {
+    border-color: #508991;
+    background-color: #f0f9fa;
+}
+
+.file-upload-area.dragover {
+    border-color: #508991;
+    background-color: #f0f9fa;
+    transform: scale(1.02);
+}
+
+.file-upload-icon {
+    color: #9ca3af;
+    margin-bottom: 1rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-upload-text {
+    color: #6b7280;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.upload-main-text {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.upload-sub-text {
+    display: block;
+    font-size: 0.875rem;
+    color: #9ca3af;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-selected {
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #f9fafb;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-icon {
+    color: #508991;
+    flex-shrink: 0;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-name {
+    flex: 1;
+    font-size: 0.875rem;
+    color: #374151;
+    font-weight: 500;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ef4444;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.file-remove:hover {
+    background-color: #fee2e2;
+}
+
+/* Responsive file upload */
+@media (max-width: 768px) {
+    .file-upload-area {
+        padding: 1.5rem 1rem;
+    }
+    
+    .upload-main-text {
+        font-size: 0.875rem;
+    }
+    
+    .upload-sub-text {
+        font-size: 0.75rem;
+    }
+}

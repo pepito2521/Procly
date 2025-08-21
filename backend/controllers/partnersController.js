@@ -1,10 +1,37 @@
 const { supabaseService } = require('../config/supabase');
+const multer = require('multer');
+const path = require('path');
+
+// Configurar multer para archivos
+const storage = multer.memoryStorage();
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB
+    },
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = [
+            'application/pdf',
+            'application/msword',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.ms-powerpoint',
+            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        ];
+        
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Tipo de archivo no permitido. Solo se aceptan PDF, DOC, DOCX, PPT y PPTX.'), false);
+        }
+    }
+});
 
 // Registrar nuevo partner
 const registrarPartner = async (req, res) => {
     try {
         console.log('Solicitud recibida en registrarPartner:', {
             body: req.body,
+            file: req.file ? { name: req.file.originalname, size: req.file.size, type: req.file.mimetype } : null,
             headers: req.headers,
             method: req.method,
             url: req.url
@@ -37,6 +64,46 @@ const registrarPartner = async (req, res) => {
             });
         }
 
+        let brochureUrl = null;
+
+        // Si hay un archivo, subirlo a Supabase Storage
+        if (req.file) {
+            try {
+                const fileName = `${Date.now()}_${req.file.originalname}`;
+                const filePath = `brochures/${fileName}`;
+
+                const { data: uploadData, error: uploadError } = await supabaseService.storage
+                    .from('partners')
+                    .upload(filePath, req.file.buffer, {
+                        contentType: req.file.mimetype,
+                        upsert: false
+                    });
+
+                if (uploadError) {
+                    console.error('Error al subir archivo:', uploadError);
+                    return res.status(500).json({
+                        success: false,
+                        error: 'Error al subir el archivo'
+                    });
+                }
+
+                // Obtener la URL pública del archivo
+                const { data: urlData } = supabaseService.storage
+                    .from('partners')
+                    .getPublicUrl(filePath);
+
+                brochureUrl = urlData.publicUrl;
+                console.log('Archivo subido exitosamente:', brochureUrl);
+
+            } catch (fileError) {
+                console.error('Error procesando archivo:', fileError);
+                return res.status(500).json({
+                    success: false,
+                    error: 'Error al procesar el archivo'
+                });
+            }
+        }
+
         // Insertar en la base de datos
         const { data, error } = await supabaseService
             .from('partners')
@@ -49,6 +116,7 @@ const registrarPartner = async (req, res) => {
                     telefono: telefono || null,
                     categoria,
                     mensaje: mensaje || null,
+                    brochure_url: brochureUrl,
                     estado: 'pendiente',
                     fecha_registro: new Date().toISOString()
                 }
@@ -155,5 +223,6 @@ const actualizarEstadoPartner = async (req, res) => {
 module.exports = {
     registrarPartner,
     obtenerPartners,
-    actualizarEstadoPartner
+    actualizarEstadoPartner,
+    uploadBrochure: upload.single('brochure') // Middleware para manejar archivos
 };
