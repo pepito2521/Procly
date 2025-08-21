@@ -393,6 +393,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    padding-top: 2rem;
   }
   
   .hero-content {
@@ -400,13 +401,23 @@
     text-align: center;
     max-width: 4rem;
     margin: 0 auto;
-    padding: 3rem 0 1rem 0;
+    padding: 4rem 0 2rem 0;
     gap: 1rem;
   }
   
   @media (min-width: 768px) {
     .hero-content {
       max-width: 64rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding-top: 1rem;
+    }
+    
+    .hero-content {
+      padding: 3rem 0 2rem 0;
     }
   }
   
