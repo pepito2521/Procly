@@ -13,6 +13,10 @@ Disallow: /node_modules/
 
 # Allow important pages
 Allow: /app/auth/
-Allow: /privacy.html
-Allow: /terms.html
-Allow: /cookies.html 
+Allow: /landing/
+Allow: /landing/index.html
+Allow: /landing/partners.html
+Allow: /landing/partners_policy.html
+Allow: /landing/privacy.html
+Allow: /landing/terms.html
+Allow: /landing/cookies.html 
