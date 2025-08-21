@@ -670,7 +670,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 80%;
   min-height: 320px;
   transition: transform 0.4s ease-out;
   transform: scale(1);
@@ -690,8 +690,6 @@
   transform: translateX(-50%);
   max-width: 100%;
   height: auto;
-  transition: opacity 0.3s ease-in-out;
-  will-change: opacity;
 }
 
 /* Imagen por defecto (visible) */
@@ -758,8 +756,6 @@
     max-width: 75.2%; /* 83.5% - 10% = 75.2% */
     height: auto;
     border-radius: 1rem;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.03));
   }
 
@@ -773,10 +769,6 @@
     .tail-spend-chart {
       max-width: 54.1%; /* 60.1% - 10% = 54.1% */
     }
-  }
-
-  .tail-spend-chart:hover {
-    transform: scale(1.01);
   }
 
   @media (max-width: 1023px) {
@@ -1487,7 +1479,8 @@
     content: "";
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 16px;
     height: 16px;
     background-image: url("/assets/icons/check.svg");
@@ -1833,7 +1826,6 @@
   font-weight: 200;
   color: var(--gray-900);
   line-height: 1.2;
-  margin-bottom: 0.5rem;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -1869,7 +1861,7 @@
     box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
     padding: 2rem;
     height: 250px;
-    max-width: 450px;
+    max-width: 460px;
     z-index: 1;
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -2415,34 +2407,15 @@
   }
 
   /* HERO SECTION SPECIAL ANIMATION */
-  .hero {
-    animation: heroEntrance 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    /* Prevenir animaciones adicionales del sistema animate-on-scroll */
-    opacity: 1 !important;
-    transform: none !important;
+  .hero.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
-  /* Deshabilitar animate-on-scroll en el hero para evitar conflictos */
-  .hero.animate-on-scroll,
-  .hero .animate-on-scroll {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  @keyframes heroEntrance {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    60% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .hero.animate-on-scroll.element-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* TAIL SPEND SECTION SPECIAL ANIMATION */

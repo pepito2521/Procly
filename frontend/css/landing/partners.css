@@ -30,6 +30,7 @@
 .partners-hero .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: white;
     margin-bottom: 1.5rem;
     line-height: 1.2;
@@ -39,6 +40,7 @@
 .partners-hero .hero-description {
     font-size: 1.25rem;
     font-weight: 400;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: rgba(255, 255, 255, 0.95);
     line-height: 1.6;
     max-width: 600px;
@@ -56,6 +58,7 @@
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-900);
     margin-bottom: 4rem;
 }
@@ -98,12 +101,14 @@
 .benefit-card h3 {
     font-size: 1.5rem;
     font-weight: 600;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-900);
     margin-bottom: 1rem;
 }
 
 .benefit-card p {
     font-size: 1rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);
     line-height: 1.6;
 }
@@ -127,6 +132,7 @@
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-900);
     margin-bottom: 1rem;
 }
@@ -134,6 +140,7 @@
 .form-container .section-description {
     text-align: center;
     font-size: 1.125rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);
     margin-bottom: 3rem;
     max-width: 500px;
@@ -166,6 +173,7 @@
 .form-group label {
     font-size: 0.875rem;
     font-weight: 500;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-700);
     margin-bottom: 0.5rem;
 }
@@ -177,6 +185,7 @@
     border: 2px solid var(--gray-200);
     border-radius: 0.5rem;
     font-size: 1rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     background: white;
 }
@@ -209,6 +218,7 @@
     border-radius: 0.5rem;
     font-size: 1.125rem;
     font-weight: 600;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     display: inline-flex;
@@ -288,6 +298,7 @@
 .modal-header h3 {
     font-size: 1.5rem;
     font-weight: 600;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-900);
     margin: 0;
 }
@@ -324,6 +335,7 @@
 
 .modal-body p {
     font-size: 1.125rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);
     line-height: 1.6;
     margin: 0;
@@ -343,6 +355,7 @@
     border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: 600;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -458,6 +471,7 @@
 
 .checkbox-label {
     font-size: 0.95rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-700);
     line-height: 1.5;
     cursor: pointer;
@@ -470,6 +484,7 @@
     color: var(--primary);
     text-decoration: none;
     font-weight: 500;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     transition: color 0.3s ease;
 }
 
@@ -492,12 +507,14 @@
 .hero-section .hero-title {
     font-size: 3rem;
     font-weight: 700;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-900);
     margin-bottom: 1.5rem;
 }
 
 .hero-section .hero-description {
     font-size: 1.25rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);
     max-width: 600px;
     margin: 0 auto;
@@ -529,6 +546,7 @@
 .policy-section h2 {
     font-size: 1.5rem;
     font-weight: 600;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-900);
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
@@ -537,6 +555,7 @@
 
 .policy-section p {
     font-size: 1.125rem;
+    font-family: 'Geist', 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);
     line-height: 1.6;
     margin-bottom: 1rem;
@@ -550,6 +569,7 @@
 
 .policy-section li {
     font-size: 1.125rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);
     line-height: 1.6;
     margin-bottom: 0.5rem;
@@ -558,6 +578,7 @@
 .policy-section strong {
     color: var(--gray-900);
     font-weight: 600;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
 .policy-footer {
@@ -569,6 +590,7 @@
 
 .policy-footer p {
     font-size: 1rem;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-500);
     margin-bottom: 0.5rem;
 }
