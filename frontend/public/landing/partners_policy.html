@@ -12,15 +12,15 @@
 </head>
 <body>
     <!-- HEADER -->
-    <header class="glass-header">
+    <header class="header glass-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <a href="/landing/index.html">
-                        <img src="/assets/logo/logo_dark.svg" alt="Procly logo">
+                    <a href="/landing/index.html" style="text-decoration: none; display: block;">
+                        <img src="/assets/logo/logo_light.svg" alt="Procly logo" style="height: 70px; width: auto; display: block;">
                     </a>
                 </div>
-                
+
                 <nav class="nav-desktop">
                     <a href="/landing/index.html#how-it-works" class="nav-link">¿Cómo funciona?</a>
                     <a href="/landing/index.html#user-profiles" class="nav-link">Perfil Admin</a>
@@ -29,29 +29,36 @@
                     <a href="/landing/index.html#novedades" class="nav-link">Novedades</a>
                     <a href="/landing/index.html#contact" class="nav-link">Contactanos</a>
                 </nav>
-                
                 <div class="header-actions">
-                    <a href="/app/auth/login.html" class="btn-signin">Sign In</a>
-                    <a href="/app/auth/signup.html" class="btn-signup">Sign Up</a>
+                    <button id="btn-signin" class="btn-ghost btn-desktop">Sign In</button>
+                    <button id="btn-signup" class="btn-primary">Sign Up</button>
+                    
+                    <!-- Botones móviles -->
+                    <button id="btn-signin-mobile" class="btn-mobile-signin">Sign In</button>
+                    <button id="btn-signup-mobile" class="btn-mobile-signup">Sign Up</button>
+                    
+                    <button class="btn-mobile" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
-                
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </div>
-            
-            <nav class="nav-mobile" id="mobileNav">
-                <a href="/landing/index.html#how-it-works" class="mobile-nav-link">¿Cómo funciona?</a>
-                <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Admin</a>
-                <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Usuario</a>
-                <a href="/landing/partners.html" class="mobile-nav-link">Partners</a>
-                <a href="/landing/index.html#novedades" class="mobile-nav-link">Novedades</a>
-                <a href="/landing/index.html#contact" class="mobile-nav-link">Contactanos</a>
-            </nav>
         </div>
     </header>
+
+    <!-- MENÚ MÓVIL -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-menu-close" id="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile-nav">
+            <a href="/landing/index.html#how-it-works" class="mobile-nav-link">¿Cómo funciona?</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Admin</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Usuario</a>
+            <a href="/landing/partners.html" class="mobile-nav-link">Partners</a>
+            <a href="/landing/index.html#novedades" class="mobile-nav-link">Novedades</a>
+            <a href="/landing/index.html#contact" class="mobile-nav-link">Contactanos</a>
+        </nav>
+    </div>
 
     <!-- MAIN CONTENT -->
     <main class="main-content">
@@ -200,34 +207,26 @@
                     <div class="footer-column">
                         <h4 class="footer-title">Soporte</h4>
                         <ul class="footer-list">
-                            <li><a href="/landing/index.html#contact" class="footer-link">Contacto</a></li>
-                            <li><a href="/landing/index.html#novedades" class="footer-link">Novedades</a></li>
-                            <li><a href="/app/user/components/manual.html" class="footer-link">Manual de Usuario</a></li>
+                            <li><a href="/landing/privacy.html" class="footer-link">Política de Privacidad</a></li>
+                            <li><a href="/landing/terms.html" class="footer-link">Términos y Condiciones</a></li>
+                            <li><a href="/landing/cookies.html" class="footer-link">Cookies</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Legal</h4>
+                        <h4 class="footer-title">Contacto</h4>
                         <ul class="footer-list">
-                            <li><a href="/landing/terms.html" class="footer-link">Términos y Condiciones</a></li>
-                            <li><a href="/landing/privacy.html" class="footer-link">Política de Privacidad</a></li>
-                            <li><a href="/landing/cookies.html" class="footer-link">Política de Cookies</a></li>
+                            <li><a href="mailto:comercial@procly.net" class="footer-link">comercial@procly.net</a></li>
+                            <li><a class="footer-link">+34 643 615 319</a></li>
+                            <li><a href="https://www.linkedin.com/company/procly" class="footer-link">LinkedIn</a></li>
+                            <li><a class="footer-link">Buenos Aires, Argentina</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p class="footer-copyright">
-                        © 2024 Procly. Todos los derechos reservados.
-                    </p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link" aria-label="WhatsApp">
-                            <img src="/assets/icons/whatsapp.svg" alt="WhatsApp" style="width: 24px; height: 24px;">
-                        </a>
-                    </div>
-                </div>
+                <p class="footer-copyright">© 2025 Procly. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
