@@ -400,3 +400,149 @@
         padding-right: 1.5rem;
     }
 }
+
+/* Checkbox Styles */
+.checkbox-group {
+    margin: 2rem 0;
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: 0.5rem;
+    border: 1px solid var(--gray-200);
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.checkbox-wrapper input[type="checkbox"]:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.checkbox-wrapper.error {
+    border-color: #ef4444;
+    background: #fef2f2;
+}
+
+.checkbox-wrapper.error .checkbox-label {
+    color: #dc2626;
+}
+
+.checkbox-label {
+    font-size: 0.95rem;
+    color: var(--gray-700);
+    line-height: 1.5;
+    cursor: pointer;
+    user-select: none;
+    margin: 0;
+}
+
+.policy-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.policy-link:hover {
+    color: var(--primary-600);
+    text-decoration: underline;
+}
+
+/* Policy Page Styles */
+.policy-content-section {
+    padding: 4rem 0;
+    background: var(--gray-50);
+}
+
+.policy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 1rem;
+    padding: 3rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.policy-section {
+    margin-bottom: 2.5rem;
+}
+
+.policy-section:last-child {
+    margin-bottom: 0;
+}
+
+.policy-section h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary);
+}
+
+.policy-section p {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.policy-section ul,
+.policy-section ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.policy-section li {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.policy-section strong {
+    color: var(--gray-900);
+    font-weight: 600;
+}
+
+.policy-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200);
+    text-align: center;
+}
+
+.policy-footer p {
+    font-size: 1rem;
+    color: var(--gray-500);
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments for policy page */
+@media (max-width: 768px) {
+    .policy-container {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+    
+    .policy-section h2 {
+        font-size: 1.25rem;
+    }
+    
+    .policy-section p,
+    .policy-section li {
+        font-size: 1rem;
+    }
+}

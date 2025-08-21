@@ -103,6 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
             isValid = false;
         }
 
+        // Validate checkbox acceptance
+        const checkboxField = document.getElementById('aceptarPoliticas');
+        if (!checkboxField.checked) {
+            showFieldError(checkboxField, 'Debes aceptar las políticas para continuar');
+            isValid = false;
+        }
+
         return isValid;
     }
 
@@ -120,7 +127,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Show field error
     function showFieldError(field, message) {
-        field.style.borderColor = '#ef4444';
+        // Special handling for checkbox
+        if (field.type === 'checkbox') {
+            const checkboxWrapper = field.closest('.checkbox-wrapper');
+            if (checkboxWrapper) {
+                checkboxWrapper.classList.add('error');
+            }
+        } else {
+            field.style.borderColor = '#ef4444';
+        }
         
         // Create or update error message
         let errorElement = field.parentNode.querySelector('.field-error');
@@ -141,6 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const inputs = form.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.style.borderColor = '';
+        });
+
+        // Clear checkbox errors
+        const checkboxWrappers = form.querySelectorAll('.checkbox-wrapper.error');
+        checkboxWrappers.forEach(wrapper => {
+            wrapper.classList.remove('error');
         });
 
         // Remove error messages
