@@ -400,7 +400,7 @@
     text-align: center;
     max-width: 4rem;
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: 3rem 0 1rem 0;
     gap: 1rem;
   }
   
@@ -646,11 +646,13 @@
   align-items: center;
   width: 100%;
   min-height: 320px;
-  transition: transform 0.7s cubic-bezier(.4,0,.2,1);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transform: scale(1);
+  will-change: transform;
 }
+
 .tail-spend-visual:hover {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 .tail-spend-hoverable {
   display: block;
@@ -660,23 +662,33 @@
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  transition: opacity 0.35s cubic-bezier(.4,0,.2,1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
+  will-change: opacity, transform;
 }
+
 .tail-spend-hoverable:first-child {
   opacity: 1;
   z-index: 1;
   pointer-events: auto;
 }
+
 .tail-spend-visual:hover .tail-spend-hoverable:first-child {
   opacity: 0;
+  transform: translateX(-50%) scale(0.95);
+  transition-delay: 0.05s;
 }
+
 .tail-spend-hoverable:last-child {
   opacity: 0;
   z-index: 2;
+  transform: translateX(-50%) scale(1.05);
 }
+
 .tail-spend-visual:hover .tail-spend-hoverable:last-child {
   opacity: 1;
+  transform: translateX(-50%) scale(1);
+  transition-delay: 0.05s;
 }
 
   /* SECCION: TAIL SPEND PROBLEM */
@@ -1837,7 +1849,6 @@
   .how-content {
     display: block;
     opacity: 1;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     background: #fff;
     border-radius: 1.5rem;
     box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
@@ -1849,7 +1860,6 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     overflow: hidden;
-    transform: translateY(0);
   }
 
 .how-content.active {
@@ -1866,18 +1876,19 @@
 .how-content:not(.active) {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(20px);
 }
 
 .how-content-inner {
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(0);
   opacity: 1;
+  /* Solo el contenido interno se mueve */
+  will-change: transform, opacity;
 }
 
 /* Efecto de entrada para contenido activo */
 .how-content.entering .how-content-inner {
-  transform: translateY(25px);
+  transform: translateY(30px);
   opacity: 0;
 }
 
@@ -1888,12 +1899,12 @@
 
 /* Efecto de salida para contenido inactivo */
 .how-content.exiting .how-content-inner {
-  transform: translateY(-25px);
+  transform: translateY(-30px);
   opacity: 0;
 }
 
 .how-content:not(.active) .how-content-inner {
-  transform: translateY(15px);
+  transform: translateY(20px);
   opacity: 0.7;
 }
 
@@ -2509,13 +2520,7 @@
   margin-right: 0;
 }
 
-.tail-spend-hoverable {
-  transition: filter 0.2s;
-}
-.tail-spend-hoverable:hover {
-  content: url('/assets/img/tail_spend_hover.svg');
-  filter: brightness(1.08);
-}
+
 
 .tail-spend-highlight {
   color: #508991;
@@ -2532,31 +2537,9 @@
   text-align: center !important;
   line-height: 1.6 !important;
   font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif !important;
-  letter-spacing: normal !important;
-  text-transform: none !important;
-  font-style: normal !important;
-  /* Asegurar que no haya otros estilos sobrescribiendo */
-  font-variant: normal !important;
-  font-stretch: normal !important;
-  text-decoration: none !important;
-  text-shadow: none !important;
-  background: none !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
 }
 
-/* Estilos más específicos para asegurar que se apliquen */
-.how-it-works-content .how-content .section-description,
-.how-it-works-container .how-content .section-description {
-  font-size: 1.25rem !important;
-  font-weight: 300 !important;
-  color: var(--gray-600) !important;
-  line-height: 1.6 !important;
-  text-align: center !important;
-  margin: 0 auto !important;
-  max-width: 52rem !important;
-}
+
 
 /* Reset completo de estilos heredados para section-description en how-content */
 .how-content .section-description,
@@ -2570,7 +2553,18 @@
   color: var(--gray-600) !important;
   line-height: 1.6 !important;
   text-align: center !important;
-  margin: 0 auto 1rem auto !important;
+  margin: 0 auto !important;
   max-width: 52rem !important;
   font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif !important;
+}
+
+/* Estilo adicional para asegurar que se aplique */
+#how-it-works .how-content .how-content-inner .section-description {
+  font-size: 1.25rem !important;
+  font-weight: 300 !important;
+  color: var(--gray-600) !important;
+  line-height: 1.6 !important;
+  text-align: center !important;
+  margin: 0 auto !important;
+  max-width: 52rem !important;
 }
