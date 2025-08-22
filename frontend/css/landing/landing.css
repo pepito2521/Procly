@@ -459,7 +459,7 @@
   
   .hero-description {
     font-size: 1.25rem !important;
-    font-weight: 100 !important;
+    font-weight: 200 !important;
     color: var(--gray-600) !important;
     width: 100%;
     margin: 0 1rem;
@@ -846,7 +846,7 @@
   
   .section-description {
     font-size: 1.25rem !important;
-    font-weight: 100 !important;
+    font-weight: 200 !important;
     color: var(--gray-600) !important;
     max-width: 52rem;
     margin: 0 auto;
@@ -1432,7 +1432,7 @@
     background: transparent;
     color: var(--gray-600);
     font-size: 1rem;
-    font-weight: 100;
+    font-weight: 200;
     cursor: pointer;
     border-radius: 0.75rem;
     transition: all 0.3s ease;
@@ -1494,8 +1494,8 @@
   }
 
   .profile-panel .preview-content h3 {
-    font-size: 1.25rem;
-    font-weight: 100;
+    font-size: 1.5rem;
+    font-weight: 300;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
   }
 
@@ -1503,7 +1503,7 @@
     text-align: left;
     margin-bottom: 1.5rem;
     font-size: 1.25rem;
-    font-weight: 100;
+    font-weight: 200;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
   }
 
@@ -1519,7 +1519,7 @@
     margin-bottom: 1rem;
     line-height: 1.5;
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 200;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
   }
 
@@ -2248,7 +2248,7 @@
   }
 
   .partners .section-description {
-    color: rgba(255, 255, 255, 0.9);
+    color: white;
   }
 
   .partners .btn-large {
@@ -2350,16 +2350,18 @@
   }
 
   .news-title {
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--gray-600) !important;
     margin: 0 0 0.5rem 0;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
   }
 
   .news-description {
+    font-size: 1.25rem !important;
+    font-weight: 200 !important;
+    color: var(--gray-600) !important;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
-    color: #444;
-    font-size: 1rem;
     margin-bottom: 1.5rem;
     text-align: left;
   }

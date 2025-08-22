@@ -44,7 +44,8 @@ const registrarPartner = async (req, res) => {
             email,
             telefono,
             categoria,
-            mensaje
+            mensaje,
+            certificaciones
         } = req.body;
 
         // Validaciones básicas
@@ -104,6 +105,17 @@ const registrarPartner = async (req, res) => {
             }
         }
 
+        // Procesar certificaciones si existen
+        let certificacionesArray = null;
+        if (certificaciones) {
+            try {
+                certificacionesArray = JSON.parse(certificaciones);
+            } catch (e) {
+                console.log('Error parsing certificaciones, using as string:', e);
+                certificacionesArray = [certificaciones];
+            }
+        }
+
         // Insertar en la base de datos
         const { data, error } = await supabaseService
             .from('partners')
@@ -116,6 +128,7 @@ const registrarPartner = async (req, res) => {
                     telefono: telefono || null,
                     categoria,
                     mensaje: mensaje || null,
+                    certificaciones: certificacionesArray,
                     brochure_url: brochureUrl,
                     estado: 'pendiente',
                     fecha_registro: new Date().toISOString()

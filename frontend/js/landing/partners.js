@@ -38,6 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('email', form.email.value.trim());
             formData.append('telefono', form.telefono.value.trim());
             formData.append('categoria', form.categoria.value);
+            
+            // Manejar certificaciones múltiples
+            const certificacionesSelect = form.certificaciones;
+            const certificacionesSeleccionadas = Array.from(certificacionesSelect.selectedOptions).map(option => option.value);
+            if (certificacionesSeleccionadas.length > 0) {
+                formData.append('certificaciones', JSON.stringify(certificacionesSeleccionadas));
+            }
+            
             formData.append('mensaje', form.mensaje.value.trim());
             
             // Add file if selected
