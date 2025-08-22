@@ -458,8 +458,8 @@
   }
   
   .hero-description {
-    font-size: 1.25rem !important;
-    font-weight: 200 !important;
+    font-size: 1.5rem !important;
+    font-weight: 300 !important;
     color: var(--gray-600) !important;
     width: 100%;
     margin: 0 1rem;
@@ -845,8 +845,8 @@
   }
   
   .section-description {
-    font-size: 1.25rem !important;
-    font-weight: 200 !important;
+    font-size: 1.5rem !important;
+    font-weight: 300 !important;
     color: var(--gray-600) !important;
     max-width: 52rem;
     margin: 0 auto;
@@ -1881,6 +1881,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   margin-right: 0.5rem;
+  font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
 }
 
 .how-step:not(.active) .step-number {
@@ -1890,16 +1891,22 @@
 
 .step-title {
   font-size: 1.75rem;
-  font-weight: 200;
+  font-weight: 300;
   color: var(--gray-900);
   line-height: 1.2;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+  padding: 1rem 1.5rem;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  background-color: white;
+  display: inline-block;
 }
 
 .step-title:hover {
   transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
 .how-icon {
