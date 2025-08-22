@@ -458,16 +458,16 @@
   }
   
   .hero-description {
-    font-size: 1.25rem;
-    font-weight: 100;
-    color: var(--gray-600);
+    font-size: 1.25rem !important;
+    font-weight: 100 !important;
+    color: var(--gray-600) !important;
     width: 100%;
     margin: 0 1rem;
     line-height: 1.6;
     text-align: center;
     margin-bottom: 3rem;
-    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
-  }
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif !important;
+}
   
   @media (min-width: 768px) {
     .hero-description {
@@ -845,14 +845,14 @@
   }
   
   .section-description {
-    font-size: 1.25rem;
-    font-weight: 100;
-    color: var(--gray-600);
+    font-size: 1.25rem !important;
+    font-weight: 100 !important;
+    color: var(--gray-600) !important;
     max-width: 52rem;
     margin: 0 auto;
     text-align: center;
-    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
-  }
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif !important;
+}
   
   /* Testimonials */
   .testimonials {
@@ -2604,8 +2604,6 @@
   margin-left: 0;
   margin-right: 0;
 }
-
-
 
 .tail-spend-highlight {
   color: #508991;
