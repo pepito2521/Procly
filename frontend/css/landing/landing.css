@@ -846,7 +846,7 @@
   
   .section-description {
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 100;
     color: var(--gray-600);
     max-width: 52rem;
     margin: 0 auto;
@@ -1432,7 +1432,7 @@
     background: transparent;
     color: var(--gray-600);
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 100;
     cursor: pointer;
     border-radius: 0.75rem;
     transition: all 0.3s ease;
@@ -1495,7 +1495,7 @@
 
   .profile-panel .preview-content h3 {
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 100;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
   }
 
@@ -1503,7 +1503,7 @@
     text-align: left;
     margin-bottom: 1.5rem;
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 100;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
   }
 
@@ -2610,15 +2610,4 @@
 .tail-spend-highlight {
   color: #508991;
   font-weight: 500;
-}
-
-.how-content .section-description {
-  font-size: 1.25rem;
-  font-weight: 300;
-  color: var(--gray-600);
-  max-width: 52rem;
-  margin: 0 auto;
-  text-align: center;
-  line-height: 1.6;
-  font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
 }
