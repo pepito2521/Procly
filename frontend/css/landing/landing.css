@@ -459,7 +459,7 @@
   
   .hero-description {
     font-size: 1.25rem !important;
-    font-weight: 200 !important;
+    font-weight: 100 !important;
     color: var(--gray-600) !important;
     width: 100%;
     margin: 0 1rem;
@@ -846,7 +846,7 @@
   
   .section-description {
     font-size: 1.25rem !important;
-    font-weight: 200 !important;
+    font-weight: 100 !important;
     color: var(--gray-600) !important;
     max-width: 52rem;
     margin: 0 auto;
