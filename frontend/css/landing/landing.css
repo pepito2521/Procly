@@ -433,7 +433,7 @@
   
   .hero-title {
     font-size: 2.5rem;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.1;
     color: var(--gray-800);
     margin-bottom: 2.5rem;
@@ -1432,7 +1432,7 @@
     background: transparent;
     color: var(--gray-600);
     font-size: 1rem;
-    font-weight: 200;
+    font-weight: 300;
     cursor: pointer;
     border-radius: 0.75rem;
     transition: all 0.3s ease;
@@ -1494,17 +1494,19 @@
   }
 
   .profile-panel .preview-content h3 {
-    font-size: 1.5rem;
-    font-weight: 300;
+    font-size: 1.75rem;
+    font-weight: 400;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: var(--gray-600);
   }
 
   .profile-panel .preview-content p {
     text-align: left;
     margin-bottom: 1.5rem;
-    font-size: 1.25rem;
-    font-weight: 200;
+    font-size: 1.5rem;
+    font-weight: 300;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: var(--gray-600);
   }
 
   .profile-panel .preview-content ul {
@@ -1518,9 +1520,10 @@
     padding-left: 2rem;
     margin-bottom: 1rem;
     line-height: 1.5;
-    font-size: 1.25rem;
-    font-weight: 200;
+    font-size: 1.5rem;
+    font-weight: 300;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+    color: var(--gray-600);
   }
 
   .profile-panel .preview-content li::before {
@@ -1861,14 +1864,14 @@
   font-weight: 400;
   cursor: pointer;
   position: relative;
-  padding-bottom: 0.75rem;
-  border-radius: 24px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
 }
 
 .how-step:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
 }
 
 .how-step.active {
@@ -1930,7 +1933,7 @@
     opacity: 1;
     background: #fff;
     border-radius: 1.5rem;
-    box-shadow: 0 2px 16px 0 rgba(80,137,145,0.07);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
     padding: 2rem;
     height: 250px;
     max-width: 460px;
@@ -2614,4 +2617,23 @@
 .tail-spend-highlight {
   color: #508991;
   font-weight: 500;
+}
+
+/* CLASE GENÉRICA PARA SECCIONES CON FONDO VERDE/AZULADO */
+.section-description-white {
+  color: white !important;
+  font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1.25rem !important;
+  font-weight: 300 !important;
+  max-width: 52rem;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* APLICACIÓN AUTOMÁTICA A SECCIONES CON FONDO VERDE/AZULADO */
+.partners .section-description,
+.final-cta .section-description,
+.partners-cta .section-description {
+  color: white !important;
 }

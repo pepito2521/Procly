@@ -41,7 +41,7 @@
     font-size: 1.25rem;
     font-weight: 400;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
-    color: rgba(255, 255, 255, 0.95);
+    color: white !important;
     line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
@@ -789,4 +789,16 @@ select[multiple] option:checked {
     .upload-sub-text {
         font-size: 0.75rem;
     }
+}
+
+/* CLASE GENÉRICA PARA SECCIONES CON FONDO VERDE/AZULADO */
+.section-description-white {
+    color: white !important;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-size: 1.25rem !important;
+    font-weight: 300 !important;
+    max-width: 52rem;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.6;
 }
