@@ -359,14 +359,11 @@ document.addEventListener("DOMContentLoaded", () => {
         currentStep = idx;
       }
 
-      // Add hover event listeners to each step title
+      // Add hover event listeners to each step (entire step, not just title)
       steps.forEach((step, idx) => {
-        const stepTitle = step.querySelector('.step-title');
-        if (stepTitle) {
-          stepTitle.addEventListener('mouseenter', () => {
-            activateStep(idx);
-          });
-        }
+        step.addEventListener('mouseenter', () => {
+          activateStep(idx);
+        });
       });
 
       // Initialize with first step active
