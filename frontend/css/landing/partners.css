@@ -54,22 +54,19 @@
     color: white !important;
     line-height: 1.6;
     max-width: 600px;
-    margin: 0;
+    margin: 0 auto;
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     display: block;
-    width: 100%;
+    /* Asegurar centrado perfecto */
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Hero Description - No Wrap en Desktop */
 @media (min-width: 768px) {
     .partners-hero .hero-description {
         white-space: nowrap;
-        text-align: center;
-        display: block;
-        width: 100%;
-        max-width: 600px;
-        margin: 0 auto;
     }
 }
 
@@ -990,4 +987,152 @@ select[multiple] option:checked {
     margin: 0 auto;
     text-align: center;
     line-height: 1.6;
+}
+
+/* MODAL DE ÉXITO */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--gray-400);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--gray-600);
+    background-color: var(--gray-100);
+}
+
+.modal-body {
+    margin-bottom: 2rem;
+}
+
+.success-icon {
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    /* Asegurar que el SVG se vea completo */
+    overflow: visible;
+    position: relative;
+    /* Dar suficiente espacio para el SVG */
+    min-height: 80px;
+    min-width: 80px;
+}
+
+.success-icon svg {
+    width: 80px;
+    height: 80px;
+    color: var(--primary);
+    filter: drop-shadow(0 4px 8px rgba(80, 137, 145, 0.2));
+    /* Asegurar que el SVG no se corte */
+    overflow: visible;
+    display: block;
+    /* Ajustar el viewBox para que se vea completo */
+    max-width: 100%;
+    max-height: 100%;
+    /* Asegurar que el SVG esté por encima */
+    position: relative;
+    z-index: 1;
+}
+
+.modal-body p {
+    font-size: 1.125rem;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-footer .btn-primary {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    min-width: 120px;
+}
+
+/* Responsive modal */
+@media (max-width: 640px) {
+    .modal-content {
+        padding: 1.5rem;
+        margin: 1rem;
+        width: calc(100% - 2rem);
+    }
+    
+    .modal-header h3 {
+        font-size: 1.25rem;
+    }
+    
+    .success-icon {
+        min-height: 64px;
+        min-width: 64px;
+    }
+    
+    .success-icon svg {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .modal-body p {
+        font-size: 1rem;
+    }
 }
