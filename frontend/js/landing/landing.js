@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
           navLinks.forEach(l => l.classList.remove('active'))
           this.classList.add('active')
   
-          const targetPosition = targetSection.offsetTop - headerHeight - 20 // Extra padding
+          const targetPosition = targetSection.offsetTop - headerHeight
   
           window.scrollTo({
             top: targetPosition,
