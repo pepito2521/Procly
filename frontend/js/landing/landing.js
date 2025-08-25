@@ -321,6 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const steps = document.querySelectorAll('.how-step');
       const contents = document.querySelectorAll('.how-content');
       const cta = document.querySelector('.how-it-works-cta');
+      const progressFill = document.querySelector('.progress-fill');
       if (!steps.length || !contents.length) return;
 
       let currentStep = 0;
@@ -331,6 +332,11 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Cambiar el step activo primero
         steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+        
+        // Actualizar la barra de progreso
+        if (progressFill) {
+          progressFill.setAttribute('data-step', idx + 1);
+        }
         
         // Agregar clase de transición al contenido actual
         const currentContent = contents[currentStep];
