@@ -54,7 +54,7 @@
     color: white !important;
     line-height: 1.6;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0;
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     display: block;
@@ -226,7 +226,15 @@
 .form-group textarea {
     resize: vertical;
     min-height: 100px;
-    font-family: inherit;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif !important;
+}
+
+/* Asegurar que la fuente se mantenga en todos los estados del textarea */
+.form-group textarea,
+.form-group textarea:focus,
+.form-group textarea:active,
+.form-group textarea:hover {
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif !important;
 }
 
 /* Submit Button */
@@ -348,25 +356,16 @@
     }
 }
 
-/* Button Loader */
+/* Button Loader - Estilos específicos para el botón */
 .btn-loader {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
-.spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid transparent;
-    border-top: 2px solid white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.btn-submit:disabled .btn-loader {
+    display: flex;
 }
 
 /* Success Modal */
@@ -779,6 +778,91 @@ select[multiple] option:checked {
     position: relative;
     width: 100%;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+
+/* SPINNER STYLES (copiado de style.css) */
+.spinner-container {
+    text-align: center;
+}
+
+.spinner {
+    color: #508991;
+    font-size: 45px;
+    text-indent: -9999em;
+    overflow: hidden;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: relative;
+    transform: translateZ(0);
+    animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+    margin: 0 auto 20px;
+}
+
+/* Spinner específico para el botón de partners */
+.btn-submit .spinner {
+    margin: 0 auto; /* Sin margen inferior para el botón */
+    font-size: 24px; /* Tamaño más pequeño para el botón */
+    width: 24px; /* Ancho fijo para el botón */
+    height: 24px; /* Alto fijo para el botón */
+}
+
+/* Estados del botón durante la carga */
+.btn-submit:disabled {
+    background: var(--gray-400);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Estilos para el loader del botón */
+.btn-loader {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-submit:disabled .btn-loader {
+    display: flex;
+}
+
+@keyframes mltShdSpin {
+    0% {
+        box-shadow: 0 -0.83em 0 -0.4em,
+        0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+        0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    5%,
+    95% {
+        box-shadow: 0 -0.83em 0 -0.4em, 
+        0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 
+        0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+    10%,
+    59% {
+        box-shadow: 0 -0.83em 0 -0.4em, 
+        -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, 
+        -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+    }
+    20% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+         -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, 
+         -0.749em -0.34em 0 -0.477em;
+    }
+    38% {
+        box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+         -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, 
+         -0.82em -0.09em 0 -0.477em;
+    }
+    100% {
+        box-shadow: 0 -0.83em 0 -0.42em, 
+        0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+    }
+}
+
+@keyframes round {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
 }
 
 .file-input {

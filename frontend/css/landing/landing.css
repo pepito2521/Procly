@@ -1825,10 +1825,15 @@
   }
 
   /* HOW IT WORKS SECTION */
-  .how-it-works-section {
+.how-it-works-section {
   min-height: 100vh;
   position: relative;
   padding-top: 4rem;
+}
+
+/* Reducir el margin-bottom de la section-header en How it Works */
+.how-it-works-section .section-header {
+  margin-bottom: 2rem; /* Reducido de 4rem a 2rem */
 }
 
 .how-it-works-container {
