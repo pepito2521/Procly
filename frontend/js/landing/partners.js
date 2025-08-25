@@ -39,9 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('telefono', form.telefono.value.trim());
             formData.append('categoria', form.categoria.value);
             
-            // Manejar certificaciones múltiples
-            const certificacionesSelect = form.certificaciones;
-            const certificacionesSeleccionadas = Array.from(certificacionesSelect.selectedOptions).map(option => option.value);
+            // Manejar certificaciones múltiples (nuevos checkboxes)
+            const certificacionesCheckboxes = form.querySelectorAll('input[name="certificaciones"]:checked');
+            const certificacionesSeleccionadas = Array.from(certificacionesCheckboxes).map(checkbox => checkbox.value);
             if (certificacionesSeleccionadas.length > 0) {
                 formData.append('certificaciones', JSON.stringify(certificacionesSeleccionadas));
             }
@@ -379,6 +379,67 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize file upload
     initFileUpload();
+
+    // MEJORAR LA EXPERIENCIA DE LOS CHECKBOXES DE CERTIFICACIONES
+    function initCertificaciones() {
+        const certificacionItems = document.querySelectorAll('.certificacion-item');
+        
+        if (certificacionItems.length === 0) {
+            console.log('No se encontraron items de certificaciones');
+            return;
+        }
+        
+        certificacionItems.forEach(item => {
+            // Permitir hacer clic en toda el área del item
+            item.addEventListener('click', function(e) {
+                // No hacer nada si se hace clic directamente en el checkbox
+                if (e.target.type === 'checkbox') return;
+                
+                // Encontrar el checkbox dentro del item
+                const checkbox = this.querySelector('.certificacion-checkbox');
+                if (checkbox) {
+                    // Cambiar el estado del checkbox
+                    checkbox.checked = !checkbox.checked;
+                    
+                    // Disparar evento change para que se actualice el estado visual
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+            
+            // Mejorar la accesibilidad del teclado
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const checkbox = this.querySelector('.certificacion-checkbox');
+                    if (checkbox) {
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                }
+            });
+            
+            // Hacer el item focusable para navegación por teclado
+            item.setAttribute('tabindex', '0');
+            item.setAttribute('role', 'checkbox');
+            item.setAttribute('aria-checked', 'false');
+            
+            // Actualizar aria-checked cuando cambie el estado
+            const checkbox = item.querySelector('.certificacion-checkbox');
+            if (checkbox) {
+                checkbox.addEventListener('change', function() {
+                    const item = this.closest('.certificacion-item');
+                    if (item) {
+                        item.setAttribute('aria-checked', this.checked.toString());
+                    }
+                });
+            }
+        });
+        
+        console.log('Certificaciones inicializadas:', certificacionItems.length, 'items');
+    }
+
+    // Initialize certificaciones
+    initCertificaciones();
 
     // Initialize page
     console.log('Partners page loaded successfully!');

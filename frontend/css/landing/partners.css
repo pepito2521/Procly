@@ -45,6 +45,7 @@
     line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
+    text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
@@ -52,6 +53,9 @@
 @media (min-width: 768px) {
     .partners-hero .hero-description {
         white-space: nowrap;
+        text-align: center;
+        display: block;
+        width: 100%;
     }
 }
 
@@ -256,6 +260,78 @@
     width: 20px;
     height: 20px;
     fill: currentColor;
+}
+
+/* CERTIFICACIONES CHECKBOXES PERSONALIZADOS */
+.certificaciones-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.certificacion-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 0.5rem;
+    background: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.certificacion-item:hover {
+    border-color: var(--primary);
+    background: var(--primary-50);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(80, 137, 145, 0.1);
+}
+
+.certificacion-checkbox {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.certificacion-label {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--gray-700);
+    cursor: pointer;
+    font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+    line-height: 1.4;
+    user-select: none;
+}
+
+.certificacion-item:has(.certificacion-checkbox:checked) {
+    border-color: var(--primary);
+    background: var(--primary-50);
+    box-shadow: 0 2px 8px rgba(80, 137, 145, 0.15);
+}
+
+.certificacion-item:has(.certificacion-checkbox:checked) .certificacion-label {
+    color: var(--primary-700);
+    font-weight: 500;
+}
+
+/* Responsive para certificaciones */
+@media (max-width: 768px) {
+    .certificaciones-container {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .certificacion-item {
+        padding: 0.625rem;
+    }
+    
+    .certificacion-label {
+        font-size: 0.8rem;
+    }
 }
 
 /* Button Loader */
