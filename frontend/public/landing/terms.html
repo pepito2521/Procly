@@ -1,171 +1,238 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Términos y Condiciones | PROCLY</title>
-    <link rel="icon" type="image/png" href="/assets/logo/icon_32.png" />
-    <link rel="apple-touch-icon" href="/assets/logo/icon_32.png" />
-    <link rel="shortcut icon" href="/assets/logo/icon_32.png" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones - Procly</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/css/landing/landing.css?v=1.0.2" />
-    <link rel="stylesheet" href="/css/terms.css?v=1.0.2" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Términos y condiciones de uso de la plataforma Procly">
+    <link rel="stylesheet" href="/css/landing/landing.css">
+    <link rel="stylesheet" href="/css/landing/partners.css">
+    <link rel="icon" href="/assets/favicon_procly.ico" type="image/x-icon">
 </head>
 <body>
     <!-- HEADER -->
-    <header class="glass-header">
+    <header class="header glass-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <a href="/landing/index.html">
+                    <a href="/landing/index.html" style="text-decoration: none; display: block;">
                         <img src="/assets/logo/logo_light.svg" alt="Procly logo" style="height: 70px; width: auto; display: block;">
                     </a>
                 </div>
+
+                <nav class="nav-desktop">
+                    <a href="/landing/index.html#how-it-works" class="nav-link">¿Cómo funciona?</a>
+                    <a href="/landing/index.html#user-profiles" class="nav-link">Perfil Admin</a>
+                    <a href="/landing/index.html#user-profiles" class="nav-link">Perfil Usuario</a>
+                    <a href="/landing/partners.html" class="nav-link">Partners</a>
+                    <a href="/landing/index.html#novedades" class="nav-link">Novedades</a>
+                    <a href="/landing/index.html#contact" class="nav-link">Contactanos</a>
+                </nav>
                 <div class="header-actions">
-                    <a href="/landing/index.html" class="btn-volver-inicio">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#000000" viewBox="0 0 256 256" class="chevron-icon">
-                            <path d="M232,200a8,8,0,0,1-16,0,88.1,88.1,0,0,0-88-88H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48A8,8,0,0,1,85.66,61.66L51.31,96H128A104.11,104.11,0,0,1,232,200Z"></path>
-                        </svg>
-                        <span>Volver al Inicio</span>
-                    </a>
+                    <button id="btn-signin" class="btn-ghost btn-desktop">Sign In</button>
+                    <button id="btn-signup" class="btn-primary">Sign Up</button>
+                    
+                    <!-- Botones móviles -->
+                    <button id="btn-signin-mobile" class="btn-mobile-signin">Sign In</button>
+                    <button id="btn-signup-mobile" class="btn-mobile-signup">Sign Up</button>
+                    
+                    <button class="btn-mobile" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- MENÚ MÓVIL -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-menu-close" id="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile-nav">
+            <a href="/landing/index.html#how-it-works" class="mobile-nav-link">¿Cómo funciona?</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Admin</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Usuario</a>
+            <a href="/landing/partners.html" class="mobile-nav-link">Partners</a>
+            <a href="/landing/index.html#novedades" class="mobile-nav-link">Novedades</a>
+            <a href="/landing/index.html#contact" class="mobile-nav-link">Contactanos</a>
+        </nav>
+    </div>
+
     <!-- MAIN CONTENT -->
-    <main class="container" style="padding: 120px 20px 60px; max-width: 800px; margin: 0 auto;">
-        <div class="terms-content">
-            <h1>Términos y Condiciones</h1>
-            <p class="last-updated">Última actualización: Diciembre 2024</p>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Términos y Condiciones</h1>
+                    <p class="hero-description">
+                        Conoce los términos y condiciones que rigen el uso de la plataforma Procly
+                    </p>
+                </div>
+            </div>
+        </section>
 
-            <section>
-                <h2>1. Aceptación de los Términos</h2>
-                <p>Al acceder y utilizar la plataforma Procly, usted acepta estar sujeto a estos términos y condiciones. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestros servicios.</p>
-            </section>
+        <!-- Policy Content -->
+        <section class="policy-content-section">
+            <div class="container">
+                <div class="policy-container">
+                    <div class="policy-section">
+                        <h2>1. Aceptación de los Términos</h2>
+                        <p>Al acceder y utilizar la plataforma Procly, aceptas estar sujeto a estos términos y condiciones. Si no estás de acuerdo con alguna parte de estos términos, no debes utilizar nuestros servicios.</p>
+                        <ul>
+                            <li>Debes tener al menos 18 años para usar la plataforma</li>
+                            <li>Debes proporcionar información precisa y actualizada</li>
+                            <li>Eres responsable de mantener la confidencialidad de tu cuenta</li>
+                            <li>Debes notificar inmediatamente cualquier uso no autorizado</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>2. Descripción del Servicio</h2>
-                <p>Procly es una plataforma de marketplace interno que conecta empresas con proveedores para la gestión de compras no estratégicas. Nuestros servicios incluyen:</p>
-                <ul>
-                    <li>Creación y gestión de tickets de compra</li>
-                    <li>Conectividad con proveedores verificados</li>
-                    <li>Gestión de propuestas y selección</li>
-                    <li>Herramientas de administración y reportes</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>2. Descripción del Servicio</h2>
+                        <p>Procly es una plataforma de marketplace interno que conecta empresas con proveedores para la gestión de compras no estratégicas (Tail Spend). Nuestros servicios incluyen:</p>
+                        <ul>
+                            <li>Creación y gestión de tickets de compra</li>
+                            <li>Conectividad con red de proveedores verificados</li>
+                            <li>Gestión de presupuestos y límites de gasto</li>
+                            <li>Reportes y análisis de compras</li>
+                            <li>Integración con sistemas empresariales</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>3. Registro y Cuentas</h2>
-                <p>Para utilizar nuestros servicios, debe:</p>
-                <ul>
-                    <li>Ser mayor de 18 años</li>
-                    <li>Proporcionar información precisa y actualizada</li>
-                    <li>Mantener la confidencialidad de sus credenciales</li>
-                    <li>Ser responsable de todas las actividades en su cuenta</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>3. Uso Aceptable</h2>
+                        <p>Te comprometes a utilizar la plataforma de manera responsable y ética:</p>
+                        <ul>
+                            <li>No usar la plataforma para actividades ilegales</li>
+                            <li>No intentar acceder a cuentas de otros usuarios</li>
+                            <li>No transmitir virus o código malicioso</li>
+                            <li>No interferir con el funcionamiento de la plataforma</li>
+                            <li>Respetar los derechos de propiedad intelectual</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>4. Uso Aceptable</h2>
-                <p>Usted se compromete a utilizar nuestros servicios únicamente para fines legítimos y de acuerdo con estos términos. Está prohibido:</p>
-                <ul>
-                    <li>Usar la plataforma para actividades ilegales</li>
-                    <li>Intentar acceder sin autorización a sistemas o datos</li>
-                    <li>Interferir con el funcionamiento de la plataforma</li>
-                    <li>Compartir credenciales de acceso</li>
-                    <li>Usar bots o automatización no autorizada</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>4. Cuentas de Usuario</h2>
+                        <p>Para acceder a ciertos servicios, debes crear una cuenta:</p>
+                        <ul>
+                            <li>Proporcionar información verdadera y completa</li>
+                            <li>Mantener actualizada tu información de contacto</li>
+                            <li>Proteger la seguridad de tu contraseña</li>
+                            <li>No compartir tu cuenta con terceros</li>
+                            <li>Notificar inmediatamente cualquier actividad sospechosa</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>5. Contenido y Propiedad Intelectual</h2>
-                <p>Todo el contenido de la plataforma, incluyendo pero no limitado a textos, gráficos, logos, software y diseño, es propiedad de Procly o sus licenciantes y está protegido por leyes de propiedad intelectual.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>5. Transacciones y Pagos</h2>
+                        <p>Las transacciones en la plataforma están sujetas a:</p>
+                        <ul>
+                            <li>Verificación de disponibilidad de productos/servicios</li>
+                            <li>Confirmación de precios antes de la compra</li>
+                            <li>Términos de pago acordados con el proveedor</li>
+                            <li>Políticas de cancelación y reembolso del proveedor</li>
+                            <li>Comisión del 5% sobre transacciones completadas</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>6. Protección al Consumidor (Ley 24.240)</h2>
-                <p>De acuerdo con la Ley de Defensa del Consumidor argentina, usted tiene los siguientes derechos:</p>
-                <ul>
-                    <li><strong>Información adecuada:</strong> Recibir información clara y detallada sobre nuestros servicios</li>
-                    <li><strong>Condiciones equitativas:</strong> Ser tratado de manera justa en todas las transacciones</li>
-                    <li><strong>Protección contra cláusulas abusivas:</strong> No estar sujeto a condiciones desproporcionadas</li>
-                    <li><strong>Derecho de retracto:</strong> En los casos que la ley establezca</li>
-                    <li><strong>Acceso a la justicia:</strong> Recurrir a los tribunales de defensa del consumidor</li>
-                </ul>
-                <p>Para consultas relacionadas con derechos del consumidor, puede contactar a la Dirección Nacional de Defensa del Consumidor en <a href="https://www.argentina.gob.ar/consumidor" target="_blank">www.argentina.gob.ar/consumidor</a></p>
-            </section>
+                    <div class="policy-section">
+                        <h2>6. Responsabilidades del Usuario</h2>
+                        <p>Como usuario de la plataforma, eres responsable de:</p>
+                        <ul>
+                            <li>La precisión de la información proporcionada</li>
+                            <li>El cumplimiento de las leyes aplicables</li>
+                            <li>El pago de servicios y productos solicitados</li>
+                            <li>La comunicación efectiva con proveedores</li>
+                            <li>La revisión de propuestas antes de aceptarlas</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>7. Privacidad y Datos</h2>
-                <p>El uso de su información personal está regido por nuestra <a href="/landing/privacy.html">Política de Privacidad</a>, que forma parte integral de estos términos.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>7. Limitación de Responsabilidad</h2>
+                        <p>Procly no será responsable por:</p>
+                        <ul>
+                            <li>Daños indirectos o consecuentes</li>
+                            <li>Pérdidas de beneficios o datos</li>
+                            <li>Interrupciones del servicio por causas externas</li>
+                            <li>Actos de proveedores o terceros</li>
+                            <li>Daños causados por el uso incorrecto de la plataforma</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>8. Limitación de Responsabilidad</h2>
-                <p>Procly no será responsable por:</p>
-                <ul>
-                    <li>Daños indirectos, incidentales o consecuentes</li>
-                    <li>Pérdida de datos o interrupciones del servicio</li>
-                    <li>Acciones de terceros proveedores</li>
-                    <li>Uso indebido de la plataforma por parte del usuario</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>8. Propiedad Intelectual</h2>
+                        <p>La plataforma Procly y su contenido están protegidos por:</p>
+                        <ul>
+                            <li>Derechos de autor y marcas comerciales</li>
+                            <li>Patentes y secretos comerciales</li>
+                            <li>Leyes de propiedad intelectual aplicables</li>
+                            <li>No se permite la reproducción sin autorización</li>
+                            <li>El contenido del usuario permanece de su propiedad</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>9. Facturación e Impuestos</h2>
-                <p>En cumplimiento con la normativa argentina:</p>
-                <ul>
-                    <li><strong>IVA:</strong> Todos los precios incluyen IVA (21%) cuando corresponda</li>
-                    <li><strong>Facturación:</strong> Emitimos facturas electrónicas según normativa AFIP</li>
-                    <li><strong>Moneda:</strong> Todos los montos se expresan en Pesos Argentinos (ARS)</li>
-                    <li><strong>Retenciones:</strong> Aplicamos las retenciones impositivas que correspondan según la normativa vigente</li>
-                    <li><strong>Comprobantes:</strong> Los comprobantes se envían por email según normativa fiscal</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>9. Terminación del Servicio</h2>
+                        <p>Podemos suspender o terminar tu cuenta:</p>
+                        <ul>
+                            <li>Por violación de estos términos</li>
+                            <li>Por actividad fraudulenta o sospechosa</li>
+                            <li>Por solicitud tuya</li>
+                            <li>Por cese de operaciones de la empresa</li>
+                            <li>Con previo aviso de 30 días cuando sea posible</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>10. Disponibilidad del Servicio</h2>
-                <p>Nos esforzamos por mantener la plataforma disponible 24/7, pero no garantizamos disponibilidad ininterrumpida. Podemos realizar mantenimiento programado con notificación previa.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>10. Modificaciones</h2>
+                        <p>Nos reservamos el derecho de modificar estos términos:</p>
+                        <ul>
+                            <li>Los cambios serán notificados por email</li>
+                            <li>El uso continuado constituye aceptación</li>
+                            <li>Los cambios importantes requieren consentimiento explícito</li>
+                            <li>Las versiones anteriores estarán disponibles</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>11. Modificaciones</h2>
-                <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación. El uso continuado de la plataforma constituye aceptación de los nuevos términos.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>11. Ley Aplicable y Jurisdicción</h2>
+                        <p>Estos términos se rigen por:</p>
+                        <ul>
+                            <li><strong>Ley aplicable:</strong> Legislación argentina vigente</li>
+                            <li><strong>Jurisdicción:</strong> Ciudad Autónoma de Buenos Aires</li>
+                            <li><strong>Mediación:</strong> Obligatoria antes de acciones judiciales</li>
+                            <li><strong>Arbitraje:</strong> Para disputas no resueltas por mediación</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>12. Terminación</h2>
-                <p>Podemos suspender o terminar su acceso a la plataforma en cualquier momento por violación de estos términos o por cualquier otra razón a nuestra discreción.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>12. Contacto</h2>
+                        <p>Para consultas sobre estos términos y condiciones:</p>
+                        <ul>
+                            <li><strong>Email:</strong> legal@procly.net</li>
+                            <li><strong>Teléfono:</strong> +54 11 1234-5678</li>
+                            <li><strong>Dirección:</strong> Av. Corrientes 1234, CABA, Argentina</li>
+                            <li><strong>Horario:</strong> Lunes a Viernes de 9:00 a 18:00 (GMT-3)</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>13. Ley Aplicable y Jurisdicción</h2>
-                <p>Estos términos se rigen por las leyes de la República Argentina. Cualquier disputa será resuelta en los tribunales competentes de la Ciudad Autónoma de Buenos Aires, Argentina, renunciando a cualquier otra jurisdicción que pudiera corresponder.</p>
-                <p>En caso de conflictos, se aplicará la legislación argentina vigente, incluyendo pero no limitado al Código Civil y Comercial de la Nación, la Ley de Defensa del Consumidor (24.240) y la Ley de Protección de Datos Personales (25.326).</p>
-            </section>
-
-            <section>
-                <h2>14. Contacto</h2>
-                <p>Para preguntas sobre estos términos, puede contactarnos en:</p>
-                <ul>
-                    <li>Email: legal@procly.com</li>
-                    <li>Dirección: [Dirección de la empresa]</li>
-                </ul>
-            </section>
-        </div>
+                    <div class="policy-footer">
+                        <p><strong>Última actualización:</strong> Agosto 2024</p>
+                        <p>Estos términos y condiciones están sujetos a cambios con previo aviso de 30 días.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer id="contact" class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -190,21 +257,21 @@
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Empresa</h4>
+                        <h4 class="footer-title">Soporte</h4>
                         <ul class="footer-list">
-                            <li><a href="#" class="footer-link">Acerca de</a></li>
-                            <li><a href="#" class="footer-link">Blog</a></li>
-                            <li><a href="#" class="footer-link">Carreras</a></li>
-                            <li><a href="#" class="footer-link">Contacto</a></li>
+                            <li><a href="/landing/privacy.html" class="footer-link">Política de Privacidad</a></li>
+                            <li><a href="/landing/terms.html" class="footer-link">Términos y Condiciones</a></li>
+                            <li><a href="/landing/cookies.html" class="footer-link">Cookies</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Soporte</h4>
+                        <h4 class="footer-title">Contacto</h4>
                         <ul class="footer-list">
-                            <li><a href="/privacy.html" class="footer-link">Política de Privacidad</a></li>
-                            <li><a href="/terms.html" class="footer-link">Términos y Condiciones</a></li>
-                            <li><a href="/cookies.html" class="footer-link">Cookies</a></li>
+                            <li><a href="mailto:comercial@procly.net" class="footer-link">comercial@procly.net</a></li>
+                            <li><a class="footer-link">+34 643 615 319</a></li>
+                            <li><a href="https://www.linkedin.com/company/procly" class="footer-link">LinkedIn</a></li>
+                            <li><a class="footer-link">Buenos Aires, Argentina</a></li>
                         </ul>
                     </div>
                 </div>
@@ -215,5 +282,8 @@
             </div>
         </div>
     </footer>
+
+    <script src="/js/landing/partners.js"></script>
+    <script src="/js/landing/landing.js"></script>
 </body>
 </html> 

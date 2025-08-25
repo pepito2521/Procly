@@ -1,155 +1,212 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Política de Privacidad | PROCLY</title>
-    <link rel="icon" type="image/png" href="/assets/logo/icon_32.png" />
-    <link rel="apple-touch-icon" href="/assets/logo/icon_32.png" />
-    <link rel="shortcut icon" href="/assets/logo/icon_32.png" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidad - Procly</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/css/landing/landing.css?v=1.0.2" />
-    <link rel="stylesheet" href="/css/privacy.css?v=1.0.2" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Política de privacidad y protección de datos de Procly">
+    <link rel="stylesheet" href="/css/landing/landing.css">
+    <link rel="stylesheet" href="/css/landing/partners.css">
+    <link rel="icon" href="/assets/favicon_procly.ico" type="image/x-icon">
 </head>
 <body>
     <!-- HEADER -->
-    <header class="glass-header">
+    <header class="header glass-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <a href="/landing/index.html">
+                    <a href="/landing/index.html" style="text-decoration: none; display: block;">
                         <img src="/assets/logo/logo_light.svg" alt="Procly logo" style="height: 70px; width: auto; display: block;">
                     </a>
                 </div>
+
+                <nav class="nav-desktop">
+                    <a href="/landing/index.html#how-it-works" class="nav-link">¿Cómo funciona?</a>
+                    <a href="/landing/index.html#user-profiles" class="nav-link">Perfil Admin</a>
+                    <a href="/landing/index.html#user-profiles" class="nav-link">Perfil Usuario</a>
+                    <a href="/landing/partners.html" class="nav-link">Partners</a>
+                    <a href="/landing/index.html#novedades" class="nav-link">Novedades</a>
+                    <a href="/landing/index.html#contact" class="nav-link">Contactanos</a>
+                </nav>
                 <div class="header-actions">
-                    <a href="/landing/index.html" class="btn-volver-inicio">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#000000" viewBox="0 0 256 256" class="chevron-icon">
-                            <path d="M232,200a8,8,0,0,1-16,0,88.1,88.1,0,0,0-88-88H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48A8,8,0,0,1,85.66,61.66L51.31,96H128A104.11,104.11,0,0,1,232,200Z"></path>
-                        </svg>
-                        <span>Volver al Inicio</span>
-                    </a>
+                    <button id="btn-signin" class="btn-ghost btn-desktop">Sign In</button>
+                    <button id="btn-signup" class="btn-primary">Sign Up</button>
+                    
+                    <!-- Botones móviles -->
+                    <button id="btn-signin-mobile" class="btn-mobile-signin">Sign In</button>
+                    <button id="btn-signup-mobile" class="btn-mobile-signup">Sign Up</button>
+                    
+                    <button class="btn-mobile" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- MENÚ MÓVIL -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-menu-close" id="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile-nav">
+            <a href="/landing/index.html#how-it-works" class="mobile-nav-link">¿Cómo funciona?</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Admin</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Usuario</a>
+            <a href="/landing/partners.html" class="mobile-nav-link">Partners</a>
+            <a href="/landing/index.html#novedades" class="mobile-nav-link">Novedades</a>
+            <a href="/landing/index.html#contact" class="mobile-nav-link">Contactanos</a>
+        </nav>
+    </div>
+
     <!-- MAIN CONTENT -->
-    <main class="container" style="padding: 120px 20px 60px; max-width: 800px; margin: 0 auto;">
-        <div class="privacy-content">
-            <h1>Política de Privacidad</h1>
-            <p class="last-updated">Última actualización: Diciembre 2024</p>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Política de Privacidad</h1>
+                    <p class="hero-description">
+                        Conoce cómo protegemos y manejamos tu información personal en Procly
+                    </p>
+                </div>
+            </div>
+        </section>
 
-            <section>
-                <h2>1. Marco Legal</h2>
-                <p>Esta política de privacidad se rige por la <strong>Ley 25.326 de Protección de Datos Personales (LPDP)</strong> y sus decretos reglamentarios. Procly actúa como Responsable del tratamiento de datos personales de acuerdo con la normativa argentina.</p>
-            </section>
+        <!-- Policy Content -->
+        <section class="policy-content-section">
+            <div class="container">
+                <div class="policy-container">
+                    <div class="policy-section">
+                        <h2>1. Información que Recopilamos</h2>
+                        <p>Recopilamos la siguiente información cuando utilizas nuestros servicios:</p>
+                        <ul>
+                            <li>Información de contacto (nombre, email, teléfono)</li>
+                            <li>Información de la empresa (razón social, dirección, CUIT)</li>
+                            <li>Datos de uso de la plataforma</li>
+                            <li>Información de transacciones y compras</li>
+                            <li>Comunicaciones con nuestro equipo de soporte</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>2. Información que Recopilamos</h2>
-                <p>Recopilamos información que usted nos proporciona directamente, como cuando:</p>
-                <ul>
-                    <li>Crea una cuenta en nuestra plataforma</li>
-                    <li>Completa formularios de tickets</li>
-                    <li>Se comunica con nuestro equipo de soporte</li>
-                    <li>Participa en encuestas o feedback</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>2. Cómo Utilizamos tu Información</h2>
+                        <p>Utilizamos tu información para:</p>
+                        <ul>
+                            <li>Proporcionar y mejorar nuestros servicios</li>
+                            <li>Procesar transacciones y gestionar tu cuenta</li>
+                            <li>Comunicarnos contigo sobre servicios y actualizaciones</li>
+                            <li>Personalizar tu experiencia en la plataforma</li>
+                            <li>Cumplir con obligaciones legales y regulatorias</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>3. Información Automática</h2>
-                <p>Recopilamos automáticamente cierta información cuando utiliza nuestros servicios:</p>
-                <ul>
-                    <li>Información del dispositivo y navegador</li>
-                    <li>Dirección IP y ubicación aproximada</li>
-                    <li>Datos de uso y actividad en la plataforma</li>
-                    <li>Cookies y tecnologías similares</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>3. Compartir Información</h2>
+                        <p>No vendemos, alquilamos ni compartimos tu información personal con terceros, excepto:</p>
+                        <ul>
+                            <li>Con proveedores que nos ayudan a operar la plataforma</li>
+                            <li>Cuando es necesario para completar transacciones</li>
+                            <li>Con tu consentimiento explícito</li>
+                            <li>Cuando es requerido por ley</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>4. Cómo Utilizamos su Información</h2>
-                <p>Utilizamos la información recopilada para:</p>
-                <ul>
-                    <li>Proporcionar y mantener nuestros servicios</li>
-                    <li>Procesar tickets y gestionar compras</li>
-                    <li>Comunicarnos con usted sobre su cuenta</li>
-                    <li>Mejorar nuestros servicios y experiencia del usuario</li>
-                    <li>Cumplir con obligaciones legales</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>4. Seguridad de Datos</h2>
+                        <p>Implementamos medidas de seguridad técnicas y organizativas para proteger tu información:</p>
+                        <ul>
+                            <li>Encriptación de datos en tránsito y en reposo</li>
+                            <li>Acceso restringido a información personal</li>
+                            <li>Monitoreo continuo de seguridad</li>
+                            <li>Auditorías regulares de seguridad</li>
+                            <li>Cumplimiento de estándares internacionales</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>5. Compartir Información</h2>
-                <p>No vendemos, alquilamos ni compartimos su información personal con terceros, excepto:</p>
-                <ul>
-                    <li>Con su consentimiento explícito</li>
-                    <li>Para cumplir con obligaciones legales</li>
-                    <li>Con proveedores de servicios que nos ayudan a operar</li>
-                    <li>Para proteger nuestros derechos y seguridad</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>5. Tus Derechos</h2>
+                        <p>Tienes derecho a:</p>
+                        <ul>
+                            <li>Acceder a tu información personal</li>
+                            <li>Corregir información inexacta</li>
+                            <li>Solicitar la eliminación de tus datos</li>
+                            <li>Oponerte al procesamiento de tu información</li>
+                            <li>Portar tus datos a otro proveedor</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>6. Seguridad de Datos</h2>
-                <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>6. Cookies y Tecnologías Similares</h2>
+                        <p>Utilizamos cookies y tecnologías similares para:</p>
+                        <ul>
+                            <li>Recordar tus preferencias y configuraciones</li>
+                            <li>Analizar el uso de la plataforma</li>
+                            <li>Mejorar la funcionalidad y rendimiento</li>
+                            <li>Proporcionar contenido personalizado</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>7. Sus Derechos (Ley 25.326)</h2>
-                <p>De acuerdo con la Ley de Protección de Datos Personales (LPDP), usted tiene derecho a:</p>
-                <ul>
-                    <li><strong>Acceso:</strong> Conocer qué datos tenemos sobre usted</li>
-                    <li><strong>Rectificación:</strong> Corregir datos inexactos o incompletos</li>
-                    <li><strong>Supresión:</strong> Solicitar la eliminación de sus datos</li>
-                    <li><strong>Confidencialidad:</strong> Que sus datos sean tratados con reserva</li>
-                    <li><strong>Información:</strong> Ser informado sobre el uso de sus datos</li>
-                    <li><strong>Oposición:</strong> Oponerse al procesamiento de sus datos</li>
-                </ul>
-                <p>Para ejercer estos derechos, puede contactarnos en <strong>privacy@procly.com</strong></p>
-            </section>
+                    <div class="policy-section">
+                        <h2>7. Retención de Datos</h2>
+                        <p>Conservamos tu información personal:</p>
+                        <ul>
+                            <li>Mientras mantengas una cuenta activa</li>
+                            <li>Durante el tiempo necesario para cumplir con obligaciones legales</li>
+                            <li>Para resolver disputas y hacer cumplir acuerdos</li>
+                            <li>Hasta que solicites su eliminación</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>8. Retención de Datos</h2>
-                <p>Conservamos su información personal durante el tiempo necesario para cumplir con los propósitos descritos en esta política, a menos que la ley requiera un período de retención más largo.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>8. Transferencias Internacionales</h2>
+                        <p>Tu información puede ser transferida y procesada en países fuera de Argentina:</p>
+                        <ul>
+                            <li>Utilizamos proveedores de servicios en la nube globales</li>
+                            <li>Implementamos medidas de protección adecuadas</li>
+                            <li>Cumplimos con regulaciones de transferencia de datos</li>
+                            <li>Mantenemos estándares de seguridad consistentes</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>9. Cookies</h2>
-                <p>Utilizamos cookies y tecnologías similares para mejorar su experiencia en nuestra plataforma. Puede gestionar sus preferencias de cookies a través de la configuración de su navegador.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>9. Cambios en esta Política</h2>
+                        <p>Podemos actualizar esta política de privacidad:</p>
+                        <ul>
+                            <li>Te notificaremos cambios significativos por email</li>
+                            <li>La fecha de última actualización se mostrará en la parte superior</li>
+                            <li>El uso continuado de nuestros servicios constituye aceptación</li>
+                            <li>Puedes revisar cambios en cualquier momento</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>10. Menores de Edad</h2>
-                <p>Nuestros servicios no están dirigidos a menores de 18 años. No recopilamos intencionalmente información personal de menores de edad. En caso de que un menor proporcione datos, estos serán eliminados inmediatamente.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>10. Contacto</h2>
+                        <p>Para consultas sobre esta política de privacidad:</p>
+                        <ul>
+                            <li><strong>Email:</strong> privacidad@procly.net</li>
+                            <li><strong>Teléfono:</strong> +54 11 1234-5678</li>
+                            <li><strong>Dirección:</strong> Av. Corrientes 1234, CABA, Argentina</li>
+                            <li><strong>Horario:</strong> Lunes a Viernes de 9:00 a 18:00 (GMT-3)</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>11. Cambios a esta Política</h2>
-                <p>Podemos actualizar esta política de privacidad ocasionalmente. Le notificaremos sobre cambios significativos por correo electrónico o a través de nuestra plataforma.</p>
-            </section>
-
-            <section>
-                <h2>12. Contacto y Autoridad de Control</h2>
-                <p>Si tiene preguntas sobre esta política de privacidad, puede contactarnos en:</p>
-                <ul>
-                    <li>Email: privacy@procly.com</li>
-                    <li>Dirección: [Dirección de la empresa]</li>
-                </ul>
-                <p><strong>Autoridad de Control:</strong> En caso de quejas relacionadas con el tratamiento de datos personales, puede contactar a la Dirección Nacional de Protección de Datos Personales (DNPDP) en <a href="https://www.argentina.gob.ar/justicia/derechosfaciles/areglos/que-son-los-datos-personales" target="_blank">www.argentina.gob.ar/justicia/derechosfaciles/areglos/que-son-los-datos-personales</a></p>
-            </section>
-        </div>
+                    <div class="policy-footer">
+                        <p><strong>Última actualización:</strong> Agosto 2024</p>
+                        <p>Esta política de privacidad está sujeta a cambios con previo aviso de 30 días.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer id="contact" class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -174,21 +231,21 @@
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Empresa</h4>
+                        <h4 class="footer-title">Soporte</h4>
                         <ul class="footer-list">
-                            <li><a href="#" class="footer-link">Acerca de</a></li>
-                            <li><a href="#" class="footer-link">Blog</a></li>
-                            <li><a href="#" class="footer-link">Carreras</a></li>
-                            <li><a href="#" class="footer-link">Contacto</a></li>
+                            <li><a href="/landing/privacy.html" class="footer-link">Política de Privacidad</a></li>
+                            <li><a href="/landing/terms.html" class="footer-link">Términos y Condiciones</a></li>
+                            <li><a href="/landing/cookies.html" class="footer-link">Cookies</a></li>
                         </ul>
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Soporte</h4>
+                        <h4 class="footer-title">Contacto</h4>
                         <ul class="footer-list">
-                            <li><a href="/privacy.html" class="footer-link">Política de Privacidad</a></li>
-                            <li><a href="/terms.html" class="footer-link">Términos y Condiciones</a></li>
-                            <li><a href="/cookies.html" class="footer-link">Cookies</a></li>
+                            <li><a href="mailto:comercial@procly.net" class="footer-link">comercial@procly.net</a></li>
+                            <li><a class="footer-link">+34 643 615 319</a></li>
+                            <li><a href="https://www.linkedin.com/company/procly" class="footer-link">LinkedIn</a></li>
+                            <li><a class="footer-link">Buenos Aires, Argentina</a></li>
                         </ul>
                     </div>
                 </div>
@@ -199,5 +256,8 @@
             </div>
         </div>
     </footer>
+
+    <script src="/js/landing/partners.js"></script>
+    <script src="/js/landing/landing.js"></script>
 </body>
 </html> 

@@ -1504,13 +1504,13 @@
 
   .profile-panel .preview-content h3 svg {
     flex-shrink: 0;
-    color: var(--primary);
+    color: var(--gray-900);
   }
 
   .profile-panel .preview-content p {
     text-align: left;
     margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 300;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);
@@ -1527,7 +1527,7 @@
     padding-left: 2rem;
     margin-bottom: 1rem;
     line-height: 1.5;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 300;
     font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
     color: var(--gray-600);

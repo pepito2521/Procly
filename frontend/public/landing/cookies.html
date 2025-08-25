@@ -1,157 +1,252 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Política de Cookies | PROCLY</title>
-    <link rel="icon" type="image/png" href="/assets/logo/icon_32.png" />
-    <link rel="apple-touch-icon" href="/assets/logo/icon_32.png" />
-    <link rel="shortcut icon" href="/assets/logo/icon_32.png" />
-    <meta name="msapplication-TileColor" content="#ffffff" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Cookies - Procly</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/css/landing/landing.css?v=1.0.2" />
-    <link rel="stylesheet" href="/css/cookies.css?v=1.0.2" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="Política de cookies y tecnologías de seguimiento de Procly">
+    <link rel="stylesheet" href="/css/landing/landing.css">
+    <link rel="stylesheet" href="/css/landing/partners.css">
+    <link rel="icon" href="/assets/favicon_procly.ico" type="image/x-icon">
 </head>
 <body>
     <!-- HEADER -->
-    <header class="glass-header">
+    <header class="header glass-header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <a href="/landing/index.html">
+                    <a href="/landing/index.html" style="text-decoration: none; display: block;">
                         <img src="/assets/logo/logo_light.svg" alt="Procly logo" style="height: 70px; width: auto; display: block;">
                     </a>
                 </div>
+
+                <nav class="nav-desktop">
+                    <a href="/landing/index.html#how-it-works" class="nav-link">¿Cómo funciona?</a>
+                    <a href="/landing/index.html#user-profiles" class="nav-link">Perfil Admin</a>
+                    <a href="/landing/index.html#user-profiles" class="nav-link">Perfil Usuario</a>
+                    <a href="/landing/partners.html" class="nav-link">Partners</a>
+                    <a href="/landing/index.html#novedades" class="nav-link">Novedades</a>
+                    <a href="/landing/index.html#contact" class="nav-link">Contactanos</a>
+                </nav>
                 <div class="header-actions">
-                    <a href="/landing/index.html" class="btn-volver-inicio">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#000000" viewBox="0 0 256 256" class="chevron-icon">
-                            <path d="M232,200a8,8,0,0,1-16,0,88.1,88.1,0,0,0-88-88H51.31l34.35,34.34a8,8,0,0,1-11.32,11.32l-48-48a8,8,0,0,1,0-11.32l48-48A8,8,0,0,1,85.66,61.66L51.31,96H128A104.11,104.11,0,0,1,232,200Z"></path>
-                        </svg>
-                        <span>Volver al Inicio</span>
-                    </a>
+                    <button id="btn-signin" class="btn-ghost btn-desktop">Sign In</button>
+                    <button id="btn-signup" class="btn-primary">Sign Up</button>
+                    
+                    <!-- Botones móviles -->
+                    <button id="btn-signin-mobile" class="btn-mobile-signin">Sign In</button>
+                    <button id="btn-signup-mobile" class="btn-mobile-signup">Sign Up</button>
+                    
+                    <button class="btn-mobile" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
+    <!-- MENÚ MÓVIL -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="mobile-menu-close" id="mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="mobile-nav">
+            <a href="/landing/index.html#how-it-works" class="mobile-nav-link">¿Cómo funciona?</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Admin</a>
+            <a href="/landing/index.html#user-profiles" class="mobile-nav-link">Perfil Usuario</a>
+            <a href="/landing/partners.html" class="mobile-nav-link">Partners</a>
+            <a href="/landing/index.html#novedades" class="mobile-nav-link">Novedades</a>
+            <a href="/landing/index.html#contact" class="mobile-nav-link">Contactanos</a>
+        </nav>
+    </div>
+
     <!-- MAIN CONTENT -->
-    <main class="container" style="padding: 120px 20px 60px; max-width: 800px; margin: 0 auto;">
-        <div class="cookies-content">
-            <h1>Política de Cookies</h1>
-            <p class="last-updated">Última actualización: Diciembre 2024</p>
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Política de Cookies</h1>
+                    <p class="hero-description">
+                        Conoce cómo utilizamos cookies y tecnologías similares para mejorar tu experiencia
+                    </p>
+                </div>
+            </div>
+        </section>
 
-            <section>
-                <h2>1. ¿Qué son las Cookies?</h2>
-                <p>Las cookies son pequeños archivos de texto que se almacenan en su dispositivo cuando visita nuestro sitio web. Estas cookies nos ayudan a mejorar su experiencia de navegación y a proporcionar servicios personalizados.</p>
-            </section>
+        <!-- Policy Content -->
+        <section class="policy-content-section">
+            <div class="container">
+                <div class="policy-container">
+                    <div class="policy-section">
+                        <h2>1. ¿Qué son las Cookies?</h2>
+                        <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas nuestra plataforma. Estas tecnologías nos ayudan a:</p>
+                        <ul>
+                            <li>Recordar tus preferencias y configuraciones</li>
+                            <li>Analizar cómo utilizas nuestra plataforma</li>
+                            <li>Mejorar la funcionalidad y rendimiento</li>
+                            <li>Proporcionar contenido personalizado</li>
+                            <li>Garantizar la seguridad de tu sesión</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>2. Tipos de Cookies que Utilizamos</h2>
-                
-                <h3>Cookies Esenciales</h3>
-                <p>Estas cookies son necesarias para el funcionamiento básico de nuestra plataforma:</p>
-                <ul>
-                    <li><strong>Autenticación:</strong> Para mantener su sesión activa</li>
-                    <li><strong>Seguridad:</strong> Para proteger contra ataques y fraudes</li>
-                    <li><strong>Funcionalidad:</strong> Para recordar sus preferencias básicas</li>
-                </ul>
+                    <div class="policy-section">
+                        <h2>2. Tipos de Cookies que Utilizamos</h2>
+                        <p>Utilizamos diferentes tipos de cookies según su función y duración:</p>
+                        <ul>
+                            <li><strong>Cookies Esenciales:</strong> Necesarias para el funcionamiento básico</li>
+                            <li><strong>Cookies de Funcionalidad:</strong> Mejoran la experiencia del usuario</li>
+                            <li><strong>Cookies de Rendimiento:</strong> Analizan el uso de la plataforma</li>
+                            <li><strong>Cookies de Marketing:</strong> Muestran contenido relevante</li>
+                            <li><strong>Cookies de Terceros:</strong> De servicios externos integrados</li>
+                        </ul>
+                    </div>
 
-                <h3>Cookies de Rendimiento</h3>
-                <p>Nos ayudan a entender cómo interactúa con nuestra plataforma:</p>
-                <ul>
-                    <li><strong>Analytics:</strong> Para medir el tráfico y uso del sitio</li>
-                    <li><strong>Errores:</strong> Para identificar y solucionar problemas técnicos</li>
-                    <li><strong>Optimización:</strong> Para mejorar la velocidad y rendimiento</li>
-                </ul>
+                    <div class="policy-section">
+                        <h2>3. Cookies Esenciales</h2>
+                        <p>Estas cookies son estrictamente necesarias para el funcionamiento de la plataforma:</p>
+                        <ul>
+                            <li>Autenticación y gestión de sesiones</li>
+                            <li>Preferencias de idioma y región</li>
+                            <li>Configuraciones de seguridad</li>
+                            <li>Carrito de compras y formularios</li>
+                            <li>Prevención de ataques de seguridad</li>
+                        </ul>
+                    </div>
 
-                <h3>Cookies de Funcionalidad</h3>
-                <p>Mejoran su experiencia personalizando el contenido:</p>
-                <ul>
-                    <li><strong>Preferencias:</strong> Para recordar su idioma y configuración</li>
-                    <li><strong>Personalización:</strong> Para mostrar contenido relevante</li>
-                    <li><strong>Historial:</strong> Para recordar sus acciones anteriores</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>4. Cookies de Funcionalidad</h2>
+                        <p>Mejoran tu experiencia recordando tus preferencias:</p>
+                        <ul>
+                            <li>Configuraciones de la interfaz de usuario</li>
+                            <li>Preferencias de notificaciones</li>
+                            <li>Historial de búsquedas recientes</li>
+                            <li>Configuraciones de accesibilidad</li>
+                            <li>Preferencias de idioma y moneda</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>3. Cookies de Terceros</h2>
-                <p>Utilizamos servicios de terceros que pueden instalar cookies en su dispositivo:</p>
-                <ul>
-                    <li><strong>Google Analytics:</strong> Para análisis de tráfico web</li>
-                    <li><strong>Supabase:</strong> Para autenticación y base de datos</li>
-                    <li><strong>Resend:</strong> Para envío de emails</li>
-                    <li><strong>Chart.js:</strong> Para gráficos y visualizaciones</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>5. Cookies de Rendimiento</h2>
+                        <p>Nos ayudan a entender cómo utilizas la plataforma:</p>
+                        <ul>
+                            <li>Páginas más visitadas y tiempo de permanencia</li>
+                            <li>Errores y problemas de rendimiento</li>
+                            <li>Flujo de navegación y comportamiento del usuario</li>
+                            <li>Velocidad de carga de páginas</li>
+                            <li>Dispositivos y navegadores utilizados</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>4. Duración de las Cookies</h2>
-                <ul>
-                    <li><strong>Cookies de Sesión:</strong> Se eliminan cuando cierra el navegador</li>
-                    <li><strong>Cookies Persistentes:</strong> Permanecen hasta que las elimine manualmente o expiren</li>
-                    <li><strong>Cookies de Terceros:</strong> Siguen las políticas de cada proveedor</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>6. Cookies de Marketing</h2>
+                        <p>Utilizamos estas cookies para mostrar contenido relevante:</p>
+                        <ul>
+                            <li>Anuncios personalizados basados en intereses</li>
+                            <li>Recomendaciones de productos y servicios</li>
+                            <li>Contenido promocional relevante</li>
+                            <li>Medición de efectividad de campañas</li>
+                            <li>Retargeting y remarketing</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>5. Gestión de Cookies</h2>
-                <p>Puede controlar y gestionar las cookies de las siguientes maneras:</p>
-                
-                <h3>Configuración del Navegador</h3>
-                <p>La mayoría de navegadores permiten:</p>
-                <ul>
-                    <li>Ver qué cookies están instaladas</li>
-                    <li>Eliminar cookies existentes</li>
-                    <li>Bloquear cookies futuras</li>
-                    <li>Configurar alertas cuando se instalen cookies</li>
-                </ul>
+                    <div class="policy-section">
+                        <h2>7. Cookies de Terceros</h2>
+                        <p>Algunos servicios externos pueden instalar cookies:</p>
+                        <ul>
+                            <li><strong>Google Analytics:</strong> Análisis de tráfico y comportamiento</li>
+                            <li><strong>Google Ads:</strong> Publicidad y remarketing</li>
+                            <li><strong>Facebook Pixel:</strong> Seguimiento de conversiones</li>
+                            <li><strong>LinkedIn Insight:</strong> Análisis de audiencia profesional</li>
+                            <li><strong>Hotjar:</strong> Análisis de experiencia del usuario</li>
+                        </ul>
+                    </div>
 
-                <h3>Configuración Específica</h3>
-                <p>Para configurar cookies en su navegador:</p>
-                <ul>
-                    <li><strong>Chrome:</strong> Configuración > Privacidad y seguridad > Cookies</li>
-                    <li><strong>Firefox:</strong> Opciones > Privacidad y seguridad > Cookies</li>
-                    <li><strong>Safari:</strong> Preferencias > Privacidad > Cookies</li>
-                    <li><strong>Edge:</strong> Configuración > Cookies y permisos del sitio</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>8. Duración de las Cookies</h2>
+                        <p>Las cookies tienen diferentes duraciones según su propósito:</p>
+                        <ul>
+                            <li><strong>Cookies de Sesión:</strong> Se eliminan al cerrar el navegador</li>
+                            <li><strong>Cookies Persistentes:</strong> Permanecen hasta su expiración</li>
+                            <li><strong>Cookies de Primera Parte:</strong> Solo de nuestro dominio</li>
+                            <li><strong>Cookies de Terceros:</strong> De dominios externos</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>6. Impacto de Deshabilitar Cookies</h2>
-                <p>Si deshabilita las cookies, algunas funciones de nuestra plataforma pueden no funcionar correctamente:</p>
-                <ul>
-                    <li>Es posible que deba iniciar sesión cada vez que visite el sitio</li>
-                    <li>Algunas preferencias no se recordarán</li>
-                    <li>El rendimiento del sitio puede verse afectado</li>
-                    <li>Algunas funcionalidades pueden no estar disponibles</li>
-                </ul>
-            </section>
+                    <div class="policy-section">
+                        <h2>9. Gestión de Cookies</h2>
+                        <p>Puedes controlar y gestionar las cookies de varias maneras:</p>
+                        <ul>
+                            <li>Configuración del navegador web</li>
+                            <li>Panel de preferencias de cookies en nuestra plataforma</li>
+                            <li>Herramientas de terceros para gestión de cookies</li>
+                            <li>Configuración de privacidad del dispositivo</li>
+                            <li>Extensiones de navegador para bloqueo de cookies</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>7. Actualizaciones de esta Política</h2>
-                <p>Podemos actualizar esta política de cookies ocasionalmente. Le notificaremos sobre cambios significativos por correo electrónico o a través de nuestra plataforma.</p>
-            </section>
+                    <div class="policy-section">
+                        <h2>10. Configuración del Navegador</h2>
+                        <p>Puedes configurar tu navegador para:</p>
+                        <ul>
+                            <li>Bloquear todas las cookies</li>
+                            <li>Permitir solo cookies de sitios confiables</li>
+                            <li>Eliminar cookies al cerrar el navegador</li>
+                            <li>Recibir notificaciones antes de instalar cookies</li>
+                            <li>Configurar diferentes niveles de privacidad</li>
+                        </ul>
+                    </div>
 
-            <section>
-                <h2>8. Contacto</h2>
-                <p>Si tiene preguntas sobre nuestra política de cookies, puede contactarnos en:</p>
-                <ul>
-                    <li>Email: privacy@procly.com</li>
-                    <li>Asunto: "Consulta sobre Cookies"</li>
-                </ul>
-            </section>
-        </div>
+                    <div class="policy-section">
+                        <h2>11. Impacto de Deshabilitar Cookies</h2>
+                        <p>Al deshabilitar ciertas cookies, podrías experimentar:</p>
+                        <ul>
+                            <li>Funcionalidad limitada de la plataforma</li>
+                            <li>Necesidad de reingresar información repetidamente</li>
+                            <li>Contenido no personalizado</li>
+                            <li>Experiencia de usuario menos fluida</li>
+                            <li>Algunas funciones podrían no estar disponibles</li>
+                        </ul>
+                    </div>
+
+                    <div class="policy-section">
+                        <h2>12. Actualizaciones de esta Política</h2>
+                        <p>Esta política de cookies puede ser actualizada:</p>
+                        <ul>
+                            <li>Cuando cambiemos nuestras prácticas</li>
+                            <li>Al integrar nuevos servicios o tecnologías</li>
+                            <li>Por cambios en la legislación aplicable</li>
+                            <li>Para mejorar la transparencia y claridad</li>
+                            <li>Con previo aviso de 30 días</li>
+                        </ul>
+                    </div>
+
+                    <div class="policy-section">
+                        <h2>13. Contacto</h2>
+                        <p>Para consultas sobre nuestra política de cookies:</p>
+                        <ul>
+                            <li><strong>Email:</strong> cookies@procly.net</li>
+                            <li><strong>Teléfono:</strong> +54 11 1234-5678</li>
+                            <li><strong>Dirección:</strong> Av. Corrientes 1234, CABA, Argentina</li>
+                            <li><strong>Horario:</strong> Lunes a Viernes de 9:00 a 18:00 (GMT-3)</li>
+                        </ul>
+                    </div>
+
+                    <div class="policy-footer">
+                        <p><strong>Última actualización:</strong> Agosto 2024</p>
+                        <p>Esta política de cookies está sujeta a cambios con previo aviso de 30 días.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer id="contact" class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -176,21 +271,21 @@
                     </div>
 
                     <div class="footer-column">
-                        <h4 class="footer-title">Empresa</h4>
-                        <ul class="footer-list">
-                            <li><a href="#" class="footer-link">Acerca de</a></li>
-                            <li><a href="#" class="footer-link">Blog</a></li>
-                            <li><a href="#" class="footer-link">Carreras</a></li>
-                            <li><a href="#" class="footer-link">Contacto</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-column">
                         <h4 class="footer-title">Soporte</h4>
                         <ul class="footer-list">
                             <li><a href="/landing/privacy.html" class="footer-link">Política de Privacidad</a></li>
                             <li><a href="/landing/terms.html" class="footer-link">Términos y Condiciones</a></li>
                             <li><a href="/landing/cookies.html" class="footer-link">Cookies</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 class="footer-title">Contacto</h4>
+                        <ul class="footer-list">
+                            <li><a href="mailto:comercial@procly.net" class="footer-link">comercial@procly.net</a></li>
+                            <li><a class="footer-link">+34 643 615 319</a></li>
+                            <li><a href="https://www.linkedin.com/company/procly" class="footer-link">LinkedIn</a></li>
+                            <li><a class="footer-link">Buenos Aires, Argentina</a></li>
                         </ul>
                     </div>
                 </div>
@@ -201,5 +296,8 @@
             </div>
         </div>
     </footer>
+
+    <script src="/js/landing/partners.js"></script>
+    <script src="/js/landing/landing.js"></script>
 </body>
 </html> 
