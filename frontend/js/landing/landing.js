@@ -329,6 +329,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Si es el mismo step, no hacer nada
         if (idx === currentStep) return;
         
+        // Cambiar el step activo primero
+        steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+        
         // Agregar clase de transición al contenido actual
         const currentContent = contents[currentStep];
         if (currentContent) {
@@ -341,8 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
           newContent.classList.add('entering');
         }
         
-        // Cambiar el step activo
-        steps.forEach((s, i) => s.classList.toggle('active', i === idx));
+        // Cambiar el contenido activo
         contents.forEach((c, i) => c.classList.toggle('active', i === idx));
         if (cta) cta.style.display = 'flex';
         
@@ -354,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (newContent) {
             newContent.classList.remove('entering');
           }
-        }, 600); // Duración de la transición
+        }, 500); // Duración de la transición reducida
         
         currentStep = idx;
       }
