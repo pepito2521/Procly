@@ -235,9 +235,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       
       // Event listener para el toggle
       roleToggleInput.addEventListener('change', async (e) => {
+        console.log('🎯 Toggle cambiado:', e.target.checked);
+        console.log('📍 URL actual antes del cambio:', window.location.href);
+        
         if (e.target.checked) {
           // Cambiar a modo usuario
           console.log('🔄 Cambiando a modo usuario...');
+          console.log('⏰ Timestamp del cambio:', new Date().toISOString());
           window.location.href = '/app/user/usuario.html';
         } else {
           // Mantener en modo admin
@@ -247,10 +251,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       
       // Verificar si viene del modo usuario
       const urlParams = new URLSearchParams(window.location.search);
+      console.log('🔍 Parámetros de URL:', urlParams.toString());
+      console.log('🔍 ¿Viene del modo usuario?:', urlParams.get('from') === 'user');
+      
       if (urlParams.get('from') === 'user') {
         roleToggleInput.checked = true;
         console.log("📱 Toggle marcado como 'viene del modo usuario'");
+      } else {
+        console.log("📱 Toggle NO marcado, manteniendo estado por defecto");
       }
+      
+      // Log del estado final del toggle
+      console.log('🔍 Estado final del toggle:', roleToggleInput.checked);
     } else {
       // Si no es admin, mostrar mensaje pero no redirigir automáticamente
       console.log('❌ Usuario no es admin, ocultando toggle');
