@@ -204,6 +204,23 @@
           <span class="upload-main-text">Arrastra tu archivo aquí o <strong>haz clic para seleccionar</strong></span>
           <span class="upload-sub-text">PDF, DOC, DOCX, PPT, PPTX, JPG, PNG, GIF (máx. 25MB)</span>
         </div>
+        
+        <!-- Área para mostrar archivo seleccionado -->
+        <div class="file-selected" id="fileSelected" style="display: none;">
+          <div class="file-info">
+            <div class="file-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Z"></path>
+              </svg>
+            </div>
+            <span class="file-name"></span>
+            <button type="button" class="file-remove" id="fileRemove">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
       <div class="button-group">
         <button type="button" class="btn2 nav-active">
@@ -239,11 +256,14 @@
       </div>
 
       <div class="button-group">
-        <button type="submit" class="btn2 nav-active">
-          Crear Ticket
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-            <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
-          </svg>
+        <button type="submit" class="btn2 nav-active" id="crearTicketBtn">
+          <div class="btn-content">
+            Crear Ticket
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+            </svg>
+          </div>
+          <div class="btn-spinner"></div>
         </button>
       </div>
     </section>

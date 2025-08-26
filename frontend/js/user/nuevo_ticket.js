@@ -428,6 +428,7 @@ export function initNuevoTicket() {
   
     const form = e.target;
     const formData = new FormData(form);
+    const crearTicketBtn = document.getElementById('crearTicketBtn');
   
     const token = localStorage.getItem('supabaseToken');
     if (!token) {
@@ -435,44 +436,51 @@ export function initNuevoTicket() {
       return;
     }
   
-    await setSupabaseAuthToken(token);
-  
-    // Get file from the new file upload system
-    const archivo = window.selectedFile;
-    let archivoUrl = null;
-  
-    if (archivo && archivo.size > 0) {
-      const nombreLimpio = archivo.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\.-]/g, '');
-      const nombreArchivo = `${Date.now()}_${nombreLimpio}`;
-  
-      const { data, error } = await supabase.storage
-        .from('adjuntos-ticket')
-        .upload(nombreArchivo, archivo);
-  
-      if (error) {
-        console.error('❌ Error al subir archivo:', error);
-        alert('Error al subir el archivo adjunto.');
-        return;
-      }
-  
-      archivoUrl = data.path;
-    }
-  
-    const presupuestoRaw = formData.get('presupuesto');
-    const presupuestoNumerico = presupuestoRaw ? Number(presupuestoRaw.replace(/\./g, '')) : null;
-  
-    const body = {
-      categoria: categoriaSeleccionada,
-      nombre: formData.get('nombre'),
-      descripcion: formData.get('descripcion'),
-      presupuesto: presupuestoNumerico,
-      limite: formData.get('limite'),
-      direccion_id: formData.get('direccion_entrega'),
-      fecha_entrega: formData.get('fecha_entrega'),
-      archivo_url: archivoUrl
-    };
+    // Mostrar estado de carga en el botón
+    crearTicketBtn.classList.add('loading');
+    crearTicketBtn.disabled = true;
   
     try {
+      await setSupabaseAuthToken(token);
+  
+      // Get file from the new file upload system
+      const archivo = window.selectedFile;
+      let archivoUrl = null;
+  
+      if (archivo && archivo.size > 0) {
+        const nombreLimpio = archivo.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\.-]/g, '');
+        const nombreArchivo = `${Date.now()}_${nombreLimpio}`;
+  
+        const { data, error } = await supabase.storage
+          .from('adjuntos-ticket')
+          .upload(nombreArchivo, archivo);
+  
+        if (error) {
+          console.error('❌ Error al subir archivo:', error);
+          alert('Error al subir el archivo adjunto.');
+          // Restaurar estado del botón
+          crearTicketBtn.classList.remove('loading');
+          crearTicketBtn.disabled = false;
+          return;
+        }
+  
+        archivoUrl = data.path;
+      }
+  
+      const presupuestoRaw = formData.get('presupuesto');
+      const presupuestoNumerico = presupuestoRaw ? Number(presupuestoRaw.replace(/\./g, '')) : null;
+  
+      const body = {
+        categoria: categoriaSeleccionada,
+        nombre: formData.get('nombre'),
+        descripcion: formData.get('descripcion'),
+        presupuesto: presupuestoNumerico,
+        limite: formData.get('limite'),
+        direccion_id: formData.get('direccion_entrega'),
+        fecha_entrega: formData.get('fecha_entrega'),
+        archivo_url: archivoUrl
+      };
+  
       const res = await fetch('https://www.procly.net/tickets', {
         method: 'POST',
         headers: {
@@ -484,7 +492,6 @@ export function initNuevoTicket() {
   
       const data = await res.json();
   
-
       if (res.ok) {
         // Clear file selection on successful submission
         clearFileSelection();
@@ -494,10 +501,16 @@ export function initNuevoTicket() {
         mostrarConfirmacion(data.codigo_ticket);
       } else {
         alert('❌ Error al crear el ticket: ' + data.error);
+        // Restaurar estado del botón en caso de error
+        crearTicketBtn.classList.remove('loading');
+        crearTicketBtn.disabled = false;
       }
     } catch (err) {
       console.error('⚠️ Error al enviar el ticket:', err);
       alert('Error de red al crear el ticket');
+      // Restaurar estado del botón en caso de error
+      crearTicketBtn.classList.remove('loading');
+      crearTicketBtn.disabled = false;
     }
   });
   
@@ -539,6 +552,9 @@ export function initNuevoTicket() {
     }
   });
 
+  // Remove file event
+  fileRemove.addEventListener('click', removeFile);
+
   function handleFileSelection(file) {
     // Validate file type
     const allowedTypes = [
@@ -549,11 +565,12 @@ export function initNuevoTicket() {
       'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       'image/jpeg',
       'image/jpg',
-      'image/png'
+      'image/png',
+      'image/gif'
     ];
 
     if (!allowedTypes.includes(file.type)) {
-      alert('Tipo de archivo no válido. Solo se permiten: PDF, DOC, DOCX, PPT, PPTX, JPG, JPEG, PNG');
+      alert('Tipo de archivo no válido. Solo se permiten: PDF, DOC, DOCX, PPT, PPTX, JPG, JPEG, PNG y GIF');
       return;
     }
 
@@ -564,31 +581,46 @@ export function initNuevoTicket() {
       return;
     }
 
-    // Update UI to show selected file
-    const fileNameDisplay = fileUploadArea.querySelector('.file-name-display');
-    if (fileNameDisplay) {
-      fileNameDisplay.style.display = 'flex';
-      fileNameDisplay.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#10B981" viewBox="0 0 256 256">
-          <path d="M149.61,85.71l-89.6,88a8,8,0,1,1,11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
-        </svg>
-        ${file.name}
-      `;
-    }
-
     // Update the form data for submission
     window.selectedFile = file;
+    
+    // Show selected file
+    showSelectedFile(file);
+  }
+
+  function showSelectedFile(file) {
+    const fileName = file.name;
+    const fileSize = formatFileSize(file.size);
+    
+    // Update UI
+    fileUploadArea.style.display = 'none';
+    fileSelected.style.display = 'block';
+    fileSelected.querySelector('.file-name').textContent = `${fileName} (${fileSize})`;
+  }
+
+  function removeFile() {
+    window.selectedFile = null;
+    adjuntoInput.value = '';
+    fileUploadArea.style.display = 'block';
+    fileSelected.style.display = 'none';
+    fileUploadArea.classList.remove('drag-over');
+  }
+
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 
   // Function to clear file selection
   function clearFileSelection() {
     window.selectedFile = null;
-    const fileNameDisplay = fileUploadArea.querySelector('.file-name-display');
-    if (fileNameDisplay) {
-      fileNameDisplay.style.display = 'none';
-      fileNameDisplay.innerHTML = '';
-    }
     adjuntoInput.value = '';
+    fileUploadArea.style.display = 'block';
+    fileSelected.style.display = 'none';
+    fileUploadArea.classList.remove('drag-over');
   }
 
   // MENSAJE CONDIFRMACION: CODIGO TICKET
