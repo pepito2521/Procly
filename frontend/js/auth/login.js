@@ -12,11 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const password = document.getElementById('password').value;
   
       try {
-        // Usar backend local durante desarrollo
-        const backendUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-          ? 'http://localhost:3000/auth/login'
-          : 'https://www.procly.net/auth/login';
-          
+        // Siempre usar el backend de producción para evitar problemas de CORS
+        const backendUrl = 'https://www.procly.net/auth/login';
         console.log('🔗 URL del backend:', backendUrl);
         
         const response = await fetch(backendUrl, {
