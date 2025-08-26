@@ -202,8 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log('⏳ Loader glass mostrado');
           }
           
-          // Pequeño delay para que se vea el loader
-          await new Promise(resolve => setTimeout(resolve, 300));
+          // Delay más largo para que se vea el loader
+          await new Promise(resolve => setTimeout(resolve, 800));
           
           // Navegar a administrador.html
           window.location.href = '/app/admin/administrador.html?from=user';
@@ -268,9 +268,9 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarLogoutDirecto();
   mostrarNombreUsuario();
   
-  // Esperar un poco para que Supabase se inicialice completamente
+  // Inicializar botón inmediatamente (Supabase ya está listo)
   setTimeout(async () => {
-    console.log("⏰ Inicializando botón del panel admin después de delay...");
+    console.log("⏰ Inicializando botón del panel admin...");
     await inicializarAdminPanelBtn();
-  }, 1000);
+  }, 100); // Reducido de 1000ms a 100ms
 });

@@ -33,6 +33,63 @@ document.addEventListener('DOMContentLoaded', () => {
   password.addEventListener('input', validarPasswords);
   passwordCheck.addEventListener('input', validarPasswords);
 
+  // VALIDACIÓN DEL INPUT CUIT - Solo números, sin espacios
+  cuit.addEventListener('input', (e) => {
+    // Eliminar todo lo que no sea número
+    let valor = e.target.value.replace(/\D/g, '');
+    
+    // Limitar a 11 dígitos
+    if (valor.length > 11) {
+      valor = valor.slice(0, 11);
+    }
+    
+    // Actualizar el valor del input
+    e.target.value = valor;
+  });
+
+  // Prevenir pegar texto que no sea numérico
+  cuit.addEventListener('paste', (e) => {
+    e.preventDefault();
+    
+    // Obtener solo números del texto pegado
+    const textoPegado = (e.clipboardData || window.clipboardData).getData('text');
+    const soloNumeros = textoPegado.replace(/\D/g, '');
+    
+    // Insertar solo números en la posición del cursor
+    const start = e.target.selectionStart;
+    const end = e.target.selectionEnd;
+    const valorActual = e.target.value;
+    
+    const nuevoValor = valorActual.substring(0, start) + soloNumeros + valorActual.substring(end);
+    
+    // Limitar a 11 dígitos
+    if (nuevoValor.length <= 11) {
+      e.target.value = nuevoValor;
+      e.target.setSelectionRange(start + soloNumeros.length, start + soloNumeros.length);
+    }
+  });
+
+  // Prevenir arrastrar y soltar texto no numérico
+  cuit.addEventListener('drop', (e) => {
+    e.preventDefault();
+    
+    const textoArrastrado = e.dataTransfer.getData('text');
+    const soloNumeros = textoArrastrado.replace(/\D/g, '');
+    
+    if (soloNumeros) {
+      const start = e.target.selectionStart;
+      const end = e.target.selectionEnd;
+      const valorActual = e.target.value;
+      
+      const nuevoValor = valorActual.substring(0, start) + soloNumeros + valorActual.substring(end);
+      
+      if (nuevoValor.length <= 11) {
+        e.target.value = nuevoValor;
+        e.target.setSelectionRange(start + soloNumeros.length, start + soloNumeros.length);
+      }
+    }
+  });
+
   // ENVÍO DEL FORMULARIO
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

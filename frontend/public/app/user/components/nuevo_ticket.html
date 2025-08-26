@@ -199,14 +199,10 @@
       <div class="form-group">
         <input type="text" name="nombre" placeholder="Asigná un nombre al ticket" required>
         <textarea type="text" name="descripcion" rows="4" placeholder="Ingresa una breve descripción de lo que necesitas comprar" required></textarea>
-        <div class="custom-file-upload">
-          <label for="adjunto">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4B5563" viewBox="0 0 256 256" style="vertical-align: middle; margin-right: 8px;">
-              <path d="M209.66,122.34a8,8,0,0,1,0,11.32l-82.05,82a56,56,0,0,1-79.2-79.21L147.67,35.73a40,40,0,1,1,56.61,56.55L105,193A24,24,0,1,1,71,159L154.3,74.38A8,8,0,0,1,165.7,85.6L82.39,170.31a8,8,0,1,0,11.27,11.36L192.93,81A24,24,0,1,0,159,47L59.76,147.68a40,40,0,1,0,56.53,56.62l82.06-82A8,8,0,0,1,209.66,122.34Z"></path>
-            </svg>
-            Adjuntar archivo
-          </label>
-          <input type="file" id="adjunto" name="adjunto">
+        <div class="file-upload-area" id="fileUploadArea">
+          <input type="file" id="adjunto" name="adjunto" accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.gif" style="display: none;">
+          <span class="upload-main-text">Arrastra tu archivo aquí o <strong>haz clic para seleccionar</strong></span>
+          <span class="upload-sub-text">PDF, DOC, DOCX, PPT, PPTX, JPG, PNG, GIF (máx. 25MB)</span>
         </div>
       </div>
       <div class="button-group">

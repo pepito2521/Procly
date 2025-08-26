@@ -465,45 +465,57 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-.custom-file-upload {
+/* FILE UPLOAD AREA - Estilo moderno replicado de partners.html */
+.file-upload-area {
   position: relative;
+  width: 100%;
+  min-height: 120px;
+  padding: 2rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 12px;
+  background-color: #f9fafb;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  width: 100%;
-}
-
-.custom-file-upload input[type="file"] {
-  display: none;
-}
-
-.custom-file-upload label {
-  display: inline-block;  
-  width: 100%;
-  padding: 1.5rem;
-  background-color: white;
-  color: #55625D;
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  text-align: center;
-  border-radius: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
-.custom-file-upload label:hover {
+.file-upload-area:hover {
+  border-color: #508991;
+  background-color: #f0f9fa;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.custom-file-upload label.filled {
-  box-shadow: none;
-  color: #333;  
+.file-upload-area.dragover {
+  border-color: #508991;
+  background-color: #e0f2f1;
+  transform: scale(1.02);
 }
 
-.custom-file-upload label.filled:hover {
-  transform: none;
-  box-shadow: none;
+.upload-main-text {
+  font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.upload-main-text strong {
+  color: #508991;
+  font-weight: 500;
+}
+
+.upload-sub-text {
+  font-family: 'Geist', 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #9ca3af;
+  line-height: 1.4;
 }
 
 

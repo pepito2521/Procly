@@ -243,8 +243,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           console.log('⏳ Loader glass mostrado');
         }
         
-        // Pequeño delay para que se vea el loader
-        await new Promise(resolve => setTimeout(resolve, 300));
+        // Delay más largo para que se vea el loader
+        await new Promise(resolve => setTimeout(resolve, 800));
         
         // Navegar a usuario.html
         window.location.href = '/app/user/usuario.html';
@@ -287,9 +287,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   inicializarLogoutDirecto();
   mostrarNombreAdmin();
   
-  // Esperar un poco para que Supabase se inicialice completamente
+  // Inicializar botón inmediatamente (Supabase ya está listo)
   setTimeout(async () => {
-    console.log("⏰ Inicializando botón del panel usuario después de delay...");
+    console.log("⏰ Inicializando botón del panel usuario...");
     await inicializarUserPanelBtn();
-  }, 1000);
+  }, 100); // Reducido de 1000ms a 100ms
 });

@@ -437,7 +437,8 @@ export function initNuevoTicket() {
   
     await setSupabaseAuthToken(token);
   
-    const archivo = formData.get('adjunto');
+    // Get file from the new file upload system
+    const archivo = window.selectedFile;
     let archivoUrl = null;
   
     if (archivo && archivo.size > 0) {
@@ -485,6 +486,8 @@ export function initNuevoTicket() {
   
 
       if (res.ok) {
+        // Clear file selection on successful submission
+        clearFileSelection();
         step4Fijo = true;
         currentStep++;
         showStep(currentStep);
@@ -499,28 +502,90 @@ export function initNuevoTicket() {
   });
   
 
+  // FILE UPLOAD AREA - Funcionalidad moderna replicada de partners.html
+  const fileUploadArea = document.getElementById('fileUploadArea');
   const adjuntoInput = document.getElementById('adjunto');
-  const labelAdjunto = document.querySelector('.custom-file-upload label');
   
-  const svgClip = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4B5563" viewBox="0 0 256 256" style="vertical-align: middle; margin-right: 8px;">
-    <path d="M209.66,122.34a8,8,0,0,1,0,11.32l-82.05,82a56,56,0,0,1-79.2-79.21L147.67,35.73a40,40,0,1,1,56.61,56.55L105,193A24,24,0,1,1,71,159L154.3,74.38A8,8,0,1,1,165.7,85.6L82.39,170.31a8,8,0,1,0,11.27,11.36L192.93,81A24,24,0,1,0,159,47L59.76,147.68a40,40,0,1,0,56.53,56.62l82.06-82A8,8,0,0,1,209.66,122.34Z"></path>
-  </svg>`;
+  // Click para seleccionar archivo
+  fileUploadArea.addEventListener('click', () => {
+    adjuntoInput.click();
+  });
   
-  const svgCheck = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#4B5563" viewBox="0 0 256 256" style="vertical-align: middle; margin-right: 8px;">
-    <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
-  </svg>`;
+  // Drag & Drop functionality
+  fileUploadArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    fileUploadArea.classList.add('drag-over');
+  });
   
-  adjuntoInput.addEventListener('change', () => {
-    if (adjuntoInput.files.length > 0) {
-      labelAdjunto.innerHTML = `${svgCheck} Archivo seleccionado`;
-      labelAdjunto.classList.add('filled');
-    } else {
-      labelAdjunto.innerHTML = `${svgClip} Adjuntar archivo`;
-      labelAdjunto.classList.remove('filled');
+  fileUploadArea.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    fileUploadArea.classList.remove('drag-over');
+  });
+  
+  fileUploadArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    fileUploadArea.classList.remove('drag-over');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      handleFileSelection(files[0]);
     }
   });
+
+  // File selection handling
+  adjuntoInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+      handleFileSelection(e.target.files[0]);
+    }
+  });
+
+  function handleFileSelection(file) {
+    // Validate file type
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'image/jpeg',
+      'image/jpg',
+      'image/png'
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      alert('Tipo de archivo no válido. Solo se permiten: PDF, DOC, DOCX, PPT, PPTX, JPG, JPEG, PNG');
+      return;
+    }
+
+    // Validate file size (25MB max)
+    const maxSize = 25 * 1024 * 1024; // 25MB in bytes
+    if (file.size > maxSize) {
+      alert('El archivo es demasiado grande. Tamaño máximo: 25MB');
+      return;
+    }
+
+    // Update UI to show selected file
+    const fileNameDisplay = fileUploadArea.querySelector('.file-name-display');
+    fileNameDisplay.style.display = 'flex';
+    fileNameDisplay.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#10B981" viewBox="0 0 256 256">
+        <path d="M149.61,85.71l-89.6,88a8,8,0,1,1,11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
+      </svg>
+      ${file.name}
+    `;
+
+    // Update the form data for submission
+    window.selectedFile = file;
+  }
+
+  // Function to clear file selection
+  function clearFileSelection() {
+    window.selectedFile = null;
+    const fileNameDisplay = fileUploadArea.querySelector('.file-name-display');
+    fileNameDisplay.style.display = 'none';
+    fileNameDisplay.innerHTML = '';
+    adjuntoInput.value = '';
+  }
 
   // MENSAJE CONDIFRMACION: CODIGO TICKET
   function mostrarConfirmacion(codigoTicket) {

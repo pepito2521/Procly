@@ -339,10 +339,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Validate file size (5MB max)
-        const maxSize = 5 * 1024 * 1024; // 5MB
+        // Validate file size (25MB max)
+        const maxSize = 25 * 1024 * 1024; // 25MB
         if (file.size > maxSize) {
-            showError('El archivo es demasiado grande. El tamaño máximo permitido es 5MB.');
+            showError('El archivo es demasiado grande. El tamaño máximo permitido es 25MB.');
             return;
         }
 
