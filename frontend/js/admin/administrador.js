@@ -149,9 +149,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       console.log("✅ Conexión a Supabase exitosa");
 
+      // Consultar el perfil completo para debugging
+      console.log("🔍 Consultando perfil completo...");
       const { data: perfil, error } = await supabase
         .from('profiles')
-        .select('role')
+        .select('*')
         .eq('profile_id', user.id)
         .single();
 
@@ -161,7 +163,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         return false;
       }
 
-      console.log("✅ Perfil encontrado:", perfil);
+      console.log("✅ Perfil completo encontrado:", perfil);
+      console.log("🔍 Campo 'role' del perfil:", perfil.role);
+      console.log("🔍 Tipo de dato del campo 'role':", typeof perfil.role);
+      
       const esAdmin = perfil && perfil.role === 'admin';
       console.log("🔐 ¿Es admin?:", esAdmin);
       
@@ -202,6 +207,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // FUNCION: INICIALIZAR TOGGLE DE ROL
   async function inicializarRoleToggle() {
     console.log("🚀 Inicializando toggle de rol...");
+    console.log("📍 URL actual:", window.location.href);
+    
+    // Verificar que estemos en la página correcta
+    if (!window.location.href.includes('administrador.html')) {
+      console.log("❌ No estamos en administrador.html, no inicializando toggle");
+      return;
+    }
     
     const roleToggle = document.getElementById('roleToggle');
     const roleToggleInput = document.getElementById('roleToggleInput');
@@ -240,9 +252,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("📱 Toggle marcado como 'viene del modo usuario'");
       }
     } else {
-      // Si no es admin, redirigir a usuario.html
-      console.log('❌ Usuario no es admin, redirigiendo a usuario.html');
-      window.location.href = '/app/user/usuario.html';
+      // Si no es admin, mostrar mensaje pero no redirigir automáticamente
+      console.log('❌ Usuario no es admin, ocultando toggle');
+      roleToggle.style.display = 'none';
+      
+      // Solo redirigir si realmente no tiene permisos (después de varios intentos)
+      console.log('⚠️ Usuario no tiene permisos de admin, pero se mantiene en la página');
     }
   }
 

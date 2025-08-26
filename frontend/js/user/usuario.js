@@ -135,9 +135,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
       console.log("🔍 Verificando rol para usuario:", user.id);
 
+      // Consultar el perfil completo para debugging
+      console.log("🔍 Consultando perfil completo...");
       const { data: perfil, error } = await supabase
         .from('profiles')
-        .select('role')
+        .select('*')
         .eq('profile_id', user.id)
         .single();
 
@@ -147,7 +149,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return false;
       }
 
-      console.log("✅ Perfil encontrado:", perfil);
+      console.log("✅ Perfil completo encontrado:", perfil);
+      console.log("🔍 Campo 'role' del perfil:", perfil.role);
+      console.log("🔍 Tipo de dato del campo 'role':", typeof perfil.role);
+      
       const esAdmin = perfil && perfil.role === 'admin';
       console.log("🔐 ¿Es admin?:", esAdmin);
       
@@ -161,6 +166,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // FUNCION: INICIALIZAR BOTÓN DEL PANEL DE ADMINISTRADOR
   async function inicializarAdminPanelBtn() {
     console.log("🚀 Inicializando botón del panel de administrador...");
+    console.log("📍 URL actual:", window.location.href);
+    
+    // Verificar que estemos en la página correcta
+    if (!window.location.href.includes('usuario.html')) {
+      console.log("❌ No estamos en usuario.html, no inicializando botón admin");
+      return;
+    }
     
     const adminPanelBtn = document.getElementById('adminPanelBtn');
     
@@ -186,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     } else {
       console.log("❌ Usuario no es admin, botón oculto");
+      // No redirigir automáticamente, solo ocultar el botón
     }
   }
 

@@ -65,17 +65,23 @@ router.post('/login', async (req, res) => {
       console.error('Error al obtener el perfil del usuario:', perfilError.message);
       return res.status(500).json({ error: 'No se pudo obtener el rol del usuario' });
     }
+
+    console.log('🔍 Perfil obtenido:', perfil);
+    console.log('🔍 Rol del usuario:', perfil.role);
   
     let redirectUrl;
     switch (perfil.role) {
       case 'admin':
         redirectUrl = '/app/admin/administrador.html';
+        console.log('🔐 Usuario es admin, redirigiendo a:', redirectUrl);
         break;
       case 'proclier':
         redirectUrl = '/app/proclier/proclier.html';
+        console.log('🔐 Usuario es proclier, redirigiendo a:', redirectUrl);
         break;
       default:
         redirectUrl = '/app/user/usuario.html';
+        console.log('🔐 Usuario es normal, redirigiendo a:', redirectUrl);
     }
     
     return res.status(200).json({
