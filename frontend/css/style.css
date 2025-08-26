@@ -906,3 +906,38 @@ table tbody tr {
   flex: 1 !important;
   min-height: 0 !important;
 }
+
+/* ADMIN PANEL BUTTON STYLES */
+.admin-panel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.admin-panel-btn:hover {
+  background: linear-gradient(135deg, #3f6b72 0%, #508991 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.admin-panel-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-panel-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}

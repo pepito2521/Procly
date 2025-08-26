@@ -117,6 +117,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
+  // FUNCION: VERIFICAR ROL DEL USUARIO
+  async function verificarRolUsuario() {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return false;
+
+      const { data: perfil, error } = await supabase
+        .from('profiles')
+        .select('rol_usuario')
+        .eq('profile_id', user.id)
+        .single();
+
+      if (error) {
+        console.error("Error obteniendo rol:", error);
+        return false;
+      }
+
+      return perfil && perfil.rol_usuario === 'admin';
+    } catch (e) {
+      console.error("Error verificando rol:", e);
+      return false;
+    }
+  }
+
   // FUNCION: MOSTRAR NOMBRE DEL ADMINISTRADOR
   async function mostrarNombreAdmin() {
     let nombre = localStorage.getItem('adminNombre');
@@ -142,6 +166,43 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
     document.getElementById('adminName').textContent = nombre || 'Administrador';
+  }
+
+  // FUNCION: INICIALIZAR TOGGLE DE ROL
+  async function inicializarRoleToggle() {
+    const roleToggle = document.getElementById('roleToggle');
+    const roleToggleInput = document.getElementById('roleToggleInput');
+    
+    if (!roleToggle || !roleToggleInput) return;
+
+    // Verificar si el usuario es admin
+    const esAdmin = await verificarRolUsuario();
+    
+    if (esAdmin) {
+      roleToggle.style.display = 'flex';
+      
+      // Event listener para el toggle
+      roleToggleInput.addEventListener('change', async (e) => {
+        if (e.target.checked) {
+          // Cambiar a modo usuario
+          console.log('Cambiando a modo usuario...');
+          window.location.href = '/app/user/usuario.html';
+        } else {
+          // Mantener en modo admin
+          console.log('Manteniendo modo admin');
+        }
+      });
+      
+      // Verificar si viene del modo usuario
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('from') === 'user') {
+        roleToggleInput.checked = true;
+      }
+    } else {
+      // Si no es admin, redirigir a usuario.html
+      console.log('Usuario no es admin, redirigiendo a usuario.html');
+      window.location.href = '/app/user/usuario.html';
+    }
   }
 
   // FUNCION: LOGOUT
@@ -175,4 +236,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   inicializarSidebar();
   inicializarLogoutDirecto();
   mostrarNombreAdmin();
+  inicializarRoleToggle();
 });

@@ -116,6 +116,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // FUNCION: VERIFICAR ROL DEL USUARIO
+  async function verificarRolUsuario() {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return false;
+
+      const { data: perfil, error } = await supabase
+        .from('profiles')
+        .select('rol_usuario')
+        .eq('profile_id', user.id)
+        .single();
+
+      if (error) {
+        console.error("Error obteniendo rol:", error);
+        return false;
+      }
+
+      return perfil && perfil.rol_usuario === 'admin';
+    } catch (e) {
+      console.error("Error verificando rol:", e);
+      return false;
+    }
+  }
+
+  // FUNCION: INICIALIZAR BOTÓN DEL PANEL DE ADMINISTRADOR
+  async function inicializarAdminPanelBtn() {
+    const adminPanelBtn = document.getElementById('adminPanelBtn');
+    
+    if (!adminPanelBtn) return;
+
+    // Verificar si el usuario es admin
+    const esAdmin = await verificarRolUsuario();
+    
+    if (esAdmin) {
+      adminPanelBtn.style.display = 'inline-flex';
+      
+      // Event listener para el botón
+      adminPanelBtn.addEventListener('click', () => {
+        console.log('Volviendo al panel de administrador...');
+        window.location.href = '/app/admin/administrador.html?from=user';
+      });
+    }
+  }
+
   function inicializarLogoutDirecto() {
     const logoutIcon = document.getElementById("logout-direct");
 
@@ -169,4 +213,5 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarSidebar();
   inicializarLogoutDirecto();
   mostrarNombreUsuario();
+  inicializarAdminPanelBtn();
 });
