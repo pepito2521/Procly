@@ -941,3 +941,38 @@ table tbody tr {
   height: 18px;
   fill: currentColor;
 }
+
+/* USER PANEL BUTTON STYLES */
+.user-panel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.user-panel-btn:hover {
+  background: linear-gradient(135deg, #059669 0%, #34d399 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.user-panel-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-panel-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}

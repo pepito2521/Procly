@@ -204,72 +204,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById('adminName').textContent = nombre || 'Administrador';
   }
 
-  // FUNCION: INICIALIZAR TOGGLE DE ROL
-  async function inicializarRoleToggle() {
-    console.log("🚀 Inicializando toggle de rol...");
+  // FUNCION: INICIALIZAR BOTÓN DEL PANEL DE USUARIO
+  async function inicializarUserPanelBtn() {
+    console.log("🚀 Inicializando botón del panel de usuario...");
     console.log("📍 URL actual:", window.location.href);
     
     // Verificar que estemos en la página correcta
     if (!window.location.href.includes('administrador.html')) {
-      console.log("❌ No estamos en administrador.html, no inicializando toggle");
+      console.log("❌ No estamos en administrador.html, no inicializando botón");
       return;
     }
     
-    const roleToggle = document.getElementById('roleToggle');
-    const roleToggleInput = document.getElementById('roleToggleInput');
+    const userPanelBtn = document.getElementById('userPanelBtn');
     
-    if (!roleToggle || !roleToggleInput) {
-      console.log("❌ No se encontraron elementos del toggle");
+    if (!userPanelBtn) {
+      console.log("❌ No se encontró el botón del panel usuario");
       return;
     }
 
-    console.log("✅ Elementos del toggle encontrados");
+    console.log("✅ Botón del panel usuario encontrado");
 
     // Verificar si el usuario es admin
     const esAdmin = await verificarRolUsuario();
     console.log("🔐 Resultado de verificación de rol:", esAdmin);
     
     if (esAdmin) {
-      console.log("✅ Usuario es admin, mostrando toggle");
-      roleToggle.style.display = 'flex';
+      console.log("✅ Usuario es admin, mostrando botón");
+      userPanelBtn.style.display = 'inline-flex';
       
-      // Event listener para el toggle
-      roleToggleInput.addEventListener('change', async (e) => {
-        console.log('🎯 Toggle cambiado:', e.target.checked);
-        console.log('📍 URL actual antes del cambio:', window.location.href);
-        
-        if (e.target.checked) {
-          // Cambiar a modo usuario
-          console.log('🔄 Cambiando a modo usuario...');
-          console.log('⏰ Timestamp del cambio:', new Date().toISOString());
-          window.location.href = '/app/user/usuario.html';
-        } else {
-          // Mantener en modo admin
-          console.log('🔒 Manteniendo modo admin');
-        }
+      // Event listener para el botón
+      userPanelBtn.addEventListener('click', () => {
+        console.log('🔄 Cambiando a modo usuario...');
+        window.location.href = '/app/user/usuario.html';
       });
-      
-      // Verificar si viene del modo usuario
-      const urlParams = new URLSearchParams(window.location.search);
-      console.log('🔍 Parámetros de URL:', urlParams.toString());
-      console.log('🔍 ¿Viene del modo usuario?:', urlParams.get('from') === 'user');
-      
-      if (urlParams.get('from') === 'user') {
-        roleToggleInput.checked = true;
-        console.log("📱 Toggle marcado como 'viene del modo usuario'");
-      } else {
-        console.log("📱 Toggle NO marcado, manteniendo estado por defecto");
-      }
-      
-      // Log del estado final del toggle
-      console.log('🔍 Estado final del toggle:', roleToggleInput.checked);
     } else {
-      // Si no es admin, mostrar mensaje pero no redirigir automáticamente
-      console.log('❌ Usuario no es admin, ocultando toggle');
-      roleToggle.style.display = 'none';
-      
-      // Solo redirigir si realmente no tiene permisos (después de varios intentos)
-      console.log('⚠️ Usuario no tiene permisos de admin, pero se mantiene en la página');
+      console.log('❌ Usuario no es admin, ocultando botón');
+      userPanelBtn.style.display = 'none';
     }
   }
 
@@ -307,7 +277,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   // Esperar un poco para que Supabase se inicialice completamente
   setTimeout(async () => {
-    console.log("⏰ Inicializando toggle de rol después de delay...");
-    await inicializarRoleToggle();
+    console.log("⏰ Inicializando botón del panel usuario después de delay...");
+    await inicializarUserPanelBtn();
   }, 1000);
 });
