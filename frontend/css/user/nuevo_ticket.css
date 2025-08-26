@@ -494,11 +494,12 @@ input[type="number"] {
   width: 100%;
   max-width: 100%;
   padding: 1rem;
-  border: 2px solid #d1d5db;
-  border-radius: 12px;
+  border: none;
+  border-radius: 8px;
   background-color: white;
   box-sizing: border-box;
   overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
 }
 
 .file-info {
