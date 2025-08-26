@@ -29,6 +29,7 @@
   align-items: stretch;
   justify-content: flex-start;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 
@@ -57,7 +58,9 @@
   flex-direction: column;
   align-items: stretch;
   width: 100%;
+  max-width: 100%;
   gap: 2rem;
+  box-sizing: border-box;
 }
 
 /* Estilos específicos para el Step 3 */
@@ -469,6 +472,7 @@ input[type="number"] {
 .file-upload-area {
   position: relative;
   width: 100%;
+  max-width: 100%;
   min-height: 120px;
   padding: 2rem;
   border: 2px dashed #d1d5db;
@@ -481,6 +485,8 @@ input[type="number"] {
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .file-upload-area:hover {
