@@ -119,44 +119,73 @@ document.addEventListener("DOMContentLoaded", () => {
   // FUNCION: VERIFICAR ROL DEL USUARIO
   async function verificarRolUsuario() {
     try {
+      // Verificar que el token esté configurado
+      const token = localStorage.getItem('supabaseToken');
+      if (!token) {
+        console.log("❌ No hay token de Supabase");
+        return false;
+      }
+      console.log("✅ Token de Supabase encontrado");
+
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return false;
+      if (!user) {
+        console.log("❌ No hay usuario autenticado");
+        return false;
+      }
+
+      console.log("🔍 Verificando rol para usuario:", user.id);
 
       const { data: perfil, error } = await supabase
         .from('profiles')
-        .select('rol_usuario')
+        .select('role')
         .eq('profile_id', user.id)
         .single();
 
       if (error) {
-        console.error("Error obteniendo rol:", error);
+        console.error("❌ Error obteniendo rol:", error);
+        console.error("❌ Detalles del error:", error.message, error.code);
         return false;
       }
 
-      return perfil && perfil.rol_usuario === 'admin';
+      console.log("✅ Perfil encontrado:", perfil);
+      const esAdmin = perfil && perfil.role === 'admin';
+      console.log("🔐 ¿Es admin?:", esAdmin);
+      
+      return esAdmin;
     } catch (e) {
-      console.error("Error verificando rol:", e);
+      console.error("❌ Error verificando rol:", e);
       return false;
     }
   }
 
   // FUNCION: INICIALIZAR BOTÓN DEL PANEL DE ADMINISTRADOR
   async function inicializarAdminPanelBtn() {
+    console.log("🚀 Inicializando botón del panel de administrador...");
+    
     const adminPanelBtn = document.getElementById('adminPanelBtn');
     
-    if (!adminPanelBtn) return;
+    if (!adminPanelBtn) {
+      console.log("❌ No se encontró el botón del panel admin");
+      return;
+    }
+
+    console.log("✅ Botón del panel admin encontrado");
 
     // Verificar si el usuario es admin
     const esAdmin = await verificarRolUsuario();
+    console.log("🔐 Resultado de verificación de rol:", esAdmin);
     
     if (esAdmin) {
+      console.log("✅ Usuario es admin, mostrando botón");
       adminPanelBtn.style.display = 'inline-flex';
       
       // Event listener para el botón
       adminPanelBtn.addEventListener('click', () => {
-        console.log('Volviendo al panel de administrador...');
+        console.log('🔄 Volviendo al panel de administrador...');
         window.location.href = '/app/admin/administrador.html?from=user';
       });
+    } else {
+      console.log("❌ Usuario no es admin, botón oculto");
     }
   }
 
@@ -213,5 +242,10 @@ document.addEventListener("DOMContentLoaded", () => {
   inicializarSidebar();
   inicializarLogoutDirecto();
   mostrarNombreUsuario();
-  inicializarAdminPanelBtn();
+  
+  // Esperar un poco para que Supabase se inicialice completamente
+  setTimeout(async () => {
+    console.log("⏰ Inicializando botón del panel admin después de delay...");
+    await inicializarAdminPanelBtn();
+  }, 1000);
 });

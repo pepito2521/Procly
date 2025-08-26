@@ -120,23 +120,54 @@ document.addEventListener("DOMContentLoaded", async () => {
   // FUNCION: VERIFICAR ROL DEL USUARIO
   async function verificarRolUsuario() {
     try {
+      // Verificar que el token esté configurado
+      const token = localStorage.getItem('supabaseToken');
+      if (!token) {
+        console.log("❌ No hay token de Supabase");
+        return false;
+      }
+      console.log("✅ Token de Supabase encontrado");
+
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return false;
+      if (!user) {
+        console.log("❌ No hay usuario autenticado");
+        return false;
+      }
+
+      console.log("🔍 Verificando rol para usuario:", user.id);
+
+      // Primero probar una consulta simple para verificar la conexión
+      console.log("🔍 Probando conexión a Supabase...");
+      const { data: testData, error: testError } = await supabase
+        .from('profiles')
+        .select('count')
+        .limit(1);
+
+      if (testError) {
+        console.error("❌ Error de conexión a Supabase:", testError);
+        return false;
+      }
+      console.log("✅ Conexión a Supabase exitosa");
 
       const { data: perfil, error } = await supabase
         .from('profiles')
-        .select('rol_usuario')
+        .select('role')
         .eq('profile_id', user.id)
         .single();
 
       if (error) {
-        console.error("Error obteniendo rol:", error);
+        console.error("❌ Error obteniendo rol:", error);
+        console.error("❌ Detalles del error:", error.message, error.code);
         return false;
       }
 
-      return perfil && perfil.rol_usuario === 'admin';
+      console.log("✅ Perfil encontrado:", perfil);
+      const esAdmin = perfil && perfil.role === 'admin';
+      console.log("🔐 ¿Es admin?:", esAdmin);
+      
+      return esAdmin;
     } catch (e) {
-      console.error("Error verificando rol:", e);
+      console.error("❌ Error verificando rol:", e);
       return false;
     }
   }
@@ -170,26 +201,35 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // FUNCION: INICIALIZAR TOGGLE DE ROL
   async function inicializarRoleToggle() {
+    console.log("🚀 Inicializando toggle de rol...");
+    
     const roleToggle = document.getElementById('roleToggle');
     const roleToggleInput = document.getElementById('roleToggleInput');
     
-    if (!roleToggle || !roleToggleInput) return;
+    if (!roleToggle || !roleToggleInput) {
+      console.log("❌ No se encontraron elementos del toggle");
+      return;
+    }
+
+    console.log("✅ Elementos del toggle encontrados");
 
     // Verificar si el usuario es admin
     const esAdmin = await verificarRolUsuario();
+    console.log("🔐 Resultado de verificación de rol:", esAdmin);
     
     if (esAdmin) {
+      console.log("✅ Usuario es admin, mostrando toggle");
       roleToggle.style.display = 'flex';
       
       // Event listener para el toggle
       roleToggleInput.addEventListener('change', async (e) => {
         if (e.target.checked) {
           // Cambiar a modo usuario
-          console.log('Cambiando a modo usuario...');
+          console.log('🔄 Cambiando a modo usuario...');
           window.location.href = '/app/user/usuario.html';
         } else {
           // Mantener en modo admin
-          console.log('Manteniendo modo admin');
+          console.log('🔒 Manteniendo modo admin');
         }
       });
       
@@ -197,10 +237,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('from') === 'user') {
         roleToggleInput.checked = true;
+        console.log("📱 Toggle marcado como 'viene del modo usuario'");
       }
     } else {
       // Si no es admin, redirigir a usuario.html
-      console.log('Usuario no es admin, redirigiendo a usuario.html');
+      console.log('❌ Usuario no es admin, redirigiendo a usuario.html');
       window.location.href = '/app/user/usuario.html';
     }
   }
@@ -236,5 +277,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   inicializarSidebar();
   inicializarLogoutDirecto();
   mostrarNombreAdmin();
-  inicializarRoleToggle();
+  
+  // Esperar un poco para que Supabase se inicialice completamente
+  setTimeout(async () => {
+    console.log("⏰ Inicializando toggle de rol después de delay...");
+    await inicializarRoleToggle();
+  }, 1000);
 });
