@@ -948,7 +948,7 @@ table tbody tr {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: linear-gradient(135deg, #34d399 0%, #6ee7b7 100%);
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -961,7 +961,7 @@ table tbody tr {
 }
 
 .user-panel-btn:hover {
-  background: linear-gradient(135deg, #059669 0%, #34d399 100%);
+  background: linear-gradient(135deg, #3f6b72 0%, #508991 100%);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }

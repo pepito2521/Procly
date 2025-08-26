@@ -192,10 +192,22 @@ document.addEventListener("DOMContentLoaded", () => {
       adminPanelBtn.style.display = 'inline-flex';
       
       // Event listener para el botón
-      adminPanelBtn.addEventListener('click', () => {
-        console.log('🔄 Volviendo al panel de administrador...');
-        window.location.href = '/app/admin/administrador.html?from=user';
-      });
+              adminPanelBtn.addEventListener('click', async () => {
+          console.log('🔄 Volviendo al panel de administrador...');
+          
+          // Mostrar loader glass
+          const loader = document.querySelector('.glass-loader');
+          if (loader) {
+            loader.style.display = 'flex';
+            console.log('⏳ Loader glass mostrado');
+          }
+          
+          // Pequeño delay para que se vea el loader
+          await new Promise(resolve => setTimeout(resolve, 300));
+          
+          // Navegar a administrador.html
+          window.location.href = '/app/admin/administrador.html?from=user';
+        });
     } else {
       console.log("❌ Usuario no es admin, botón oculto");
       // No redirigir automáticamente, solo ocultar el botón

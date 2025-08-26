@@ -233,8 +233,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       userPanelBtn.style.display = 'inline-flex';
       
       // Event listener para el botón
-      userPanelBtn.addEventListener('click', () => {
+      userPanelBtn.addEventListener('click', async () => {
         console.log('🔄 Cambiando a modo usuario...');
+        
+        // Mostrar loader glass
+        const loader = document.querySelector('.glass-loader');
+        if (loader) {
+          loader.style.display = 'flex';
+          console.log('⏳ Loader glass mostrado');
+        }
+        
+        // Pequeño delay para que se vea el loader
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Navegar a usuario.html
         window.location.href = '/app/user/usuario.html';
       });
     } else {
