@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const dynamicContent = document.getElementById("dynamicContent");
-  const pageTitle = document.getElementById("pageTitle");
 
   async function cargarSeccion(seccion) {
     const info = secciones[seccion];
@@ -52,8 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const resp = await fetch(`/app/user/components/${info.archivo}`);
       const html = await resp.text();
       dynamicContent.innerHTML = html;
-      pageTitle.textContent = info.nombre;
-      document.getElementById("pageIcon").innerHTML = info.icon;
       marcarActivo(seccion);
 
       // DETECTAR AUTOMÁTICAMENTE SI SE CARGÓ DETALLE_TICKET
