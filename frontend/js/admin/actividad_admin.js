@@ -1,4 +1,5 @@
 // REGISTRO DE ACTIVIDAD ADMIN - COMPONENT
+import { supabase } from "/js/supabaseClient.js";
 
 export function initActividad() {
   console.log('🔧 Inicializando componente de Registro de Actividad...');
