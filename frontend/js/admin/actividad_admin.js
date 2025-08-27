@@ -3,7 +3,118 @@ import { supabase } from "/js/supabaseClient.js";
 
 export function initActividad() {
   console.log('🔧 Inicializando componente de Registro de Actividad...');
+  cargarEstadisticas();
+  cargarTickets();
   inicializarEventos();
+}
+
+// Función para cargar estadísticas
+async function cargarEstadisticas() {
+  try {
+    console.log('📊 Cargando estadísticas...');
+    
+    // Obtener tickets de la empresa actual
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    
+    const { data: tickets, error } = await supabase
+      .from('tickets')
+      .select('estado, precio')
+      .eq('empresa_id', user.id);
+    
+    if (error) {
+      console.error('❌ Error al obtener tickets:', error);
+      return;
+    }
+    
+    // Calcular estadísticas
+    const total = tickets.length;
+    const entregados = tickets.filter(t => t.estado === 'Entregado').length;
+    const enCurso = tickets.filter(t => t.estado === 'En Curso' || t.estado === 'Creado').length;
+    const cancelados = tickets.filter(t => t.estado === 'Cancelado').length;
+    
+    // Actualizar UI
+    document.getElementById('actividadTotales').textContent = total;
+    document.getElementById('actividadEntregados').textContent = entregados;
+    document.getElementById('actividadEnProceso').textContent = enCurso;
+    document.getElementById('actividadCancelados').textContent = cancelados;
+    
+    // Calcular porcentajes
+    const porcentajeEntregados = total > 0 ? Math.round((entregados / total) * 100) : 0;
+    const porcentajeEnCurso = total > 0 ? Math.round((enCurso / total) * 100) : 0;
+    const porcentajeCancelados = total > 0 ? Math.round((cancelados / total) * 100) : 0;
+    
+    document.getElementById('actividadTotalesSub').textContent = 'Total de tickets de la empresa';
+    document.getElementById('actividadEntregadosSub').textContent = `${porcentajeEntregados}% del total`;
+    document.getElementById('actividadEnProcesoSub').textContent = `${porcentajeEnCurso}% del total`;
+    document.getElementById('actividadCanceladosSub').textContent = `${porcentajeCancelados}% del total`;
+    
+    console.log('✅ Estadísticas cargadas');
+    
+  } catch (error) {
+    console.error('❌ Error al cargar estadísticas:', error);
+  }
+}
+
+// Función para cargar tickets
+async function cargarTickets() {
+  try {
+    console.log('📋 Cargando tickets...');
+    
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    
+    const { data: tickets, error } = await supabase
+      .from('tickets')
+      .select(`
+        id,
+        codigo_ticket,
+        nombre,
+        estado,
+        precio,
+        created_at,
+        profiles!inner(
+          full_name
+        )
+      `)
+      .eq('empresa_id', user.id)
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      console.error('❌ Error al obtener tickets:', error);
+      return;
+    }
+    
+    renderizarTickets(tickets);
+    console.log(`✅ ${tickets.length} tickets cargados`);
+    
+  } catch (error) {
+    console.error('❌ Error al cargar tickets:', error);
+  }
+}
+
+// Función para renderizar tickets en la tabla
+function renderizarTickets(tickets) {
+  const tbody = document.getElementById('tablaActividad');
+  if (!tbody) return;
+  
+  tbody.innerHTML = '';
+  
+  tickets.forEach(ticket => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${ticket.codigo_ticket || 'N/A'}</td>
+      <td>${ticket.nombre || 'N/A'}</td>
+      <td>${ticket.profiles?.full_name || 'N/A'}</td>
+      <td>
+        <span class="estado-badge ${ticket.estado?.toLowerCase().replace(' ', '-')}">
+          ${ticket.estado || 'N/A'}
+        </span>
+      </td>
+      <td>${ticket.precio ? `${ticket.precio} ARS` : 'En proceso'}</td>
+    `;
+    tbody.appendChild(row);
+  });
 }
 
 // Función para exportar tickets a Excel
@@ -111,6 +222,24 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
   }, 3000);
 }
 
+// Función para buscar tickets
+function buscarTickets(query) {
+  const tbody = document.getElementById('tablaActividad');
+  const rows = tbody.querySelectorAll('tr');
+  
+  rows.forEach(row => {
+    const codigo = row.cells[0].textContent.toLowerCase();
+    const nombre = row.cells[1].textContent.toLowerCase();
+    const usuario = row.cells[2].textContent.toLowerCase();
+    
+    const match = codigo.includes(query.toLowerCase()) || 
+                  nombre.includes(query.toLowerCase()) || 
+                  usuario.includes(query.toLowerCase());
+    
+    row.style.display = match ? '' : 'none';
+  });
+}
+
 // Función para inicializar eventos
 function inicializarEventos() {
   // Botón de exportar
@@ -118,6 +247,15 @@ function inicializarEventos() {
   if (btnExportar) {
     btnExportar.addEventListener('click', exportarTickets);
     console.log('✅ Botón de exportar inicializado');
+  }
+  
+  // Campo de búsqueda
+  const searchInput = document.getElementById('buscadorTickets');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      buscarTickets(e.target.value);
+    });
+    console.log('✅ Campo de búsqueda inicializado');
   }
   
   console.log('✅ Eventos del componente de actividad inicializados');
