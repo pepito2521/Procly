@@ -14,7 +14,7 @@ const categoriasData = [
     nombre: 'Tecnología',
     descripcion: 'Equipos informáticos, software y accesorios tecnológicos',
     habilitada: true,
-    imagen: '/assets/img/categorias/tecnologia.jpg',
+    imagen: '/assets/img/categorias/tecnologia.webp',
     icon: '💻'
   },
   {
@@ -22,7 +22,7 @@ const categoriasData = [
     nombre: 'Ferretería',
     descripcion: 'Herramientas, materiales de construcción y suministros industriales',
     habilitada: true,
-    imagen: '/assets/img/categorias/ferreteria.jpg',
+    imagen: '/assets/img/categorias/ferreteria.webp',
     icon: '🔧'
   },
   {
@@ -30,7 +30,7 @@ const categoriasData = [
     nombre: 'Merchandising',
     descripcion: 'Productos promocionales y material de marketing',
     habilitada: true,
-    imagen: '/assets/img/categorias/merchandising.jpg',
+    imagen: '/assets/img/categorias/merchandising.webp',
     icon: '🎁'
   },
   {
@@ -38,7 +38,7 @@ const categoriasData = [
     nombre: 'Librería',
     descripcion: 'Papelería, libros y material de oficina',
     habilitada: true,
-    imagen: '/assets/img/categorias/libreria.jpg',
+    imagen: '/assets/img/categorias/libreria.webp',
     icon: '📚'
   },
   {
@@ -46,7 +46,7 @@ const categoriasData = [
     nombre: 'Eventos',
     descripcion: 'Servicios y productos para eventos corporativos',
     habilitada: true,
-    imagen: '/assets/img/categorias/eventos.jpg',
+    imagen: '/assets/img/categorias/eventos.webp',
     icon: '🎪'
   },
   {
@@ -54,7 +54,7 @@ const categoriasData = [
     nombre: 'Catering',
     descripcion: 'Servicios de alimentación y bebidas para eventos',
     habilitada: false,
-    imagen: '/assets/img/categorias/catering.jpg',
+    imagen: '/assets/img/categorias/catering.webp',
     icon: '🍽️'
   },
   {
@@ -62,7 +62,7 @@ const categoriasData = [
     nombre: 'EPP',
     descripcion: 'Equipos de protección personal y seguridad laboral',
     habilitada: true,
-    imagen: '/assets/img/categorias/epp.jpg',
+    imagen: '/assets/img/categorias/epp.webp',
     icon: '🦺'
   },
   {
@@ -70,7 +70,7 @@ const categoriasData = [
     nombre: 'Limpieza',
     descripcion: 'Productos y servicios de limpieza e higiene',
     habilitada: true,
-    imagen: '/assets/img/categorias/limpieza.jpg',
+    imagen: '/assets/img/categorias/limpieza.webp',
     icon: '🧹'
   },
   {
@@ -78,7 +78,7 @@ const categoriasData = [
     nombre: 'Supermercado',
     descripcion: 'Productos de consumo diario y alimentos',
     habilitada: true,
-    imagen: '/assets/img/categorias/supermercado.jpg',
+    imagen: '/assets/img/categorias/supermercado.webp',
     icon: '🛒'
   },
   {
@@ -86,7 +86,7 @@ const categoriasData = [
     nombre: 'Salud',
     descripcion: 'Productos médicos y de cuidado personal',
     habilitada: true,
-    imagen: '/assets/img/categorias/salud.jpg',
+    imagen: '/assets/img/categorias/salud.webp',
     icon: '🏥'
   },
   {
@@ -94,7 +94,7 @@ const categoriasData = [
     nombre: 'Courier',
     descripcion: 'Servicios de mensajería y envíos',
     habilitada: true,
-    imagen: '/assets/img/categorias/courier.jpg',
+    imagen: '/assets/img/categorias/courier.webp',
     icon: '📦'
   },
   {
@@ -102,7 +102,7 @@ const categoriasData = [
     nombre: 'Otros',
     descripcion: 'Categorías adicionales y servicios especializados',
     habilitada: false,
-    imagen: '/assets/img/categorias/otros.jpg',
+    imagen: '/assets/img/categorias/otros.webp',
     icon: '📋'
   }
 ];
