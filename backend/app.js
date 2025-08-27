@@ -61,6 +61,7 @@ app.use('/tickets', require('./routes/tickets'));
 app.use('/stats', require('./routes/stats'));
 app.use('/emails', require('./routes/emails'));
 app.use('/api/partners', require('./routes/partners'));
+app.use('/api/categorias', require('./routes/categorias'));
 
 
 // 🌐 ARCHIVOS ESTÁTICOS DEL FRONTEND

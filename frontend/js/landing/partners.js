@@ -1,5 +1,4 @@
 // PARTNERS PAGE - PARTNERS REGISTRATION FORM
-import { supabase } from '../supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('partnersForm');
@@ -92,28 +91,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Cargar categorías desde Supabase
+    // Cargar categorías desde el backend
     async function cargarCategorias() {
         try {
-            console.log('🔄 Cargando categorías desde Supabase...');
-            console.log('🔍 Verificando objeto supabase:', typeof supabase, supabase);
+            console.log('🔄 Cargando categorías desde el backend...');
             
-            // Verificar que Supabase esté disponible
-            if (typeof supabase === 'undefined') {
-                console.error('❌ Supabase no está disponible');
-                return;
+            // Determinar la URL base del backend
+            const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const baseUrl = isLocalhost ? 'http://localhost:3000' : 'https://www.procly.net';
+            
+            const response = await fetch(`${baseUrl}/api/categorias`);
+            
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.status}`);
             }
             
-            const { data: categorias, error } = await supabase
-                .from('categorias')
-                .select('id, nombre, icon')
-                .order('nombre', { ascending: true });
+            const result = await response.json();
             
-            if (error) {
-                console.error('❌ Error al cargar categorías:', error);
-                return;
+            if (!result.success) {
+                throw new Error(result.error || 'Error al obtener categorías');
             }
             
+            const categorias = result.categorias;
             console.log('✅ Categorías cargadas:', categorias);
             
             // Obtener el select de categorías
