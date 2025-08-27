@@ -78,8 +78,9 @@ function crearTarjetaCategoria(categoria) {
   card.className = `categoria-card ${categoria.habilitada ? '' : 'disabled'}`;
   card.setAttribute('data-id', categoria.id);
 
-  // Imagen de fondo (por defecto un color sólido si no hay imagen)
-  const bgStyle = categoria.imagen && categoria.imagen !== '/assets/img/categorias/default.jpg' 
+  // Imagen de fondo desde Supabase Storage
+  console.log(`🖼️ Categoría ${categoria.nombre}:`, categoria.imagen);
+  const bgStyle = categoria.imagen && categoria.imagen.startsWith('http') 
     ? `background-image: url('${categoria.imagen}')` 
     : `background: linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)} 0%, #${Math.floor(Math.random()*16777215).toString(16)} 100%)`;
 

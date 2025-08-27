@@ -27,6 +27,14 @@
     margin-bottom: 12px;
 }
 
+.ticket-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 16px;
+}
+
 .search-input {
     padding: 8px 12px;
     border: 1px solid #d1d5db;
@@ -34,7 +42,36 @@
     width: 100%;
     max-width: 320px;
     font-size: 14px;
-    margin-bottom: 16px;
+}
+
+#btnExportar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+#btnExportar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#btnExportar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#btnExportar svg {
+    width: 16px;
+    height: 16px;
 }
 
 .actividades-table {

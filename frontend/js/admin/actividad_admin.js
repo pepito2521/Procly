@@ -1,219 +1,125 @@
-// ACTIVIDAD ADMIN - COMPONENT
+// REGISTRO DE ACTIVIDAD ADMIN - COMPONENT
 import { supabase } from "/js/supabaseClient.js";
 
 export function initActividad() {
-  cargarActividadTemplate();
+  console.log('🔧 Inicializando componente de Registro de Actividad...');
+  inicializarEventos();
 }
 
-async function cargarActividadTemplate() {
-    let tbody;
-
-    try {
-        const token = localStorage.getItem('supabaseToken');
-        if (!token) {
-            console.error("Token no disponible.");
-            return;
-        }
-
-        const headers = { 'Authorization': `Bearer ${token}` };
-
-        // Función helper para manejar fetch con mejor manejo de errores
-        async function fetchWithErrorHandling(url, headers) {
-            try {
-                const response = await fetch(url, { headers });
-                if (!response.ok) {
-                    console.warn(`Error HTTP ${response.status} para ${url}`);
-                    return null;
-                }
-                const text = await response.text();
-                if (!text) {
-                    console.warn(`Respuesta vacía para ${url}`);
-                    return null;
-                }
-                try {
-                    return JSON.parse(text);
-                } catch (parseError) {
-                    console.warn(`Error parseando JSON para ${url}:`, text);
-                    return null;
-                }
-            } catch (fetchError) {
-                console.warn(`Error en fetch para ${url}:`, fetchError);
-                return null;
-            }
-        }
-
-        // 1. KPIs y listado
-        const [
-            kpiTotal,
-            kpiEntregados,
-            kpiEnProceso,
-            kpiCancelados,
-            listadoTickets,
-            kpiPorcentajeEntregados,
-            kpiPorcentajeEnProceso,
-            kpiPorcentajeCancelados
-        ] = await Promise.all([
-            fetchWithErrorHandling('/stats/tickets-totales', headers),
-            fetchWithErrorHandling('/stats/tickets-entregados', headers),
-            fetchWithErrorHandling('/stats/tickets-en-proceso', headers),
-            fetchWithErrorHandling('/stats/tickets-cancelados', headers),
-            fetchWithErrorHandling('/stats/actividad-tickets', headers),
-            fetchWithErrorHandling('/stats/tickets-entregados-porcentaje', headers),
-            fetchWithErrorHandling('/stats/tickets-en-proceso-porcentaje', headers),
-            fetchWithErrorHandling('/stats/tickets-cancelados-porcentaje', headers)
-        ]);
-
-        // Logs para depuración
-        console.log({kpiTotal, kpiEntregados, kpiEnProceso, kpiCancelados, listadoTickets, kpiPorcentajeEntregados, kpiPorcentajeEnProceso, kpiPorcentajeCancelados});
-
-        // Actualizar las tarjetas de resumen con los IDs correctos
-        document.getElementById("actividadTotales").textContent = kpiTotal?.total ?? 0;
-        document.getElementById("actividadEntregados").textContent = kpiEntregados?.total ?? 0;
-        document.getElementById("actividadEnProceso").textContent = kpiEnProceso?.total ?? 0;
-        document.getElementById("actividadCancelados").textContent = kpiCancelados?.total ?? 0;
-        
-        // Actualizar los subtítulos con porcentajes
-        document.getElementById("actividadTotalesSub").textContent = `Total de tickets de la empresa`;
-        document.getElementById("actividadEntregadosSub").textContent = `${kpiPorcentajeEntregados?.porcentaje ?? 0}% del total`;
-        document.getElementById("actividadEnProcesoSub").textContent = `${kpiPorcentajeEnProceso?.porcentaje ?? 0}% del total`;
-        document.getElementById("actividadCanceladosSub").textContent = `${kpiPorcentajeCancelados?.porcentaje ?? 0}% del total`;
-
-        // 2. Tabla
-        tbody = document.getElementById("tablaActividad");
-        tbody.innerHTML = "";
-
-        if (!listadoTickets || !listadoTickets.tickets || listadoTickets.tickets.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay tickets disponibles</td></tr>`;
-            return;
-        }
-
-        cargarTablaHistorial(listadoTickets.tickets);
-
-    } catch (error) {
-        console.error("Error al cargar actividad:", error);
-        const tbodyError = document.getElementById("tablaActividad");
-        if (tbodyError) {
-            tbodyError.innerHTML = `<tr><td colspan="5">❌ Error al cargar actividad</td></tr>`;
-        }
-        return;
-    }
-
-    // BUSCADOR DE TICKETS
-    const inputBuscador = document.getElementById("buscadorTickets");
-    inputBuscador?.addEventListener("input", (e) => {
-        const valor = e.target.value.toLowerCase();
-        const filas = tbody.querySelectorAll("tr");
-        filas.forEach((fila) => {
-            const textoCodigo = fila.children[0]?.textContent.toLowerCase() ?? "";
-            const textoNombre = fila.children[1]?.textContent.toLowerCase() ?? "";
-            fila.style.display = (textoCodigo.includes(valor) || textoNombre.includes(valor)) ? "" : "none";
-        });
+// Función para exportar tickets a Excel
+async function exportarTickets() {
+  try {
+    console.log('📤 Exportando tickets a Excel...');
+    
+    // Mostrar estado de carga en el botón
+    const btnExportar = document.getElementById('btnExportar');
+    const textoOriginal = btnExportar.innerHTML;
+    btnExportar.disabled = true;
+    btnExportar.innerHTML = `
+      <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M232,48V88a8,8,0,0,1-16,0V56H184a8,8,0,0,1,0-16h40A8,8,0,0,1,232,48ZM72,200H40V168a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16Zm152-40a8,8,0,0,0-8,8v32H184a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V168A8,8,0,0,0,224,160ZM32,96a8,8,0,0,0,8-8V56H72a8,8,0,0,0,0-16H32a8,8,0,0,0-8,8V88A8,8,0,0,0,32,96ZM80,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,80,80Zm104,88V88a8,8,0,0,0-16,0v80a8,8,0,0,0,16,0ZM144,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,144,80Zm-32,0a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,112,80Z"></path>
+      </svg>
+      Exportando...
+    `;
+    
+    // Determinar URL base según el entorno
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const baseUrl = isLocalhost ? 'http://localhost:3000' : 'https://www.procly.net';
+    
+    // Hacer request POST para exportar
+    const response = await fetch(`${baseUrl}/api/export/tickets`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
     });
-}
-
-function cargarTablaHistorial(tickets) {
-    const tbody = document.getElementById("tablaActividad");
-    tbody.innerHTML = "";
-
-    tickets.forEach(ticket => {
-        const row = document.createElement("tr");
-        const nombreTicket = ticket.nombre_ticket || ticket.nombre || 'Sin nombre';
-        const nombreUsuario = ticket.nombre || 'Sin nombre';
-        const apellidoUsuario = ticket.apellido || '';
-        let precio;
-        let precioClass = '';
-
-        if (ticket.precio && ticket.precio !== 'En proceso') {
-            precio = ticket.precio;
-        } else {
-            precio = 'En proceso';
-            precioClass = 'precio-en-proceso';
-        }
-        const estadoClass = `estado-badge ${ticket.estado?.toLowerCase().replace(' ', '-') || 'creado'}`;
-        
-        row.innerHTML = `
-            <td>${ticket.codigo_ticket || 'N/A'}</td>
-            <td>${nombreTicket}</td>
-            <td>${nombreUsuario} ${apellidoUsuario}</td>
-            <td>
-                <span class="${estadoClass}">
-                    ${ticket.estado || 'Creado'}
-                </span>
-            </td>
-            <td class="${precioClass}">${precio}</td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-// Función para cambiar el estado de un ticket
-async function cambiarEstadoTicket(ticketId) {
-    try {
-        const token = localStorage.getItem('supabaseToken');
-        if (!token) {
-            alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
-            return;
-        }
-
-        // Mostrar popup para seleccionar nuevo estado
-        const nuevoEstado = prompt('Selecciona el nuevo estado:\n\n1. Creado\n2. En Proceso\n3. Propuestas\n4. En Camino\n5. Entregado\n6. Revisar\n7. Cancelado\n\nIngresa el número (1-7):');
-        
-        if (!nuevoEstado) return;
-
-        const estados = [
-            'Creado',
-            'En Proceso', 
-            'Propuestas',
-            'En Camino',
-            'Entregado',
-            'Revisar',
-            'Cancelado'
-        ];
-
-        const estadoSeleccionado = estados[parseInt(nuevoEstado) - 1];
-        
-        if (!estadoSeleccionado) {
-            alert('Estado inválido. Por favor, selecciona un número del 1 al 7.');
-            return;
-        }
-
-        const comentario = prompt('Comentario opcional para el usuario:');
-
-        const response = await fetch('/tickets/estado', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                ticket_id: ticketId,
-                nuevo_estado: estadoSeleccionado,
-                comentario: comentario || null
-            })
-        });
-
-        const result = await response.json();
-
-        if (response.ok) {
-            alert(`✅ Estado actualizado exitosamente a: ${estadoSeleccionado}`);
-            // Recargar la tabla
-            cargarActividadTemplate();
-        } else {
-            alert(`❌ Error al actualizar estado: ${result.error || 'Error desconocido'}`);
-        }
-
-    } catch (error) {
-        console.error('Error cambiando estado del ticket:', error);
-        alert('❌ Error al cambiar el estado del ticket');
+    
+    if (!response.ok) {
+      throw new Error(`Error del servidor: ${response.status}`);
     }
+    
+    // Obtener el blob del archivo
+    const blob = await response.blob();
+    
+    // Crear URL para descarga
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    
+    // Obtener nombre del archivo
+    const fileName = `tickets_procly_${new Date().toISOString().split('T')[0]}.xlsx`;
+    a.download = fileName;
+    
+    // Trigger descarga
+    document.body.appendChild(a);
+    a.click();
+    
+    // Limpiar
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+    
+    console.log('✅ Archivo Excel descargado exitosamente');
+    
+    // Mostrar notificación de éxito
+    mostrarNotificacion('Archivo Excel exportado correctamente', 'success');
+    
+  } catch (error) {
+    console.error('❌ Error al exportar tickets:', error);
+    mostrarNotificacion('Error al exportar tickets', 'error');
+  } finally {
+    // Restaurar botón
+    const btnExportar = document.getElementById('btnExportar');
+    btnExportar.disabled = false;
+    btnExportar.innerHTML = textoOriginal;
+  }
 }
 
-// Función para editar ticket (placeholder)
-function editarTicket(ticketId) {
-    alert(`Editar ticket ${ticketId} - Función en desarrollo`);
+// Función para mostrar notificaciones
+function mostrarNotificacion(mensaje, tipo = 'info') {
+  const notificacion = document.createElement('div');
+  notificacion.className = `notificacion notificacion-${tipo}`;
+  notificacion.textContent = mensaje;
+  
+  notificacion.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 10000;
+    animation: slideIn 0.3s ease;
+  `;
+  
+  if (tipo === 'success') {
+    notificacion.style.background = '#10b981';
+  } else if (tipo === 'error') {
+    notificacion.style.background = '#ef4444';
+  } else {
+    notificacion.style.background = '#3b82f6';
+  }
+  
+  document.body.appendChild(notificacion);
+  
+  setTimeout(() => {
+    if (notificacion.parentNode) {
+      notificacion.parentNode.removeChild(notificacion);
+    }
+  }, 3000);
 }
 
-// Exponer funciones globalmente
-window.cambiarEstadoTicket = cambiarEstadoTicket;
-window.editarTicket = editarTicket;
+// Función para inicializar eventos
+function inicializarEventos() {
+  // Botón de exportar
+  const btnExportar = document.getElementById('btnExportar');
+  if (btnExportar) {
+    btnExportar.addEventListener('click', exportarTickets);
+    console.log('✅ Botón de exportar inicializado');
+  }
+  
+  console.log('✅ Eventos del componente de actividad inicializados');
+}
 
