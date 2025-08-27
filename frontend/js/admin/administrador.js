@@ -42,6 +42,26 @@ document.addEventListener("DOMContentLoaded", async () => {
           <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"></path>
         </svg>
       `
+    },
+    categorias: {
+      nombre: "Gestionar Categorías",
+      archivo: "categorias.html",
+      js: "/js/admin/categorias_admin.js",
+      icon: `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M96,104a16,16,0,1,1-16-16A16,16,0,0,1,96,104Zm64,0a16,16,0,1,1-16-16A16,16,0,0,1,160,104Zm64,0a16,16,0,1,1-16-16A16,16,0,0,1,224,104ZM96,168a16,16,0,1,1-16-16A16,16,0,0,1,96,168Zm64,0a16,16,0,1,1-16-16A16,16,0,0,1,160,168Zm64,0a16,16,0,1,1-16-16A16,16,0,0,1,224,168ZM96,32a16,16,0,1,1-16-16A16,16,0,0,1,96,32Zm64,0a16,16,0,1,1-16-16A16,16,0,0,1,160,32Zm64,0a16,16,0,1,1-16-16A16,16,0,0,1,224,32Z"></path>
+        </svg>
+      `
+    },
+    auditoria: {
+      nombre: "Auditoría del Sistema",
+      archivo: "auditoria.html",
+      js: "/js/admin/auditoria_admin.js",
+      icon: `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M128,56a72,72,0,0,0-72,72V184a8,8,0,0,0,8,8H192a8,8,0,0,0,8-8V128A72,72,0,0,0,128,56ZM80,128a48,48,0,0,1,96,0v56H80Zm48,72a32,32,0,0,1-32-32H96a48,48,0,0,0,96,0H160A32,32,0,0,1,128,200Z"></path>
+        </svg>
+      `
     }
   };
 
@@ -70,6 +90,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (seccion === "actividad" && typeof mod.initActividad === 'function') mod.initActividad();
             if (seccion === "usuarios" && typeof mod.initUsuarios === 'function') mod.initUsuarios();
             if (seccion === "direcciones" && typeof mod.initDirecciones === 'function') mod.initDirecciones();
+            if (seccion === "categorias" && typeof mod.initCategorias === 'function') mod.initCategorias();
+            if (seccion === "auditoria" && typeof mod.initAuditoria === 'function') mod.initAuditoria();
           })
           .catch(e => console.error("Error cargando JS de sección:", e));
       }

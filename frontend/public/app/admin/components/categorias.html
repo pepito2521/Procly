@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Categorías | PROCLY</title>
+</head>
+<body>
+    <div class="categorias-container">
+        <!-- Header con título y botón -->
+        <div class="categorias-header">
+            <h2 class="categorias-title">Gestión de Categorías</h2>
+            <button class="btn-verde" id="nuevaCategoriaBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"></path>
+                </svg>
+                Nueva Categoría
+            </button>
+        </div>
+
+        <!-- Grid de categorías -->
+        <div class="categorias-grid" id="categoriasGrid">
+            <!-- Las categorías se cargarán dinámicamente desde JavaScript -->
+        </div>
+    </div>
+
+    <!-- Modal para editar categoría -->
+    <div id="modalCategoria" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Editar Categoría</h3>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="categoriaNombre">Nombre de la Categoría</label>
+                    <input type="text" id="categoriaNombre" class="form-input" placeholder="Nombre de la categoría">
+                </div>
+                <div class="form-group">
+                    <label for="categoriaDescripcion">Descripción</label>
+                    <textarea id="categoriaDescripcion" class="form-textarea" placeholder="Descripción de la categoría"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="categoriaHabilitada">
+                        <span class="checkmark"></span>
+                        Categoría habilitada para usuarios
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-gris" id="modalCancelar">Cancelar</button>
+                <button class="btn-verde" id="modalGuardar">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Este script se ejecutará cuando se cargue el componente
+        console.log('Componente de categorías cargado');
+    </script>
+</body>
+</html>
