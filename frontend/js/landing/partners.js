@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cargar categorías al iniciar la página
     cargarCategorias();
+    
+    // Inicializar botones del header
+    inicializarBotonesHeader();
 
     // Form submission handler
     form.addEventListener('submit', async function(e) {
@@ -497,6 +500,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize certificaciones
     initCertificaciones();
+    
+    // FUNCIÓN PARA INICIALIZAR BOTONES DEL HEADER
+    function inicializarBotonesHeader() {
+        // BOTON: SIGN IN (Desktop)
+        const btnSignIn = document.getElementById("btn-signin");
+        if (btnSignIn) {
+            btnSignIn.addEventListener("click", () => {
+                console.log("Botón Sign In clicked - redirecting to app");
+                window.location.href = "/app/index.html";
+            });
+        }
+
+        // BOTON: SIGN UP (Desktop)
+        const btnSignUp = document.getElementById("btn-signup");
+        if (btnSignUp) {
+            btnSignUp.addEventListener("click", () => {
+                console.log("Botón Sign Up clicked - redirecting to signup");
+                window.location.href = "/app/auth/signup.html";
+            });
+        }
+
+        // BOTONES MÓVILES: SIGN IN Y SIGN UP
+        const btnSignInMobile = document.getElementById("btn-signin-mobile");
+        if (btnSignInMobile) {
+            btnSignInMobile.addEventListener("click", () => {
+                console.log("Botón Sign In móvil clicked - redirecting to app");
+                window.location.href = "/app/index.html";
+            });
+        }
+
+        const btnSignUpMobile = document.getElementById("btn-signup-mobile");
+        if (btnSignUpMobile) {
+            btnSignUpMobile.addEventListener("click", () => {
+                console.log("Botón Sign Up móvil clicked - redirecting to signup");
+                window.location.href = "/app/auth/signup.html";
+            });
+        }
+
+        console.log("✅ Botones del header inicializados");
+    }
 
     // Initialize page
     console.log('Partners page loaded successfully!');
