@@ -1,29 +1,34 @@
-const { Pool } = require('pg');
+const { createClient } = require('@supabase/supabase-js');
 
-// Configuración de la base de datos
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
+// Crear cliente de Supabase
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
 
 // GET /api/categorias - Obtener todas las categorías (público)
 async function obtenerCategorias(req, res) {
     try {
-        console.log('🔄 Obteniendo categorías desde la base de datos...');
+        console.log('🔄 Obteniendo categorías desde Supabase...');
         
-        const query = `
-            SELECT id, nombre, descripcion, imagen, icon
-            FROM categorias
-            ORDER BY nombre ASC
-        `;
+        const { data: categorias, error } = await supabase
+            .from('categorias')
+            .select('id, nombre, descripcion, imagen, icon')
+            .order('nombre', { ascending: true });
         
-        const result = await pool.query(query);
+        if (error) {
+            console.error('❌ Error al obtener categorías desde Supabase:', error);
+            return res.status(500).json({
+                success: false,
+                error: 'Error al obtener categorías desde la base de datos'
+            });
+        }
         
-        console.log(`✅ Categorías obtenidas: ${result.rows.length} registros`);
+        console.log(`✅ Categorías obtenidas: ${categorias ? categorias.length : 0} registros`);
         
         res.json({
             success: true,
-            categorias: result.rows
+            categorias: categorias || []
         });
         
     } catch (error) {

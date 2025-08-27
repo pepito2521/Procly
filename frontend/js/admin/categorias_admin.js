@@ -5,121 +5,71 @@ export function initCategorias() {
   console.log('🔧 Inicializando componente de categorías...');
   cargarCategorias();
   inicializarEventos();
+  
+  // Agregar botón de refresh si no existe
+  agregarBotonRefresh();
 }
 
-// Datos de las categorías (por ahora hardcodeados, después se pueden cargar desde la BD)
-const categoriasData = [
-  {
-    id: 'tecnologia',
-    nombre: 'Tecnología',
-    descripcion: 'Equipos informáticos, software y accesorios tecnológicos',
-    habilitada: true,
-    imagen: '/assets/img/categorias/tecnologia.webp',
-    icon: '💻'
-  },
-  {
-    id: 'ferreteria',
-    nombre: 'Ferretería',
-    descripcion: 'Herramientas, materiales de construcción y suministros industriales',
-    habilitada: true,
-    imagen: '/assets/img/categorias/ferreteria.webp',
-    icon: '🔧'
-  },
-  {
-    id: 'merchandising',
-    nombre: 'Merchandising',
-    descripcion: 'Productos promocionales y material de marketing',
-    habilitada: true,
-    imagen: '/assets/img/categorias/merchandising.webp',
-    icon: '🎁'
-  },
-  {
-    id: 'libreria',
-    nombre: 'Librería',
-    descripcion: 'Papelería, libros y material de oficina',
-    habilitada: true,
-    imagen: '/assets/img/categorias/libreria.webp',
-    icon: '📚'
-  },
-  {
-    id: 'eventos',
-    nombre: 'Eventos',
-    descripcion: 'Servicios y productos para eventos corporativos',
-    habilitada: true,
-    imagen: '/assets/img/categorias/eventos.webp',
-    icon: '🎪'
-  },
-  {
-    id: 'catering',
-    nombre: 'Catering',
-    descripcion: 'Servicios de alimentación y bebidas para eventos',
-    habilitada: false,
-    imagen: '/assets/img/categorias/catering.webp',
-    icon: '🍽️'
-  },
-  {
-    id: 'epp',
-    nombre: 'EPP',
-    descripcion: 'Equipos de protección personal y seguridad laboral',
-    habilitada: true,
-    imagen: '/assets/img/categorias/epp.webp',
-    icon: '🦺'
-  },
-  {
-    id: 'limpieza',
-    nombre: 'Limpieza',
-    descripcion: 'Productos y servicios de limpieza e higiene',
-    habilitada: true,
-    imagen: '/assets/img/categorias/limpieza.webp',
-    icon: '🧹'
-  },
-  {
-    id: 'supermercado',
-    nombre: 'Supermercado',
-    descripcion: 'Productos de consumo diario y alimentos',
-    habilitada: true,
-    imagen: '/assets/img/categorias/supermercado.webp',
-    icon: '🛒'
-  },
-  {
-    id: 'salud',
-    nombre: 'Salud',
-    descripcion: 'Productos médicos y de cuidado personal',
-    habilitada: true,
-    imagen: '/assets/img/categorias/salud.webp',
-    icon: '🏥'
-  },
-  {
-    id: 'courier',
-    nombre: 'Courier',
-    descripcion: 'Servicios de mensajería y envíos',
-    habilitada: true,
-    imagen: '/assets/img/categorias/courier.webp',
-    icon: '📦'
-  },
-  {
-    id: 'otros',
-    nombre: 'Otros',
-    descripcion: 'Categorías adicionales y servicios especializados',
-    habilitada: false,
-    imagen: '/assets/img/categorias/otros.webp',
-    icon: '📋'
+// Array para almacenar las categorías cargadas desde Supabase
+let categoriasData = [];
+
+// Función para cargar las categorías desde Supabase
+async function cargarCategorias() {
+  try {
+    console.log('🔄 Cargando categorías desde Supabase...');
+    
+    // Obtener categorías desde la tabla categorias
+    const { data: categorias, error } = await supabase
+      .from('categorias')
+      .select('id, nombre, descripcion, imagen, icon')
+      .order('nombre', { ascending: true });
+    
+    if (error) {
+      console.error('❌ Error al obtener categorías desde Supabase:', error);
+      mostrarNotificacion('Error al cargar categorías', 'error');
+      return;
+    }
+    
+    // Obtener el estado de habilitación desde empresa_categorias para la empresa actual
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (user) {
+      const { data: empresaCategorias, error: errorEmpresa } = await supabase
+        .from('empresa_categorias')
+        .select('categoria_id, habilitada')
+        .eq('empresa_id', user.id);
+      
+      if (errorEmpresa) {
+        console.error('❌ Error al obtener estado de categorías de empresa:', errorEmpresa);
+      } else {
+        // Mapear el estado de habilitación a las categorías
+        categorias.forEach(categoria => {
+          const empresaCat = empresaCategorias?.find(ec => ec.categoria_id === categoria.id);
+          categoria.habilitada = empresaCat ? empresaCat.habilitada : true; // Por defecto habilitada
+        });
+      }
+    }
+    
+    // Actualizar el array global
+    categoriasData = categorias || [];
+    
+    // Renderizar en el grid
+    const grid = document.getElementById('categoriasGrid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    categoriasData.forEach(categoria => {
+      const card = crearTarjetaCategoria(categoria);
+      grid.appendChild(card);
+    });
+
+    console.log(`✅ ${categoriasData.length} categorías cargadas desde Supabase`);
+    
+  } catch (error) {
+    console.error('❌ Error al cargar categorías:', error);
+    mostrarNotificacion('Error al cargar categorías', 'error');
   }
-];
-
-// Función para cargar las categorías en el grid
-function cargarCategorias() {
-  const grid = document.getElementById('categoriasGrid');
-  if (!grid) return;
-
-  grid.innerHTML = '';
-
-  categoriasData.forEach(categoria => {
-    const card = crearTarjetaCategoria(categoria);
-    grid.appendChild(card);
-  });
-
-  console.log(`✅ ${categoriasData.length} categorías cargadas`);
 }
 
 // Función para crear una tarjeta de categoría
@@ -207,16 +157,35 @@ async function guardarCambiosCategoria() {
   }
 
   try {
-    // Aquí se haría la llamada a la API para actualizar la categoría
-    // Por ahora solo actualizamos el array local
+    // Obtener usuario actual
+    const { data: { user } } = await supabase.auth.getUser();
     
+    if (!user) {
+      throw new Error('Usuario no autenticado');
+    }
+
+    // Actualizar la categoría en la tabla empresa_categorias
+    const { error: updateError } = await supabase
+      .from('empresa_categorias')
+      .upsert({
+        empresa_id: user.id,
+        categoria_id: categoriaId,
+        habilitada: habilitada
+      }, {
+        onConflict: 'empresa_id,categoria_id'
+      });
+
+    if (updateError) {
+      throw new Error(`Error al actualizar estado: ${updateError.message}`);
+    }
+
     // Actualizar datos locales
     categoria.nombre = nombre;
     categoria.descripcion = descripcion;
     categoria.habilitada = habilitada;
 
     // Recargar el grid para mostrar los cambios
-    cargarCategorias();
+    await cargarCategorias();
 
     // Cerrar el modal
     cerrarModal();
@@ -224,11 +193,11 @@ async function guardarCambiosCategoria() {
     // Mostrar mensaje de éxito
     mostrarNotificacion('Categoría actualizada correctamente', 'success');
 
-    console.log(`✅ Categoría ${categoriaId} actualizada:`, categoria);
+    console.log(`✅ Categoría ${categoriaId} actualizada en Supabase:`, categoria);
 
   } catch (error) {
     console.error('❌ Error al actualizar categoría:', error);
-    mostrarNotificacion('Error al actualizar la categoría', 'error');
+    mostrarNotificacion(`Error al actualizar la categoría: ${error.message}`, 'error');
   }
 }
 
@@ -289,7 +258,9 @@ function inicializarEventos() {
   const btnNuevaCategoria = document.getElementById('nuevaCategoriaBtn');
   if (btnNuevaCategoria) {
     btnNuevaCategoria.addEventListener('click', () => {
-      alert('Funcionalidad de Nueva Categoría próximamente disponible');
+      // Por ahora solo mostrar mensaje, pero aquí se podría implementar
+      // la funcionalidad para crear nuevas categorías globales
+      alert('Para crear nuevas categorías globales, contacta al administrador del sistema. Las categorías se crean desde Supabase y se replican automáticamente aquí.');
     });
   }
 
@@ -321,6 +292,61 @@ function inicializarEventos() {
   }
 
   console.log('✅ Eventos del componente de categorías inicializados');
+}
+
+// Función para agregar botón de refresh
+function agregarBotonRefresh() {
+  const header = document.querySelector('.categorias-header');
+  if (!header) return;
+  
+  // Verificar si ya existe el botón
+  if (document.getElementById('refreshCategoriasBtn')) return;
+  
+  const refreshBtn = document.createElement('button');
+  refreshBtn.id = 'refreshCategoriasBtn';
+  refreshBtn.className = 'btn-gris';
+  refreshBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+      <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+    </svg>
+    Actualizar
+  `;
+  
+  refreshBtn.addEventListener('click', async () => {
+    refreshBtn.disabled = true;
+    refreshBtn.innerHTML = `
+      <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+      </svg>
+      Actualizando...
+    `;
+    
+    try {
+      await cargarCategorias();
+      mostrarNotificacion('Categorías actualizadas correctamente', 'success');
+    } catch (error) {
+      console.error('❌ Error al actualizar categorías:', error);
+      mostrarNotificacion('Error al actualizar categorías', 'error');
+    } finally {
+      refreshBtn.disabled = false;
+      refreshBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+        </svg>
+        Actualizar
+      `;
+    }
+  });
+  
+  // Insertar antes del botón Nueva Categoría
+  const nuevaCategoriaBtn = document.getElementById('nuevaCategoriaBtn');
+  if (nuevaCategoriaBtn) {
+    header.insertBefore(refreshBtn, nuevaCategoriaBtn);
+  } else {
+    header.appendChild(refreshBtn);
+  }
+  
+  console.log('✅ Botón de refresh agregado');
 }
 
 // Hacer las funciones disponibles globalmente para el onclick del HTML
