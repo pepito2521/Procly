@@ -1,5 +1,4 @@
 // PARTNERS PAGE - PARTNERS REGISTRATION FORM
-import { supabase } from '/js/supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('partnersForm');
@@ -97,6 +96,12 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             console.log('🔄 Cargando categorías desde Supabase...');
             
+            // Verificar que Supabase esté disponible
+            if (typeof supabase === 'undefined') {
+                console.error('❌ Supabase no está disponible');
+                return;
+            }
+            
             const { data: categorias, error } = await supabase
                 .from('categorias')
                 .select('id, nombre, icon')
@@ -111,6 +116,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Obtener el select de categorías
             const categoriaSelect = document.getElementById('categoria');
+            
+            if (!categoriaSelect) {
+                console.error('❌ No se encontró el select de categorías');
+                return;
+            }
             
             // Limpiar opciones existentes (mantener la primera)
             categoriaSelect.innerHTML = '<option value="">Selecciona una categoría</option>';
