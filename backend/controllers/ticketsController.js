@@ -309,6 +309,8 @@ module.exports = {
   obtenerDirecciones,
   obtenerTickets,
   obtenerTicketPorId,
+  obtenerTicketsAdmin,
+  obtenerEstadisticasAdmin,
   seleccionarPropuesta,
   kpiTotalTicketsUsuario,
   kpiTicketsEntregadosUsuario,

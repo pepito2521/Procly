@@ -1116,20 +1116,20 @@ select[multiple] option:checked {
     display: flex;
     justify-content: center;
     /* Asegurar que el SVG se vea completo */
-    overflow: visible;
+    overflow: hidden;
     position: relative;
-    /* Dar suficiente espacio para el SVG */
-    min-height: 101.09px;
-    min-width: 101.09px;
+    /* Contenedor más compacto para el SVG */
+    min-height: 80px;
+    min-width: 80px;
 }
 
 .success-icon svg {
-    width: 101.09px;
-    height: 101.09px;
+    width: 80px;
+    height: 80px;
     color: var(--primary);
     filter: drop-shadow(0 4px 8px rgba(80, 137, 145, 0.2));
-    /* Asegurar que el SVG no se corte */
-    overflow: visible;
+    /* Asegurar que el SVG se ajuste al contenedor */
+    overflow: hidden;
     display: block;
     /* Ajustar el viewBox para que se vea completo */
     max-width: 100%;

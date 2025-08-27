@@ -13,43 +13,41 @@ async function cargarEstadisticas() {
   try {
     console.log('📊 Cargando estadísticas...');
     
-    // Obtener tickets de la empresa actual
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-    
-    const { data: tickets, error } = await supabase
-      .from('tickets')
-      .select('estado, precio_seleccionado')
-      .eq('empresa_id', user.id);
-    
-    if (error) {
-      console.error('❌ Error al obtener tickets:', error);
-      return;
+    // Usar los endpoints del backend en lugar de consultas directas a Supabase
+    const [totalRes, entregadosRes, enProcesoRes, canceladosRes] = await Promise.all([
+      fetch('/stats/tickets-totales'),
+      fetch('/stats/tickets-entregados'),
+      fetch('/stats/tickets-en-proceso'),
+      fetch('/stats/tickets-cancelados')
+    ]);
+
+    if (!totalRes.ok || !entregadosRes.ok || !enProcesoRes.ok || !canceladosRes.ok) {
+      throw new Error('Error al obtener estadísticas del backend');
     }
-    
-    // Calcular estadísticas
-    const total = tickets.length;
-    const entregados = tickets.filter(t => t.estado === 'Entregado').length;
-    const enCurso = tickets.filter(t => t.estado === 'En Curso' || t.estado === 'Creado').length;
-    const cancelados = tickets.filter(t => t.estado === 'Cancelado').length;
+
+    const total = await totalRes.json();
+    const entregados = await entregadosRes.json();
+    const enProceso = await enProcesoRes.json();
+    const cancelados = await canceladosRes.json();
     
     // Actualizar UI
-    document.getElementById('actividadTotales').textContent = total;
-    document.getElementById('actividadEntregados').textContent = entregados;
-    document.getElementById('actividadEnProceso').textContent = enCurso;
-    document.getElementById('actividadCancelados').textContent = cancelados;
+    document.getElementById('actividadTotales').textContent = total.total || 0;
+    document.getElementById('actividadEntregados').textContent = entregados.total || 0;
+    document.getElementById('actividadEnProceso').textContent = enProceso.total || 0;
+    document.getElementById('actividadCancelados').textContent = cancelados.total || 0;
     
     // Calcular porcentajes
-    const porcentajeEntregados = total > 0 ? Math.round((entregados / total) * 100) : 0;
-    const porcentajeEnCurso = total > 0 ? Math.round((enCurso / total) * 100) : 0;
-    const porcentajeCancelados = total > 0 ? Math.round((cancelados / total) * 100) : 0;
+    const totalTickets = total.total || 0;
+    const porcentajeEntregados = totalTickets > 0 ? Math.round((entregados.total / totalTickets) * 100) : 0;
+    const porcentajeEnCurso = totalTickets > 0 ? Math.round((enProceso.total / totalTickets) * 100) : 0;
+    const porcentajeCancelados = totalTickets > 0 ? Math.round((cancelados.total / totalTickets) * 100) : 0;
     
     document.getElementById('actividadTotalesSub').textContent = 'Total de tickets de la empresa';
     document.getElementById('actividadEntregadosSub').textContent = `${porcentajeEntregados}% del total`;
     document.getElementById('actividadEnProcesoSub').textContent = `${porcentajeEnCurso}% del total`;
     document.getElementById('actividadCanceladosSub').textContent = `${porcentajeCancelados}% del total`;
     
-    console.log('✅ Estadísticas cargadas');
+    console.log('✅ Estadísticas cargadas desde backend');
     
   } catch (error) {
     console.error('❌ Error al cargar estadísticas:', error);
@@ -61,32 +59,18 @@ async function cargarTickets() {
   try {
     console.log('📋 Cargando tickets...');
     
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    // Usar el endpoint del backend en lugar de consultas directas a Supabase
+    const response = await fetch('/stats/actividad-tickets');
     
-    const { data: tickets, error } = await supabase
-      .from('tickets')
-      .select(`
-        id,
-        codigo_ticket,
-        nombre,
-        estado,
-        precio_seleccionado,
-        created_at,
-        profiles!inner(
-          nombre
-        )
-      `)
-      .eq('empresa_id', user.id)
-      .order('created_at', { ascending: false });
-    
-    if (error) {
-      console.error('❌ Error al obtener tickets:', error);
-      return;
+    if (!response.ok) {
+      throw new Error('Error al obtener tickets del backend');
     }
     
+    const data = await response.json();
+    const tickets = data.tickets || [];
+    
     renderizarTickets(tickets);
-    console.log(`✅ ${tickets.length} tickets cargados`);
+    console.log(`✅ ${tickets.length} tickets cargados desde backend`);
     
   } catch (error) {
     console.error('❌ Error al cargar tickets:', error);
@@ -104,14 +88,14 @@ function renderizarTickets(tickets) {
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>${ticket.codigo_ticket || 'N/A'}</td>
-      <td>${ticket.nombre || 'N/A'}</td>
-      <td>${ticket.profiles?.nombre || 'N/A'}</td>
+      <td>${ticket.nombre_ticket || 'N/A'}</td>
+      <td>${ticket.nombre || 'N/A'} ${ticket.apellido || ''}</td>
       <td>
         <span class="estado-badge ${ticket.estado?.toLowerCase().replace(' ', '-')}">
           ${ticket.estado || 'N/A'}
         </span>
       </td>
-      <td>${ticket.precio_seleccionado ? `${ticket.precio_seleccionado} ARS` : 'En proceso'}</td>
+      <td>${ticket.precio || 'En proceso'}</td>
     `;
     tbody.appendChild(row);
   });
