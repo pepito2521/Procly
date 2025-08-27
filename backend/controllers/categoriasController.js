@@ -1,15 +1,16 @@
 const { createClient } = require('@supabase/supabase-js');
 
-// Crear cliente de Supabase
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 // GET /api/categorias - Obtener todas las categorías (público)
 async function obtenerCategorias(req, res) {
     try {
         console.log('🔄 Obteniendo categorías desde Supabase...');
+        console.log('🔑 URL:', process.env.SUPABASE_URL);
+        console.log('🔑 SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? 'Configurada' : 'NO CONFIGURADA');
         
         const { data: categorias, error } = await supabase
             .from('categorias')
@@ -25,6 +26,9 @@ async function obtenerCategorias(req, res) {
         }
         
         console.log(`✅ Categorías obtenidas: ${categorias ? categorias.length : 0} registros`);
+        if (categorias && categorias.length > 0) {
+            console.log('📋 Primeras categorías:', categorias.slice(0, 3));
+        }
         
         res.json({
             success: true,
