@@ -1,4 +1,5 @@
 // PARTNERS PAGE - PARTNERS REGISTRATION FORM
+import { supabase } from '../supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('partnersForm');
@@ -95,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function cargarCategorias() {
         try {
             console.log('🔄 Cargando categorías desde Supabase...');
+            console.log('🔍 Verificando objeto supabase:', typeof supabase, supabase);
             
             // Verificar que Supabase esté disponible
             if (typeof supabase === 'undefined') {
