@@ -19,7 +19,7 @@ async function cargarEstadisticas() {
     
     const { data: tickets, error } = await supabase
       .from('tickets')
-      .select('estado, precio')
+      .select('estado, precio_seleccionado')
       .eq('empresa_id', user.id);
     
     if (error) {
@@ -71,10 +71,10 @@ async function cargarTickets() {
         codigo_ticket,
         nombre,
         estado,
-        precio,
+        precio_seleccionado,
         created_at,
         profiles!inner(
-          full_name
+          nombre
         )
       `)
       .eq('empresa_id', user.id)
@@ -105,13 +105,13 @@ function renderizarTickets(tickets) {
     row.innerHTML = `
       <td>${ticket.codigo_ticket || 'N/A'}</td>
       <td>${ticket.nombre || 'N/A'}</td>
-      <td>${ticket.profiles?.full_name || 'N/A'}</td>
+      <td>${ticket.profiles?.nombre || 'N/A'}</td>
       <td>
         <span class="estado-badge ${ticket.estado?.toLowerCase().replace(' ', '-')}">
           ${ticket.estado || 'N/A'}
         </span>
       </td>
-      <td>${ticket.precio ? `${ticket.precio} ARS` : 'En proceso'}</td>
+      <td>${ticket.precio_seleccionado ? `${ticket.precio_seleccionado} ARS` : 'En proceso'}</td>
     `;
     tbody.appendChild(row);
   });

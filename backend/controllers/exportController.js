@@ -21,11 +21,11 @@ async function exportarTickets(req, res) {
                 nombre,
                 descripcion,
                 estado,
-                precio,
+                precio_seleccionado,
                 created_at,
                 updated_at,
                 profiles!inner(
-                    full_name,
+                    nombre,
                     email
                 ),
                 empresas!inner(
@@ -56,11 +56,11 @@ async function exportarTickets(req, res) {
             'Código': ticket.codigo || 'N/A',
             'Nombre': ticket.nombre || 'N/A',
             'Descripción': ticket.descripcion || 'N/A',
-            'Usuario': ticket.profiles?.full_name || 'N/A',
+            'Usuario': ticket.profiles?.nombre || 'N/A',
             'Email Usuario': ticket.profiles?.email || 'N/A',
             'Empresa': ticket.empresas?.razon_social || 'N/A',
             'Estado': ticket.estado || 'N/A',
-            'Precio': ticket.precio ? `${ticket.precio} ARS` : 'En proceso',
+            'Precio': ticket.precio_seleccionado ? `${ticket.precio_seleccionado} ARS` : 'En proceso',
             'Fecha Creación': new Date(ticket.created_at).toLocaleString('es-AR'),
             'Última Actualización': new Date(ticket.updated_at).toLocaleString('es-AR')
         }));

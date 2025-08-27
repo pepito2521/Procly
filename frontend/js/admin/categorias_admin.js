@@ -80,9 +80,21 @@ function crearTarjetaCategoria(categoria) {
 
   // Imagen de fondo desde Supabase Storage
   console.log(`🖼️ Categoría ${categoria.nombre}:`, categoria.imagen);
-  const bgStyle = categoria.imagen && categoria.imagen.startsWith('http') 
-    ? `background-image: url('${categoria.imagen}')` 
-    : `background: linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)} 0%, #${Math.floor(Math.random()*16777215).toString(16)} 100%)`;
+  
+  let bgStyle;
+  if (categoria.imagen && categoria.imagen.includes('/storage/')) {
+    // Es una imagen de Supabase Storage
+    const fullUrl = `https://ujnicnvpzkpvqkvwrwhz.supabase.co${categoria.imagen}`;
+    bgStyle = `background-image: url('${fullUrl}')`;
+    console.log(`🖼️ URL completa para ${categoria.nombre}:`, fullUrl);
+  } else if (categoria.imagen && categoria.imagen.startsWith('http')) {
+    // Es una URL completa
+    bgStyle = `background-image: url('${categoria.imagen}')`;
+  } else {
+    // Fallback a gradiente
+    bgStyle = `background: linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)} 0%, #${Math.floor(Math.random()*16777215).toString(16)} 100%)`;
+    console.log(`🎨 Usando gradiente para ${categoria.nombre} (sin imagen)`);
+  }
 
   card.innerHTML = `
     <div class="categoria-bg" style="${bgStyle}"></div>
