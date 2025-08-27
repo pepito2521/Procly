@@ -72,7 +72,8 @@ const crearTicket = async (req, res) => {
       .then(results => {
         console.log('📧 Resultados de emails:', {
           emailUsuario: results.emailUsuario.success ? '✅ Enviado' : '❌ Falló',
-          emailAdmin: results.emailAdmin.success ? '✅ Enviado' : '❌ Falló'
+          emailAdmin: results.emailAdmin.skipped ? '⏭️ Saltado' : 
+                     results.emailAdmin.success ? '✅ Enviado' : '❌ Falló'
         });
       })
       .catch(error => {

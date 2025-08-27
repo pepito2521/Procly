@@ -7,7 +7,7 @@ module.exports = {
   APP_URL: process.env.APP_URL || 'https://procly.net',
   
   // Admin email for notifications
-  ADMIN_EMAIL: process.env.ADMIN_EMAIL || 'admin@procly.net',
+  ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   
   // Email sender configuration
   EMAIL_FROM: 'notificaciones@procly.net',

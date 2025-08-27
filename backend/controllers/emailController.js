@@ -59,7 +59,14 @@ const enviarEmailCambioEstado = async (ticketId, nuevoEstado, comentario = null)
 // Enviar notificación al admin cuando se crea un ticket
 const enviarNotificacionAdmin = async (ticketData) => {
   try {
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@procly.net';
+    const adminEmail = process.env.ADMIN_EMAIL;
+    
+    // Solo enviar email al admin si está configurado
+    if (!adminEmail) {
+      console.log('📧 Email de admin no configurado - saltando notificación');
+      return { success: true, skipped: true };
+    }
+    
     await sendAdminNotificationEmail(adminEmail, ticketData);
     console.log('✅ Email de notificación enviado al admin:', adminEmail);
     return { success: true };
