@@ -1,4 +1,5 @@
 // PARTNERS PAGE - PARTNERS REGISTRATION FORM
+import { supabase } from '/js/supabaseClient.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('partnersForm');
@@ -13,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileSelected = document.getElementById('fileSelected');
     const fileRemove = document.getElementById('fileRemove');
     let selectedFile = null;
+
+    // Cargar categorías al iniciar la página
+    cargarCategorias();
 
     // Form submission handler
     form.addEventListener('submit', async function(e) {
@@ -87,6 +91,48 @@ document.addEventListener('DOMContentLoaded', function() {
             setLoadingState(false);
         }
     });
+
+    // Cargar categorías desde Supabase
+    async function cargarCategorias() {
+        try {
+            console.log('🔄 Cargando categorías desde Supabase...');
+            
+            const { data: categorias, error } = await supabase
+                .from('categorias')
+                .select('id, nombre, icon')
+                .order('nombre', { ascending: true });
+            
+            if (error) {
+                console.error('❌ Error al cargar categorías:', error);
+                return;
+            }
+            
+            console.log('✅ Categorías cargadas:', categorias);
+            
+            // Obtener el select de categorías
+            const categoriaSelect = document.getElementById('categoria');
+            
+            // Limpiar opciones existentes (mantener la primera)
+            categoriaSelect.innerHTML = '<option value="">Selecciona una categoría</option>';
+            
+            // Agregar cada categoría con su icono
+            categorias.forEach(categoria => {
+                const option = document.createElement('option');
+                option.value = categoria.id;
+                
+                // Crear el contenido HTML con icono y nombre
+                const iconHtml = categoria.icon ? `<img src="${categoria.icon}" alt="${categoria.nombre}" class="categoria-icon">` : '';
+                option.innerHTML = `${iconHtml} ${categoria.nombre}`;
+                
+                categoriaSelect.appendChild(option);
+            });
+            
+            console.log('✅ Dropdown de categorías actualizado');
+            
+        } catch (error) {
+            console.error('❌ Error al cargar categorías:', error);
+        }
+    }
 
     // Form validation
     function validateForm() {
