@@ -1,4 +1,3 @@
-import { supabase } from "/js/supabaseClient.js";
 import { mostrarLoader, ocultarLoader } from "/js/components/loader.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -148,46 +147,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
       console.log("✅ Token de Supabase encontrado");
 
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        console.log("❌ No hay usuario autenticado");
+      // Verificar rol usando el backend en lugar de Supabase directo
+      const response = await fetch('/auth/verificar-rol', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        console.log("❌ Error verificando rol desde backend");
         return false;
       }
 
-      console.log("🔍 Verificando rol para usuario:", user.id);
-
-      // Primero probar una consulta simple para verificar la conexión
-      console.log("🔍 Probando conexión a Supabase...");
-      const { data: testData, error: testError } = await supabase
-        .from('profiles')
-        .select('count')
-        .limit(1);
-
-      if (testError) {
-        console.error("❌ Error de conexión a Supabase:", testError);
-        return false;
-      }
-      console.log("✅ Conexión a Supabase exitosa");
-
-      // Consultar el perfil completo para debugging
-      console.log("🔍 Consultando perfil completo...");
-      const { data: perfil, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('profile_id', user.id)
-        .single();
-
-      if (error) {
-        console.error("❌ Error obteniendo rol:", error);
-        console.error("❌ Detalles del error:", error.message, error.code);
-        return false;
-      }
-
-      console.log("✅ Perfil completo encontrado:", perfil);
-      console.log("🔍 Campo 'role' del perfil:", perfil.role);
-      console.log("🔍 Tipo de dato del campo 'role':", typeof perfil.role);
-      
-      const esAdmin = perfil && perfil.role === 'admin';
+      const data = await response.json();
+      const esAdmin = data && data.role === 'admin';
       console.log("🔐 ¿Es admin?:", esAdmin);
       
       return esAdmin;
@@ -202,20 +175,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     let nombre = localStorage.getItem('adminNombre');
     if (!nombre) {
       try {
-        const { data: { user } } = await supabase.auth.getUser();
-        console.log("Usuario autenticado:", user);
-        if (user) {
-          const { data: perfil, error } = await supabase
-            .from('profiles')
-            .select('nombre')
-            .eq('profile_id', user.id)
-            .single();
-          console.log("Perfil encontrado:", perfil, "Error:", error);
-          if (perfil && perfil.nombre) {
-            nombre = perfil.nombre;
+        // Obtener nombre desde el backend en lugar de Supabase directo
+        const response = await fetch('/auth/perfil-usuario');
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.nombre) {
+            nombre = data.nombre;
           } else {
-            nombre = user.email || 'Administrador';
+            nombre = data.email || 'Administrador';
           }
+        } else {
+          nombre = 'Administrador';
         }
       } catch (e) {
         nombre = 'Administrador';
@@ -282,12 +252,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!logoutIcon) return;
   
     logoutIcon.addEventListener("click", async () => {
-      const { error } = await supabase.auth.signOut();
-      localStorage.removeItem('supabaseToken');
-  
-      if (error) {
-        alert("Error al cerrar sesión: " + error.message);
-      } else {
+      try {
+        // Hacer logout usando el backend en lugar de Supabase directo
+        const response = await fetch('/auth/logout', { method: 'POST' });
+        localStorage.removeItem('supabaseToken');
+        
+        if (response.ok) {
+          window.location.href = "/app/index.html";
+        } else {
+          alert("Error al cerrar sesión");
+        }
+      } catch (error) {
+        console.error("Error en logout:", error);
+        localStorage.removeItem('supabaseToken');
         window.location.href = "/app/index.html";
       }
     });
