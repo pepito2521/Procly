@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   const dynamicContent = document.getElementById("dynamicContent");
-  const pageTitle = document.getElementById("pageTitle");
   const pageIcon = document.getElementById("pageIcon");
 
   async function cargarSeccion(seccion) {
@@ -79,7 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const resp = await fetch(`/app/admin/components/${info.archivo}`);
       const html = await resp.text();
       dynamicContent.innerHTML = html;
-      pageTitle.textContent = info.nombre;
       pageIcon.innerHTML = info.icon;
       marcarActivo(seccion);
 
