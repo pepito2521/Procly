@@ -11,6 +11,9 @@ const supabase = createClient(
 async function exportarTickets(req, res) {
     try {
         console.log('🔄 Exportando tickets a Excel...');
+        console.log('🔑 Headers recibidos:', req.headers);
+        console.log('🌐 SUPABASE_URL:', process.env.SUPABASE_URL ? 'Configurado' : 'NO CONFIGURADO');
+        console.log('🔑 SUPABASE_SERVICE_ROLE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? 'Configurado' : 'NO CONFIGURADO');
         
         // Obtener todos los tickets con información relacionada
         const { data: tickets, error } = await supabase

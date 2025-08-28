@@ -206,7 +206,7 @@ async function exportarTickets() {
     const spinner = document.getElementById('exportSpinner');
     if (spinner) spinner.style.display = 'flex';
 
-    const response = await fetch(`${baseUrl}/export/tickets`, { headers });
+    const response = await fetch(`${baseUrl}/api/export/tickets`, { headers });
     
     if (!response.ok) {
       throw new Error('Error al exportar tickets');
