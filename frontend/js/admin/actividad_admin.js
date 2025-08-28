@@ -1,4 +1,4 @@
-// REGISTRO DE ACTIVIDAD ADMIN - COMPONENT
+// ACTIVIDAD ADMIN - COMPONENT
 import { supabase } from "/js/supabaseClient.js";
 
 export function initActividad() {
@@ -6,164 +6,209 @@ export function initActividad() {
 }
 
 async function cargarActividadTemplate() {
-  let tbody;
-
   try {
-    // Obtener token de autenticación
     const token = localStorage.getItem('supabaseToken');
     if (!token) {
-      throw new Error('No se encontró el token de autenticación');
-    }
-
-    const headers = {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    };
-
-    // 1. KPIs y listado
-    const [
-      kpiTotal, kpiEntregados, kpiEnProceso, kpiCancelados, listadoTickets, kpiPorcentajeEntregados, kpiPorcentajeEnProceso, kpiPorcentajeCancelados
-    ] = await Promise.all([
-      fetch('/stats/tickets-totales', { headers }),
-      fetch('/stats/tickets-entregados', { headers }),
-      fetch('/stats/tickets-en-proceso', { headers }),
-      fetch('/stats/tickets-cancelados', { headers }),
-      fetch('/stats/actividad-tickets', { headers }),
-      fetch('/stats/tickets-entregados-porcentaje', { headers }),
-      fetch('/stats/tickets-en-proceso-porcentaje', { headers }),
-      fetch('/stats/tickets-cancelados-porcentaje', { headers })
-    ]);
-
-    if (!kpiTotal.ok || !kpiEntregados.ok || !kpiEnProceso.ok || !kpiCancelados.ok || !listadoTickets.ok) {
-      throw new Error('Error al obtener datos del backend');
-    }
-
-    const total = await kpiTotal.json();
-    const entregados = await kpiEntregados.json();
-    const enProceso = await kpiEnProceso.json();
-    const cancelados = await kpiCancelados.json();
-    const tickets = await listadoTickets.json();
-
-    // Actualizar las tarjetas de resumen con los IDs correctos
-    document.getElementById("actividadTotales").textContent = total.total ?? 0;
-    document.getElementById("actividadEntregados").textContent = entregados.total ?? 0;
-    document.getElementById("actividadEnProceso").textContent = enProceso.total ?? 0;
-    document.getElementById("actividadCancelados").textContent = cancelados.total ?? 0;
-
-    // Actualizar los subtítulos con porcentajes
-    document.getElementById("actividadTotalesSub").textContent = `Total de tickets de la empresa`;
-    document.getElementById("actividadEntregadosSub").textContent = `${kpiPorcentajeEntregados?.porcentaje ?? 0}% del total`;
-    document.getElementById("actividadEnProcesoSub").textContent = `${kpiPorcentajeEnProceso?.porcentaje ?? 0}% del total`;
-    document.getElementById("actividadCanceladosSub").textContent = `${kpiPorcentajeCancelados?.porcentaje ?? 0}% del total`;
-
-    // 2. Tabla
-    tbody = document.getElementById("tablaActividad");
-    tbody.innerHTML = "";
-
-    if (!tickets || !tickets.tickets || tickets.tickets.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5">▲ No hay tickets disponibles</td></tr>`;
+      console.error("Token no disponible.");
       return;
     }
-    cargarTablaHistorial(tickets.tickets);
+
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    // Función helper para manejar fetch con mejor manejo de errores
+    async function fetchWithErrorHandling(url, headers) {
+      try {
+        const response = await fetch(url, { headers });
+        if (!response.ok) {
+          console.warn(`Error HTTP ${response.status} para ${url}`);
+          return null;
+        }
+        const text = await response.text();
+        if (!text) {
+          console.warn(`Respuesta vacía para ${url}`);
+          return null;
+        }
+        try {
+          return JSON.parse(text);
+        } catch (parseError) {
+          console.warn(`Error parseando JSON para ${url}:`, text);
+          return null;
+        }
+      } catch (fetchError) {
+        console.warn(`Error en fetch para ${url}:`, fetchError);
+        return null;
+      }
+    }
+
+    // Cargar KPIs y tickets en paralelo
+    const [
+      kpiTotal,
+      kpiEntregados,
+      kpiEnProceso,
+      kpiCancelados,
+      listadoTickets
+    ] = await Promise.all([
+      fetchWithErrorHandling('/stats/tickets-totales', headers),
+      fetchWithErrorHandling('/stats/tickets-entregados', headers),
+      fetchWithErrorHandling('/stats/tickets-en-proceso', headers),
+      fetchWithErrorHandling('/stats/tickets-cancelados', headers),
+      fetchWithErrorHandling('/stats/actividad-tickets', headers)
+    ]);
+
+    // Actualizar KPIs
+    document.getElementById("actividadTotales").textContent = kpiTotal?.total ?? 0;
+    document.getElementById("actividadEntregados").textContent = kpiEntregados?.total ?? 0;
+    document.getElementById("actividadEnProceso").textContent = kpiEnProceso?.total ?? 0;
+    document.getElementById("actividadCancelados").textContent = kpiCancelados?.total ?? 0;
+
+    // Cargar tabla de tickets
+    cargarTablaHistorial(listadoTickets?.tickets || []);
+
+    // Inicializar eventos
+    inicializarEventos();
+
+    console.log('✅ Componente de actividad cargado correctamente');
 
   } catch (error) {
     console.error("Error al cargar actividad:", error);
-    const tbodyError = document.getElementById("tablaActividad");
-    if (tbodyError) {
-      tbodyError.innerHTML = `<tr><td colspan="5">❌ Error al cargar actividad</td></tr>`;
-    }
+    // Mostrar mensaje de error en la interfaz
+    document.getElementById("actividadTotales").textContent = 'Error';
+    document.getElementById("actividadEntregados").textContent = 'Error';
+    document.getElementById("actividadEnProceso").textContent = 'Error';
+    document.getElementById("actividadCancelados").textContent = 'Error';
+  }
+}
+
+function cargarTablaHistorial(tickets) {
+  const tbody = document.getElementById("tablaActividad");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+
+  if (!tickets || tickets.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay tickets disponibles</td></tr>`;
     return;
   }
 
-  // Función para cargar la tabla de historial
-  function cargarTablaHistorial(tickets) {
-    const tbody = document.getElementById("tablaActividad");
-    tbody.innerHTML = "";
+  tickets.forEach(ticket => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${ticket.codigo_ticket || 'Sin código'}</td>
+      <td>${ticket.nombre_ticket || 'Sin nombre'}</td>
+      <td>${ticket.nombre || ''} ${ticket.apellido || ''}</td>
+      <td>
+        <span class="estado-badge ${ticket.estado?.toLowerCase() || 'creado'}">
+          ${ticket.estado || 'Creado'}
+        </span>
+      </td>
+      <td>${ticket.precio || 'En proceso'}</td>
+    `;
+    tbody.appendChild(row);
+  });
 
-    tickets.forEach((ticket) => {
-      let precio = ticket.precio;
-      let precioClass = 'precio-valor';
-
-      if (!precio || precio === 'En proceso') {
-        precio = 'En proceso';
-        precioClass = 'precio-en-proceso';
-      }
-
-      const estadoClass = `estado-badge ${ticket.estado?.toLowerCase().replace(' ', '-') || 'creado'}`;
-      
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${ticket.codigo_ticket}</td>
-        <td>${ticket.nombre_ticket}</td>
-        <td>${ticket.nombre} ${ticket.apellido}</td>
-        <td>
-          <span class="${estadoClass}">
-            ${ticket.estado}
-          </span>
-        </td>
-        <td class="${precioClass}">${precio}</td>
-      `;
-      tbody.appendChild(row);
+  // Configurar buscador
+  const inputBuscador = document.getElementById("buscadorTickets");
+  if (inputBuscador) {
+    inputBuscador.addEventListener("input", (e) => {
+      const valor = e.target.value.toLowerCase();
+      const filas = tbody.querySelectorAll("tr");
+      filas.forEach((fila) => {
+        const textoCodigo = fila.children[0]?.textContent.toLowerCase() ?? "";
+        const textoNombre = fila.children[1]?.textContent.toLowerCase() ?? "";
+        const textoUsuario = fila.children[2]?.textContent.toLowerCase() ?? "";
+        
+        const coincide = textoCodigo.includes(valor) || 
+                        textoNombre.includes(valor) || 
+                        textoUsuario.includes(valor);
+        
+        fila.style.display = coincide ? "" : "none";
+      });
     });
   }
+}
 
-  // Función para cambiar el estado de un ticket
-  async function cambiarEstadoTicket(ticketId) {
-    try {
-      const token = localStorage.getItem('supabaseToken');
-      if (!token) {
-        alert('❌ No se encontró el token de autenticación.');
-        return;
-      }
+function inicializarEventos() {
+  // Botón de exportar
+  const btnExportar = document.getElementById("btnExportar");
+  if (btnExportar) {
+    btnExportar.addEventListener("click", exportarTickets);
+    console.log('✅ Botón de exportar inicializado');
+  }
 
-      // Mostrar popup para seleccionar nuevo estado
-      const nuevoEstado = prompt('Selecciona el nuevo estado:\n\n1. Creado\n2. En Proceso\n3. Propuestas\n4. En Camino\n5. Entregado\n6. Revisar\n7. Cancelado');
-      if (!nuevoEstado) return;
+  // Campo de búsqueda
+  const inputBuscador = document.getElementById("buscadorTickets");
+  if (inputBuscador) {
+    console.log('✅ Campo de búsqueda inicializado');
+  }
 
-      const estados = ['Creado', 'En Proceso', 'Propuestas', 'En Camino', 'Entregado', 'Revisar', 'Cancelado'];
-      const estadoSeleccionado = estados[parseInt(nuevoEstado) - 1];
+  console.log('✅ Eventos del componente de actividad inicializados');
+}
 
-      if (!estadoSeleccionado) {
-        alert('❌ Estado inválido');
-        return;
-      }
-
-      const comentario = prompt('Comentario opcional para el usuario:');
-
-      const response = await fetch('/tickets/estado', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          ticket_id: ticketId,
-          nuevo_estado: estadoSeleccionado,
-          comentario: comentario || null
-        })
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert(`✔ Estado actualizado exitosamente a: ${estadoSeleccionado}`);
-        // Recargar la tabla
-        cargarActividadTemplate();
-      } else {
-        alert(`❌ Error al actualizar estado: ${result.error || 'Error desconocido'}`);
-      }
-    } catch (error) {
-      console.error('Error cambiando estado del ticket:', error);
-      alert('❌ Error al cambiar el estado del ticket');
+async function exportarTickets() {
+  try {
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+      return;
     }
-  }
 
-  // Función para editar ticket (placeholder)
-  function editarTicket(ticketId) {
-    alert(`Editar ticket ${ticketId} - Función en desarrollo`);
-  }
+    const headers = { 'Authorization': `Bearer ${token}` };
+    
+    // Mostrar spinner
+    const spinner = document.querySelector('.glass-loader');
+    if (spinner) spinner.style.display = 'flex';
 
-  // Exponer funciones globalmente
-  window.cambiarEstadoTicket = cambiarEstadoTicket;
-  window.editarTicket = editarTicket;
+    const response = await fetch('/export/tickets', { headers });
+    
+    if (!response.ok) {
+      throw new Error('Error al exportar tickets');
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `tickets_${new Date().toISOString().split('T')[0]}.xlsx`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+
+    mostrarNotificacion('✅ Tickets exportados correctamente', 'success');
+
+  } catch (error) {
+    console.error('Error al exportar:', error);
+    mostrarNotificacion('❌ Error al exportar tickets', 'error');
+  } finally {
+    if (spinner) spinner.style.display = 'none';
+  }
+}
+
+function mostrarNotificacion(mensaje, tipo = 'info') {
+  // Crear notificación temporal
+  const notificacion = document.createElement('div');
+  notificacion.className = `notificacion ${tipo}`;
+  notificacion.textContent = mensaje;
+  notificacion.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    z-index: 1000;
+    background: ${tipo === 'success' ? '#10b981' : tipo === 'error' ? '#ef4444' : '#3b82f6'};
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  `;
+
+  document.body.appendChild(notificacion);
+
+  // Remover después de 3 segundos
+  setTimeout(() => {
+    if (notificacion.parentNode) {
+      notificacion.parentNode.removeChild(notificacion);
+    }
+  }, 3000);
 }
 
