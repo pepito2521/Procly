@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const dynamicContent = document.getElementById("dynamicContent");
   const pageTitle = document.getElementById("pageTitle");
-  const pageIcon = document.getElementById("pageIcon");
 
   async function cargarSeccion(seccion) {
     const info = secciones[seccion];
@@ -51,7 +50,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       const html = await resp.text();
       dynamicContent.innerHTML = html;
       pageTitle.textContent = info.nombre;
-      pageIcon.innerHTML = info.icon;
       marcarActivo(seccion);
 
       if (info.js) {

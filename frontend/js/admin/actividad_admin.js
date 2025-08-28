@@ -202,8 +202,8 @@ async function exportarTickets() {
 
     const headers = { 'Authorization': `Bearer ${token}` };
     
-    // Mostrar spinner
-    const spinner = document.querySelector('.glass-loader');
+    // Mostrar spinner usando el glass-loader global
+    const spinner = document.getElementById('exportSpinner');
     if (spinner) spinner.style.display = 'flex';
 
     const response = await fetch(`${baseUrl}/export/tickets`, { headers });
@@ -229,7 +229,7 @@ async function exportarTickets() {
     mostrarNotificacion('❌ Error al exportar tickets', 'error');
   } finally {
     // Ocultar spinner de forma segura
-    const spinner = document.querySelector('.glass-loader');
+    const spinner = document.getElementById('exportSpinner');
     if (spinner) spinner.style.display = 'none';
   }
 }

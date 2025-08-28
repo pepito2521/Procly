@@ -25,15 +25,7 @@ async function exportarTickets(req, res) {
                 created_at,
                 fecha_actualizacion,
                 user_id,
-                profiles!tickets_user_id_fkey(
-                    nombre,
-                    apellido,
-                    email
-                ),
-                empresa_id,
-                empresas!tickets_empresa_id_fkey(
-                    razon_social
-                )
+                empresa_id
             `)
             .order('created_at', { ascending: false });
         
@@ -55,15 +47,17 @@ async function exportarTickets(req, res) {
         console.log(`✅ ${tickets.length} tickets obtenidos para exportar`);
         console.log('📊 Muestra del primer ticket:', tickets[0]);
         
+        // Validar que los datos sean válidos
+        if (!Array.isArray(tickets)) {
+            throw new Error('Los tickets no son un array válido');
+        }
+        
         // Preparar datos para Excel
         const excelData = tickets.map(ticket => ({
             'ID': ticket.ticket_id || 'N/A',
             'Código': ticket.codigo_ticket || 'N/A',
             'Nombre': ticket.nombre || 'N/A',
             'Descripción': ticket.descripcion || 'N/A',
-            'Usuario': ticket.profiles ? `${ticket.profiles.nombre || ''} ${ticket.profiles.apellido || ''}`.trim() || 'N/A' : 'N/A',
-            'Email Usuario': ticket.profiles?.email || 'N/A',
-            'Empresa': ticket.empresas?.razon_social || 'N/A',
             'Estado': ticket.estado || 'N/A',
             'Precio': ticket.precio_seleccionado ? `${Number(ticket.precio_seleccionado).toLocaleString('es-AR')} ARS` : 'En proceso',
             'Fecha Creación': ticket.created_at ? new Date(ticket.created_at).toLocaleString('es-AR') : 'N/A',
@@ -80,9 +74,6 @@ async function exportarTickets(req, res) {
             { wch: 15 }, // Código
             { wch: 30 }, // Nombre
             { wch: 40 }, // Descripción
-            { wch: 25 }, // Usuario
-            { wch: 30 }, // Email Usuario
-            { wch: 30 }, // Empresa
             { wch: 15 }, // Estado
             { wch: 20 }, // Precio
             { wch: 20 }, // Fecha Creación
@@ -92,6 +83,8 @@ async function exportarTickets(req, res) {
         
         // Agregar worksheet al workbook
         XLSX.utils.book_append_sheet(workbook, worksheet, 'Tickets');
+        
+        console.log('📋 Excel data preparado:', excelData.slice(0, 2)); // Mostrar primeros 2 registros
         
         // Generar buffer del archivo
         const excelBuffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
