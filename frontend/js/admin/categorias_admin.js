@@ -3,11 +3,30 @@ import { supabase } from "/js/supabaseClient.js";
 
 export function initCategorias() {
   console.log('🔧 Inicializando componente de categorías...');
+  
+  // Test: probar si se puede cargar una imagen de ejemplo
+  testearImagenCategoria();
+  
   cargarCategorias();
   inicializarEventos();
   
   // Agregar botón de refresh si no existe
   agregarBotonRefresh();
+}
+
+// Función para testear si las imágenes se pueden cargar
+function testearImagenCategoria() {
+  const testUrl = 'https://ujnicnvpzkpvqkvwrwhz.supabase.co/storage/v1/object/public/categorias/images/catering.webp';
+  
+  const img = new Image();
+  img.onload = function() {
+    console.log('✅ Test de imagen exitoso:', testUrl);
+    console.log('📏 Dimensiones:', img.width, 'x', img.height);
+  };
+  img.onerror = function() {
+    console.error('❌ Test de imagen falló:', testUrl);
+  };
+  img.src = testUrl;
 }
 
 // Array para almacenar las categorías cargadas desde Supabase
@@ -89,6 +108,13 @@ function crearTarjetaCategoria(categoria) {
     const fullUrl = `https://ujnicnvpzkpvqkvwrwhz.supabase.co${categoria.imagen}`;
     bgStyle = `background-image: url('${fullUrl}')`;
     console.log(`🖼️ URL completa para ${categoria.nombre}:`, fullUrl);
+    
+    // Test adicional: verificar si la imagen se puede cargar
+    const testImg = new Image();
+    testImg.onload = () => console.log(`✅ Imagen ${categoria.nombre} cargada exitosamente`);
+    testImg.onerror = () => console.error(`❌ Error al cargar imagen ${categoria.nombre}:`, fullUrl);
+    testImg.src = fullUrl;
+    
   } else if (categoria.imagen && categoria.imagen.startsWith('http')) {
     // Es una URL completa
     bgStyle = `background-image: url('${categoria.imagen}')`;
@@ -100,7 +126,12 @@ function crearTarjetaCategoria(categoria) {
   }
 
   card.innerHTML = `
-    <div class="categoria-bg" style="${bgStyle}"></div>
+    <div class="categoria-bg" style="${bgStyle}">
+      <!-- Debug: mostrar la URL de la imagen como texto -->
+      <div style="position: absolute; top: 5px; right: 5px; background: rgba(255,0,0,0.8); color: white; padding: 2px; font-size: 10px; z-index: 10;">
+        ${categoria.imagen ? 'IMG OK' : 'NO IMG'}
+      </div>
+    </div>
     <div class="categoria-overlay"></div>
     
     ${!categoria.habilitada ? `
