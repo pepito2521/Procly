@@ -89,6 +89,14 @@ async function cargarActividadTemplate() {
     document.getElementById("actividadEnProceso").textContent = kpiEnProceso?.total ?? 0;
     document.getElementById("actividadCancelados").textContent = kpiCancelados?.total ?? 0;
 
+    // Actualizar summary-subtext con información descriptiva
+    document.getElementById("actividadTotalesSub").textContent = "Total de tickets en el sistema";
+    document.getElementById("actividadEntregadosSub").textContent = "Tickets completados y entregados";
+    document.getElementById("actividadEnProcesoSub").textContent = "Tickets en desarrollo activo";
+    document.getElementById("actividadCanceladosSub").textContent = "Tickets cancelados o rechazados";
+    
+    console.log('📝 Summary-subtext actualizados correctamente');
+
     // Cargar tabla de tickets
     cargarTablaHistorial(listadoTickets?.tickets || []);
 

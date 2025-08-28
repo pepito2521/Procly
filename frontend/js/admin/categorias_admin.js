@@ -80,6 +80,8 @@ function crearTarjetaCategoria(categoria) {
 
   // Imagen de fondo desde Supabase Storage
   console.log(`🖼️ Categoría ${categoria.nombre}:`, categoria.imagen);
+  console.log(`🔍 Tipo de imagen:`, typeof categoria.imagen);
+  console.log(`🔍 Incluye /storage/:`, categoria.imagen ? categoria.imagen.includes('/storage/') : 'N/A');
   
   let bgStyle;
   if (categoria.imagen && categoria.imagen.includes('/storage/')) {
@@ -90,6 +92,7 @@ function crearTarjetaCategoria(categoria) {
   } else if (categoria.imagen && categoria.imagen.startsWith('http')) {
     // Es una URL completa
     bgStyle = `background-image: url('${categoria.imagen}')`;
+    console.log(`🌐 URL HTTP para ${categoria.nombre}:`, categoria.imagen);
   } else {
     // Fallback a gradiente
     bgStyle = `background: linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)} 0%, #${Math.floor(Math.random()*16777215).toString(16)} 100%)`;
