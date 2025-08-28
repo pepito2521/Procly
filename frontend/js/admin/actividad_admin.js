@@ -7,39 +7,53 @@ export function initActividad() {
 
 async function cargarActividadTemplate() {
   try {
+    console.log('🔄 Iniciando carga de actividad...');
     const token = localStorage.getItem('supabaseToken');
+    console.log('🔑 Token encontrado:', token ? 'Sí' : 'No');
     if (!token) {
-      console.error("Token no disponible.");
+      console.error("❌ Token no disponible.");
       return;
     }
 
     const headers = { 'Authorization': `Bearer ${token}` };
+    console.log('📋 Headers configurados:', headers);
 
     // Función helper para manejar fetch con mejor manejo de errores
     async function fetchWithErrorHandling(url, headers) {
       try {
+        console.log(`🌐 Haciendo petición a: ${url}`);
         const response = await fetch(url, { headers });
+        console.log(`📡 Respuesta de ${url}:`, response.status, response.statusText);
+        
         if (!response.ok) {
-          console.warn(`Error HTTP ${response.status} para ${url}`);
+          console.warn(`❌ Error HTTP ${response.status} para ${url}`);
           return null;
         }
+        
         const text = await response.text();
+        console.log(`📄 Contenido de ${url}:`, text.substring(0, 100) + '...');
+        
         if (!text) {
-          console.warn(`Respuesta vacía para ${url}`);
+          console.warn(`⚠️ Respuesta vacía para ${url}`);
           return null;
         }
+        
         try {
-          return JSON.parse(text);
+          const parsed = JSON.parse(text);
+          console.log(`✅ JSON parseado correctamente para ${url}`);
+          return parsed;
         } catch (parseError) {
-          console.warn(`Error parseando JSON para ${url}:`, text);
+          console.warn(`❌ Error parseando JSON para ${url}:`, text);
           return null;
         }
       } catch (fetchError) {
-        console.warn(`Error en fetch para ${url}:`, fetchError);
+        console.warn(`💥 Error en fetch para ${url}:`, fetchError);
         return null;
       }
     }
 
+    console.log('🚀 Iniciando peticiones a endpoints...');
+    
     // Cargar KPIs y tickets en paralelo
     const [
       kpiTotal,
@@ -54,6 +68,14 @@ async function cargarActividadTemplate() {
       fetchWithErrorHandling('/stats/tickets-cancelados', headers),
       fetchWithErrorHandling('/stats/actividad-tickets', headers)
     ]);
+    
+    console.log('📊 Resultados de peticiones:', {
+      kpiTotal: kpiTotal ? '✅' : '❌',
+      kpiEntregados: kpiEntregados ? '✅' : '❌',
+      kpiEnProceso: kpiEnProceso ? '✅' : '❌',
+      kpiCancelados: kpiCancelados ? '✅' : '❌',
+      listadoTickets: listadoTickets ? '✅' : '❌'
+    });
 
     // Actualizar KPIs
     document.getElementById("actividadTotales").textContent = kpiTotal?.total ?? 0;
