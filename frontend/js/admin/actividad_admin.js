@@ -118,14 +118,30 @@ function cargarTablaHistorial(tickets) {
     return;
   }
 
+  // Función para mapear estados a clases CSS
+  function getEstadoClass(estado) {
+    if (!estado) return 'creado';
+    
+    const estadoLower = estado.toLowerCase();
+    
+    // Mapeo específico para estados con espacios
+    if (estadoLower === 'en camino') return 'en-camino';
+    if (estadoLower === 'en proceso') return 'en-proceso';
+    if (estadoLower === 'en progreso') return 'en-progreso';
+    
+    // Para otros estados, usar el estado en minúsculas
+    return estadoLower;
+  }
+
   tickets.forEach(ticket => {
+    const estadoClass = getEstadoClass(ticket.estado);
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${ticket.codigo_ticket || 'Sin código'}</td>
       <td>${ticket.nombre_ticket || 'Sin nombre'}</td>
       <td>${ticket.nombre || ''} ${ticket.apellido || ''}</td>
       <td>
-        <span class="estado-badge ${ticket.estado?.toLowerCase() || 'creado'}">
+        <span class="estado-badge ${estadoClass}">
           ${ticket.estado || 'Creado'}
         </span>
       </td>
