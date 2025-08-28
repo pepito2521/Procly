@@ -3,30 +3,11 @@ import { supabase } from "/js/supabaseClient.js";
 
 export function initCategorias() {
   console.log('🔧 Inicializando componente de categorías...');
-  
-  // Test: probar si se puede cargar una imagen de ejemplo
-  testearImagenCategoria();
-  
   cargarCategorias();
   inicializarEventos();
   
   // Agregar botón de refresh si no existe
   agregarBotonRefresh();
-}
-
-// Función para testear si las imágenes se pueden cargar
-function testearImagenCategoria() {
-  const testUrl = 'https://ujnicnvpzkpvqkvwrwhz.supabase.co/storage/v1/object/public/categorias/images/catering.webp';
-  
-  const img = new Image();
-  img.onload = function() {
-    console.log('✅ Test de imagen exitoso:', testUrl);
-    console.log('📏 Dimensiones:', img.width, 'x', img.height);
-  };
-  img.onerror = function() {
-    console.error('❌ Test de imagen falló:', testUrl);
-  };
-  img.src = testUrl;
 }
 
 // Array para almacenar las categorías cargadas desde Supabase
@@ -98,40 +79,21 @@ function crearTarjetaCategoria(categoria) {
   card.setAttribute('data-id', categoria.id);
 
   // Imagen de fondo desde Supabase Storage
-  console.log(`🖼️ Categoría ${categoria.nombre}:`, categoria.imagen);
-  console.log(`🔍 Tipo de imagen:`, typeof categoria.imagen);
-  console.log(`🔍 Incluye /storage/:`, categoria.imagen ? categoria.imagen.includes('/storage/') : 'N/A');
-  
   let bgStyle;
   if (categoria.imagen && categoria.imagen.includes('/storage/')) {
     // Es una imagen de Supabase Storage
-    const fullUrl = `https://ujnicnvpzkpvqkvwrwhz.supabase.co${categoria.imagen}`;
+    const fullUrl = `https://ujnicnvpkvqkvwrwhz.supabase.co${categoria.imagen}`;
     bgStyle = `background-image: url('${fullUrl}')`;
-    console.log(`🖼️ URL completa para ${categoria.nombre}:`, fullUrl);
-    
-    // Test adicional: verificar si la imagen se puede cargar
-    const testImg = new Image();
-    testImg.onload = () => console.log(`✅ Imagen ${categoria.nombre} cargada exitosamente`);
-    testImg.onerror = () => console.error(`❌ Error al cargar imagen ${categoria.nombre}:`, fullUrl);
-    testImg.src = fullUrl;
-    
   } else if (categoria.imagen && categoria.imagen.startsWith('http')) {
     // Es una URL completa
     bgStyle = `background-image: url('${categoria.imagen}')`;
-    console.log(`🌐 URL HTTP para ${categoria.nombre}:`, categoria.imagen);
   } else {
     // Fallback a gradiente
     bgStyle = `background: linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)} 0%, #${Math.floor(Math.random()*16777215).toString(16)} 100%)`;
-    console.log(`🎨 Usando gradiente para ${categoria.nombre} (sin imagen)`);
   }
 
   card.innerHTML = `
-    <div class="categoria-bg" style="${bgStyle}">
-      <!-- Debug: mostrar la URL de la imagen como texto -->
-      <div style="position: absolute; top: 5px; right: 5px; background: rgba(255,0,0,0.8); color: white; padding: 2px; font-size: 10px; z-index: 10;">
-        ${categoria.imagen ? 'IMG OK' : 'NO IMG'}
-      </div>
-    </div>
+    <div class="categoria-bg" style="${bgStyle}"></div>
     <div class="categoria-overlay"></div>
     
     ${!categoria.habilitada ? `
@@ -208,43 +170,42 @@ async function guardarCambiosCategoria() {
     const { data: { user } } = await supabase.auth.getUser();
     
     if (!user) {
-      throw new Error('Usuario no autenticado');
+      alert('Usuario no autenticado');
+      return;
     }
 
-    // Actualizar la categoría en la tabla empresa_categorias
-    const { error: updateError } = await supabase
+    // Actualizar el estado de habilitación en empresa_categorias
+    const { error: errorUpdate } = await supabase
       .from('empresa_categorias')
       .upsert({
         empresa_id: user.id,
         categoria_id: categoriaId,
         habilitada: habilitada
-      }, {
-        onConflict: 'empresa_id,categoria_id'
       });
 
-    if (updateError) {
-      throw new Error(`Error al actualizar estado: ${updateError.message}`);
+    if (errorUpdate) {
+      console.error('❌ Error al actualizar estado de categoría:', errorUpdate);
+      alert('Error al actualizar el estado de la categoría');
+      return;
     }
 
-    // Actualizar datos locales
+    // Actualizar el array local
+    categoria.habilitada = habilitada;
     categoria.nombre = nombre;
     categoria.descripcion = descripcion;
-    categoria.habilitada = habilitada;
 
-    // Recargar el grid para mostrar los cambios
+    // Recargar las categorías para reflejar los cambios
     await cargarCategorias();
 
     // Cerrar el modal
     cerrarModal();
 
-    // Mostrar mensaje de éxito
+    // Mostrar notificación de éxito
     mostrarNotificacion('Categoría actualizada correctamente', 'success');
 
-    console.log(`✅ Categoría ${categoriaId} actualizada en Supabase:`, categoria);
-
   } catch (error) {
-    console.error('❌ Error al actualizar categoría:', error);
-    mostrarNotificacion(`Error al actualizar la categoría: ${error.message}`, 'error');
+    console.error('❌ Error al guardar cambios:', error);
+    alert('Error al guardar los cambios');
   }
 }
 
@@ -252,90 +213,36 @@ async function guardarCambiosCategoria() {
 function cerrarModal() {
   document.getElementById('modalCategoria').style.display = 'none';
   document.getElementById('modalCategoria').removeAttribute('data-editando');
-  
-  // Limpiar formulario
-  document.getElementById('categoriaNombre').value = '';
-  document.getElementById('categoriaDescripcion').value = '';
-  document.getElementById('categoriaHabilitada').checked = false;
 }
 
 // Función para mostrar notificaciones
 function mostrarNotificacion(mensaje, tipo = 'info') {
-  // Crear elemento de notificación
-  const notificacion = document.createElement('div');
-  notificacion.className = `notificacion notificacion-${tipo}`;
-  notificacion.textContent = mensaje;
-  
-  // Agregar estilos básicos
-  notificacion.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    color: white;
-    font-weight: 500;
-    z-index: 10000;
-    animation: slideIn 0.3s ease;
-  `;
-  
-  // Colores según tipo
-  if (tipo === 'success') {
-    notificacion.style.background = '#10b981';
-  } else if (tipo === 'error') {
-    notificacion.style.background = '#ef4444';
-  } else {
-    notificacion.style.background = '#3b82f6';
-  }
-  
-  // Agregar al DOM
-  document.body.appendChild(notificacion);
-  
-  // Remover después de 3 segundos
-  setTimeout(() => {
-    if (notificacion.parentNode) {
-      notificacion.parentNode.removeChild(notificacion);
-    }
-  }, 3000);
+  // Implementar sistema de notificaciones si es necesario
+  console.log(`${tipo.toUpperCase()}: ${mensaje}`);
 }
 
-// Función para inicializar todos los eventos
+// Función para inicializar eventos
 function inicializarEventos() {
-  // Botón Nueva Categoría
-  const btnNuevaCategoria = document.getElementById('nuevaCategoriaBtn');
-  if (btnNuevaCategoria) {
-    btnNuevaCategoria.addEventListener('click', () => {
-      // Por ahora solo mostrar mensaje, pero aquí se podría implementar
-      // la funcionalidad para crear nuevas categorías globales
-      alert('Para crear nuevas categorías globales, contacta al administrador del sistema. Las categorías se crean desde Supabase y se replican automáticamente aquí.');
-    });
-  }
-
-  // Modal de edición
+  // Evento para cerrar modal
   const modal = document.getElementById('modalCategoria');
-  const modalClose = document.getElementById('modalClose');
-  const modalCancelar = document.getElementById('modalCancelar');
-  const modalGuardar = document.getElementById('modalGuardar');
-
-  if (modalClose) {
-    modalClose.addEventListener('click', cerrarModal);
-  }
-
-  if (modalCancelar) {
-    modalCancelar.addEventListener('click', cerrarModal);
-  }
-
-  if (modalGuardar) {
-    modalGuardar.addEventListener('click', guardarCambiosCategoria);
-  }
-
-  // Cerrar modal al hacer click fuera
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         cerrarModal();
       }
     });
+  }
+
+  // Evento para botón de guardar
+  const btnGuardar = document.getElementById('btnGuardarCategoria');
+  if (btnGuardar) {
+    btnGuardar.addEventListener('click', guardarCambiosCategoria);
+  }
+
+  // Evento para botón de cancelar
+  const btnCancelar = document.getElementById('btnCancelarCategoria');
+  if (btnCancelar) {
+    btnCancelar.addEventListener('click', cerrarModal);
   }
 
   console.log('✅ Eventos del componente de categorías inicializados');
@@ -345,56 +252,47 @@ function inicializarEventos() {
 function agregarBotonRefresh() {
   const header = document.querySelector('.categorias-header');
   if (!header) return;
-  
+
   // Verificar si ya existe el botón
-  if (document.getElementById('refreshCategoriasBtn')) return;
-  
-  const refreshBtn = document.createElement('button');
-  refreshBtn.id = 'refreshCategoriasBtn';
-  refreshBtn.className = 'btn-gris';
-  refreshBtn.innerHTML = `
+  if (document.getElementById('btnRefresh')) return;
+
+  const btnRefresh = document.createElement('button');
+  btnRefresh.id = 'btnRefresh';
+  btnRefresh.className = 'btn-verde';
+  btnRefresh.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-      <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+      <path d="M224,128a96,96,0,0,1-94.71,95.27c-2.62,0-5.22-.08-7.8-.24a8,8,0,0,1-6.69-9.26,85.85,85.85,0,0,0,20.6-85.49,8,8,0,0,1,6.29-10.1,8.14,8.14,0,0,1,1.4-.12,8,8,0,0,1,7.87,6.7A80.09,80.09,0,0,0,176,128a8,8,0,0,1,16,0Zm-40,40a8,8,0,0,0-8,8v24H152a8,8,0,0,0,0,16h24a8,8,0,0,0,8-8V176A8,8,0,0,0,184,168Zm-64,56H96a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Zm-32-16H64a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path>
     </svg>
     Actualizar
   `;
-  
-  refreshBtn.addEventListener('click', async () => {
-    refreshBtn.disabled = true;
-    refreshBtn.innerHTML = `
-      <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+
+  btnRefresh.addEventListener('click', () => {
+    btnRefresh.disabled = true;
+    btnRefresh.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M224,128a96,96,0,0,1-94.71,95.27c-2.62,0-5.22-.08-7.8-.24a8,8,0,0,1-6.69-9.26,85.85,85.85,0,0,0,20.6-85.49,8,8,0,0,1,6.29-10.1,8.14,8.14,0,0,1,1.4-.12,8,8,0,0,1,7.87,6.7A80.09,80.09,0,0,0,176,128a8,8,0,0,1,16,0Zm-40,40a8,8,0,0,0-8,8v24H152a8,8,0,0,0,0,16h24a8,8,0,0,0,8-8V176A8,8,0,0,0,184,168Zm-64,56H96a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Zm-32-16H64a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path>
       </svg>
       Actualizando...
     `;
     
-    try {
-      await cargarCategorias();
-      mostrarNotificacion('Categorías actualizadas correctamente', 'success');
-    } catch (error) {
-      console.error('❌ Error al actualizar categorías:', error);
-      mostrarNotificacion('Error al actualizar categorías', 'error');
-    } finally {
-      refreshBtn.disabled = false;
-      refreshBtn.innerHTML = `
+    cargarCategorias().finally(() => {
+      btnRefresh.disabled = false;
+      btnRefresh.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-          <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+          <path d="M224,128a96,96,0,0,1-94.71,95.27c-2.62,0-5.22-.08-7.8-.24a8,8,0,0,1-6.69-9.26,85.85,85.85,0,0,0,20.6-85.49,8,8,0,0,1,6.29-10.1,8.14,8.14,0,0,1,1.4-.12,8,8,0,0,1,7.87,6.7A80.09,80.09,0,0,0,176,128a8,8,0,0,1,16,0Zm-40,40a8,8,0,0,0-8,8v24H152a8,8,0,0,0,0,16h24a8,8,0,0,0,8-8V176A8,8,0,0,0,184,168Zm-64,56H96a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Zm-32-16H64a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path>
         </svg>
         Actualizar
       `;
-    }
+    });
   });
-  
-  // Insertar antes del botón Nueva Categoría
-  const nuevaCategoriaBtn = document.getElementById('nuevaCategoriaBtn');
-  if (nuevaCategoriaBtn) {
-    header.insertBefore(refreshBtn, nuevaCategoriaBtn);
+
+  // Insertar antes del botón "Nueva Categoría"
+  const btnNuevaCategoria = header.querySelector('.btn-verde:last-child');
+  if (btnNuevaCategoria) {
+    header.insertBefore(btnRefresh, btnNuevaCategoria);
   } else {
-    header.appendChild(refreshBtn);
+    header.appendChild(btnRefresh);
   }
-  
+
   console.log('✅ Botón de refresh agregado');
 }
-
-// Hacer las funciones disponibles globalmente para el onclick del HTML
-window.editarCategoria = editarCategoria;

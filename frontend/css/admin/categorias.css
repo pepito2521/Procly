@@ -92,10 +92,7 @@
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Debug: mostrar borde para ver si las imágenes se están cargando */
-.categoria-bg[style*="background-image"] {
-    border: 2px solid red;
-}
+
 
 /* Indicador de carga de imagen */
 .categoria-bg[style*="background-image"]::before {
