@@ -82,7 +82,9 @@ function crearTarjetaCategoria(categoria) {
   let bgStyle;
   if (categoria.imagen && categoria.imagen.includes('/storage/')) {
     // Es una imagen de Supabase Storage
-    const fullUrl = `https://ujnicnvpkvqkvwrwhz.supabase.co${categoria.imagen}`;
+    // Corregir la ruta: cambiar 'images' por 'imagen' para que coincida con el bucket
+    const correctedPath = categoria.imagen.replace('/images/', '/imagen/');
+    const fullUrl = `https://ujnicnvpkvqkvwrwhz.supabase.co${correctedPath}`;
     bgStyle = `background-image: url('${fullUrl}')`;
   } else if (categoria.imagen && categoria.imagen.startsWith('http')) {
     // Es una URL completa
