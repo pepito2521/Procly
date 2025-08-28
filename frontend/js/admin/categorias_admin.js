@@ -5,8 +5,6 @@ export function initCategorias() {
   console.log('🔧 Inicializando componente de categorías...');
   cargarCategorias();
   inicializarEventos();
-  
-  // Agregar botón de refresh si no existe
   agregarBotonRefresh();
 }
 
@@ -219,7 +217,6 @@ function cerrarModal() {
 
 // Función para mostrar notificaciones
 function mostrarNotificacion(mensaje, tipo = 'info') {
-  // Implementar sistema de notificaciones si es necesario
   console.log(`${tipo.toUpperCase()}: ${mensaje}`);
 }
 
