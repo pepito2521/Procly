@@ -8,6 +8,12 @@ export function initActividad() {
 async function cargarActividadTemplate() {
   try {
     console.log('🔄 Iniciando carga de actividad...');
+    
+    // Detectar si estamos en localhost o producción
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const baseUrl = isLocalhost ? 'http://localhost:3000' : 'https://www.procly.net';
+    console.log('🌐 Base URL detectada:', baseUrl);
+    
     const token = localStorage.getItem('supabaseToken');
     console.log('🔑 Token encontrado:', token ? 'Sí' : 'No');
     if (!token) {
@@ -62,11 +68,11 @@ async function cargarActividadTemplate() {
       kpiCancelados,
       listadoTickets
     ] = await Promise.all([
-      fetchWithErrorHandling('/stats/tickets-totales', headers),
-      fetchWithErrorHandling('/stats/tickets-entregados', headers),
-      fetchWithErrorHandling('/stats/tickets-en-proceso', headers),
-      fetchWithErrorHandling('/stats/tickets-cancelados', headers),
-      fetchWithErrorHandling('/stats/actividad-tickets', headers)
+      fetchWithErrorHandling(`${baseUrl}/stats/tickets-totales`, headers),
+      fetchWithErrorHandling(`${baseUrl}/stats/tickets-entregados`, headers),
+      fetchWithErrorHandling(`${baseUrl}/stats/tickets-en-proceso`, headers),
+      fetchWithErrorHandling(`${baseUrl}/stats/tickets-cancelados`, headers),
+      fetchWithErrorHandling(`${baseUrl}/stats/actividad-tickets`, headers)
     ]);
     
     console.log('📊 Resultados de peticiones:', {
@@ -168,6 +174,10 @@ function inicializarEventos() {
 
 async function exportarTickets() {
   try {
+    // Detectar si estamos en localhost o producción
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const baseUrl = isLocalhost ? 'http://localhost:3000' : 'https://www.procly.net';
+    
     const token = localStorage.getItem('supabaseToken');
     if (!token) {
       alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
@@ -180,7 +190,7 @@ async function exportarTickets() {
     const spinner = document.querySelector('.glass-loader');
     if (spinner) spinner.style.display = 'flex';
 
-    const response = await fetch('/export/tickets', { headers });
+    const response = await fetch(`${baseUrl}/export/tickets`, { headers });
     
     if (!response.ok) {
       throw new Error('Error al exportar tickets');
