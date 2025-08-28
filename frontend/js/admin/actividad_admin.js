@@ -9,18 +9,29 @@ async function cargarActividadTemplate() {
   let tbody;
 
   try {
+    // Obtener token de autenticación
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      throw new Error('No se encontró el token de autenticación');
+    }
+
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+
     // 1. KPIs y listado
     const [
       kpiTotal, kpiEntregados, kpiEnProceso, kpiCancelados, listadoTickets, kpiPorcentajeEntregados, kpiPorcentajeEnProceso, kpiPorcentajeCancelados
     ] = await Promise.all([
-      fetch('/stats/tickets-totales'),
-      fetch('/stats/tickets-entregados'),
-      fetch('/stats/tickets-en-proceso'),
-      fetch('/stats/tickets-cancelados'),
-      fetch('/stats/actividad-tickets'),
-      fetch('/stats/tickets-entregados-porcentaje'),
-      fetch('/stats/tickets-en-proceso-porcentaje'),
-      fetch('/stats/tickets-cancelados-porcentaje')
+      fetch('/stats/tickets-totales', { headers }),
+      fetch('/stats/tickets-entregados', { headers }),
+      fetch('/stats/tickets-en-proceso', { headers }),
+      fetch('/stats/tickets-cancelados', { headers }),
+      fetch('/stats/actividad-tickets', { headers }),
+      fetch('/stats/tickets-entregados-porcentaje', { headers }),
+      fetch('/stats/tickets-en-proceso-porcentaje', { headers }),
+      fetch('/stats/tickets-cancelados-porcentaje', { headers })
     ]);
 
     if (!kpiTotal.ok || !kpiEntregados.ok || !kpiEnProceso.ok || !kpiCancelados.ok || !listadoTickets.ok) {
