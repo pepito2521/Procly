@@ -228,6 +228,8 @@ async function exportarTickets() {
     console.error('Error al exportar:', error);
     mostrarNotificacion('❌ Error al exportar tickets', 'error');
   } finally {
+    // Ocultar spinner de forma segura
+    const spinner = document.querySelector('.glass-loader');
     if (spinner) spinner.style.display = 'none';
   }
 }

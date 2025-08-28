@@ -16,19 +16,22 @@ async function exportarTickets(req, res) {
         const { data: tickets, error } = await supabase
             .from('tickets')
             .select(`
-                id,
-                codigo,
+                ticket_id,
+                codigo_ticket,
                 nombre,
                 descripcion,
                 estado,
                 precio_seleccionado,
                 created_at,
-                updated_at,
-                profiles!inner(
+                fecha_actualizacion,
+                user_id,
+                profiles!tickets_user_id_fkey(
                     nombre,
+                    apellido,
                     email
                 ),
-                empresas!inner(
+                empresa_id,
+                empresas!tickets_empresa_id_fkey(
                     razon_social
                 )
             `)
@@ -50,19 +53,21 @@ async function exportarTickets(req, res) {
         }
         
         console.log(`✅ ${tickets.length} tickets obtenidos para exportar`);
+        console.log('📊 Muestra del primer ticket:', tickets[0]);
         
         // Preparar datos para Excel
         const excelData = tickets.map(ticket => ({
-            'Código': ticket.codigo || 'N/A',
+            'ID': ticket.ticket_id || 'N/A',
+            'Código': ticket.codigo_ticket || 'N/A',
             'Nombre': ticket.nombre || 'N/A',
             'Descripción': ticket.descripcion || 'N/A',
-            'Usuario': ticket.profiles?.nombre || 'N/A',
+            'Usuario': ticket.profiles ? `${ticket.profiles.nombre || ''} ${ticket.profiles.apellido || ''}`.trim() || 'N/A' : 'N/A',
             'Email Usuario': ticket.profiles?.email || 'N/A',
             'Empresa': ticket.empresas?.razon_social || 'N/A',
             'Estado': ticket.estado || 'N/A',
-            'Precio': ticket.precio_seleccionado ? `${ticket.precio_seleccionado} ARS` : 'En proceso',
-            'Fecha Creación': new Date(ticket.created_at).toLocaleString('es-AR'),
-            'Última Actualización': new Date(ticket.updated_at).toLocaleString('es-AR')
+            'Precio': ticket.precio_seleccionado ? `${Number(ticket.precio_seleccionado).toLocaleString('es-AR')} ARS` : 'En proceso',
+            'Fecha Creación': ticket.created_at ? new Date(ticket.created_at).toLocaleString('es-AR') : 'N/A',
+            'Última Actualización': ticket.fecha_actualizacion ? new Date(ticket.fecha_actualizacion).toLocaleString('es-AR') : 'N/A'
         }));
         
         // Crear workbook y worksheet
@@ -71,6 +76,7 @@ async function exportarTickets(req, res) {
         
         // Ajustar ancho de columnas
         const columnWidths = [
+            { wch: 10 }, // ID
             { wch: 15 }, // Código
             { wch: 30 }, // Nombre
             { wch: 40 }, // Descripción
@@ -89,6 +95,13 @@ async function exportarTickets(req, res) {
         
         // Generar buffer del archivo
         const excelBuffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+        
+        // Validar que el buffer se generó correctamente
+        if (!excelBuffer || excelBuffer.length === 0) {
+            throw new Error('El buffer del archivo Excel está vacío');
+        }
+        
+        console.log(`📁 Buffer generado: ${excelBuffer.length} bytes`);
         
         // Configurar headers para descarga
         const fileName = `tickets_procly_${new Date().toISOString().split('T')[0]}.xlsx`;
