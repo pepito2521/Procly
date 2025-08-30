@@ -1,9 +1,4 @@
-const { createClient } = require('@supabase/supabase-js');
-
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const jwt = require('jsonwebtoken');
 
 module.exports = async function requireAuth(req, res, next) {
   console.log('🔐 Middleware requireAuth ejecutándose para:', req.path);
@@ -21,16 +16,23 @@ module.exports = async function requireAuth(req, res, next) {
   console.log('🎫 Token extraído:', token.substring(0, 20) + '...');
 
   try {
-    const { data, error } = await supabase.auth.getUser(token);
-    console.log('🔍 Resultado de validación:', { success: !error, user: !!data?.user, error: error?.message });
+    // Decodificar el token JWT directamente para obtener el user_id
+    const decoded = jwt.decode(token);
+    console.log('🔍 Token decodificado:', { sub: decoded?.sub, email: decoded?.email });
 
-    if (error || !data?.user) {
-      console.error('🛑 Error al validar token:', error);
+    if (!decoded || !decoded.sub) {
+      console.error('🛑 Token inválido o sin sub claim');
       return res.status(401).json({ error: 'Token inválido o expirado' });
     }
     
-    console.log('✅ Token válido para usuario:', data.user.id);
-    req.user = data.user;
+    // Crear un objeto user con el ID extraído del token
+    const user = {
+      id: decoded.sub,
+      email: decoded.email
+    };
+    
+    console.log('✅ Token válido para usuario:', user.id);
+    req.user = user;
     next();
   } catch (err) {
     console.error('💥 Error inesperado en requireAuth:', err);
