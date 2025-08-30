@@ -158,47 +158,47 @@ function crearTarjetaCategoria(categoria) {
     </div>
   `;
 
-  // Agregar evento click para editar
-  card.addEventListener('click', () => editarCategoria(categoria.id));
+  // Agregar evento click para abrir pop-up de gestión
+  card.addEventListener('click', () => abrirPopUpCategoria(categoria));
 
   return card;
 }
 
-// Función para editar una categoría
-function editarCategoria(categoriaId) {
-  const categoria = categoriasData.find(c => c.id === categoriaId);
+// Función para abrir pop-up de gestión de categoría
+function abrirPopUpCategoria(categoria) {
   if (!categoria) return;
 
-  // Llenar el modal con los datos de la categoría
-  document.getElementById('categoriaNombre').value = categoria.nombre;
-  document.getElementById('categoriaDescripcion').value = categoria.descripcion;
-  document.getElementById('categoriaHabilitada').checked = categoria.habilitada;
+  // Llenar el pop-up con los datos de la categoría
+  document.getElementById('popup-categoria-titulo').textContent = `Gestionar: ${categoria.nombre}`;
+  document.getElementById('popup-categoria-descripcion').textContent = `Configura el estado de la categoría "${categoria.nombre}"`;
   
-  // Actualizar el título del modal
-  document.getElementById('modalTitle').textContent = `Editar Categoría: ${categoria.nombre}`;
+  // Configurar el toggle
+  const toggle = document.getElementById('popup-categoria-toggle');
+  const toggleText = document.getElementById('popup-categoria-toggle-text');
   
-  // Mostrar el modal
-  document.getElementById('modalCategoria').style.display = 'flex';
+  toggle.checked = categoria.habilitada;
+  toggleText.textContent = categoria.habilitada ? 'Categoría habilitada' : 'Categoría deshabilitada';
   
   // Guardar el ID de la categoría que se está editando
-  document.getElementById('modalCategoria').setAttribute('data-editando', categoriaId);
+  document.getElementById('pop-up-categoria').setAttribute('data-editando', categoria.id);
+  
+  // Mostrar el pop-up
+  document.getElementById('pop-up-categoria').style.display = 'flex';
 }
 
 // Función para guardar cambios de la categoría
 async function guardarCambiosCategoria() {
-  const categoriaId = document.getElementById('modalCategoria').getAttribute('data-editando');
+  const categoriaId = document.getElementById('pop-up-categoria').getAttribute('data-editando');
   const categoria = categoriasData.find(c => c.id === categoriaId);
   
   if (!categoria) return;
 
-  // Obtener valores del formulario
-  const nombre = document.getElementById('categoriaNombre').value.trim();
-  const descripcion = document.getElementById('categoriaDescripcion').value.trim();
-  const habilitada = document.getElementById('categoriaHabilitada').checked;
+  // Obtener valores del pop-up
+  const habilitada = document.getElementById('popup-categoria-toggle').checked;
 
   // Validaciones básicas
-  if (!nombre) {
-    alert('El nombre de la categoría es obligatorio');
+  if (categoria.habilitada === habilitada) {
+    alert('No se han realizado cambios en la categoría');
     return;
   }
 
@@ -228,14 +228,12 @@ async function guardarCambiosCategoria() {
 
     // Actualizar el array local
     categoria.habilitada = habilitada;
-    categoria.nombre = nombre;
-    categoria.descripcion = descripcion;
 
     // Recargar las categorías para reflejar los cambios
     await cargarCategorias();
 
-    // Cerrar el modal
-    cerrarModal();
+    // Cerrar el pop-up
+    cerrarPopUpCategoria();
 
     // Mostrar notificación de éxito
     mostrarNotificacion('Categoría actualizada correctamente', 'success');
@@ -246,10 +244,10 @@ async function guardarCambiosCategoria() {
   }
 }
 
-// Función para cerrar el modal
-function cerrarModal() {
-  document.getElementById('modalCategoria').style.display = 'none';
-  document.getElementById('modalCategoria').removeAttribute('data-editando');
+// Función para cerrar el pop-up
+function cerrarPopUpCategoria() {
+  document.getElementById('pop-up-categoria').style.display = 'none';
+  document.getElementById('pop-up-categoria').removeAttribute('data-editando');
 }
 
 // Función para mostrar notificaciones
@@ -259,26 +257,35 @@ function mostrarNotificacion(mensaje, tipo = 'info') {
 
 // Función para inicializar eventos
 function inicializarEventos() {
-  // Evento para cerrar modal
-  const modal = document.getElementById('modalCategoria');
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        cerrarModal();
+  // Evento para cerrar pop-up al hacer click fuera
+  const popUp = document.getElementById('pop-up-categoria');
+  if (popUp) {
+    popUp.addEventListener('click', (e) => {
+      if (e.target === popUp) {
+        cerrarPopUpCategoria();
       }
     });
   }
 
   // Evento para botón de guardar
-  const btnGuardar = document.getElementById('btnGuardarCategoria');
+  const btnGuardar = document.getElementById('confirmar-categoria');
   if (btnGuardar) {
     btnGuardar.addEventListener('click', guardarCambiosCategoria);
   }
 
   // Evento para botón de cancelar
-  const btnCancelar = document.getElementById('btnCancelarCategoria');
+  const btnCancelar = document.getElementById('cancelar-categoria');
   if (btnCancelar) {
-    btnCancelar.addEventListener('click', cerrarModal);
+    btnCancelar.addEventListener('click', cerrarPopUpCategoria);
+  }
+
+  // Evento para el toggle de habilitación
+  const toggle = document.getElementById('popup-categoria-toggle');
+  if (toggle) {
+    toggle.addEventListener('change', function() {
+      const toggleText = document.getElementById('popup-categoria-toggle-text');
+      toggleText.textContent = this.checked ? 'Categoría habilitada' : 'Categoría deshabilitada';
+    });
   }
 
   console.log('✅ Eventos del componente de categorías inicializados');

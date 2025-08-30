@@ -123,6 +123,29 @@
         </div>
     </div>
     <div id="popup-direccion-container" style="display:none;"></div>
+    
+    <!-- Pop-up para gestionar categorías -->
+    <div id="pop-up-categoria" class="glass-loader" style="display: none;" aria-modal="true" role="dialog">
+      <div class="pop-up-contenido">
+        <h2 id="popup-categoria-titulo">Gestionar Categoría</h2>
+        <p id="popup-categoria-descripcion">¿Qué deseas hacer con esta categoría?</p>
+        
+        <!-- Toggle para habilitar/deshabilitar -->
+        <div class="form-group-checkbox" style="margin: 1.5rem 0;">
+          <label class="switch">
+            <input type="checkbox" id="popup-categoria-toggle">
+            <span class="slider"></span>
+          </label>
+          <span id="popup-categoria-toggle-text" style="margin-left: 12px; font-weight: 500;">Habilitar categoría</span>
+        </div>
+        
+        <div class="pop-up-btns-row">
+          <button type="button" class="btn-gris" id="cancelar-categoria">Cancelar</button>
+          <button type="button" id="confirmar-categoria" class="btn-verde">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+    
     <script type="module" src="/js/admin/administrador.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
