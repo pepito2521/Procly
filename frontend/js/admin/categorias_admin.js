@@ -64,6 +64,9 @@ async function cargarCategorias() {
 
     console.log(`✅ ${categoriasData.length} categorías cargadas desde Supabase`);
     
+    // Configurar tooltips DESPUÉS de renderizar las categorías
+    configurarTooltipsCategorias();
+    
   } catch (error) {
     console.error('❌ Error al cargar categorías:', error);
     mostrarNotificacion('Error al cargar categorías', 'error');
@@ -279,9 +282,6 @@ function inicializarEventos() {
   }
 
   console.log('✅ Eventos del componente de categorías inicializados');
-  
-  // Configurar tooltips para las categorías
-  configurarTooltipsCategorias();
 }
 
 // Función para agregar botón de refresh
