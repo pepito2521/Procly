@@ -13,6 +13,186 @@ export function initNuevoTicket() {
   prevBtn = document.getElementById("progressBarBtn");
   const progressBarContainer = document.querySelector(".progress-bar-container");
 
+  // ===== FUNCIONALIDAD PARA CATEGORÍAS DINÁMICAS =====
+  // Datos de categorías cargados desde Supabase
+  let categoriasData = [];
+
+  // Función para cargar categorías desde Supabase
+  async function cargarCategorias() {
+    try {
+      console.log('🔄 Cargando categorías desde Supabase...');
+      
+      const { data, error } = await supabase
+        .from('categorias')
+        .select('id, nombre, descripcion, imagen, icon')
+        .order('nombre');
+      
+      if (error) {
+        console.error('❌ Error al cargar categorías:', error);
+        return;
+      }
+      
+      categoriasData = data;
+      console.log(`✅ ${categoriasData.length} categorías cargadas desde Supabase:`, categoriasData);
+      
+      // Renderizar las categorías en el grid
+      renderizarCategorias();
+      
+    } catch (error) {
+      console.error('💥 Error inesperado al cargar categorías:', error);
+    }
+  }
+
+  // Función para renderizar las categorías en el grid
+  function renderizarCategorias() {
+    const categoriaGrid = document.querySelector('.categoria-grid');
+    if (!categoriaGrid) {
+      console.error('❌ No se encontró el elemento .categoria-grid');
+      return;
+    }
+    
+    // Limpiar el grid
+    categoriaGrid.innerHTML = '';
+    
+    // Crear tarjetas para cada categoría
+    categoriasData.forEach(categoria => {
+      const categoriaCard = crearTarjetaCategoria(categoria);
+      categoriaGrid.appendChild(categoriaCard);
+    });
+    
+    console.log('✅ Categorías renderizadas en el grid');
+    
+    // Después de renderizar, configurar los event listeners
+    configurarEventListenersCategorias();
+  }
+
+  // Función para crear una tarjeta de categoría
+  function crearTarjetaCategoria(categoria) {
+    const card = document.createElement('div');
+    card.className = 'categoria-card';
+    card.setAttribute('data-categoria', categoria.nombre);
+    
+    // Imagen de fondo desde Supabase Storage
+    let imagenHTML = '';
+    if (categoria.imagen && categoria.imagen.includes('/storage/')) {
+      // Es una imagen de Supabase Storage
+      const correctedPath = categoria.imagen.replace('/images/', '/imagen/');
+      const supabaseUrl = supabase.supabaseUrl;
+      const fullUrl = `${supabaseUrl}${correctedPath}`;
+      
+      imagenHTML = `
+        <picture>
+          <source srcset="${fullUrl.replace('.jpg', '.webp')}" type="image/webp">
+          <img src="${fullUrl}" 
+               alt="${categoria.nombre}" 
+               loading="lazy" />
+        </picture>
+      `;
+    } else if (categoria.imagen && categoria.imagen.startsWith('http')) {
+      // Es una URL completa
+      imagenHTML = `
+        <picture>
+          <source srcset="${categoria.imagen.replace('.jpg', '.webp')}" type="image/webp">
+          <img src="${categoria.imagen}" 
+               alt="${categoria.nombre}" 
+               loading="lazy" />
+        </picture>
+      `;
+    } else {
+      // Fallback a imagen local (mantener compatibilidad)
+      const nombreCategoria = categoria.nombre.toLowerCase();
+      imagenHTML = `
+        <picture>
+          <source srcset="/assets/img/categorias/webp/${nombreCategoria}.webp" type="image/webp">
+          <img src="/assets/img/categorias/${nombreCategoria}.jpg" 
+               alt="${categoria.nombre}" 
+               loading="lazy" />
+        </picture>
+      `;
+    }
+    
+    // Icono personalizado desde Supabase Storage
+    let iconoHTML = '';
+    if (categoria.icon && categoria.icon.includes('/storage/')) {
+      // Es un icono de Supabase Storage
+      const correctedIconPath = categoria.icon.replace('/images/', '/icon/');
+      const supabaseUrl = supabase.supabaseUrl;
+      const fullIconUrl = `${supabaseUrl}${correctedIconPath}`;
+      
+      iconoHTML = `<img src="${fullIconUrl}" alt="Icono ${categoria.nombre}" width="18" height="18">`;
+    } else if (categoria.icon && categoria.icon.startsWith('http')) {
+      // Es una URL completa
+      iconoHTML = `<img src="${categoria.icon}" alt="Icono ${categoria.nombre}" width="18" height="18">`;
+    } else {
+      // Fallback al SVG genérico
+      iconoHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"></path>
+      </svg>`;
+    }
+    
+    // Crear el HTML de la tarjeta
+    card.innerHTML = `
+      ${imagenHTML}
+      <span class="info-icon" data-info="${categoria.descripcion || 'Sin descripción disponible.'}">
+        ${iconoHTML}
+      </span>
+      <h3>${categoria.nombre}</h3>
+    `;
+    
+    return card;
+  }
+
+  // Función para configurar event listeners de las categorías (después de renderizar)
+  function configurarEventListenersCategorias() {
+    const categoriaCards = document.querySelectorAll(".categoria-card");
+    
+    categoriaCards.forEach(card => {
+      card.addEventListener("click", () => {
+        categoriaCards.forEach(c => c.classList.remove("selected"));
+        card.classList.add("selected");
+        categoriaSeleccionada = card.dataset.categoria;
+
+        if (currentStep === 0) {
+          setTimeout(() => {
+            currentStep++;
+            showStep(currentStep);
+          }, 500);
+        }
+      });
+    });
+    
+    // Configurar tooltips para las categorías
+    configurarTooltipsCategorias();
+  }
+
+  // Función para configurar tooltips de las categorías
+  function configurarTooltipsCategorias() {
+    document.querySelectorAll('.info-icon').forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // Cierra otros tooltips
+        document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
+        // Abre el de esta card
+        const card = this.closest('.categoria-card');
+        card.classList.add('show-tooltip');
+        // Si no existe el tooltip, lo crea
+        if (!card.querySelector('.info-tooltip')) {
+          const tooltip = document.createElement('div');
+          tooltip.className = 'info-tooltip';
+          tooltip.textContent = this.dataset.info;
+          card.appendChild(tooltip);
+        }
+      });
+    });
+
+    // Cierra el tooltip al hacer click fuera
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
+    });
+  }
+
+  // Cargar categorías desde Supabase al inicializar
+  cargarCategorias();
 
   //PROGRESS BAR
   function showStep(index) {
@@ -201,8 +381,6 @@ export function initNuevoTicket() {
     if (errorMessage) {
       errorMessage.remove();
     }
-    
-
   }
 
   document.querySelectorAll(".progress-bar-btn").forEach(btn => {
@@ -210,24 +388,6 @@ export function initNuevoTicket() {
       if (currentStep > 0) {
         currentStep--;
         showStep(currentStep);
-      }
-    });
-  });
-
-  // STEP 1: CATEGORÍA
-  const categoriaCards = document.querySelectorAll(".categoria-card");
-
-  categoriaCards.forEach(card => {
-    card.addEventListener("click", () => {
-      categoriaCards.forEach(c => c.classList.remove("selected"));
-      card.classList.add("selected");
-      categoriaSeleccionada = card.dataset.categoria;
-
-      if (currentStep === 0) {
-        setTimeout(() => {
-          currentStep++;
-          showStep(currentStep);
-        }, 500);
       }
     });
   });
@@ -271,8 +431,8 @@ export function initNuevoTicket() {
       input.value = formatted;
       input.setSelectionRange(cursorPos, cursorPos);
     });
-    
   }
+  
   showStep(currentStep);
 
   // Event listeners para limpiar errores cuando el usuario escriba
@@ -320,8 +480,6 @@ export function initNuevoTicket() {
   }
 
   // CARGAR DIRECCIONES PARA EL STEP 3
-
-
   async function cargarDirecciones() {
     const token = localStorage.getItem('supabaseToken');
   
@@ -421,7 +579,6 @@ export function initNuevoTicket() {
     locale: "es"
   });
 
-
   // STEP FINAL: CREAR TICKET
   document.getElementById('multiStepForm').addEventListener('submit', async function (e) {
     e.preventDefault();
@@ -514,7 +671,6 @@ export function initNuevoTicket() {
     }
   });
   
-
   // FILE UPLOAD AREA - Funcionalidad moderna replicada de partners.html
   const fileUploadArea = document.getElementById('fileUploadArea');
   const adjuntoInput = document.getElementById('adjunto');
@@ -625,7 +781,6 @@ export function initNuevoTicket() {
 
   // MENSAJE CONDIFRMACION: CODIGO TICKET
   function mostrarConfirmacion(codigoTicket) {
-
     const textoCodigo = document.getElementById("codigoTicketTexto");
     textoCodigo.textContent = codigoTicket;
 
@@ -667,29 +822,6 @@ export function initNuevoTicket() {
       console.error("Error al copiar:", err);
     });
   };
-
-  document.querySelectorAll('.info-icon').forEach(icon => {
-    icon.addEventListener('click', function(e) {
-      e.stopPropagation();
-      // Cierra otros tooltips
-      document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
-      // Abre el de esta card
-      const card = this.closest('.categoria-card');
-      card.classList.add('show-tooltip');
-      // Si no existe el tooltip, lo crea
-      if (!card.querySelector('.info-tooltip')) {
-        const tooltip = document.createElement('div');
-        tooltip.className = 'info-tooltip';
-        tooltip.textContent = this.dataset.info;
-        card.appendChild(tooltip);
-      }
-    });
-  });
-
-  // Cierra el tooltip al hacer click fuera
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
-  });
 
   const form = document.getElementById('multiStepForm');
   form.addEventListener('reset', () => {

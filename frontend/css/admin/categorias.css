@@ -33,6 +33,18 @@
   background-repeat: no-repeat;
 }
 
+/* Efecto de sombra negra de top a bottom */
+.categoria-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  z-index: 1;
+}
+
 .categoria-overlay {
   position: absolute;
   top: 0;
@@ -40,6 +52,7 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 2;
 }
 
 .categoria-content {
