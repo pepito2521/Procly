@@ -58,11 +58,21 @@ async function cargarCategorias() {
             categoria.habilitada = true;
           });
         } else {
-          // Mapear el estado de habilitación a las categorías
-          categorias.forEach(categoria => {
-            const empresaCat = empresaCategorias?.find(ec => ec.categoria_id === categoria.id);
-            categoria.habilitada = empresaCat ? empresaCat.habilitada : true; // Por defecto habilitada
-          });
+          // Si no hay registros en empresa_categorias, inicializar todas como habilitadas
+          if (!empresaCategorias || empresaCategorias.length === 0) {
+            console.log('🔄 Inicializando categorías para la empresa:', perfil.empresa_id);
+            await inicializarCategoriasEmpresa(perfil.empresa_id, categorias);
+            // Después de inicializar, todas están habilitadas
+            categorias.forEach(categoria => {
+              categoria.habilitada = true;
+            });
+          } else {
+            // Mapear el estado de habilitación existente
+            categorias.forEach(categoria => {
+              const empresaCat = empresaCategorias?.find(ec => ec.categoria_id === categoria.id);
+              categoria.habilitada = empresaCat ? empresaCat.habilitada : true; // Por defecto habilitada
+            });
+          }
         }
       }
     }
@@ -310,6 +320,37 @@ function inicializarEventos() {
   }
 
   console.log('✅ Eventos del componente de categorías inicializados');
+}
+
+// Función para inicializar categorías de una empresa
+async function inicializarCategoriasEmpresa(empresaId, categorias) {
+  try {
+    console.log('🔄 Inicializando categorías para empresa:', empresaId);
+    
+    // Crear registros para todas las categorías como habilitadas por defecto
+    const registrosIniciales = categorias.map(categoria => ({
+      empresa_id: empresaId,
+      categoria_id: categoria.id,
+      habilitada: true,
+      prioridad: 1
+    }));
+
+    // Insertar todos los registros en empresa_categorias
+    const { error: insertError } = await supabase
+      .from('empresa_categorias')
+      .insert(registrosIniciales);
+
+    if (insertError) {
+      console.error('❌ Error al inicializar categorías de empresa:', insertError);
+      throw insertError;
+    }
+
+    console.log(`✅ ${categorias.length} categorías inicializadas para la empresa`);
+    
+  } catch (error) {
+    console.error('❌ Error al inicializar categorías de empresa:', error);
+    // No lanzar error para no interrumpir la carga de categorías
+  }
 }
 
 // Función para agregar botón de refresh
