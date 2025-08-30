@@ -73,7 +73,7 @@ async function cargarCategorias() {
 // Función para crear una tarjeta de categoría
 function crearTarjetaCategoria(categoria) {
   const card = document.createElement('div');
-  card.className = `categoria-card ${categoria.habilitada ? '' : 'disabled'}`;
+  card.className = 'categoria-card';
   card.setAttribute('data-id', categoria.id);
 
   // Imagen de fondo desde Supabase Storage
@@ -94,6 +94,24 @@ function crearTarjetaCategoria(categoria) {
     bgStyle = `background: linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)} 0%, #${Math.floor(Math.random()*16777215).toString(16)} 100%)`;
   }
 
+  // Icono personalizado desde Supabase Storage
+  let iconoHTML;
+  if (categoria.icon && categoria.icon.includes('/storage/')) {
+    // Es un icono de Supabase Storage
+    const correctedIconPath = categoria.icon.replace('/images/', '/icon/');
+    const supabaseUrl = supabase.supabaseUrl;
+    const fullIconUrl = `${supabaseUrl}${correctedIconPath}`;
+    iconoHTML = `<img src="${fullIconUrl}" alt="Icono ${categoria.nombre}" width="16" height="16" style="fill: currentColor;">`;
+  } else if (categoria.icon && categoria.icon.startsWith('http')) {
+    // Es una URL completa
+    iconoHTML = `<img src="${categoria.icon}" alt="Icono ${categoria.nombre}" width="16" height="16" style="fill: currentColor;">`;
+  } else {
+    // Fallback al SVG genérico
+    iconoHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+      <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,8.27,8.27,0,0,1-3.12-.62,8.66,8.66,0,0,1-4.88-4.88A8,8,0,0,1,128,152a8,8,0,0,1,8,8Zm-8-88a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V96A8,8,0,0,1,136,88Z"></path>
+    </svg>`;
+  }
+
   card.innerHTML = `
     <div class="categoria-bg" style="${bgStyle}"></div>
     <div class="categoria-overlay"></div>
@@ -108,9 +126,7 @@ function crearTarjetaCategoria(categoria) {
     
     <div class="categoria-content">
       <div class="categoria-info-icon" onclick="editarCategoria('${categoria.id}')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-          <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,8.27,8.27,0,0,1-3.12-.62,8.66,8.66,0,0,1-4.88-4.88A8,8,0,0,1,128,152a8,8,0,0,1,8,8Zm-8-88a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V96A8,8,0,0,1,136,88Z"></path>
-        </svg>
+        ${iconoHTML}
       </div>
       
       <h3 class="categoria-nombre">${categoria.nombre}</h3>
