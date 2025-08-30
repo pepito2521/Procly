@@ -32,19 +32,38 @@ async function cargarCategorias() {
     const { data: { user } } = await supabase.auth.getUser();
     
     if (user) {
-      const { data: empresaCategorias, error: errorEmpresa } = await supabase
-        .from('empresa_categorias')
-        .select('categoria_id, habilitada')
-        .eq('empresa_id', user.id);
-      
-      if (errorEmpresa) {
-        console.error('❌ Error al obtener estado de categorías de empresa:', errorEmpresa);
-      } else {
-        // Mapear el estado de habilitación a las categorías
+      // Obtener el perfil del usuario para obtener empresa_id
+      const { data: perfil, error: perfilError } = await supabase
+        .from('profiles')
+        .select('empresa_id')
+        .eq('profile_id', user.id)
+        .single();
+
+      if (perfilError || !perfil?.empresa_id) {
+        console.error('❌ Error al obtener empresa_id del usuario:', perfilError);
+        // Si no se puede obtener empresa_id, usar todas las categorías como habilitadas por defecto
         categorias.forEach(categoria => {
-          const empresaCat = empresaCategorias?.find(ec => ec.categoria_id === categoria.id);
-          categoria.habilitada = empresaCat ? empresaCat.habilitada : true; // Por defecto habilitada
+          categoria.habilitada = true;
         });
+      } else {
+        const { data: empresaCategorias, error: errorEmpresa } = await supabase
+          .from('empresa_categorias')
+          .select('categoria_id, habilitada')
+          .eq('empresa_id', perfil.empresa_id);
+        
+        if (errorEmpresa) {
+          console.error('❌ Error al obtener estado de categorías de empresa:', errorEmpresa);
+          // En caso de error, usar todas las categorías como habilitadas por defecto
+          categorias.forEach(categoria => {
+            categoria.habilitada = true;
+          });
+        } else {
+          // Mapear el estado de habilitación a las categorías
+          categorias.forEach(categoria => {
+            const empresaCat = empresaCategorias?.find(ec => ec.categoria_id === categoria.id);
+            categoria.habilitada = empresaCat ? empresaCat.habilitada : true; // Por defecto habilitada
+          });
+        }
       }
     }
     
@@ -203,28 +222,30 @@ async function guardarCambiosCategoria() {
   }
 
   try {
-    // Obtener usuario actual
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-      alert('Usuario no autenticado');
+    // Obtener token de autenticación
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      alert('No hay token de autenticación');
       return;
     }
 
-    // Actualizar el estado de habilitación en empresa_categorias
-    const { error: errorUpdate } = await supabase
-      .from('empresa_categorias')
-      .upsert({
-        empresa_id: user.id,
-        categoria_id: categoriaId,
-        habilitada: habilitada
-      });
+    // Llamar al endpoint del backend para actualizar el estado
+    const response = await fetch(`/api/categorias/${categoriaId}/estado`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ habilitada })
+    });
 
-    if (errorUpdate) {
-      console.error('❌ Error al actualizar estado de categoría:', errorUpdate);
-      alert('Error al actualizar el estado de la categoría');
-      return;
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.error || 'Error al actualizar el estado de la categoría');
     }
+
+    console.log('✅ Respuesta del backend:', result);
 
     // Actualizar el array local
     categoria.habilitada = habilitada;
