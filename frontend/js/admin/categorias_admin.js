@@ -279,6 +279,9 @@ function inicializarEventos() {
   }
 
   console.log('✅ Eventos del componente de categorías inicializados');
+  
+  // Configurar tooltips para las categorías
+  configurarTooltipsCategorias();
 }
 
 // Función para agregar botón de refresh
@@ -328,4 +331,33 @@ function agregarBotonRefresh() {
   }
 
   console.log('✅ Botón de refresh agregado');
+}
+
+// Función para configurar tooltips de las categorías
+function configurarTooltipsCategorias() {
+  document.querySelectorAll('.categoria-info-icon').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+      e.stopPropagation(); // Evitar que se abra el modal de edición
+      
+      // Cierra otros tooltips
+      document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
+      
+      // Abre el de esta card
+      const card = this.closest('.categoria-card');
+      card.classList.add('show-tooltip');
+      
+      // Si no existe el tooltip, lo crea
+      if (!card.querySelector('.info-tooltip')) {
+        const tooltip = document.createElement('div');
+        tooltip.className = 'info-tooltip';
+        tooltip.textContent = this.dataset.info;
+        card.appendChild(tooltip);
+      }
+    });
+  });
+
+  // Cierra el tooltip al hacer click fuera
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.categoria-card').forEach(card => card.classList.remove('show-tooltip'));
+  });
 }
