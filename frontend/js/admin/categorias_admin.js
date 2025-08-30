@@ -82,7 +82,9 @@ function crearTarjetaCategoria(categoria) {
     // Es una imagen de Supabase Storage
     // Corregir la ruta: cambiar 'images' por 'imagen' para que coincida con el bucket
     const correctedPath = categoria.imagen.replace('/images/', '/imagen/');
-    const fullUrl = `https://ujnicnvpkvqkvwrwhz.supabase.co${correctedPath}`;
+    // Usar la URL de Supabase desde la configuración del cliente
+    const supabaseUrl = supabase.supabaseUrl;
+    const fullUrl = `${supabaseUrl}${correctedPath}`;
     bgStyle = `background-image: url('${fullUrl}')`;
   } else if (categoria.imagen && categoria.imagen.startsWith('http')) {
     // Es una URL completa
