@@ -141,7 +141,7 @@ function crearTarjetaCategoria(categoria) {
     ` : ''}
     
     <div class="categoria-content">
-      <div class="categoria-info-icon" onclick="editarCategoria('${categoria.id}')">
+      <div class="categoria-info-icon" data-info="${categoria.descripcion || 'Sin descripción disponible.'}">
         ${iconoHTML}
       </div>
       
