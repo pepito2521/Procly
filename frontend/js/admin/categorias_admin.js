@@ -101,12 +101,28 @@ function crearTarjetaCategoria(categoria) {
     const correctedIconPath = categoria.icon.replace('/images/', '/icon/');
     const supabaseUrl = supabase.supabaseUrl;
     const fullIconUrl = `${supabaseUrl}${correctedIconPath}`;
+    console.log('🔍 Debug icono:', {
+      categoria: categoria.nombre,
+      icon: categoria.icon,
+      correctedPath: correctedIconPath,
+      supabaseUrl: supabaseUrl,
+      fullIconUrl: fullIconUrl
+    });
     iconoHTML = `<img src="${fullIconUrl}" alt="Icono ${categoria.nombre}" width="16" height="16" style="fill: currentColor;">`;
   } else if (categoria.icon && categoria.icon.startsWith('http')) {
     // Es una URL completa
+    console.log('🔍 Debug icono URL completa:', {
+      categoria: categoria.nombre,
+      icon: categoria.icon
+    });
     iconoHTML = `<img src="${categoria.icon}" alt="Icono ${categoria.nombre}" width="16" height="16" style="fill: currentColor;">`;
   } else {
     // Fallback al SVG genérico
+    console.log('🔍 Debug icono fallback:', {
+      categoria: categoria.nombre,
+      icon: categoria.icon,
+      tieneIcon: !!categoria.icon
+    });
     iconoHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
       <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,8.27,8.27,0,0,1-3.12-.62,8.66,8.66,0,0,1-4.88-4.88A8,8,0,0,1,128,152a8,8,0,0,1,8,8Zm-8-88a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V96A8,8,0,0,1,136,88Z"></path>
     </svg>`;
