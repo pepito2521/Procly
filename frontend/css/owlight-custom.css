@@ -1,0 +1,179 @@
+/* Estilos personalizados para el widget de Owlight en Procly */
+
+/* Asegurar que el widget esté por encima de otros elementos */
+#owlight-widget {
+  z-index: 9999 !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Personalizar el botón flotante del widget */
+#owlight-widget .owlight-button {
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 12px rgba(80, 137, 145, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+#owlight-widget .owlight-button:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 6px 20px rgba(80, 137, 145, 0.4) !important;
+}
+
+/* Personalizar el modal de feedback */
+#owlight-widget .owlight-modal {
+  border-radius: 12px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Personalizar los botones del modal */
+#owlight-widget .owlight-button-primary {
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+#owlight-widget .owlight-button-primary:hover {
+  background: linear-gradient(135deg, #4a7d85 0%, #669aa2 100%) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Personalizar los campos de entrada */
+#owlight-widget .owlight-input,
+#owlight-widget .owlight-textarea {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  font-family: 'Inter', sans-serif !important;
+  transition: border-color 0.2s ease !important;
+}
+
+#owlight-widget .owlight-input:focus,
+#owlight-widget .owlight-textarea:focus {
+  border-color: #508991 !important;
+  box-shadow: 0 0 0 3px rgba(80, 137, 145, 0.1) !important;
+}
+
+/* Personalizar los botones de tipo de feedback */
+#owlight-widget .owlight-feedback-type {
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+#owlight-widget .owlight-feedback-type:hover {
+  border-color: #508991 !important;
+  background-color: #f0f9fa !important;
+}
+
+#owlight-widget .owlight-feedback-type.selected {
+  border-color: #508991 !important;
+  background-color: #e0f2f1 !important;
+  color: #508991 !important;
+}
+
+/* Personalizar el header del modal */
+#owlight-widget .owlight-header {
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%) !important;
+  color: white !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Personalizar el footer del modal */
+#owlight-widget .owlight-footer {
+  border-top: 1px solid #e5e7eb !important;
+  padding: 16px 24px !important;
+}
+
+/* Personalizar los mensajes de éxito/error */
+#owlight-widget .owlight-success {
+  color: #065f46 !important;
+  background-color: #d1fae5 !important;
+  border: 1px solid #a7f3d0 !important;
+  border-radius: 8px !important;
+}
+
+#owlight-widget .owlight-error {
+  color: #991b1b !important;
+  background-color: #fee2e2 !important;
+  border: 1px solid #fecaca !important;
+  border-radius: 8px !important;
+}
+
+/* Responsive design para móviles */
+@media (max-width: 768px) {
+  #owlight-widget .owlight-modal {
+    margin: 16px !important;
+    max-width: calc(100vw - 32px) !important;
+  }
+  
+  #owlight-widget .owlight-button {
+    width: 56px !important;
+    height: 56px !important;
+  }
+}
+
+/* Animaciones personalizadas */
+#owlight-widget .owlight-modal {
+  animation: slideInUp 0.3s ease-out !important;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Personalizar el indicador de carga */
+#owlight-widget .owlight-loading {
+  border: 2px solid #f3f4f6 !important;
+  border-top: 2px solid #508991 !important;
+}
+
+/* Personalizar el botón de cerrar */
+#owlight-widget .owlight-close {
+  color: #6b7280 !important;
+  transition: color 0.2s ease !important;
+}
+
+#owlight-widget .owlight-close:hover {
+  color: #374151 !important;
+}
+
+/* Personalizar el texto del placeholder */
+#owlight-widget .owlight-textarea::placeholder {
+  color: #9ca3af !important;
+  font-style: italic !important;
+}
+
+/* Personalizar las etiquetas */
+#owlight-widget .owlight-label {
+  color: #374151 !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+/* Personalizar el contador de caracteres */
+#owlight-widget .owlight-char-count {
+  color: #6b7280 !important;
+  font-size: 12px !important;
+}
+
+/* Personalizar el botón de envío cuando está deshabilitado */
+#owlight-widget .owlight-button-primary:disabled {
+  background: #9ca3af !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+/* Personalizar el overlay del modal */
+#owlight-widget .owlight-overlay {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+}

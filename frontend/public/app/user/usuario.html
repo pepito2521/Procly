@@ -15,8 +15,9 @@
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="/css/sidebar.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="/css/owlight-custom.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <link rel="preload" href="/js/supabaseClient.js" as="script" crossorigin="anonymous">
-  <noscript><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/sidebar.css"></noscript>
+  <noscript><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/sidebar.css"><link rel="stylesheet" href="/css/owlight-custom.css"></noscript>
   <script>
     function loadUserCSS(section) {
       const cssFiles = {
@@ -135,5 +136,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/l10n/es.min.js"></script>
+    
+    <!-- Owlight Feedback Widget -->
+    <script src="https://owlight.com/widget.js"></script>
+    <script src="/js/owlight-config.js"></script>
+    <script>
+      // Configuración específica para el panel de usuario
+      window.updateOwlightConfig({
+        product: 'Panel de Usuario',
+        position: 'bottom-right'
+      });
+    </script>
 </body>
 </html>

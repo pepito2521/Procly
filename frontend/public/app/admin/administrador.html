@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/css/admin/actividad.css">
   <link rel="stylesheet" href="/css/admin/direcciones.css">
   <link rel="stylesheet" href="/css/admin/categorias.css">
+  <link rel="stylesheet" href="/css/owlight-custom.css">
   <meta name="robots" content="noindex, nofollow" />
 </head>
 <body>
@@ -149,5 +150,16 @@
     <script type="module" src="/js/admin/administrador.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <!-- Owlight Feedback Widget -->
+    <script src="https://owlight.com/widget.js"></script>
+    <script src="/js/owlight-config.js"></script>
+    <script>
+      // Configuración específica para el panel de administración
+      window.updateOwlightConfig({
+        product: 'Panel de Administración',
+        position: 'bottom-right'
+      });
+    </script>
 </body>
 </html>
