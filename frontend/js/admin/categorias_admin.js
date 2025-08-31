@@ -60,11 +60,32 @@ async function cargarCategorias() {
         const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
         if (!uuidRegex.test(perfil.empresa_id)) {
           console.error('❌ empresa_id no es un UUID válido:', perfil.empresa_id);
-          console.log('⚠️ Usando categorías habilitadas por defecto debido a UUID inválido');
-          categorias.forEach(categoria => {
-            categoria.habilitada = true;
-          });
-        } else {
+          console.log('⚠️ Generando UUID válido para la empresa...');
+          
+          // Generar un UUID válido para esta empresa
+          const nuevoUUID = generarUUID();
+          console.log('🆔 Nuevo UUID generado:', nuevoUUID);
+          
+          // Actualizar el perfil del usuario con el nuevo UUID
+          try {
+            const { error: updateError } = await supabase
+              .from('profiles')
+              .update({ empresa_id: nuevoUUID })
+              .eq('profile_id', user.id);
+            
+            if (updateError) {
+              console.error('❌ Error al actualizar empresa_id:', updateError);
+            } else {
+              console.log('✅ empresa_id actualizado en el perfil');
+              perfil.empresa_id = nuevoUUID;
+            }
+          } catch (updateError) {
+            console.error('❌ Error al actualizar perfil:', updateError);
+          }
+        }
+        
+        // Ahora usar el empresa_id (original o generado)
+        if (perfil.empresa_id) {
           const { data: empresaCategorias, error: errorEmpresa } = await supabase
             .from('empresa_categorias')
             .select('categoria_id, habilitada')
@@ -225,6 +246,12 @@ function abrirPopUpCategoria(categoria) {
   
   // Actualizar el icono de la categoría
   const iconContainer = document.getElementById('popup-categoria-icon');
+  console.log('🔍 Debug icono pop-up:', {
+    iconContainer: iconContainer,
+    categoriaIcon: categoria.icon,
+    categoriaNombre: categoria.nombre
+  });
+  
   if (iconContainer) {
     let iconoHTML = '';
     
@@ -235,18 +262,23 @@ function abrirPopUpCategoria(categoria) {
       const fullIconUrl = `${supabaseUrl}${correctedIconPath}`;
       
       iconoHTML = `<img src="${fullIconUrl}" alt="Icono ${categoria.nombre}" width="24" height="24">`;
+      console.log('🖼️ Icono desde Supabase Storage:', fullIconUrl);
     } else if (categoria.icon && categoria.icon.startsWith('http')) {
       // Es una URL completa
       iconoHTML = `<img src="${categoria.icon}" alt="Icono ${categoria.nombre}" width="24" height="24">`;
+      console.log('🌐 Icono desde URL externa:', categoria.icon);
     } else {
       // Fallback al SVG genérico
       iconoHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
         <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"></path>
       </svg>`;
+      console.log('⚡ Usando icono SVG genérico (fallback)');
     }
     
     iconContainer.innerHTML = iconoHTML;
-    console.log('🎨 Icono actualizado para:', categoria.nombre);
+    console.log('🎨 Icono actualizado para:', categoria.nombre, 'HTML:', iconoHTML);
+  } else {
+    console.error('❌ No se encontró el contenedor del icono: popup-categoria-icon');
   }
   
   // Configurar el toggle
@@ -368,6 +400,15 @@ function inicializarEventos() {
   }
 
   console.log('✅ Eventos del componente de categorías inicializados');
+}
+
+// Función para generar un UUID válido
+function generarUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
 }
 
 // Función para inicializar categorías de una empresa

@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Reintentos con intervalos crecientes
     let attempts = 0;
-    const maxAttempts = 10;
+    const maxAttempts = 5; // Reducir intentos
     const checkInterval = setInterval(() => {
       attempts++;
       console.log(`🔄 Intento ${attempts}/${maxAttempts} de inicializar Owlight...`);
@@ -149,9 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
         applyContextConfig(context);
       } else if (attempts >= maxAttempts) {
         clearInterval(checkInterval);
-        console.error('❌ No se pudo inicializar Owlight después de múltiples intentos');
+        console.log('⚠️ Owlight no disponible, continuando sin widget de feedback');
+        // No mostrar error, solo continuar sin el widget
       }
-    }, 500);
+    }, 1000); // Aumentar intervalo
   } else {
     // Si Owlight ya está disponible, aplicar configuración inmediatamente
     const context = detectAppContext();
