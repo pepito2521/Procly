@@ -69,13 +69,95 @@ window.setOwlightLanguage = function(lang) {
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-  // Pequeño delay para asegurar que Owlight esté cargado
-  setTimeout(() => {
-    if (window.Owlight) {
+  console.log('🚀 DOM listo, inicializando Owlight...');
+  
+  // Función para verificar si Owlight está disponible
+  function checkOwlight() {
+    if (window.Owlight && window.Owlight.init) {
+      console.log('✅ Owlight detectado, inicializando...');
       window.initOwlight();
+      return true;
+    } else if (window.owlight && window.owlight.init) {
+      console.log('✅ Owlight (alternativo) detectado, inicializando...');
+      window.initOwlight();
+      return true;
     }
-  }, 1000);
+    return false;
+  }
+  
+  // Función para detectar el contexto de la aplicación
+  function detectAppContext() {
+    const currentUrl = window.location.href;
+    let context = 'Aplicación';
+    
+    if (currentUrl.includes('administrador.html')) {
+      context = 'Panel de Administración';
+      console.log('🎯 Contexto detectado: Panel de Administración');
+    } else if (currentUrl.includes('usuario.html')) {
+      context = 'Panel de Usuario';
+      console.log('🎯 Contexto detectado: Panel de Usuario');
+    } else if (currentUrl.includes('landing')) {
+      context = 'Landing Page';
+      console.log('🎯 Contexto detectado: Landing Page');
+    }
+    
+    return context;
+  }
+  
+  // Función para aplicar configuración específica del contexto
+  function applyContextConfig(context) {
+    if (window.updateOwlightConfig) {
+      const config = {
+        product: context,
+        position: 'bottom-right'
+      };
+      
+      // Configuraciones específicas por contexto
+      if (context === 'Panel de Administración') {
+        config.theme = 'light';
+        config.primaryColor = '#508991';
+      } else if (context === 'Panel de Usuario') {
+        config.theme = 'light';
+        config.primaryColor = '#508991';
+      } else if (context === 'Landing Page') {
+        config.position = 'bottom-left';
+        config.theme = 'light';
+      }
+      
+      console.log('⚙️ Aplicando configuración para:', context, config);
+      window.updateOwlightConfig(config);
+    }
+  }
+  
+  // Intentar inicializar inmediatamente
+  if (!checkOwlight()) {
+    console.log('⏳ Owlight no está listo, esperando...');
+    
+    // Reintentos con intervalos crecientes
+    let attempts = 0;
+    const maxAttempts = 10;
+    const checkInterval = setInterval(() => {
+      attempts++;
+      console.log(`🔄 Intento ${attempts}/${maxAttempts} de inicializar Owlight...`);
+      
+      if (checkOwlight()) {
+        clearInterval(checkInterval);
+        console.log('✅ Owlight inicializado exitosamente');
+        
+        // Aplicar configuración específica del contexto
+        const context = detectAppContext();
+        applyContextConfig(context);
+      } else if (attempts >= maxAttempts) {
+        clearInterval(checkInterval);
+        console.error('❌ No se pudo inicializar Owlight después de múltiples intentos');
+      }
+    }, 500);
+  } else {
+    // Si Owlight ya está disponible, aplicar configuración inmediatamente
+    const context = detectAppContext();
+    applyContextConfig(context);
+  }
 });
 
-// Exportar para uso en módulos ES6
-export { window.owlightConfig, window.initOwlight, window.updateOwlightConfig, window.toggleOwlight, window.setOwlightLanguage };
+// Las funciones ya están disponibles globalmente en window
+// No es necesario exportar para scripts cargados con <script> tag
