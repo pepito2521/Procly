@@ -263,3 +263,108 @@
   display: block;
   pointer-events: auto;
 }
+
+/* ===== ESTILOS ESPECÍFICOS PARA POP-UP DE CATEGORÍAS ===== */
+
+/* Header del pop-up con icono y título */
+#pop-up-categoria .popup-categoria-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Contenedor del icono */
+#pop-up-categoria .popup-categoria-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Icono dentro del contenedor */
+#pop-up-categoria .popup-categoria-icon img,
+#pop-up-categoria .popup-categoria-icon svg {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+/* Estilos para iconos de imagen */
+#pop-up-categoria .popup-categoria-icon img {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
+  transition: filter 0.2s ease;
+}
+
+#pop-up-categoria .popup-categoria-icon:hover img {
+  filter: brightness(0) saturate(100%) invert(40%) sepia(100%) saturate(1000%) hue-rotate(180deg) brightness(0.8) contrast(100%);
+}
+
+/* Estilos para iconos SVG */
+#pop-up-categoria .popup-categoria-icon svg {
+  fill: #6b7280;
+  transition: fill 0.2s ease;
+}
+
+#pop-up-categoria .popup-categoria-icon:hover svg {
+  fill: #508991;
+}
+
+/* Sección del título */
+#pop-up-categoria .popup-categoria-title-section {
+  flex: 1;
+}
+
+#pop-up-categoria .popup-categoria-title-section h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1.2;
+}
+
+#pop-up-categoria .popup-categoria-title-section p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #6b7280;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Centrar el form-group-checkbox en el pop-up */
+#pop-up-categoria .form-group-checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+/* Alinear horizontalmente el toggle y el texto */
+#pop-up-categoria .form-group-checkbox .switch {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#pop-up-categoria .form-group-checkbox #popup-categoria-toggle-text {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 22px; /* Misma altura que el switch */
+  margin: 0;
+  font-weight: 500;
+  color: #374151;
+}
+
+/* Cambiar el color del slider habilitado a #508991 */
+#pop-up-categoria input:checked + .slider {
+  background-color: #508991 !important;
+}

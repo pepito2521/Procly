@@ -39,6 +39,14 @@ async function cargarCategorias() {
         .eq('profile_id', user.id)
         .single();
 
+      console.log('🔍 Debug perfil usuario:', {
+        userId: user.id,
+        perfil: perfil,
+        empresaId: perfil?.empresa_id,
+        empresaIdType: typeof perfil?.empresa_id,
+        perfilError: perfilError
+      });
+
       if (perfilError || !perfil?.empresa_id) {
         console.error('❌ Error al obtener empresa_id del usuario:', perfilError);
         // Si no se puede obtener empresa_id, usar todas las categorías como habilitadas por defecto
@@ -46,32 +54,44 @@ async function cargarCategorias() {
           categoria.habilitada = true;
         });
       } else {
-        const { data: empresaCategorias, error: errorEmpresa } = await supabase
-          .from('empresa_categorias')
-          .select('categoria_id, habilitada')
-          .eq('empresa_id', perfil.empresa_id);
+        console.log('🔍 Consultando empresa_categorias con empresa_id:', perfil.empresa_id);
         
-        if (errorEmpresa) {
-          console.error('❌ Error al obtener estado de categorías de empresa:', errorEmpresa);
-          // En caso de error, usar todas las categorías como habilitadas por defecto
+        // Validar que empresa_id sea un UUID válido
+        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (!uuidRegex.test(perfil.empresa_id)) {
+          console.error('❌ empresa_id no es un UUID válido:', perfil.empresa_id);
+          console.log('⚠️ Usando categorías habilitadas por defecto debido a UUID inválido');
           categorias.forEach(categoria => {
             categoria.habilitada = true;
           });
         } else {
-          // Si no hay registros en empresa_categorias, inicializar todas como habilitadas
-          if (!empresaCategorias || empresaCategorias.length === 0) {
-            console.log('🔄 Inicializando categorías para la empresa:', perfil.empresa_id);
-            await inicializarCategoriasEmpresa(perfil.empresa_id, categorias);
-            // Después de inicializar, todas están habilitadas
+          const { data: empresaCategorias, error: errorEmpresa } = await supabase
+            .from('empresa_categorias')
+            .select('categoria_id, habilitada')
+            .eq('empresa_id', perfil.empresa_id);
+        
+          if (errorEmpresa) {
+            console.error('❌ Error al obtener estado de categorías de empresa:', errorEmpresa);
+            // En caso de error, usar todas las categorías como habilitadas por defecto
             categorias.forEach(categoria => {
               categoria.habilitada = true;
             });
           } else {
-            // Mapear el estado de habilitación existente
-            categorias.forEach(categoria => {
-              const empresaCat = empresaCategorias?.find(ec => ec.categoria_id === categoria.id);
-              categoria.habilitada = empresaCat ? empresaCat.habilitada : true; // Por defecto habilitada
-            });
+            // Si no hay registros en empresa_categorias, inicializar todas como habilitadas
+            if (!empresaCategorias || empresaCategorias.length === 0) {
+              console.log('🔄 Inicializando categorías para la empresa:', perfil.empresa_id);
+              await inicializarCategoriasEmpresa(perfil.empresa_id, categorias);
+              // Después de inicializar, todas están habilitadas
+              categorias.forEach(categoria => {
+                categoria.habilitada = true;
+              });
+            } else {
+              // Mapear el estado de habilitación existente
+              categorias.forEach(categoria => {
+                const empresaCat = empresaCategorias?.find(ec => ec.categoria_id === categoria.id);
+                categoria.habilitada = empresaCat ? empresaCat.habilitada : true; // Por defecto habilitada
+              });
+            }
           }
         }
       }
@@ -197,9 +217,37 @@ function crearTarjetaCategoria(categoria) {
 function abrirPopUpCategoria(categoria) {
   if (!categoria) return;
 
-  // Llenar el pop-up con los datos de la categoría
-  document.getElementById('popup-categoria-titulo').textContent = `Gestionar: ${categoria.nombre}`;
+  console.log('🎯 Abriendo pop-up para categoría:', categoria);
+
+  // Actualizar el título con solo el nombre de la categoría (sin "Gestionar:")
+  document.getElementById('popup-categoria-titulo').textContent = categoria.nombre;
   document.getElementById('popup-categoria-descripcion').textContent = `Configura el estado de la categoría "${categoria.nombre}"`;
+  
+  // Actualizar el icono de la categoría
+  const iconContainer = document.getElementById('popup-categoria-icon');
+  if (iconContainer) {
+    let iconoHTML = '';
+    
+    if (categoria.icon && categoria.icon.includes('/storage/')) {
+      // Es un icono de Supabase Storage
+      const correctedIconPath = categoria.icon.replace('/images/', '/icon/');
+      const supabaseUrl = supabase.supabaseUrl;
+      const fullIconUrl = `${supabaseUrl}${correctedIconPath}`;
+      
+      iconoHTML = `<img src="${fullIconUrl}" alt="Icono ${categoria.nombre}" width="24" height="24">`;
+    } else if (categoria.icon && categoria.icon.startsWith('http')) {
+      // Es una URL completa
+      iconoHTML = `<img src="${categoria.icon}" alt="Icono ${categoria.nombre}" width="24" height="24">`;
+    } else {
+      // Fallback al SVG genérico
+      iconoHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a12,12,0,1,1,12,12A12,12,0,0,1,112,84Z"></path>
+      </svg>`;
+    }
+    
+    iconContainer.innerHTML = iconoHTML;
+    console.log('🎨 Icono actualizado para:', categoria.nombre);
+  }
   
   // Configurar el toggle
   const toggle = document.getElementById('popup-categoria-toggle');
