@@ -296,7 +296,11 @@ function abrirPopUpCategoria(categoria) {
   document.getElementById('pop-up-categoria').setAttribute('data-editando', categoria.id);
   
   // Mostrar el pop-up
-  document.getElementById('pop-up-categoria').style.display = 'flex';
+  const popUpElement = document.getElementById('pop-up-categoria');
+  popUpElement.style.display = 'flex';
+  popUpElement.classList.add('active');
+  
+  console.log('✅ Pop-up mostrado con display: flex y clase active');
 }
 
 // Función para guardar cambios de la categoría
@@ -361,8 +365,12 @@ async function guardarCambiosCategoria() {
 
 // Función para cerrar el pop-up
 function cerrarPopUpCategoria() {
-  document.getElementById('pop-up-categoria').style.display = 'none';
-  document.getElementById('pop-up-categoria').removeAttribute('data-editando');
+  const popUpElement = document.getElementById('pop-up-categoria');
+  popUpElement.style.display = 'none';
+  popUpElement.classList.remove('active');
+  popUpElement.removeAttribute('data-editando');
+  
+  console.log('✅ Pop-up cerrado y clase active removida');
 }
 
 // Función para mostrar notificaciones

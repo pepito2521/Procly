@@ -950,34 +950,3 @@ table tbody tr {
   fill: currentColor;
 }
 
-/* ===== ESTILOS ESPECÍFICOS PARA POP-UP DE CATEGORÍAS ===== */
-/* Centrar el form-group-checkbox en el pop-up */
-#pop-up-categoria .form-group-checkbox {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 1.5rem auto;
-  text-align: center;
-}
-
-/* Alinear horizontalmente el toggle y el texto */
-#pop-up-categoria .form-group-checkbox .switch {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#pop-up-categoria .form-group-checkbox #popup-categoria-toggle-text {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 22px; /* Misma altura que el switch */
-  margin: 0;
-  font-weight: 500;
-  color: #374151;
-}
-
-/* Cambiar el color del slider habilitado a #508991 */
-#pop-up-categoria input:checked + .slider {
-  background-color: #508991 !important;
-}
