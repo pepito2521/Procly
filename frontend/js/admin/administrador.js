@@ -254,17 +254,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       userPanelBtn.addEventListener('click', async () => {
         console.log('🔄 Cambiando a modo usuario...');
         
-        // Mostrar loader glass
-        const loader = document.querySelector('.glass-loader');
-        if (loader) {
-          loader.style.display = 'flex';
-          console.log('⏳ Loader glass mostrado');
-        }
-        
-        // Delay más largo para que se vea el loader
-        await new Promise(resolve => setTimeout(resolve, 800));
-        
-        // Navegar a usuario.html
+        // Navegar directamente a usuario.html
         window.location.href = '/app/user/usuario.html';
       });
     } else {
@@ -305,7 +295,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       const response = await fetch('/components/pop-up-categoria.html');
       const html = await response.text();
       document.body.insertAdjacentHTML('beforeend', html);
-      console.log('✅ Componente pop-up-categoria cargado');
+      
+      // Verificar que el pop-up esté oculto por defecto
+      const popup = document.getElementById('pop-up-categoria');
+      if (popup) {
+        popup.style.display = 'none';
+        console.log('✅ Componente pop-up-categoria cargado y oculto');
+      }
+      
       return true;
     } catch (error) {
       console.error('❌ Error cargando pop-up-categoria:', error);
