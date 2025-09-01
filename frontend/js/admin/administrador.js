@@ -299,7 +299,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
+  // Cargar componente pop-up-categoria
+  async function cargarPopUpCategoria() {
+    try {
+      const response = await fetch('/components/pop-up-categoria.html');
+      const html = await response.text();
+      document.body.insertAdjacentHTML('beforeend', html);
+      console.log('✅ Componente pop-up-categoria cargado');
+    } catch (error) {
+      console.error('❌ Error cargando pop-up-categoria:', error);
+    }
+  }
+
   // Inicialización
+  await cargarPopUpCategoria(); // Cargar pop-up antes de las secciones
   cargarSeccion('dashboard');
   inicializarSidebar();
   inicializarLogoutDirecto();

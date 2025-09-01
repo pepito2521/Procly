@@ -56,35 +56,7 @@ async function cargarCategorias() {
       } else {
         console.log('🔍 Consultando empresa_categorias con empresa_id:', perfil.empresa_id);
         
-        // Validar que empresa_id sea un UUID válido
-        const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-        if (!uuidRegex.test(perfil.empresa_id)) {
-          console.error('❌ empresa_id no es un UUID válido:', perfil.empresa_id);
-          console.log('⚠️ Generando UUID válido para la empresa...');
-          
-          // Generar un UUID válido para esta empresa
-          const nuevoUUID = generarUUID();
-          console.log('🆔 Nuevo UUID generado:', nuevoUUID);
-          
-          // Actualizar el perfil del usuario con el nuevo UUID
-          try {
-            const { error: updateError } = await supabase
-              .from('profiles')
-              .update({ empresa_id: nuevoUUID })
-              .eq('profile_id', user.id);
-            
-            if (updateError) {
-              console.error('❌ Error al actualizar empresa_id:', updateError);
-            } else {
-              console.log('✅ empresa_id actualizado en el perfil');
-              perfil.empresa_id = nuevoUUID;
-            }
-          } catch (updateError) {
-            console.error('❌ Error al actualizar perfil:', updateError);
-          }
-        }
-        
-        // Ahora usar el empresa_id (original o generado)
+        // Usar directamente el empresa_id del perfil (ya es TEXT)
         if (perfil.empresa_id) {
           const { data: empresaCategorias, error: errorEmpresa } = await supabase
             .from('empresa_categorias')
@@ -240,9 +212,19 @@ function abrirPopUpCategoria(categoria) {
 
   console.log('🎯 Abriendo pop-up para categoría:', categoria);
 
+  // Verificar que el pop-up existe en el DOM
+  const popUp = document.getElementById('pop-up-categoria');
+  if (!popUp) {
+    console.error('❌ No se encontró el pop-up de categoría en el DOM');
+    return;
+  }
+
   // Actualizar el título con solo el nombre de la categoría (sin "Gestionar:")
-  document.getElementById('popup-categoria-titulo').textContent = categoria.nombre;
-  document.getElementById('popup-categoria-descripcion').textContent = `Configura el estado de la categoría "${categoria.nombre}"`;
+  const titulo = document.getElementById('popup-categoria-titulo');
+  const descripcion = document.getElementById('popup-categoria-descripcion');
+  
+  if (titulo) titulo.textContent = categoria.nombre;
+  if (descripcion) descripcion.textContent = `Configura el estado de la categoría "${categoria.nombre}"`;
   
   // Actualizar el icono de la categoría
   const iconContainer = document.getElementById('popup-categoria-icon');
@@ -252,7 +234,12 @@ function abrirPopUpCategoria(categoria) {
     categoriaNombre: categoria.nombre
   });
   
-  if (iconContainer) {
+  if (!iconContainer) {
+    console.error('❌ No se encontró el contenedor del icono: popup-categoria-icon');
+    console.log('📋 Elementos disponibles en el DOM:', 
+      Array.from(document.querySelectorAll('[id*="popup-categoria"]')).map(el => el.id)
+    );
+  } else {
     let iconoHTML = '';
     
     if (categoria.icon && categoria.icon.includes('/storage/')) {
@@ -277,8 +264,6 @@ function abrirPopUpCategoria(categoria) {
     
     iconContainer.innerHTML = iconoHTML;
     console.log('🎨 Icono actualizado para:', categoria.nombre, 'HTML:', iconoHTML);
-  } else {
-    console.error('❌ No se encontró el contenedor del icono: popup-categoria-icon');
   }
   
   // Configurar el toggle
@@ -402,14 +387,7 @@ function inicializarEventos() {
   console.log('✅ Eventos del componente de categorías inicializados');
 }
 
-// Función para generar un UUID válido
-function generarUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
+
 
 // Función para inicializar categorías de una empresa
 async function inicializarCategoriasEmpresa(empresaId, categorias) {
