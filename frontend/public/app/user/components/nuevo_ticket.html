@@ -2,9 +2,6 @@
 
   <!-- PROGRESS BAR + BOTÓN VOLVER -->
   <div class="progress-bar-container" id="progressBarContainer">
-    <div class="progress-bar-outer">
-      <div class="progress-bar-inner" id="progressBar"></div>
-    </div>
     <div class="progress-bar-btn-wrapper">
       <button type="button" class="progress-bar-btn hidden" id="progressBarBtn">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" class="chevron-icon">
@@ -12,6 +9,9 @@
         </svg>
         <span>Volver</span>
       </button>
+    </div>
+    <div class="progress-bar-outer">
+      <div class="progress-bar-inner" id="progressBar"></div>
     </div>
   </div>
 
@@ -83,6 +83,9 @@
         </select>                        
         
         <input type="text" id="fecha_entrega" class="input-fecha" name="fecha_entrega" placeholder="Seleccioná la Fecha de Entrega" required>
+        <small class="fecha-info" style="color: #6b7280; font-size: 0.875rem; margin-top: 0.5rem; display: block; text-align: center;">
+          ⏰ Mínimo 5 días hábiles requeridos para conseguir propuestas (excluyendo sábados y domingos)
+        </small>
       </div>
 
       <div class="button-group">

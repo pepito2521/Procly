@@ -233,6 +233,8 @@ export function initNuevoTicket() {
       // Configurar los event listeners para los selects
       setTimeout(() => {
         setupSelectListeners();
+        // Actualizar mensaje de fecha mínima
+        actualizarMensajeFechaMinima();
       }, 100);
     }
 
@@ -341,7 +343,20 @@ export function initNuevoTicket() {
       mostrarError(fechaInput, 'La fecha de entrega es obligatoria');
       isValid = false;
     } else {
-      removerError(fechaInput);
+      // Validar que la fecha cumple con el mínimo de 5 días hábiles
+      if (!validarFechaMinima(fechaInput.value)) {
+        const fechaMinima = calcularFechaMinima();
+        const fechaMinimaFormateada = new Date(fechaMinima).toLocaleDateString('es-ES', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        mostrarError(fechaInput, `La fecha debe ser al menos 5 días hábiles desde hoy (${fechaMinimaFormateada})`);
+        isValid = false;
+      } else {
+        removerError(fechaInput);
+      }
     }
     
     return isValid;
@@ -573,11 +588,70 @@ export function initNuevoTicket() {
   }
 
   // DATE PICKER
+  // Función para calcular la fecha mínima (5 días hábiles desde hoy)
+  function calcularFechaMinima() {
+    const hoy = new Date();
+    let fechaMinima = new Date(hoy);
+    let diasHabiles = 0;
+    
+    // Avanzar hasta encontrar 5 días hábiles
+    while (diasHabiles < 5) {
+      fechaMinima.setDate(fechaMinima.getDate() + 1); // Avanzar un día
+      
+      // Verificar si es día hábil (no sábado ni domingo)
+      const diaSemana = fechaMinima.getDay();
+      if (diaSemana !== 0 && diaSemana !== 6) { // 0 = domingo, 6 = sábado
+        diasHabiles++;
+      }
+    }
+    
+    // Formatear la fecha para flatpickr (YYYY-MM-DD)
+    const year = fechaMinima.getFullYear();
+    const month = String(fechaMinima.getMonth() + 1).padStart(2, '0');
+    const day = String(fechaMinima.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
+
+  // Función para validar que la fecha seleccionada cumple con el mínimo de días hábiles
+  function validarFechaMinima(fechaSeleccionada) {
+    const fechaMinima = new Date(calcularFechaMinima());
+    const fechaSelec = new Date(fechaSeleccionada);
+    
+    return fechaSelec >= fechaMinima;
+  }
+
+  // Configurar flatpickr con fecha mínima de 5 días hábiles
   flatpickr("#fecha_entrega", {
     dateFormat: "Y-m-d",
-    minDate: "today",
-    locale: "es"
+    minDate: calcularFechaMinima(),
+    locale: "es",
+    // Agregar mensaje personalizado para explicar la restricción
+    onChange: function(selectedDates, dateStr, instance) {
+      // Opcional: mostrar mensaje informativo
+      console.log(`📅 Fecha seleccionada: ${dateStr}`);
+      console.log(`⏰ Mínimo 5 días hábiles requeridos para propuestas`);
+    }
   });
+
+  // Actualizar mensaje informativo con la fecha mínima calculada
+  function actualizarMensajeFechaMinima() {
+    const fechaMinima = calcularFechaMinima();
+    const fechaMinimaFormateada = new Date(fechaMinima).toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    const mensajeElement = document.querySelector('.fecha-info');
+    if (mensajeElement) {
+      mensajeElement.innerHTML = `⏰ Mínimo 5 días hábiles requeridos para conseguir propuestas<br><strong>Fecha mínima: ${fechaMinimaFormateada}</strong>`;
+    }
+  }
+
+  // Llamar a la función cuando se carga el step 3
+  // Esto se ejecutará en showStep cuando index === 2
 
   // STEP FINAL: CREAR TICKET
   document.getElementById('multiStepForm').addEventListener('submit', async function (e) {

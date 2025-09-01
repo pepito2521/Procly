@@ -1019,6 +1019,23 @@ input[type="number"] {
   box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1) !important;
 }
 
+/* Estilos para el mensaje informativo de fecha */
+.fecha-info {
+  color: #6b7280 !important;
+  font-size: 0.875rem !important;
+  margin-top: 0.5rem !important;
+  display: block !important;
+  text-align: center !important;
+  font-weight: 400 !important;
+  line-height: 1.4 !important;
+  opacity: 0.9 !important;
+}
+
+.fecha-info:hover {
+  opacity: 1 !important;
+  color: #508991 !important;
+}
+
 .form-group input.error:focus,
 .form-group textarea.error:focus,
 .form-group select.error:focus {
