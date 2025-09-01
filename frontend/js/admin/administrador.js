@@ -306,8 +306,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const html = await response.text();
       document.body.insertAdjacentHTML('beforeend', html);
       console.log('✅ Componente pop-up-categoria cargado');
+      return true;
     } catch (error) {
       console.error('❌ Error cargando pop-up-categoria:', error);
+      return false;
     }
   }
 

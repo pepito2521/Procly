@@ -3,6 +3,25 @@ import { supabase } from "/js/supabaseClient.js";
 
 export function initCategorias() {
   console.log('🔧 Inicializando componente de categorías...');
+  
+  // Verificar que el pop-up esté disponible antes de continuar
+  if (!document.getElementById('pop-up-categoria')) {
+    console.log('⏳ Pop-up de categoría no disponible, esperando...');
+    // Esperar un poco y reintentar
+    setTimeout(() => {
+      if (document.getElementById('pop-up-categoria')) {
+        console.log('✅ Pop-up de categoría encontrado, continuando...');
+        cargarCategorias();
+        inicializarEventos();
+        agregarBotonRefresh();
+      } else {
+        console.error('❌ Pop-up de categoría no disponible después de esperar');
+      }
+    }, 500);
+    return;
+  }
+  
+  console.log('✅ Pop-up de categoría disponible, continuando...');
   cargarCategorias();
   inicializarEventos();
   agregarBotonRefresh();
@@ -409,14 +428,17 @@ async function inicializarCategoriasEmpresa(empresaId, categorias) {
 
     if (insertError) {
       console.error('❌ Error al inicializar categorías de empresa:', insertError);
-      throw insertError;
+      console.log('⚠️ Continuando sin inicializar - las categorías se mostrarán como habilitadas por defecto');
+      return false; // Retornar false para indicar que no se pudo inicializar
     }
 
     console.log(`✅ ${categorias.length} categorías inicializadas para la empresa`);
+    return true;
     
   } catch (error) {
     console.error('❌ Error al inicializar categorías de empresa:', error);
-    // No lanzar error para no interrumpir la carga de categorías
+    console.log('⚠️ Continuando sin inicializar - las categorías se mostrarán como habilitadas por defecto');
+    return false; // No lanzar error para no interrumpir la carga de categorías
   }
 }
 
