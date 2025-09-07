@@ -87,11 +87,10 @@ async function cargarCategorias() {
               categoria.habilitada = true;
             });
           } else {
-            // Si no hay registros en empresa_categorias, inicializar todas como habilitadas
+            // Si no hay registros en empresa_categorias, usar todas como habilitadas por defecto
             if (!empresaCategorias || empresaCategorias.length === 0) {
-              console.log('🔄 Inicializando categorías para la empresa:', perfil.empresa_id);
-              await inicializarCategoriasEmpresa(perfil.empresa_id, categorias);
-              // Después de inicializar, todas están habilitadas
+              console.log('🔄 No hay categorías configuradas para la empresa, usando todas como habilitadas por defecto');
+              // No inicializar automáticamente, solo usar todas como habilitadas
               categorias.forEach(categoria => {
                 categoria.habilitada = true;
               });
@@ -433,8 +432,8 @@ async function inicializarCategoriasEmpresa(empresaId, categorias) {
       .insert(registrosIniciales);
 
     if (insertError) {
-      console.error('❌ Error al inicializar categorías de empresa:', insertError);
-      console.log('⚠️ Continuando sin inicializar - las categorías se mostrarán como habilitadas por defecto');
+      console.warn('⚠️ No se pudo inicializar categorías de empresa (RLS):', insertError.message);
+      console.log('ℹ️ Las categorías se mostrarán como habilitadas por defecto');
       return false; // Retornar false para indicar que no se pudo inicializar
     }
 
@@ -442,8 +441,8 @@ async function inicializarCategoriasEmpresa(empresaId, categorias) {
     return true;
     
   } catch (error) {
-    console.error('❌ Error al inicializar categorías de empresa:', error);
-    console.log('⚠️ Continuando sin inicializar - las categorías se mostrarán como habilitadas por defecto');
+    console.warn('⚠️ Error al inicializar categorías de empresa:', error.message);
+    console.log('ℹ️ Las categorías se mostrarán como habilitadas por defecto');
     return false; // No lanzar error para no interrumpir la carga de categorías
   }
 }

@@ -97,6 +97,12 @@ async function manejarEnvioFormulario(e) {
       throw new Error('No se encontró el token de autenticación');
     }
     
+    // Obtener el user_id del token
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      throw new Error('No se pudo obtener la información del usuario');
+    }
+    
     // Preparar datos para enviar
     const datosPartner = {
       empresa: formData.get('empresa'),
@@ -105,7 +111,8 @@ async function manejarEnvioFormulario(e) {
       email: formData.get('email'),
       web: formData.get('web') || null,
       categoria_id: parseInt(formData.get('categoria')),
-      observaciones: formData.get('observaciones') || null
+      observaciones: formData.get('observaciones') || null,
+      recomendado_por: user.id  // Agregar el user_id para la política RLS
     };
     
     console.log('📤 Enviando datos:', datosPartner);
