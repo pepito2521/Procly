@@ -1,4 +1,9 @@
-/* ===== CATEGORIAS ADMIN ===== */
+.categorias-header {
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: right;
+}
 
 .categorias-grid {
   display: grid;

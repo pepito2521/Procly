@@ -13,7 +13,6 @@ export function initCategorias() {
         console.log('✅ Pop-up de categoría encontrado, continuando...');
         cargarCategorias();
         inicializarEventos();
-        agregarBotonRefresh();
       } else {
         console.error('❌ Pop-up de categoría no disponible después de esperar');
       }
@@ -24,7 +23,6 @@ export function initCategorias() {
   console.log('✅ Pop-up de categoría disponible, continuando...');
   cargarCategorias();
   inicializarEventos();
-  agregarBotonRefresh();
 }
 
 // Array para almacenar las categorías cargadas desde Supabase
@@ -450,54 +448,6 @@ async function inicializarCategoriasEmpresa(empresaId, categorias) {
   }
 }
 
-// Función para agregar botón de refresh
-function agregarBotonRefresh() {
-  const header = document.querySelector('.categorias-header');
-  if (!header) return;
-
-  // Verificar si ya existe el botón
-  if (document.getElementById('btnRefresh')) return;
-
-  const btnRefresh = document.createElement('button');
-  btnRefresh.id = 'btnRefresh';
-  btnRefresh.className = 'btn-verde';
-  btnRefresh.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-      <path d="M224,128a96,96,0,0,1-94.71,95.27c-2.62,0-5.22-.08-7.8-.24a8,8,0,0,1-6.69-9.26,85.85,85.85,0,0,0,20.6-85.49,8,8,0,0,1,6.29-10.1,8.14,8.14,0,0,1,1.4-.12,8,8,0,0,1,7.87,6.7A80.09,80.09,0,0,0,176,128a8,8,0,0,1,16,0Zm-40,40a8,8,0,0,0-8,8v24H152a8,8,0,0,0,0,16h24a8,8,0,0,0,8-8V176A8,8,0,0,0,184,168Zm-64,56H96a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Zm-32-16H64a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path>
-    </svg>
-    Actualizar
-  `;
-
-  btnRefresh.addEventListener('click', () => {
-    btnRefresh.disabled = true;
-    btnRefresh.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M224,128a96,96,0,0,1-94.71,95.27c-2.62,0-5.22-.08-7.8-.24a8,8,0,0,1-6.69-9.26,85.85,85.85,0,0,0,20.6-85.49,8,8,0,0,1,6.29-10.1,8.14,8.14,0,0,1,1.4-.12,8,8,0,0,1,7.87,6.7A80.09,80.09,0,0,0,176,128a8,8,0,0,1,16,0Zm-40,40a8,8,0,0,0-8,8v24H152a8,8,0,0,0,0,16h24a8,8,0,0,0,8-8V176A8,8,0,0,0,184,168Zm-64,56H96a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Zm-32-16H64a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path>
-      </svg>
-      Actualizando...
-    `;
-    
-    cargarCategorias().finally(() => {
-      btnRefresh.disabled = false;
-      btnRefresh.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-          <path d="M224,128a96,96,0,0,1-94.71,95.27c-2.62,0-5.22-.08-7.8-.24a8,8,0,0,1-6.69-9.26,85.85,85.85,0,0,0,20.6-85.49,8,8,0,0,1,6.29-10.1,8.14,8.14,0,0,1,1.4-.12,8,8,0,0,1,7.87,6.7A80.09,80.09,0,0,0,176,128a8,8,0,0,1,16,0Zm-40,40a8,8,0,0,0-8,8v24H152a8,8,0,0,0,0,16h24a8,8,0,0,0,8-8V176A8,8,0,0,0,184,168Zm-64,56H96a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Zm-32-16H64a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path>
-        </svg>
-        Actualizar
-      `;
-    });
-  });
-
-  // Insertar antes del botón "Nueva Categoría"
-  const btnNuevaCategoria = header.querySelector('.btn-verde:last-child');
-  if (btnNuevaCategoria) {
-    header.insertBefore(btnRefresh, btnNuevaCategoria);
-  } else {
-    header.appendChild(btnRefresh);
-  }
-
-  console.log('✅ Botón de refresh agregado');
-}
 
 // Función para configurar tooltips de las categorías
 function configurarTooltipsCategorias() {

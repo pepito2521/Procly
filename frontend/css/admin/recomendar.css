@@ -9,39 +9,15 @@
     flex: 1 !important;
 }
 
-/* HEADER SECTION */
-.recomendar-header {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border: 1px solid #e5e7eb;
-}
-
-.recomendar-header .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
-}
-
-.recomendar-header .header-text {
-    flex: 1;
-}
-
-.recomendar-header .header-text .section-title {
-    font-size: 2rem;
+/* TÍTULO DEL FORMULARIO */
+.chart-title {
+    font-size: 1.5rem;
     font-weight: 600;
     color: #1f2937;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.2;
-}
-
-.recomendar-header .header-text .section-description {
-    color: #6b7280;
-    font-size: 1.1rem;
-    margin: 0;
-    line-height: 1.5;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.4;
+    text-align: center;
+    padding: 0 1rem;
 }
 
 /* FORMULARIO DE RECOMENDACIÓN */
