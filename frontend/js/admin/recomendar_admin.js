@@ -227,10 +227,9 @@ function validarFormulario(form) {
   // Validar URL web (opcional)
   const webInput = form.querySelector('[name="web"]');
   if (webInput && webInput.value) {
-    try {
-      new URL(webInput.value);
-    } catch {
-      mostrarError(webInput, 'Ingresá una URL válida (ej: https://www.empresa.com)');
+    const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}(\/.*)?$/;
+    if (!urlRegex.test(webInput.value)) {
+      mostrarError(webInput, 'Ingresá una URL válida (ej: www.empresa.com o https://www.empresa.com)');
       esValido = false;
     }
   }
@@ -251,10 +250,9 @@ function validarCampo(input) {
       break;
     case 'web':
       if (valor) {
-        try {
-          new URL(valor);
-        } catch {
-          mostrarError(input, 'Ingresá una URL válida (ej: https://www.empresa.com)');
+        const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}(\/.*)?$/;
+        if (!urlRegex.test(valor)) {
+          mostrarError(input, 'Ingresá una URL válida (ej: www.empresa.com o https://www.empresa.com)');
           return false;
         }
       }
