@@ -3,7 +3,8 @@ const router = express.Router();
 const requireAuth = require('../middleware/requireAuth');
 const {
   probarSistemaEmails,
-  obtenerEstadisticasEmails
+  obtenerEstadisticasEmails,
+  enviarEmailPartnerRecomendado
 } = require('../controllers/emailController');
 
 router.use(requireAuth);
@@ -41,6 +42,37 @@ if (process.env.NODE_ENV === 'development') {
     }
   });
 }
+
+// Ruta para enviar email de partner recomendado
+router.post('/partner-recomendado', async (req, res) => {
+  try {
+    const { partnerData, userEmail, userName } = req.body;
+    
+    if (!partnerData || !userEmail || !userName) {
+      return res.status(400).json({ error: 'Datos requeridos faltantes' });
+    }
+
+    const result = await enviarEmailPartnerRecomendado(partnerData, userEmail, userName);
+    
+    if (result.success) {
+      res.json({ 
+        message: 'Email de confirmación enviado correctamente',
+        email: userEmail
+      });
+    } else {
+      res.status(500).json({ 
+        error: 'Error enviando email de confirmación',
+        details: result.error 
+      });
+    }
+  } catch (error) {
+    console.error('Error en email de partner recomendado:', error);
+    res.status(500).json({ 
+      error: 'Error interno del servidor',
+      details: error.message 
+    });
+  }
+});
 
 // Ruta para obtener estadísticas de emails (futura implementación)
 router.get('/stats', async (req, res) => {

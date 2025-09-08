@@ -105,8 +105,7 @@
 
 .form-actions {
     display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
+    justify-content: center;
     padding-top: 1rem;
 }
 

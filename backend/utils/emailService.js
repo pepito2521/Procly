@@ -153,9 +153,51 @@ async function sendAdminNotificationEmail(adminEmail, ticketData) {
   }
 }
 
+// Enviar email de confirmación de partner recomendado
+async function sendPartnerRecommendedEmail(userEmail, partnerData, userName) {
+  if (!isEmailConfigured || !transporter) {
+    console.log('📧 Email no enviado - configuración incompleta');
+    return null;
+  }
+
+  try {
+    const template = await loadEmailTemplate('recomendar_partner');
+    const html = replaceTemplateVariables(template, {
+      nombreUsuario: userName,
+      empresa: partnerData.empresa,
+      nombreContacto: partnerData.nombre_contacto,
+      email: partnerData.email,
+      telefono: partnerData.telefono || 'No especificado',
+      web: partnerData.web || 'No especificado',
+      categoria: partnerData.categoria_nombre || 'No especificado',
+      observaciones: partnerData.observaciones ? 
+        `<div class="info-row">
+          <span class="info-label">Observaciones:</span>
+          <span class="info-value">${partnerData.observaciones}</span>
+        </div>` : '',
+      appURL: emailConfig.APP_URL
+    });
+
+    const mailOptions = {
+      from: emailConfig.EMAIL_FROM,
+      to: userEmail,
+      subject: `Partner Recomendado Exitosamente | Procly`,
+      html: html
+    };
+
+    const result = await transporter.sendMail(mailOptions);
+    console.log('✅ Email de partner recomendado enviado:', result.messageId);
+    return result;
+  } catch (error) {
+    console.error('❌ Error enviando email de partner recomendado:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   sendTicketCreatedEmail,
   sendStatusChangeEmail,
   sendAdminNotificationEmail,
+  sendPartnerRecommendedEmail,
   isEmailConfigured
 }; 

@@ -18,10 +18,6 @@ function inicializarEventListeners() {
   }
   
   // Botón cancelar
-  const btnCancelar = document.getElementById('btnCancelar');
-  if (btnCancelar) {
-    btnCancelar.addEventListener('click', limpiarFormulario);
-  }
   
   // Validación en tiempo real
   const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
@@ -129,6 +125,9 @@ async function manejarEnvioFormulario(e) {
     
     console.log('✅ Partner recomendado exitosamente:', data);
     
+    // Enviar email de confirmación
+    await enviarEmailConfirmacion(datosPartner);
+    
     // Mostrar mensaje de éxito
     mostrarMensajeExito();
     
@@ -142,6 +141,62 @@ async function manejarEnvioFormulario(e) {
     // Restaurar botón
     btnRecomendar.disabled = false;
     btnRecomendar.innerHTML = estadoOriginal;
+  }
+}
+
+// Función para enviar email de confirmación
+async function enviarEmailConfirmacion(partnerData) {
+  try {
+    // Obtener información del usuario
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      console.warn('⚠️ No se pudo obtener información del usuario para el email');
+      return;
+    }
+
+    // Obtener nombre del usuario desde el perfil
+    const { data: perfil } = await supabase
+      .from('profiles')
+      .select('nombre')
+      .eq('profile_id', user.id)
+      .single();
+
+    const userName = perfil?.nombre || 'Usuario';
+
+    // Obtener nombre de la categoría
+    const { data: categoria } = await supabase
+      .from('categorias')
+      .select('nombre')
+      .eq('id', partnerData.categoria_id)
+      .single();
+
+    const partnerDataConCategoria = {
+      ...partnerData,
+      categoria_nombre: categoria?.nombre || 'No especificado'
+    };
+
+    // Enviar email de confirmación
+    const response = await fetch('/emails/partner-recomendado', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('supabaseToken')}`
+      },
+      body: JSON.stringify({
+        partnerData: partnerDataConCategoria,
+        userEmail: user.email,
+        userName: userName
+      })
+    });
+
+    if (response.ok) {
+      console.log('✅ Email de confirmación enviado');
+    } else {
+      console.warn('⚠️ No se pudo enviar el email de confirmación');
+    }
+  } catch (error) {
+    console.warn('⚠️ Error enviando email de confirmación:', error);
+    // No mostrar error al usuario, es opcional
   }
 }
 

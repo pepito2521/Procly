@@ -2,7 +2,8 @@ const { supabase } = require('../config/supabase');
 const { 
   sendTicketCreatedEmail, 
   sendStatusChangeEmail, 
-  sendAdminNotificationEmail 
+  sendAdminNotificationEmail,
+  sendPartnerRecommendedEmail
 } = require('../utils/emailService');
 
 // Enviar email cuando se crea un ticket
@@ -109,6 +110,18 @@ const probarSistemaEmails = async (emailDestino) => {
   }
 };
 
+// Enviar email de confirmación de partner recomendado
+const enviarEmailPartnerRecomendado = async (partnerData, userEmail, userName) => {
+  try {
+    await sendPartnerRecommendedEmail(userEmail, partnerData, userName);
+    console.log('✅ Email de partner recomendado enviado a:', userEmail);
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Error enviando email de partner recomendado:', error);
+    return { success: false, error: error.message };
+  }
+};
+
 // Obtener estadísticas de emails enviados (placeholder para futuras implementaciones)
 const obtenerEstadisticasEmails = async () => {
   // En el futuro, podrías guardar logs de emails en la base de datos
@@ -123,6 +136,7 @@ module.exports = {
   enviarEmailTicketCreado,
   enviarEmailCambioEstado,
   enviarNotificacionAdmin,
+  enviarEmailPartnerRecomendado,
   manejarEmailTicketCreado,
   probarSistemaEmails,
   obtenerEstadisticasEmails

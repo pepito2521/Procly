@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Recomendado - Procly</title>
+    <link rel="stylesheet" href="/css/emails.css">
+</head>
+<body>
+    <div class="email-wrapper">
+        <!-- Header con logo -->
+        <div class="email-header">
+            <img 
+                src="https://www.procly.net/assets/logo/logo_light.png" 
+                alt="PROCLY Logo" 
+                class="email-logo" />
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="email-container">
+            <h1 class="email-title">¡Partner Recomendado Exitosamente!</h1>
+            
+            <!-- Success Icon -->
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M229.66,74.34l-112,112a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L112,164.69,218.34,58.34a8,8,0,0,1,11.32,11.32Z"></path>
+                </svg>
+            </div>
+
+            <p class="email-subtitle">Hola <strong>{{ nombreUsuario }}</strong>,</p>
+            
+            <p class="email-subtitle">¡Gracias por tu recomendación! Hemos recibido exitosamente la información del partner que sugeriste para nuestra red de proveedores estratégicos.</p>
+
+            <!-- Información del Partner -->
+            <div class="partner-info">
+                <h3>📋 Información del Partner Recomendado</h3>
+                <div class="info-row">
+                    <span class="info-label">Empresa:</span>
+                    <span class="info-value">{{ empresa }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Contacto:</span>
+                    <span class="info-value">{{ nombreContacto }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{ email }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Teléfono:</span>
+                    <span class="info-value">{{ telefono }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Sitio Web:</span>
+                    <span class="info-value">{{ web }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Categoría:</span>
+                    <span class="info-value">{{ categoria }}</span>
+                </div>
+                {{ observaciones }}
+            </div>
+
+            <!-- Próximos Pasos -->
+            <div class="next-steps">
+                <h3>🔄 Próximos Pasos</h3>
+                <p>Nuestro equipo evaluará la propuesta y determinará si el partner se ajusta a nuestros criterios de calidad y alineación estratégica. Te mantendremos informado sobre el resultado de la evaluación.</p>
+            </div>
+
+            <p class="email-subtitle">Mientras tanto, podés continuar utilizando nuestra plataforma para gestionar tus tickets y explorar otros partners de nuestra red.</p>
+
+            <!-- Botón CTA -->
+            <a href="{{ appURL }}/app/admin/administrador.html" class="cta-button gradient">
+                Ir al Panel de Administración
+            </a>
+
+            <p class="email-subtitle">¡Gracias por ayudarnos a expandir nuestra red de proveedores de calidad!</p>
+
+            <p class="email-subtitle">Saludos cordiales,<br><strong>El equipo de Procly</strong></p>
+        </div>
+
+        <!-- Footer moderno -->
+        <div class="email-footer modern">
+            <p>Este email fue enviado desde <a href="{{ appURL }}">Procly</a></p>
+            <p>Si no solicitaste esta acción, podés ignorar este mensaje.</p>
+        </div>
+    </div>
+</body>
+</html>
