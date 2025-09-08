@@ -1,91 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actualización de Ticket - Procly</title>
-  <link rel="stylesheet" href="/css/emails.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de Estado - Procly</title>
 </head>
-<body>
-  <div class="email-wrapper">
-    <!-- Header con logo -->
-    <div class="email-header">
-      <img 
-        src="https://www.procly.net/assets/logo/logo_light.png" 
-        alt="PROCLY Logo" 
-        class="email-logo" />
-    </div>
-
-    <!-- Contenido principal -->
-    <div class="email-container">
-      <h1 class="email-title">Actualización de tu Ticket 📋</h1>
-      <p class="email-subtitle">
-        Tu ticket ha sido actualizado con un nuevo estado.
-      </p>
-
-      <!-- Información del ticket -->
-      <div class="info-highlight">
-        <h2>Ticket ID</h2>
-        <div class="highlight-value">
-          {{ .TicketID }}
+<body style="margin: 0; padding: 0; background-color: #f7f7f7; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #f7f7f7; padding: 20px 0;">
+        <!-- Header con logo -->
+        <div style="background-color: #f7f7f7; padding: 20px 0; text-align: center;">
+            <img src="{{ appURL }}/assets/logo/logo_light.png" alt="PROCLY Logo" style="max-width: 240px; height: auto;">
         </div>
-      </div>
 
-      <!-- Cambio de estado -->
-      <div class="status-change">
-        <h3>Cambio de Estado:</h3>
-        <div class="status-comparison">
-          <div class="status-item">
-            <div class="status-label">Estado Anterior</div>
-            <div class="status-badge old">
-              {{ .EstadoAnterior }}
+        <!-- Contenido principal -->
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px 20px; text-align: center; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h1 style="font-size: 26px; font-weight: 600; color: #333; margin-bottom: 20px;">Actualización de Estado</h1>
+            
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">Hola <strong>{{ nombreUsuario }}</strong>,</p>
+            
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">Te informamos que el estado de tu ticket ha sido actualizado.</p>
+
+            <!-- Información del Ticket -->
+            <div style="background: #f8fafc; border-radius: 8px; padding: 20px; margin: 20px 0; border-left: 4px solid #508991; text-align: left;">
+                <h3 style="margin: 0 0 15px 0; color: #1f2937; font-size: 18px;">📋 Detalles del Ticket</h3>
+                <div style="display: flex; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: #6b7280; min-width: 120px;">Código:</span>
+                    <span style="color: #1f2937; font-family: monospace; font-size: 16px; font-weight: 600;">{{ codigoTicket }}</span>
+                </div>
+                <div style="display: flex; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: #6b7280; min-width: 120px;">Categoría:</span>
+                    <span style="color: #1f2937;">{{ categoria }}</span>
+                </div>
+                <div style="display: flex; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: #6b7280; min-width: 120px;">Nombre:</span>
+                    <span style="color: #1f2937;">{{ nombreTicket }}</span>
+                </div>
             </div>
-          </div>
-          <div class="status-arrow">→</div>
-          <div class="status-item">
-            <div class="status-label">Nuevo Estado</div>
-            <div class="status-badge new">
-              {{ .NuevoEstado }}
+
+            <!-- Cambio de Estado -->
+            <div style="margin: 30px 0; padding: 20px; background-color: #f8f9fa; border-radius: 8px;">
+                <h3 style="color: #333; margin-bottom: 15px;">🔄 Cambio de Estado</h3>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Estado Anterior</div>
+                        <span style="padding: 8px 16px; border-radius: 6px; font-weight: 600; background-color: #e5e7eb; color: #374151;">{{ estadoAnterior }}</span>
+                    </div>
+                    <div style="font-size: 24px; color: #3E8914;">→</div>
+                    <div style="text-align: center;">
+                        <div style="color: #666; font-size: 14px; margin-bottom: 5px;">Nuevo Estado</div>
+                        <span style="padding: 8px 16px; border-radius: 6px; font-weight: 600; background-color: #3E8914; color: white;">{{ nuevoEstado }}</span>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <!-- Comentario si existe -->
+            {{ comentario }}
+
+            <!-- Próximos Pasos -->
+            <div style="background: #fef3c7; border-radius: 8px; padding: 20px; margin: 20px 0; border-left: 4px solid #f59e0b; text-align: left;">
+                <h3 style="margin: 0 0 10px 0; color: #92400e; font-size: 16px;">ℹ️ Información Adicional</h3>
+                <p style="margin: 0; color: #92400e;">Te mantendremos informado sobre cualquier actualización adicional en tu ticket.</p>
+            </div>
+
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">Podés hacer seguimiento de tu ticket en cualquier momento desde tu panel de usuario.</p>
+
+            <!-- Botón CTA -->
+            <div style="text-align: center;">
+                <a href="{{ appURL }}/app/user/usuario.html" style="background: linear-gradient(135deg, #508991 0%, #70a9b1 100%); color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 500; display: inline-block; margin: 20px 0; transition: background-color 0.3s ease;">
+                    Ver Mis Tickets
+                </a>
+            </div>
+
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">¡Gracias por tu paciencia!</p>
+
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">Saludos cordiales,<br><strong>El equipo de Procly</strong></p>
         </div>
-      </div>
 
-      <!-- Detalles del ticket -->
-      <div class="details-section">
-        <h3>Detalles del Ticket:</h3>
-        <p><strong>Categoría:</strong> {{ .Categoria }}</p>
-        <p><strong>Descripción:</strong> {{ .Descripcion }}</p>
-        <p><strong>Presupuesto:</strong> ${{ .Presupuesto }}</p>
-        <p><strong>Fecha de Entrega:</strong> {{ .FechaEntrega }}</p>
-        {{ if .Comentario }}
-        <p><strong>Comentario del equipo:</strong> {{ .Comentario }}</p>
-        {{ end }}
-      </div>
-
-      <!-- Botón para seguimiento -->
-      <a href="https://www.procly.net/app/index.html" class="cta-button">
-        Ver Seguimiento del Ticket
-      </a>
-
-      <!-- Información adicional -->
-      <div class="additional-info">
-        <p>
-          <strong>¿Qué significa este cambio?</strong><br>
-          • <strong>En Proceso:</strong> Tu solicitud está siendo revisada<br>
-          • <strong>Propuestas:</strong> Tenemos propuestas listas para revisar<br>
-          • <strong>En Camino:</strong> Tu pedido está siendo enviado<br>
-          • <strong>Entregado:</strong> Tu pedido ha sido entregado<br>
-          • <strong>Revisar:</strong> Necesitamos más información de tu parte
-        </p>
-      </div>
+        <!-- Footer -->
+        <div style="max-width: 600px; margin: 0 auto; background: #f8fafc; color: #6b7280; text-align: center; padding: 20px; border-radius: 0 0 8px 8px; font-size: 14px;">
+            <p style="margin: 0;">Este email fue enviado desde <a href="{{ appURL }}" style="color: #508991; text-decoration: none;">Procly</a></p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #ccc;">Si no solicitaste esta acción, podés ignorar este mensaje.</p>
+        </div>
     </div>
-
-    <!-- Footer -->
-    <div class="email-footer">
-      <p>Equipo Procly! 🚀</p>
-      <p class="subtitle">Gracias por confiar en nosotros</p>
-    </div>
-  </div>
 </body>
 </html>
