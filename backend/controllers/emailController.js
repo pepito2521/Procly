@@ -9,7 +9,16 @@ const {
 // Enviar email cuando se crea un ticket
 const enviarEmailTicketCreado = async (ticketData, userEmail) => {
   try {
-    await sendTicketCreatedEmail(userEmail, ticketData);
+    // Obtener el nombre del usuario desde el perfil
+    const { data: perfil, error: perfilError } = await supabase
+      .from('profiles')
+      .select('nombre')
+      .eq('email', userEmail)
+      .single();
+    
+    const userName = perfil?.nombre || 'Usuario';
+    
+    await sendTicketCreatedEmail(userEmail, ticketData, userName);
     console.log('✅ Email de ticket creado enviado a:', userEmail);
     return { success: true };
   } catch (error) {
@@ -103,7 +112,7 @@ const probarSistemaEmails = async (emailDestino) => {
       apellido: 'Prueba'
     };
 
-    const result = await sendTicketCreatedEmail(emailDestino, testTicketData);
+    const result = await sendTicketCreatedEmail(emailDestino, testTicketData, 'Usuario de Prueba');
     return { success: true, messageId: result?.messageId };
   } catch (error) {
     return { success: false, error: error.message };

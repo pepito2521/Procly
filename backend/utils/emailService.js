@@ -44,7 +44,7 @@ function replaceTemplateVariables(template, variables) {
 }
 
 // Enviar email de ticket creado
-async function sendTicketCreatedEmail(userEmail, ticketData) {
+async function sendTicketCreatedEmail(userEmail, ticketData, userName) {
   if (!isEmailConfigured || !transporter) {
     console.log('📧 Email no enviado - configuración incompleta');
     return null;
@@ -53,12 +53,13 @@ async function sendTicketCreatedEmail(userEmail, ticketData) {
   try {
     const template = await loadEmailTemplate('ticket_creado');
     const html = replaceTemplateVariables(template, {
-      TicketID: ticketData.codigo_ticket,
-      Categoria: ticketData.categoria,
-      Descripcion: ticketData.descripcion,
-      Presupuesto: ticketData.presupuesto || 'No especificado',
-      FechaEntrega: ticketData.fecha_entrega,
-      AppURL: emailConfig.APP_URL
+      nombreUsuario: userName || 'Usuario',
+      codigoTicket: ticketData.codigo_ticket,
+      categoria: ticketData.categoria,
+      nombreTicket: ticketData.nombre,
+      presupuesto: ticketData.presupuesto ? `$${ticketData.presupuesto.toLocaleString()}` : 'No especificado',
+      fechaEntrega: ticketData.fecha_entrega ? new Date(ticketData.fecha_entrega).toLocaleDateString('es-ES') : 'No especificada',
+      appURL: emailConfig.APP_URL
     });
 
     const mailOptions = {

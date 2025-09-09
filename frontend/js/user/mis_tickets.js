@@ -1,7 +1,52 @@
 import { mostrarLoader, ocultarLoader } from '/js/components/loader.js';
 
 export function initMisTickets() {
+
+  // Debug: Verificar token y user_id
+  debugUserInfo();
   cargarKPIsYTabla();
+}
+
+// Función de debugging para verificar el token
+async function debugUserInfo() {
+  const token = localStorage.getItem('supabaseToken');
+  if (!token) {
+    console.error('❌ No hay token en localStorage');
+    return;
+  }
+  
+  try {
+    // Decodificar el token en el frontend
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) {
+      console.error('❌ Token JWT inválido');
+      return;
+    }
+    
+    const payload = JSON.parse(atob(tokenParts[1]));
+    console.log('🔍 Token payload:', {
+      sub: payload.sub,
+      email: payload.email,
+      exp: payload.exp,
+      iat: payload.iat,
+      aud: payload.aud
+    });
+    
+    // Verificar si el token está expirado
+    const currentTime = Math.floor(Date.now() / 1000);
+    const isExpired = payload.exp < currentTime;
+    console.log('⏰ Token expirado:', isExpired, 'Exp:', new Date(payload.exp * 1000), 'Now:', new Date());
+    
+    // Llamar al endpoint de debug del backend
+    const debugRes = await fetch('/tickets/debug/user', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const debugData = await debugRes.json();
+    console.log('🔍 Backend user info:', debugData);
+    
+  } catch (error) {
+    console.error('❌ Error en debug:', error);
+  }
 }
 
 async function cargarKPIsYTabla() {
@@ -15,23 +60,42 @@ async function cargarKPIsYTabla() {
 
 async function cargarKPIs() {
   const token = localStorage.getItem('supabaseToken');
-  if (!token) return;
+  if (!token) {
+    console.error('❌ No hay token de autenticación');
+    return;
+  }
   const headers = { 'Authorization': `Bearer ${token}` };
 
   try {
+    console.log('🔄 Cargando KPIs...');
+    
     const [total, entregados, enProceso, cancelados] = await Promise.all([
-      fetch('https://www.procly.net/tickets/kpi-total', { headers }).then(r => r.json()),
-      fetch('https://www.procly.net/tickets/kpi-entregados', { headers }).then(r => r.json()),
-      fetch('https://www.procly.net/tickets/kpi-en-proceso', { headers }).then(r => r.json()),
-      fetch('https://www.procly.net/tickets/kpi-cancelados', { headers }).then(r => r.json())
+      fetch('https://www.procly.net/tickets/kpi-total', { headers }).then(r => {
+        console.log('📊 KPI Total response:', r.status, r.statusText);
+        return r.json();
+      }),
+      fetch('https://www.procly.net/tickets/kpi-entregados', { headers }).then(r => {
+        console.log('📊 KPI Entregados response:', r.status, r.statusText);
+        return r.json();
+      }),
+      fetch('https://www.procly.net/tickets/kpi-en-proceso', { headers }).then(r => {
+        console.log('📊 KPI En Proceso response:', r.status, r.statusText);
+        return r.json();
+      }),
+      fetch('https://www.procly.net/tickets/kpi-cancelados', { headers }).then(r => {
+        console.log('📊 KPI Cancelados response:', r.status, r.statusText);
+        return r.json();
+      })
     ]);
+
+    console.log('📊 KPIs recibidos:', { total, entregados, enProceso, cancelados });
 
     document.getElementById('kpi-total-tickets').textContent = total.total ?? 0;
     document.getElementById('kpi-tickets-entregados').textContent = entregados.total ?? 0;
     document.getElementById('kpi-tickets-proceso').textContent = enProceso.total ?? 0;
     document.getElementById('kpi-tickets-cancelados').textContent = cancelados.total ?? 0;
   } catch (e) {
-  
+    console.error('❌ Error cargando KPIs:', e);
     document.getElementById('kpi-total-tickets').textContent = 0;
     document.getElementById('kpi-tickets-entregados').textContent = 0;
     document.getElementById('kpi-tickets-proceso').textContent = 0;
@@ -41,13 +105,21 @@ async function cargarKPIs() {
 
 async function cargarTickets() {
   const token = localStorage.getItem('supabaseToken');
-  if (!token) return;
+  if (!token) {
+    console.error('❌ No hay token de autenticación para cargar tickets');
+    return;
+  }
   try {
+    console.log('🔄 Cargando tickets...');
     const res = await fetch('/tickets', {
       method: 'GET',
       headers: { 'Authorization': `Bearer ${token}` }
     });
+    
+    console.log('📋 Tickets response:', res.status, res.statusText);
     const tickets = await res.json();
+    console.log('📋 Tickets recibidos:', tickets);
+    
     const tbody = document.getElementById("tickets-table-body");
     if (!tbody) {
       console.error("No se encontró el tbody de la tabla de tickets.");
@@ -117,7 +189,8 @@ async function cargarTickets() {
       }
     });
   } catch (err) {
-    document.getElementById("tickets-table-body").innerHTML = `<tr><td colspan="4">❌ Error al cargar tickets</td></tr>`;
+    console.error('❌ Error cargando tickets:', err);
+    document.getElementById("tickets-table-body").innerHTML = `<tr><td colspan="4">❌ Error al cargar tickets: ${err.message}</td></tr>`;
   }
 }
 

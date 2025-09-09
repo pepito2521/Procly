@@ -30,4 +30,14 @@ router.get('/', obtenerTickets);
 router.get('/:id', obtenerTicketPorId);
 router.post('/:id/seleccionar', seleccionarPropuesta);
 
+// DEBUG: Verificar user_id (temporal)
+router.get('/debug/user', (req, res) => {
+  console.log('🔍 Debug user_id:', req.user);
+  res.json({ 
+    user_id: req.user?.id,
+    email: req.user?.email,
+    timestamp: new Date().toISOString()
+  });
+});
+
 module.exports = router;
