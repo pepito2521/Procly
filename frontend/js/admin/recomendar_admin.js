@@ -80,9 +80,7 @@ async function manejarEnvioFormulario(e) {
   const estadoOriginal = btnRecomendar.innerHTML;
   btnRecomendar.disabled = true;
   btnRecomendar.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256" style="animation: spin 1s linear infinite;">
-      <path d="M232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"></path>
-    </svg>
+    <span class="spinner-small"></span>
     Enviando...
   `;
   

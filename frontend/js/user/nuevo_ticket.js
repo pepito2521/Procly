@@ -668,8 +668,12 @@ export function initNuevoTicket() {
     }
   
     // Mostrar estado de carga en el botón
-    crearTicketBtn.classList.add('loading');
+    const estadoOriginal = crearTicketBtn.innerHTML;
     crearTicketBtn.disabled = true;
+    crearTicketBtn.innerHTML = `
+      <span class="spinner-small"></span>
+      Creando ticket...
+    `;
   
     try {
       await setSupabaseAuthToken(token);
@@ -690,7 +694,7 @@ export function initNuevoTicket() {
           console.error('❌ Error al subir archivo:', error);
           alert('Error al subir el archivo adjunto.');
           // Restaurar estado del botón
-          crearTicketBtn.classList.remove('loading');
+          crearTicketBtn.innerHTML = estadoOriginal;
           crearTicketBtn.disabled = false;
           return;
         }
@@ -724,6 +728,9 @@ export function initNuevoTicket() {
       const data = await res.json();
   
       if (res.ok) {
+        // Mostrar mensaje de éxito
+        mostrarMensajeExito();
+        
         // Clear file selection on successful submission
         clearFileSelection();
         step4Fijo = true;
@@ -733,14 +740,14 @@ export function initNuevoTicket() {
       } else {
         alert('❌ Error al crear el ticket: ' + data.error);
         // Restaurar estado del botón en caso de error
-        crearTicketBtn.classList.remove('loading');
+        crearTicketBtn.innerHTML = estadoOriginal;
         crearTicketBtn.disabled = false;
       }
     } catch (err) {
       console.error('⚠️ Error al enviar el ticket:', err);
       alert('Error de red al crear el ticket');
       // Restaurar estado del botón en caso de error
-      crearTicketBtn.classList.remove('loading');
+      crearTicketBtn.innerHTML = estadoOriginal;
       crearTicketBtn.disabled = false;
     }
   });
@@ -851,6 +858,40 @@ export function initNuevoTicket() {
     fileUploadArea.style.display = 'block';
     fileSelected.style.display = 'none';
     fileUploadArea.classList.remove('drag-over');
+  }
+
+  // Función para mostrar mensaje de éxito temporal
+  function mostrarMensajeExito() {
+    // Crear mensaje de éxito temporal
+    const mensaje = document.createElement('div');
+    mensaje.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #10b981;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 10000;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    `;
+    mensaje.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M229.66,74.34l-112,112a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L112,164.69,218.34,58.34a8,8,0,0,1,11.32,11.32Z"></path>
+        </svg>
+        ¡Ticket creado exitosamente!
+      </div>
+    `;
+    
+    document.body.appendChild(mensaje);
+    
+    // Remover después de 3 segundos
+    setTimeout(() => {
+      mensaje.remove();
+    }, 3000);
   }
 
   // MENSAJE CONDIFRMACION: CODIGO TICKET

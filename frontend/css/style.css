@@ -211,6 +211,22 @@ text-decoration: none;
   100% { transform: rotate(360deg) }
 }
 
+/* SPINNER PEQUEÑO PARA BOTONES */
+.spinner-small {
+  color: #508991;
+  font-size: 16px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  transform: translateZ(0);
+  animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+  display: inline-block;
+  margin-right: 8px;
+}
+
 
 
 /* BOTÓN FLOTANTE WHATSAPP */
