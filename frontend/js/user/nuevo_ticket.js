@@ -728,16 +728,27 @@ export function initNuevoTicket() {
       const data = await res.json();
   
       if (res.ok) {
+        // ✅ TICKET CREADO EXITOSAMENTE
+        console.log('✅ Ticket creado exitosamente:', data);
+        
         // Mostrar mensaje de éxito
         mostrarMensajeExito();
         
         // Clear file selection on successful submission
         clearFileSelection();
+        
+        // SOLO AHORA pasar al step 4 de confirmación
         step4Fijo = true;
         currentStep++;
         showStep(currentStep);
         mostrarConfirmacion(data.codigo_ticket);
+        
+        // Restaurar el botón después de pasar al step 4
+        crearTicketBtn.innerHTML = estadoOriginal;
+        crearTicketBtn.disabled = false;
+        
       } else {
+        console.error('❌ Error al crear el ticket:', data.error);
         alert('❌ Error al crear el ticket: ' + data.error);
         // Restaurar estado del botón en caso de error
         crearTicketBtn.innerHTML = estadoOriginal;
