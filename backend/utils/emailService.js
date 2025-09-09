@@ -123,20 +123,15 @@ async function sendAdminNotificationEmail(adminEmail, ticketData) {
   }
 
   try {
-    const html = `
-      <h2>Nuevo Ticket Creado</h2>
-      <p><strong>Ticket ID:</strong> ${ticketData.codigo_ticket}</p>
-      <p><strong>Usuario:</strong> ${ticketData.nombre} ${ticketData.apellido}</p>
-      <p><strong>Categoría:</strong> ${ticketData.categoria}</p>
-      <p><strong>Descripción:</strong> ${ticketData.descripcion}</p>
-      <p><strong>Presupuesto:</strong> $${ticketData.presupuesto || 'No especificado'}</p>
-      <p><strong>Fecha de Entrega:</strong> ${ticketData.fecha_entrega}</p>
-      <br>
-      <a href="${emailConfig.APP_URL}/app/admin/administrador.html" 
-         style="background-color: #508991; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px;">
-        Ver en Panel de Admin
-      </a>
-    `;
+    const template = await loadEmailTemplate('notificacion_admin');
+    const html = replaceTemplateVariables(template, {
+      codigoTicket: ticketData.codigo_ticket,
+      nombreUsuario: `${ticketData.nombre} ${ticketData.apellido}`,
+      categoria: ticketData.categoria,
+      nombreTicket: ticketData.descripcion,
+      presupuesto: ticketData.presupuesto ? `$${ticketData.presupuesto.toLocaleString()}` : 'No especificado',
+      fechaEntrega: ticketData.fecha_entrega ? new Date(ticketData.fecha_entrega).toLocaleDateString('es-ES') : 'No especificada'
+    });
 
     const mailOptions = {
       from: emailConfig.EMAIL_FROM,
