@@ -281,9 +281,10 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid #e5e7eb;
+  text-align: left;
 }
 
 /* Contenedor del icono */
@@ -348,36 +349,78 @@
   line-height: 1.4;
 }
 
-/* Centrar el form-group-checkbox en el pop-up */
-#pop-up-categoria .form-group-checkbox {
+/* Contenedor del toggle centrado */
+#pop-up-categoria .popup-toggle-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 1.5rem auto;
-  text-align: center;
+  gap: 16px;
+  margin: 2rem 0;
+  padding: 0 1rem;
 }
 
-/* Alinear horizontalmente el toggle y el texto */
-#pop-up-categoria .form-group-checkbox .switch {
+/* Wrapper del toggle */
+#pop-up-categoria .popup-toggle-wrapper {
+  position: relative;
   display: inline-block;
-  vertical-align: middle;
+  width: 50px;
+  height: 24px;
+  cursor: pointer;
 }
 
-#pop-up-categoria .form-group-checkbox #popup-categoria-toggle-text {
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 22px; /* Misma altura que el switch */
-  margin: 0;
+/* Input del toggle (oculto) */
+#pop-up-categoria .popup-toggle-wrapper input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* Slider del toggle */
+#pop-up-categoria .popup-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d1d5db;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+#pop-up-categoria .popup-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Estado activo del toggle */
+#pop-up-categoria input:checked + .popup-slider {
+  background-color: #508991;
+}
+
+#pop-up-categoria input:checked + .popup-slider:before {
+  transform: translateX(26px);
+}
+
+/* Texto del toggle */
+#pop-up-categoria .popup-toggle-text {
+  font-size: 1rem;
   font-weight: 500;
   color: #374151;
+  line-height: 1.5;
+  user-select: none;
 }
 
-/* Cambiar el color del slider habilitado a #508991 */
-#pop-up-categoria input:checked + .slider {
-  background-color: #508991 !important;
-}
 
 /* Estilos adicionales para asegurar la correcta visualización */
 #pop-up-categoria {
@@ -404,15 +447,16 @@
 
 #pop-up-categoria .pop-up-contenido {
   background: white !important;
-  padding: 24px !important;
-  border-radius: 12px !important;
+  padding: 32px !important;
+  border-radius: 16px !important;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
   width: 100% !important;
-  max-width: 480px !important;
+  max-width: 520px !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 12px !important;
+  gap: 0 !important;
   z-index: 10000 !important;
+  margin: 0 20px !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
