@@ -142,7 +142,21 @@ function cargarTablaHistorial(tickets) {
   tbody.innerHTML = "";
 
   if (!tickets || tickets.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay tickets disponibles</td></tr>`;
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align: center; padding: 2rem; color: #6b7280;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#d1d5db" viewBox="0 0 256 256">
+              <path d="M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z"></path>
+            </svg>
+            <div>
+              <h3 style="margin: 0; color: #374151;">No hay tickets disponibles</h3>
+              <p style="margin: 0.5rem 0 0 0;">Los tickets aparecerán aquí cuando se creen</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    `;
     return;
   }
 

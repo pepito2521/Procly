@@ -64,7 +64,21 @@ function cargarTablaDirecciones(direcciones) {
   tbody.innerHTML = "";
 
   if (!direcciones || direcciones.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5">⚠️ No hay direcciones disponibles</td></tr>`;
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" style="text-align: center; padding: 2rem; color: #6b7280;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#d1d5db" viewBox="0 0 256 256">
+              <path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88,88,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,210,200.25c27.45-31.57,42-64.85,42-96.25A88,88,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.25,144.53,209,128,222Z"></path>
+            </svg>
+            <div>
+              <h3 style="margin: 0; color: #374151;">No hay direcciones registradas</h3>
+              <p style="margin: 0.5rem 0 0 0;">Comienza agregando tu primera dirección de entrega</p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    `;
     return;
   }
 
