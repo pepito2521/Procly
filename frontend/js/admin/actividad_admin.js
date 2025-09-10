@@ -60,18 +60,24 @@ async function cargarActividadTemplate() {
 
     console.log('🚀 Iniciando peticiones a endpoints...');
     
-    // Cargar KPIs y tickets en paralelo
+    // Cargar KPIs, porcentajes y tickets en paralelo
     const [
       kpiTotal,
       kpiEntregados,
       kpiEnProceso,
       kpiCancelados,
+      porcentajeEntregados,
+      porcentajeEnProceso,
+      porcentajeCancelados,
       listadoTickets
     ] = await Promise.all([
       fetchWithErrorHandling(`${baseUrl}/stats/tickets-totales`, headers),
       fetchWithErrorHandling(`${baseUrl}/stats/tickets-entregados`, headers),
       fetchWithErrorHandling(`${baseUrl}/stats/tickets-en-proceso`, headers),
       fetchWithErrorHandling(`${baseUrl}/stats/tickets-cancelados`, headers),
+      fetchWithErrorHandling(`${baseUrl}/stats/porcentaje-tickets-entregados`, headers),
+      fetchWithErrorHandling(`${baseUrl}/stats/porcentaje-tickets-en-curso`, headers),
+      fetchWithErrorHandling(`${baseUrl}/stats/porcentaje-tickets-cancelados`, headers),
       fetchWithErrorHandling(`${baseUrl}/stats/actividad-tickets`, headers)
     ]);
     
@@ -80,20 +86,34 @@ async function cargarActividadTemplate() {
       kpiEntregados: kpiEntregados ? '✅' : '❌',
       kpiEnProceso: kpiEnProceso ? '✅' : '❌',
       kpiCancelados: kpiCancelados ? '✅' : '❌',
+      porcentajeEntregados: porcentajeEntregados ? '✅' : '❌',
+      porcentajeEnProceso: porcentajeEnProceso ? '✅' : '❌',
+      porcentajeCancelados: porcentajeCancelados ? '✅' : '❌',
       listadoTickets: listadoTickets ? '✅' : '❌'
     });
 
-    // Actualizar KPIs
-    document.getElementById("actividadTotales").textContent = kpiTotal?.total ?? 0;
-    document.getElementById("actividadEntregados").textContent = kpiEntregados?.total ?? 0;
-    document.getElementById("actividadEnProceso").textContent = kpiEnProceso?.total ?? 0;
-    document.getElementById("actividadCancelados").textContent = kpiCancelados?.total ?? 0;
+    // Obtener valores de los KPIs
+    const totalTickets = kpiTotal?.total ?? 0;
+    const ticketsEntregados = kpiEntregados?.total ?? 0;
+    const ticketsEnProceso = kpiEnProceso?.total ?? 0;
+    const ticketsCancelados = kpiCancelados?.total ?? 0;
 
-    // Actualizar summary-subtext con información descriptiva
+    // Obtener porcentajes del backend
+    const porcentajeEntregadosValue = porcentajeEntregados?.porcentaje ?? 0;
+    const porcentajeEnProcesoValue = porcentajeEnProceso?.porcentaje ?? 0;
+    const porcentajeCanceladosValue = porcentajeCancelados?.porcentaje ?? 0;
+
+    // Actualizar valores de los KPIs
+    document.getElementById("actividadTotales").textContent = totalTickets;
+    document.getElementById("actividadEntregados").textContent = ticketsEntregados;
+    document.getElementById("actividadEnProceso").textContent = ticketsEnProceso;
+    document.getElementById("actividadCancelados").textContent = ticketsCancelados;
+
+    // Actualizar summary-subtext con porcentajes del backend
     document.getElementById("actividadTotalesSub").textContent = "Total de tickets en el sistema";
-    document.getElementById("actividadEntregadosSub").textContent = "Tickets completados y entregados";
-    document.getElementById("actividadEnProcesoSub").textContent = "Tickets en desarrollo activo";
-    document.getElementById("actividadCanceladosSub").textContent = "Tickets cancelados o rechazados";
+    document.getElementById("actividadEntregadosSub").textContent = `${porcentajeEntregadosValue}% del total de tickets`;
+    document.getElementById("actividadEnProcesoSub").textContent = `${porcentajeEnProcesoValue}% del total de tickets`;
+    document.getElementById("actividadCanceladosSub").textContent = `${porcentajeCanceladosValue}% del total de tickets`;
     
     console.log('📝 Summary-subtext actualizados correctamente');
 
