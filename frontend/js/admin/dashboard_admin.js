@@ -226,10 +226,23 @@ function actualizarTextosDinamicos() {
     gastoMensualTrend.textContent = `${mesActual} ${añoActual}`;
   }
 
+  // Actualizar texto del Promedio Mensual
+  const promedioMensualTrend = document.getElementById("promedio-mensual-trend");
+  if (promedioMensualTrend) {
+    const fecha = new Date();
+    const meses = [
+      'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+      'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+    ];
+    const mesActual = meses[fecha.getMonth()];
+    const añoActual = fecha.getFullYear();
+    promedioMensualTrend.textContent = `Ene-${mesActual} ${añoActual}`;
+  }
+
   // Actualizar texto del Acumulado Anual
   const acumuladoAnualTrend = document.getElementById("acumulado-anual-trend");
   if (acumuladoAnualTrend) {
     const añoActual = new Date().getFullYear();
-    acumuladoAnualTrend.textContent = `Periodo Ene-Dic año ${añoActual}`;
+    acumuladoAnualTrend.textContent = `Ene-Dic año ${añoActual}`;
   }
 }
