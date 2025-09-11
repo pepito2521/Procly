@@ -87,7 +87,7 @@ function cargarTablaDirecciones(direcciones) {
     row.innerHTML = `
       <td>${direccion.nombre || 'Sin nombre'}</td>
       <td>${direccion.direccion || 'Sin dirección'}</td>
-      <td>${direccion.ciudad || ''}${direccion.provincia ? `, ${direccion.provincia}` : ''}</td>
+      <td>${direccion.ciudad || 'Sin ciudad'}</td>
       <td>
         <span class="estado-badge ${direccion.is_active ? 'activa' : 'bloqueada'}">
           ${direccion.is_active ? 'Activa' : 'Bloqueada'}
