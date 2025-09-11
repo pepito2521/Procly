@@ -84,6 +84,9 @@ async function cargarKPIs() {
       direccionesSub.textContent = total > 0 ? `Total de direcciones registradas` : 'Sin direcciones';
     }
 
+    // Actualizar textos dinámicos de trend
+    actualizarTextosDinamicos();
+
   } catch (error) {
     console.error("Error al cargar KPIs:", error);
     // Mostrar valores por defecto en caso de error
@@ -205,5 +208,28 @@ async function cargarGrafico() {
 
   } catch (error) {
     console.error("Error al cargar gráfico:", error);
+  }
+}
+
+// Función para actualizar textos dinámicos de trend
+function actualizarTextosDinamicos() {
+  // Actualizar texto del Gasto Mensual
+  const gastoMensualTrend = document.getElementById("gasto-mensual-trend");
+  if (gastoMensualTrend) {
+    const fecha = new Date();
+    const meses = [
+      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+    const mesActual = meses[fecha.getMonth()];
+    const añoActual = fecha.getFullYear();
+    gastoMensualTrend.textContent = `${mesActual} ${añoActual}`;
+  }
+
+  // Actualizar texto del Acumulado Anual
+  const acumuladoAnualTrend = document.getElementById("acumulado-anual-trend");
+  if (acumuladoAnualTrend) {
+    const añoActual = new Date().getFullYear();
+    acumuladoAnualTrend.textContent = `Periodo Ene-Dic año ${añoActual}`;
   }
 }
