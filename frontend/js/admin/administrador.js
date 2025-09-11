@@ -43,26 +43,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         </svg>
       `
     },
-    categorias: {
-      nombre: "Gestionar Categorías",
-      archivo: "categorias.html",
-      js: "/js/admin/categorias_admin.js",
-      icon: `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-          <path d="M208,88H48a16,16,0,0,0-16,16v96a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,208,88Zm0,112H48V104H208v96ZM48,64a8,8,0,0,1,8-8H200a8,8,0,0,1,0,16H56A8,8,0,0,1,48,64ZM64,32a8,8,0,0,1,8-8H184a8,8,0,0,1,0,16H72A8,8,0,0,1,64,32Z"></path>
-        </svg>
-      `
-    },
-    auditoria: {
-      nombre: "Auditoría de Tickets",
-      archivo: "auditoria.html",
-      js: "/js/admin/auditoria_admin.js",
-      icon: `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
-          <path d="M232,48V88a8,8,0,0,1-16,0V56H184a8,8,0,0,1,0-16h40A8,8,0,0,1,232,48ZM72,200H40V168a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16Zm152-40a8,8,0,0,0-8,8v32H184a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V168A8,8,0,0,0,224,160ZM32,96a8,8,0,0,0,8-8V56H72a8,8,0,0,0,0-16H32a8,8,0,0,0-8,8V88A8,8,0,0,0,32,96ZM80,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,80,80Zm104,88V88a8,8,0,0,0-16,0v80a8,8,0,0,0,16,0ZM144,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,144,80Zm-32,0a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,112,80Z"></path>
-        </svg>
-      `
-    },
+    // categorias: {
+    //   nombre: "Gestionar Categorías",
+    //   archivo: "categorias.html",
+    //   js: "/js/admin/categorias_admin.js",
+    //   icon: `
+    //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+    //       <path d="M208,88H48a16,16,0,0,0-16,16v96a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V104A16,16,0,0,0,208,88Zm0,112H48V104H208v96ZM48,64a8,8,0,0,1,8-8H200a8,8,0,0,1,0,16H56A8,8,0,0,1,48,64ZM64,32a8,8,0,0,1,8-8H184a8,8,0,0,1,0,16H72A8,8,0,0,1,64,32Z"></path>
+    //     </svg>
+    //   `
+    // },
+    // auditoria: {
+    //   nombre: "Auditoría de Tickets",
+    //   archivo: "auditoria.html",
+    //   js: "/js/admin/auditoria_admin.js",
+    //   icon: `
+    //     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+    //       <path d="M232,48V88a8,8,0,0,1-16,0V56H184a8,8,0,0,1,0-16h40A8,8,0,0,1,232,48ZM72,200H40V168a8,8,0,0,0-16,0v40a8,8,0,0,0,8,8H72a8,8,0,0,0,0-16Zm152-40a8,8,0,0,0-8,8v32H184a8,8,0,0,0,0,16h40a8,8,0,0,0,8-8V168A8,8,0,0,0,224,160ZM32,96a8,8,0,0,0,8-8V56H72a8,8,0,0,0,0-16H32a8,8,0,0,0-8,8V88A8,8,0,0,0,32,96ZM80,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,80,80Zm104,88V88a8,8,0,0,0-16,0v80a8,8,0,0,0,16,0ZM144,80a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,144,80Zm-32,0a8,8,0,0,0-8,8v80a8,8,0,0,0,16,0V88A8,8,0,0,0,112,80Z"></path>
+    //     </svg>
+    //   `
+    // },
     recomendar: {
       nombre: "Recomendar Partners",
       archivo: "recomendar.html",
@@ -96,8 +96,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (seccion === "actividad" && typeof mod.initActividad === 'function') mod.initActividad();
             if (seccion === "usuarios" && typeof mod.initUsuarios === 'function') mod.initUsuarios();
             if (seccion === "direcciones" && typeof mod.initDirecciones === 'function') mod.initDirecciones();
-            if (seccion === "categorias" && typeof mod.initCategorias === 'function') mod.initCategorias();
-            if (seccion === "auditoria" && typeof mod.initAuditoria === 'function') mod.initAuditoria();
+            // if (seccion === "categorias" && typeof mod.initCategorias === 'function') mod.initCategorias();
+            // if (seccion === "auditoria" && typeof mod.initAuditoria === 'function') mod.initAuditoria();
             if (seccion === "recomendar" && typeof mod.initRecomendar === 'function') mod.initRecomendar();
           })
           .catch(e => console.error("Error cargando JS de sección:", e));
