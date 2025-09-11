@@ -59,10 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 formData.append('brochure', selectedFile);
             }
             
-            console.log('Hostname actual:', window.location.hostname);
-            console.log('¿Es localhost?', isLocalhost);
-            console.log('URL del backend:', `${baseUrl}/api/partners/registrar`);
-            console.log('Datos a enviar:', Object.fromEntries(formData));
             
             const response = await fetch(`${baseUrl}/api/partners/registrar`, {
                 method: 'POST',
@@ -97,7 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar categorías desde el backend
     async function cargarCategorias() {
         try {
-            console.log('🔄 Cargando categorías desde el backend...');
             
             // Determinar la URL base del backend
             const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -116,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const categorias = result.categorias;
-            console.log('✅ Categorías cargadas:', categorias);
             
             // Obtener el select de categorías
             const categoriaSelect = document.getElementById('categoria');
@@ -141,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 categoriaSelect.appendChild(option);
             });
             
-            console.log('✅ Dropdown de categorías actualizado');
             
         } catch (error) {
             console.error('❌ Error al cargar categorías:', error);
@@ -445,7 +438,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const certificacionItems = document.querySelectorAll('.certificacion-item');
         
         if (certificacionItems.length === 0) {
-            console.log('No se encontraron items de certificaciones');
             return;
         }
         
@@ -495,7 +487,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        console.log('Certificaciones inicializadas:', certificacionItems.length, 'items');
     }
 
     // Initialize certificaciones
@@ -507,7 +498,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const btnSignIn = document.getElementById("btn-signin");
         if (btnSignIn) {
             btnSignIn.addEventListener("click", () => {
-                console.log("Botón Sign In clicked - redirecting to app");
                 window.location.href = "/app/index.html";
             });
         }
@@ -516,7 +506,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const btnSignUp = document.getElementById("btn-signup");
         if (btnSignUp) {
             btnSignUp.addEventListener("click", () => {
-                console.log("Botón Sign Up clicked - redirecting to signup");
                 window.location.href = "/app/auth/signup.html";
             });
         }
@@ -525,7 +514,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const btnSignInMobile = document.getElementById("btn-signin-mobile");
         if (btnSignInMobile) {
             btnSignInMobile.addEventListener("click", () => {
-                console.log("Botón Sign In móvil clicked - redirecting to app");
                 window.location.href = "/app/index.html";
             });
         }
@@ -533,14 +521,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const btnSignUpMobile = document.getElementById("btn-signup-mobile");
         if (btnSignUpMobile) {
             btnSignUpMobile.addEventListener("click", () => {
-                console.log("Botón Sign Up móvil clicked - redirecting to signup");
                 window.location.href = "/app/auth/signup.html";
             });
         }
 
-        console.log("✅ Botones del header inicializados");
     }
 
     // Initialize page
-    console.log('Partners page loaded successfully!');
 });

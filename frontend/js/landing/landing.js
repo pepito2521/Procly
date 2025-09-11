@@ -121,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnSignIn = document.getElementById("btn-signin")
     if (btnSignIn) {
       btnSignIn.addEventListener("click", () => {
-        console.log("Botón Sign In clicked - redirecting to app")
         window.location.href = "/app/index.html"
       })
     }
@@ -130,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnSignUp = document.getElementById("btn-signup")
     if (btnSignUp) {
       btnSignUp.addEventListener("click", () => {
-        console.log("Botón Sign Up clicked - redirecting to signup")
         window.location.href = "/app/auth/signup.html"
       })
     }
@@ -139,7 +137,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnSignInMobile = document.getElementById("btn-signin-mobile")
     if (btnSignInMobile) {
       btnSignInMobile.addEventListener("click", () => {
-        console.log("Botón Sign In móvil clicked - redirecting to app")
         window.location.href = "/app/index.html"
       })
     }
@@ -147,7 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnSignUpMobile = document.getElementById("btn-signup-mobile")
     if (btnSignUpMobile) {
       btnSignUpMobile.addEventListener("click", () => {
-        console.log("Botón Sign Up móvil clicked - redirecting to signup")
         window.location.href = "/app/auth/signup.html"
       })
     }
@@ -156,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCrearTicket = document.querySelector('.btn-large')
     if (btnCrearTicket) {
       btnCrearTicket.addEventListener("click", () => {
-        console.log("Botón Crear mi primer ticket clicked - redirecting to signup")
         window.location.href = "/app/auth/signup.html"
       })
     }
@@ -165,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnSerPartner = document.querySelector('.partners .btn-large')
     if (btnSerPartner) {
       btnSerPartner.addEventListener("click", () => {
-        console.log("Botón Ser Partner clicked - redirecting to contact")
         // Aquí puedes redirigir a una página de contacto para partners
         window.location.href = "mailto:partners@procly.com?subject=Interés en ser Partner"
       })
@@ -188,28 +182,23 @@ document.addEventListener("DOMContentLoaded", () => {
         switch (buttonText) {
           case "Comenzar Gratis":
           case "Comenzar Gratis Ahora":
-            console.log("Redirecting to signup...")
             // window.location.href = '/signup';
             break
   
           case "Ver Demo":
           case "Agendar Demo":
-            console.log("Opening demo modal...")
             // Open demo modal or redirect
             break
   
           case "Iniciar Sesión":
-            console.log("Redirecting to login...")
             // window.location.href = '/login';
             break
   
           case "Contactar Ventas":
-            console.log("Opening contact form...")
             // Open contact form or redirect
             break
   
           default:
-            console.log(`Button clicked: ${buttonText}`)
         }
       })
     })
@@ -382,12 +371,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCrearTicketHowItWorks = document.querySelector('.how-it-works-cta .btn-hero-primary');
     if (btnCrearTicketHowItWorks) {
       btnCrearTicketHowItWorks.addEventListener('click', () => {
-        console.log("Botón Crear mi primer ticket (how-it-works) clicked - redirecting to signup");
         window.location.href = "https://www.procly.net/app/auth/signup.html";
       });
     }
   
-    console.log("Procly landing page loaded successfully!")
 
     // PARTNERS LOGO CAROUSEL
     const partnersCarousel = document.querySelector('.partners-carousel');
@@ -408,11 +395,9 @@ document.addEventListener("DOMContentLoaded", () => {
         partnerLogos.forEach(logo => {
             logo.addEventListener('click', () => {
                 // You can add functionality here, like opening partner details
-                console.log('Partner logo clicked:', logo.querySelector('img').alt);
             });
         });
         
-        console.log('Partners carousel initialized successfully!');
     }
 
     // PROFILE TOGGLE FUNCTIONALITY
@@ -436,11 +421,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 });
                 
-                console.log(`Profile switched to: ${profile}`);
             });
         });
         
-        console.log('Profile toggle initialized successfully!');
     }
   })
   
@@ -455,7 +438,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleMobileMenu() {
     const nav = document.querySelector(".nav-desktop")
     // Implementation for mobile menu toggle
-    console.log("Toggle mobile menu")
   }
   
   // Export functions if needed
