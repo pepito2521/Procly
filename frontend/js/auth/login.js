@@ -1,7 +1,10 @@
 import { supabase } from "/js/supabaseClient.js";
 import { mostrarLoader, ocultarLoader } from '/js/components/loader.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Limpiar tokens inválidos al cargar la página de login
+    await limpiarTokensInvalidos();
+    
     const form = document.querySelector('.login-form');
   
     form.addEventListener('submit', async (e) => {
@@ -50,4 +53,30 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+// Función para limpiar tokens inválidos y evitar errores de consola
+async function limpiarTokensInvalidos() {
+  try {
+    // Verificar si hay un token almacenado
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      return; // No hay token, no hay nada que limpiar
+    }
+
+    // Intentar verificar si el token es válido
+    const { data: { user }, error } = await supabase.auth.getUser();
+    
+    if (error || !user) {
+      // Token inválido o expirado, limpiar todo
+      console.log('🧹 Limpiando tokens inválidos...');
+      localStorage.removeItem('supabaseToken');
+      await supabase.auth.signOut();
+    }
+  } catch (error) {
+    // Si hay cualquier error, limpiar todo por seguridad
+    console.log('🧹 Error verificando token, limpiando...');
+    localStorage.removeItem('supabaseToken');
+    await supabase.auth.signOut();
+  }
+}
   

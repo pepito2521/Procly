@@ -2758,3 +2758,22 @@
     white-space: nowrap;
   }
 }
+
+/* BOTÓN FLOTANTE WHATSAPP */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  transition: transform 0.2s ease-in-out;
+}
+
+.whatsapp-float img {
+  width: 56px;
+  height: 56px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.whatsapp-float:hover img {
+  transform: scale(1.1);
+}
