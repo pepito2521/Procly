@@ -295,7 +295,8 @@ function configurarPopupEditarDireccion(idDireccion) {
         if (!resp.ok) throw new Error('No se pudo editar la dirección');
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
-        await cargarDireccionesTemplate();
+        // Recargar datos para reflejar cambios
+        await recargarDatosDirecciones();
       } catch (error) {
         alert('Error al editar la dirección: ' + error.message);
       } finally {
@@ -403,15 +404,33 @@ async function cargarPopupEliminarDireccion(idDireccion) {
         // Cerrar pop-up
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
-        // Recargar tabla
-        // Mostrar spinner
-        const spinner = document.querySelector('.glass-loader');
-        if (spinner) spinner.style.display = 'flex';
-        await cargarDireccionesTemplate();
-        if (spinner) spinner.style.display = 'none';
+        // Recargar datos para reflejar cambios
+        await recargarDatosDirecciones();
       } catch (error) {
         alert('Error al eliminar la dirección: ' + error.message);
       }
     };
+  }
+}
+
+// Función para recargar datos después de cambios
+async function recargarDatosDirecciones() {
+  try {
+    // Mostrar spinner
+    const spinner = document.querySelector('.glass-loader');
+    if (spinner) spinner.style.display = 'flex';
+    
+    // Recargar la tabla completa
+    await cargarDireccionesTemplate();
+    
+    // Ocultar spinner
+    if (spinner) spinner.style.display = 'none';
+    
+    console.log('✅ Datos de direcciones recargados correctamente');
+  } catch (error) {
+    console.error('❌ Error al recargar datos de direcciones:', error);
+    // Ocultar spinner en caso de error
+    const spinner = document.querySelector('.glass-loader');
+    if (spinner) spinner.style.display = 'none';
   }
 }

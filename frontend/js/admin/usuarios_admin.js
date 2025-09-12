@@ -296,6 +296,9 @@ async function actualizarDatosUsuario(profileId, nuevoLimite = null, nuevoEstado
             ? `${Number(nuevoLimite).toLocaleString('es-AR').replace(/,/g, '.')} ARS` 
             : '<span class="sin-limite">Sin Límite</span>';
         }
+        
+        // Actualizar saldo (columna 4) cuando cambia el límite
+        await actualizarSaldoUsuario(profileId, filaUsuario);
       }
 
       // Actualizar estado si se cambió
@@ -396,11 +399,8 @@ async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
         
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
-        // Mostrar spinner
-        const spinner = document.querySelector('.glass-loader');
-        if (spinner) spinner.style.display = 'flex';
-        await cargarUsuariosTemplate();
-        if (spinner) spinner.style.display = 'none';
+        // Actualizar datos del usuario
+        await actualizarDatosUsuario(idUsuario, null, !estaBloqueado);
         
       } catch (error) {
         alert('Error al actualizar usuario: ' + error.message);
@@ -454,34 +454,38 @@ async function cargarPopupActivar(idUsuario) {
         if (!resp.ok) throw new Error('No se pudo activar el usuario');
         popup.style.display = 'none';
         document.getElementById('popup-direccion-container').style.display = 'none';
-        // Mostrar spinner
-        const spinner = document.querySelector('.glass-loader');
-        if (spinner) spinner.style.display = 'flex';
-        await cargarUsuariosTemplate();
-        if (spinner) spinner.style.display = 'none';
-        // Actualizar fila y array global
-        const fila = document.querySelector(`tr[data-id="${idUsuario}"]`);
-        if (fila) {
-          // Estado
-          const tdEstado = fila.querySelector('td:nth-child(5)');
-          if (tdEstado) {
-            tdEstado.innerHTML = '<span class="estado-badge activa">Activo</span>';
-          }
-          // Botón
-          const btn = fila.querySelector('.btn-rojo, .btn-verde');
-          if (btn) {
-            btn.className = 'btn-verde';
-            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`;
-          }
-        }
-        if (Array.isArray(window.listadoUsuarios)) {
-          window.listadoUsuarios.forEach(u => {
-            if (u.profile_id == idUsuario) u.bloqueado = false;
-          });
-        }
+        // Actualizar datos del usuario
+        await actualizarDatosUsuario(idUsuario, null, true);
       } catch (error) {
         alert('Error al activar el usuario: ' + error.message);
       }
     };
+  }
+}
+
+// Función para actualizar el saldo de un usuario específico
+async function actualizarSaldoUsuario(profileId, filaUsuario) {
+  try {
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) return;
+
+    const headers = { 'Authorization': `Bearer ${token}` };
+    
+    // Obtener el saldo actualizado del backend
+    const response = await fetch(`/stats/usuario-saldo/${profileId}`, { headers });
+    if (!response.ok) return;
+    
+    const data = await response.json();
+    const saldo = data.saldo || 0;
+    
+    // Actualizar la columna de saldo (columna 4)
+    const tdSaldo = filaUsuario.querySelector('td:nth-child(4)');
+    if (tdSaldo) {
+      tdSaldo.innerHTML = `${Number(saldo).toLocaleString('es-AR').replace(/,/g, '.')} ARS`;
+    }
+    
+    console.log(`✅ Saldo actualizado para usuario ${profileId}: ${saldo} ARS`);
+  } catch (error) {
+    console.error(`❌ Error al actualizar saldo para usuario ${profileId}:`, error);
   }
 }
