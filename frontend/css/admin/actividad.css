@@ -47,7 +47,6 @@
 .export-icon {
     cursor: pointer;
     transition: all 0.2s ease;
-    fill: url(#excelGradient);
     width: 24px;
     height: 24px;
 }
@@ -59,11 +58,6 @@
 
 .export-icon:active {
     transform: translateY(0) scale(1.05);
-}
-
-/* Definir el gradiente SVG */
-.export-icon defs {
-    display: none;
 }
 
 .actividades-table {
