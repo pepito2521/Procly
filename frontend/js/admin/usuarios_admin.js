@@ -192,6 +192,8 @@ async function cargarUsuariosTemplate() {
 
 // Función para cambiar estado de usuario directamente (sin pop-up)
 async function cambiarEstadoUsuario(idUsuario, estaBloqueado) {
+  console.log(`🔄 Cambiando estado del usuario ${idUsuario}, actualmente bloqueado: ${estaBloqueado}`);
+  
   try {
     const token = localStorage.getItem('supabaseToken');
     if (!token) {
@@ -200,11 +202,21 @@ async function cambiarEstadoUsuario(idUsuario, estaBloqueado) {
     }
 
     // Mostrar indicador de carga en el botón
-    const filaUsuario = document.querySelector(`[data-user-id="${idUsuario}"]`);
-    if (!filaUsuario) return;
+    const filaUsuario = document.querySelector(`[data-id="${idUsuario}"]`);
+    if (!filaUsuario) {
+      console.error(`No se encontró la fila del usuario ${idUsuario}`);
+      return;
+    }
     
     const tdAcciones = filaUsuario.querySelector('td:last-child');
     const btnAccion = tdAcciones.querySelector('.btn-rojo, .btn-verde');
+    
+    if (!btnAccion) {
+      console.error(`No se encontró el botón de acción para el usuario ${idUsuario}`);
+      return;
+    }
+    
+    console.log(`✅ Botón encontrado, clase: ${btnAccion.className}`);
     const estadoOriginal = btnAccion.innerHTML;
     
     btnAccion.disabled = true;
@@ -213,6 +225,8 @@ async function cambiarEstadoUsuario(idUsuario, estaBloqueado) {
       ${estaBloqueado ? 'Activando...' : 'Bloqueando...'}
     `;
 
+    console.log(`📤 Enviando petición para ${estaBloqueado ? 'activar' : 'bloquear'} usuario ${idUsuario}`);
+    
     const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
       method: 'POST',
       headers: {
@@ -224,11 +238,15 @@ async function cambiarEstadoUsuario(idUsuario, estaBloqueado) {
       body: JSON.stringify({ profile_id: idUsuario, bloqueado: !estaBloqueado })
     });
     
+    console.log(`📡 Respuesta del servidor: ${resp.status} ${resp.statusText}`);
+    
     if (!resp.ok) {
       throw new Error(`Error del servidor: ${resp.status} ${resp.statusText}`);
     }
     
     const result = await resp.json();
+    console.log(`📋 Resultado:`, result);
+    
     if (!result.success) throw new Error(result.error || 'Error desconocido');
     
     // Actualizar datos del usuario
@@ -242,7 +260,7 @@ async function cambiarEstadoUsuario(idUsuario, estaBloqueado) {
     alert('Error al actualizar usuario: ' + error.message);
     
     // Restaurar botón en caso de error
-    const filaUsuario = document.querySelector(`[data-user-id="${idUsuario}"]`);
+    const filaUsuario = document.querySelector(`[data-id="${idUsuario}"]`);
     if (filaUsuario) {
       const tdAcciones = filaUsuario.querySelector('td:last-child');
       const btnAccion = tdAcciones.querySelector('.btn-rojo, .btn-verde');

@@ -44,34 +44,26 @@
     font-size: 14px;
 }
 
-#btnExportar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
+.export-icon {
     cursor: pointer;
     transition: all 0.2s ease;
-    white-space: nowrap;
+    fill: url(#excelGradient);
+    width: 24px;
+    height: 24px;
 }
 
-#btnExportar:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.export-icon:hover {
+    transform: translateY(-2px) scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(80, 137, 145, 0.3));
 }
 
-#btnExportar:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+.export-icon:active {
+    transform: translateY(0) scale(1.05);
 }
 
-#btnExportar svg {
-    width: 16px;
-    height: 16px;
+/* Definir el gradiente SVG */
+.export-icon defs {
+    display: none;
 }
 
 .actividades-table {
