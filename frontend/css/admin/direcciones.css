@@ -23,6 +23,7 @@
 }
 
 .search-input {
+    height: 35px;
     padding: 8px 12px;
     padding-left: 2.5rem;
     border: none;
@@ -34,10 +35,7 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.search-input:hover,
 .search-input:focus {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     outline: none;
 }
 
