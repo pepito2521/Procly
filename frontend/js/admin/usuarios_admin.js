@@ -236,7 +236,7 @@ async function cambiarEstadoUsuario(idUsuario, estaBloqueado) {
     ocultarLoader();
     
     // Mostrar mensaje de éxito
-    mostrarMensajeExito(estaBloqueado ? 'Usuario activado exitosamente' : 'Usuario bloqueado exitosamente');
+    mostrarMensajeExito(estaBloqueado ? 'Usuario bloqueado exitosamente' : 'Usuario activado exitosamente');
     
   } catch (error) {
     console.error('Error al cambiar estado del usuario:', error);
