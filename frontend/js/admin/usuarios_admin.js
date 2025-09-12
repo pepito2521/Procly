@@ -18,10 +18,21 @@ async function cargarUsuariosTemplate() {
 
         const headers = { 'Authorization': `Bearer ${token}` };
 
-        // Función helper para manejar fetch con mejor manejo de errores
+        // Función helper para manejar fetch con mejor manejo de errores y cache busting
         async function fetchWithErrorHandling(url, headers) {
             try {
-                const response = await fetch(url, { headers });
+                // Cache busting para evitar problemas de cache
+                const timestamp = Date.now();
+                const separator = url.includes('?') ? '&' : '?';
+                const urlWithCacheBusting = `${url}${separator}t=${timestamp}`;
+                
+                const headersWithCache = {
+                    ...headers,
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
+                };
+                
+                const response = await fetch(urlWithCacheBusting, { headers: headersWithCache });
                 if (!response.ok) {
                     console.warn(`Error HTTP ${response.status} para ${url}`);
                     return null;
@@ -311,18 +322,8 @@ async function actualizarDatosUsuario(profileId, nuevoLimite = null, nuevoEstado
           tdEstado.innerHTML = nuevoBadge;
         }
         
-        // Actualizar botón de acción (columna 6)
-        const tdAcciones = filaUsuario.querySelector('td:nth-child(6)');
-        if (tdAcciones) {
-          const btnAccion = tdAcciones.querySelector('.btn-rojo, .btn-verde');
-          if (btnAccion) {
-            // Usar la misma lógica que en cargarUsuariosTemplate
-            btnAccion.className = nuevoEstado ? 'btn-rojo' : 'btn-verde';
-            btnAccion.innerHTML = nuevoEstado
-              ? `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg> Bloquear`
-              : `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,0,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg> Activar`;
-          }
-        }
+        // Actualizar botón de acción (columna 6) - Versión robusta
+        await actualizarBotonAccion(filaUsuario, profileId, nuevoEstado);
       }
     }
 
@@ -482,10 +483,17 @@ async function actualizarSaldoUsuario(profileId, filaUsuario) {
     const token = localStorage.getItem('supabaseToken');
     if (!token) return;
 
-    const headers = { 'Authorization': `Bearer ${token}` };
+    const headers = { 
+      'Authorization': `Bearer ${token}`,
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    };
+    
+    // Cache busting para evitar problemas de cache
+    const timestamp = Date.now();
     
     // Obtener todos los usuarios con sus saldos del backend
-    const response = await fetch('/stats/usuarios-gasto-total', { headers });
+    const response = await fetch(`/stats/usuarios-gasto-total?t=${timestamp}`, { headers });
     if (!response.ok) {
       console.warn(`⚠️ Error HTTP ${response.status} al obtener saldos de usuarios`);
       return;
@@ -515,5 +523,96 @@ async function actualizarSaldoUsuario(profileId, filaUsuario) {
     console.log(`✅ Saldo actualizado para usuario ${profileId}: ${saldo} ARS`);
   } catch (error) {
     console.error(`❌ Error al actualizar saldo para usuario ${profileId}:`, error);
+  }
+}
+
+// Función robusta para actualizar el botón de acción
+async function actualizarBotonAccion(filaUsuario, profileId, nuevoEstado) {
+  try {
+    const tdAcciones = filaUsuario.querySelector('td:nth-child(6)');
+    if (!tdAcciones) {
+      console.warn(`⚠️ No se encontró la columna de acciones para usuario ${profileId}`);
+      return;
+    }
+
+    // Buscar el botón existente
+    let btnAccion = tdAcciones.querySelector('.btn-rojo, .btn-verde');
+    
+    if (!btnAccion) {
+      console.warn(`⚠️ No se encontró el botón de acción para usuario ${profileId}`);
+      return;
+    }
+
+    // Crear el nuevo botón con el estado correcto
+    const nuevoBoton = document.createElement('button');
+    nuevoBoton.className = nuevoEstado ? 'btn-rojo' : 'btn-verde';
+    
+    if (nuevoEstado) {
+      // Usuario activo -> Botón rojo "Bloquear"
+      nuevoBoton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path>
+        </svg>
+        Bloquear
+      `;
+    } else {
+      // Usuario bloqueado -> Botón verde "Activar"
+      nuevoBoton.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+          <path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,1,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path>
+        </svg>
+        Activar
+      `;
+    }
+
+    // Agregar event listener al nuevo botón
+    nuevoBoton.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      try {
+        const token = localStorage.getItem('supabaseToken');
+        if (!token) {
+          alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+          return;
+        }
+        
+        // Determinar la acción basada en la clase del botón
+        const esActivar = nuevoBoton.classList.contains('btn-verde');
+        const estaBloqueado = !esActivar;
+        
+        const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          },
+          body: JSON.stringify({ profile_id: profileId, bloqueado: estaBloqueado })
+        });
+        
+        if (!resp.ok) {
+          throw new Error(`Error del servidor: ${resp.status} ${resp.statusText}`);
+        }
+        
+        const result = await resp.json();
+        if (!result.success) throw new Error(result.error || 'Error desconocido');
+        
+        // Actualizar datos del usuario
+        await actualizarDatosUsuario(profileId, null, !estaBloqueado);
+        
+      } catch (error) {
+        console.error('❌ Error al actualizar usuario:', error);
+        alert('Error al actualizar usuario: ' + error.message);
+      }
+    });
+
+    // Reemplazar el botón viejo con el nuevo
+    btnAccion.parentNode.replaceChild(nuevoBoton, btnAccion);
+    
+    console.log(`✅ Botón de acción actualizado para usuario ${profileId}: ${nuevoEstado ? 'Activo' : 'Bloqueado'}`);
+    
+  } catch (error) {
+    console.error(`❌ Error al actualizar botón de acción para usuario ${profileId}:`, error);
   }
 }

@@ -24,11 +24,22 @@ async function cargarActividadTemplate() {
     const headers = { 'Authorization': `Bearer ${token}` };
     console.log('📋 Headers configurados:', headers);
 
-    // Función helper para manejar fetch con mejor manejo de errores
+    // Función helper para manejar fetch con mejor manejo de errores y cache busting
     async function fetchWithErrorHandling(url, headers) {
       try {
-        console.log(`🌐 Haciendo petición a: ${url}`);
-        const response = await fetch(url, { headers });
+        // Cache busting para evitar problemas de cache
+        const timestamp = Date.now();
+        const separator = url.includes('?') ? '&' : '?';
+        const urlWithCacheBusting = `${url}${separator}t=${timestamp}`;
+        
+        const headersWithCache = {
+          ...headers,
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        };
+        
+        console.log(`🌐 Haciendo petición a: ${urlWithCacheBusting}`);
+        const response = await fetch(urlWithCacheBusting, { headers: headersWithCache });
         console.log(`📡 Respuesta de ${url}:`, response.status, response.statusText);
         
         if (!response.ok) {

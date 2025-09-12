@@ -15,10 +15,21 @@ async function cargarDireccionesTemplate() {
 
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    // Función helper para manejar fetch con mejor manejo de errores
+    // Función helper para manejar fetch con mejor manejo de errores y cache busting
     async function fetchWithErrorHandling(url, headers) {
       try {
-        const response = await fetch(url, { headers });
+        // Cache busting para evitar problemas de cache
+        const timestamp = Date.now();
+        const separator = url.includes('?') ? '&' : '?';
+        const urlWithCacheBusting = `${url}${separator}t=${timestamp}`;
+        
+        const headersWithCache = {
+          ...headers,
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        };
+        
+        const response = await fetch(urlWithCacheBusting, { headers: headersWithCache });
         if (!response.ok) {
           console.warn(`Error HTTP ${response.status} para ${url}`);
           return null;

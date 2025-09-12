@@ -112,14 +112,13 @@
 .input-unidad {
   position: absolute;
   right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 10px;
   color: #6b7280;
   font-size: 1rem;
   pointer-events: none;
   font-weight: 400;
-  line-height: 1;
-  height: 16px;
+  line-height: 1.2rem;
+  height: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,5 +131,6 @@
 }
 /* Ocultar flechas en Firefox */
 .input-limite {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
