@@ -243,6 +243,6 @@ function actualizarTextosDinamicos() {
   const acumuladoAnualTrend = document.getElementById("acumulado-anual-trend");
   if (acumuladoAnualTrend) {
     const añoActual = new Date().getFullYear();
-    acumuladoAnualTrend.textContent = `Ene-Dic ${añoActual}`;
+    acumuladoAnualTrend.textContent = `${añoActual}`;
   }
 }

@@ -471,12 +471,27 @@ async function actualizarSaldoUsuario(profileId, filaUsuario) {
 
     const headers = { 'Authorization': `Bearer ${token}` };
     
-    // Obtener el saldo actualizado del backend
-    const response = await fetch(`/stats/usuario-saldo/${profileId}`, { headers });
-    if (!response.ok) return;
+    // Obtener todos los usuarios con sus saldos del backend
+    const response = await fetch('/stats/usuarios-gasto-total', { headers });
+    if (!response.ok) {
+      console.warn(`⚠️ Error HTTP ${response.status} al obtener saldos de usuarios`);
+      return;
+    }
     
     const data = await response.json();
-    const saldo = data.saldo || 0;
+    if (!data.usuarios || !Array.isArray(data.usuarios)) {
+      console.warn('⚠️ Respuesta inválida del endpoint de usuarios');
+      return;
+    }
+    
+    // Buscar el usuario específico
+    const usuario = data.usuarios.find(u => u.profile_id === profileId);
+    if (!usuario) {
+      console.warn(`⚠️ Usuario ${profileId} no encontrado en la respuesta`);
+      return;
+    }
+    
+    const saldo = usuario.saldo || 0;
     
     // Actualizar la columna de saldo (columna 4)
     const tdSaldo = filaUsuario.querySelector('td:nth-child(4)');

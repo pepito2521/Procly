@@ -96,8 +96,7 @@
   max-width: 320px;
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  align-items: center;
+  margin-bottom: 1.5rem;
 }
 .input-limite {
   width: 100%;
@@ -107,7 +106,8 @@
   border-radius: 8px;
   border: 1px solid #d1d5db;
   padding: 8px 12px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+  height: 40px;
 }
 .input-unidad {
   position: absolute;
