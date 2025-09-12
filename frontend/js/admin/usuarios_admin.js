@@ -180,16 +180,113 @@ async function cargarUsuariosTemplate() {
     });
 
     tbody.querySelectorAll('.btn-rojo, .btn-verde').forEach((btn, i) => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', async function() {
             const idUsuario = window.listadoUsuarios[i].profile_id;
             const estaBloqueado = !!window.listadoUsuarios[i].bloqueado;
-            if (estaBloqueado) {
-                cargarPopupActivar(idUsuario);
-            } else {
-                cargarPopupBloquear(idUsuario, estaBloqueado);
-            }
+            
+            // Ejecutar cambio directamente sin pop-up de confirmación
+            await cambiarEstadoUsuario(idUsuario, estaBloqueado);
         });
     });
+}
+
+// Función para cambiar estado de usuario directamente (sin pop-up)
+async function cambiarEstadoUsuario(idUsuario, estaBloqueado) {
+  try {
+    const token = localStorage.getItem('supabaseToken');
+    if (!token) {
+      alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
+      return;
+    }
+
+    // Mostrar indicador de carga en el botón
+    const filaUsuario = document.querySelector(`[data-user-id="${idUsuario}"]`);
+    if (!filaUsuario) return;
+    
+    const tdAcciones = filaUsuario.querySelector('td:last-child');
+    const btnAccion = tdAcciones.querySelector('.btn-rojo, .btn-verde');
+    const estadoOriginal = btnAccion.innerHTML;
+    
+    btnAccion.disabled = true;
+    btnAccion.innerHTML = `
+      <span class="spinner-small"></span>
+      ${estaBloqueado ? 'Activando...' : 'Bloqueando...'}
+    `;
+
+    const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      },
+      body: JSON.stringify({ profile_id: idUsuario, bloqueado: !estaBloqueado })
+    });
+    
+    if (!resp.ok) {
+      throw new Error(`Error del servidor: ${resp.status} ${resp.statusText}`);
+    }
+    
+    const result = await resp.json();
+    if (!result.success) throw new Error(result.error || 'Error desconocido');
+    
+    // Actualizar datos del usuario
+    await actualizarDatosUsuario(idUsuario, null, !estaBloqueado);
+    
+    // Mostrar mensaje de éxito
+    mostrarMensajeExito(estaBloqueado ? 'Usuario activado exitosamente' : 'Usuario bloqueado exitosamente');
+    
+  } catch (error) {
+    console.error('Error al cambiar estado del usuario:', error);
+    alert('Error al actualizar usuario: ' + error.message);
+    
+    // Restaurar botón en caso de error
+    const filaUsuario = document.querySelector(`[data-user-id="${idUsuario}"]`);
+    if (filaUsuario) {
+      const tdAcciones = filaUsuario.querySelector('td:last-child');
+      const btnAccion = tdAcciones.querySelector('.btn-rojo, .btn-verde');
+      if (btnAccion) {
+        btnAccion.disabled = false;
+        btnAccion.innerHTML = estaBloqueado ? 
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H96V56a32,32,0,0,1,32-32c15.37,0,29.2,11,32.16,25.59a8,8,0,0,1,15.68-3.18C171.32,24.15,151.2,8,128,8A48.05,48.05,0,0,0,80,56V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm0,128H48V96H208V208Z"></path></svg>Activar' :
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"></path></svg>Bloquear';
+      }
+    }
+  }
+}
+
+// Función para mostrar mensaje de éxito temporal
+function mostrarMensajeExito(mensaje) {
+  const mensajeDiv = document.createElement('div');
+  mensajeDiv.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #10b981;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  `;
+  mensajeDiv.innerHTML = `
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M229.66,74.34l-112,112a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L112,164.69,218.34,58.34a8,8,0,0,1,11.32,11.32Z"></path>
+      </svg>
+      ${mensaje}
+    </div>
+  `;
+  
+  document.body.appendChild(mensajeDiv);
+  
+  // Remover después de 3 segundos
+  setTimeout(() => {
+    mensajeDiv.remove();
+  }, 3000);
 }
 
 // Mostrar pop-up de límite
@@ -358,124 +455,6 @@ async function actualizarDatosUsuario(profileId, nuevoLimite = null, nuevoEstado
   }
 }
 
-// Mostrar pop-up de bloquear/desbloquear
-async function cargarPopupBloquear(idUsuario, estaBloqueado = false) {
-  const response = await fetch('/components/pop-up-bloquear-usuario.html');
-  const html = await response.text();
-  document.getElementById('popup-direccion-container').innerHTML = html;
-  document.getElementById('popup-direccion-container').style.display = 'block';
-  document.getElementById('pop-up-bloquear').style.display = 'flex';
-
-  // Botón cancelar
-  const popup = document.getElementById('pop-up-bloquear');
-  const btnCancelar = popup.querySelector('.btn-gris');
-  if (btnCancelar) {
-    btnCancelar.onclick = function() {
-      popup.style.display = 'none';
-      document.getElementById('popup-direccion-container').style.display = 'none';
-    };
-  }
-  // Cerrar haciendo click fuera
-  popup.addEventListener('click', function(event) {
-    if (event.target === popup) {
-      popup.style.display = 'none';
-      document.getElementById('popup-direccion-container').style.display = 'none';
-    }
-  });
-
-  // Botón Bloquear/Activar
-  const btnBloquear = popup.querySelector('#confirmar-bloquear');
-  if (btnBloquear) {
-    btnBloquear.textContent = estaBloqueado ? 'Activar' : 'Bloquear';
-    btnBloquear.className = estaBloqueado ? 'btn-verde' : 'btn-rojo';
-    btnBloquear.onclick = async function() {
-      const token = localStorage.getItem('supabaseToken');
-      if (!token) {
-        alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
-        return;
-      }
-      try {
-        const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ profile_id: idUsuario, bloqueado: !estaBloqueado })
-        });
-        
-        if (!resp.ok) {
-          throw new Error(`Error del servidor: ${resp.status} ${resp.statusText}`);
-        }
-        
-        const result = await resp.json();
-        if (!result.success) throw new Error(result.error || 'Error desconocido');
-        
-        popup.style.display = 'none';
-        document.getElementById('popup-direccion-container').style.display = 'none';
-        // Actualizar datos del usuario
-        await actualizarDatosUsuario(idUsuario, null, !estaBloqueado);
-        
-      } catch (error) {
-        alert('Error al actualizar usuario: ' + error.message);
-      }
-    };
-  }
-}
-
-// Pop-up para activar usuario
-async function cargarPopupActivar(idUsuario) {
-  const response = await fetch('/components/pop-up-activar-usuario.html');
-  const html = await response.text();
-  document.getElementById('popup-direccion-container').innerHTML = html;
-  document.getElementById('popup-direccion-container').style.display = 'block';
-  const popup = document.getElementById('pop-up-activar');
-  popup.style.display = 'flex';
-
-  // Botón cancelar
-  const btnCancelar = popup.querySelector('.btn-gris');
-  if (btnCancelar) {
-    btnCancelar.onclick = function() {
-      popup.style.display = 'none';
-      document.getElementById('popup-direccion-container').style.display = 'none';
-    };
-  }
-  // Cerrar haciendo click fuera
-  popup.addEventListener('click', function(event) {
-    if (event.target === popup) {
-      popup.style.display = 'none';
-      document.getElementById('popup-direccion-container').style.display = 'none';
-    }
-  });
-  // Botón activar
-  const btnActivar = document.getElementById('confirmar-activar');
-  if (btnActivar) {
-    btnActivar.onclick = async function() {
-      try {
-        const token = localStorage.getItem('supabaseToken');
-        if (!token) {
-          alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
-          return;
-        }
-        const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ profile_id: idUsuario, bloqueado: false })
-        });
-        if (!resp.ok) throw new Error('No se pudo activar el usuario');
-        popup.style.display = 'none';
-        document.getElementById('popup-direccion-container').style.display = 'none';
-        // Actualizar datos del usuario
-        await actualizarDatosUsuario(idUsuario, null, true);
-      } catch (error) {
-        alert('Error al activar el usuario: ' + error.message);
-      }
-    };
-  }
-}
 
 // Función para actualizar el saldo de un usuario específico
 async function actualizarSaldoUsuario(profileId, filaUsuario) {
@@ -540,8 +519,8 @@ async function actualizarBotonAccion(filaUsuario, profileId, nuevoEstado) {
     
     if (!btnAccion) {
       console.warn(`⚠️ No se encontró el botón de acción para usuario ${profileId}`);
-      return;
-    }
+        return;
+      }
 
     // Crear el nuevo botón con el estado correcto
     const nuevoBoton = document.createElement('button');
@@ -569,42 +548,12 @@ async function actualizarBotonAccion(filaUsuario, profileId, nuevoEstado) {
     nuevoBoton.addEventListener('click', async function(e) {
       e.preventDefault();
       
-      try {
-        const token = localStorage.getItem('supabaseToken');
-        if (!token) {
-          alert('No se encontró el token de autorización. Por favor, vuelve a iniciar sesión.');
-          return;
-        }
-        
-        // Determinar la acción basada en la clase del botón
-        const esActivar = nuevoBoton.classList.contains('btn-verde');
-        const estaBloqueado = !esActivar;
-        
-        const resp = await fetch('https://www.procly.net/stats/bloquear-usuario', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-          },
-          body: JSON.stringify({ profile_id: profileId, bloqueado: estaBloqueado })
-        });
-        
-        if (!resp.ok) {
-          throw new Error(`Error del servidor: ${resp.status} ${resp.statusText}`);
-        }
-        
-        const result = await resp.json();
-        if (!result.success) throw new Error(result.error || 'Error desconocido');
-        
-        // Actualizar datos del usuario
-        await actualizarDatosUsuario(profileId, null, !estaBloqueado);
-        
-      } catch (error) {
-        console.error('❌ Error al actualizar usuario:', error);
-        alert('Error al actualizar usuario: ' + error.message);
-      }
+      // Determinar la acción basada en la clase del botón
+      const esActivar = nuevoBoton.classList.contains('btn-verde');
+      const estaBloqueado = !esActivar;
+      
+      // Usar la función directa sin pop-up
+      await cambiarEstadoUsuario(profileId, estaBloqueado);
     });
 
     // Reemplazar el botón viejo con el nuevo
@@ -612,7 +561,7 @@ async function actualizarBotonAccion(filaUsuario, profileId, nuevoEstado) {
     
     console.log(`✅ Botón de acción actualizado para usuario ${profileId}: ${nuevoEstado ? 'Activo' : 'Bloqueado'}`);
     
-  } catch (error) {
+      } catch (error) {
     console.error(`❌ Error al actualizar botón de acción para usuario ${profileId}:`, error);
   }
 }
