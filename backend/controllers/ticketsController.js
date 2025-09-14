@@ -303,6 +303,75 @@ const kpiTicketsCanceladosUsuario = async (req, res) => {
   }
 };
 
+// KPI: GASTO TOTAL DEL USUARIO (suma de precio_seleccionado)
+const kpiGastoTotalUsuario = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    const { data, error } = await supabase
+      .from('tickets')
+      .select('precio_seleccionado')
+      .eq('user_id', user_id);
+    
+    if (error) throw error;
+    
+    const total = data.reduce((acc, ticket) => acc + (ticket.precio_seleccionado || 0), 0);
+    res.json({ total });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// KPI: LÍMITE DE GASTO DEL USUARIO (limite_gasto del perfil)
+const kpiLimiteGastoUsuario = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    const { data: perfil, error } = await supabase
+      .from('profiles')
+      .select('limite_gasto')
+      .eq('profile_id', user_id)
+      .single();
+    
+    if (error) throw error;
+    
+    const limite = perfil?.limite_gasto || 0;
+    res.json({ total: limite });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// KPI: SALDO DISPONIBLE DEL USUARIO (limite_gasto - gasto_total)
+const kpiSaldoDisponibleUsuario = async (req, res) => {
+  try {
+    const user_id = req.user?.id;
+    
+    // Obtener límite del perfil
+    const { data: perfil, error: errorPerfil } = await supabase
+      .from('profiles')
+      .select('limite_gasto')
+      .eq('profile_id', user_id)
+      .single();
+    
+    if (errorPerfil) throw errorPerfil;
+    
+    // Obtener gasto total
+    const { data: tickets, error: errorTickets } = await supabase
+      .from('tickets')
+      .select('precio_seleccionado')
+      .eq('user_id', user_id);
+    
+    if (errorTickets) throw errorTickets;
+    
+    const gastoTotal = tickets.reduce((acc, ticket) => acc + (ticket.precio_seleccionado || 0), 0);
+    const limite = perfil?.limite_gasto || 0;
+    const saldo = limite - gastoTotal;
+    
+    res.json({ total: saldo });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   crearTicket,
   actualizarEstadoTicket,
@@ -313,5 +382,8 @@ module.exports = {
   kpiTotalTicketsUsuario,
   kpiTicketsEntregadosUsuario,
   kpiTicketsEnProcesoUsuario,
-  kpiTicketsCanceladosUsuario
+  kpiTicketsCanceladosUsuario,
+  kpiGastoTotalUsuario,
+  kpiLimiteGastoUsuario,
+  kpiSaldoDisponibleUsuario
 };

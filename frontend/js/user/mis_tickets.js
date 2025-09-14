@@ -58,6 +58,14 @@ async function cargarKPIsYTabla() {
   ocultarLoader();
 }
 
+// Función para formatear números en formato argentino
+function formatearNumero(numero) {
+  if (numero == null || numero === undefined || numero === 0) {
+    return '0';
+  }
+  return Number(numero).toLocaleString('es-AR').replace(/,/g, '.');
+}
+
 async function cargarKPIs() {
   const token = localStorage.getItem('supabaseToken');
   if (!token) {
@@ -69,37 +77,38 @@ async function cargarKPIs() {
   try {
     console.log('🔄 Cargando KPIs...');
     
-    const [total, entregados, enProceso, cancelados] = await Promise.all([
+    const [total, gasto, limite, saldo] = await Promise.all([
       fetch('https://www.procly.net/tickets/kpi-total', { headers }).then(r => {
         console.log('📊 KPI Total response:', r.status, r.statusText);
         return r.json();
       }),
-      fetch('https://www.procly.net/tickets/kpi-entregados', { headers }).then(r => {
-        console.log('📊 KPI Entregados response:', r.status, r.statusText);
+      fetch('https://www.procly.net/tickets/kpi-gasto', { headers }).then(r => {
+        console.log('📊 KPI Gasto response:', r.status, r.statusText);
         return r.json();
       }),
-      fetch('https://www.procly.net/tickets/kpi-en-proceso', { headers }).then(r => {
-        console.log('📊 KPI En Proceso response:', r.status, r.statusText);
+      fetch('https://www.procly.net/tickets/kpi-limite', { headers }).then(r => {
+        console.log('📊 KPI Límite response:', r.status, r.statusText);
         return r.json();
       }),
-      fetch('https://www.procly.net/tickets/kpi-cancelados', { headers }).then(r => {
-        console.log('📊 KPI Cancelados response:', r.status, r.statusText);
+      fetch('https://www.procly.net/tickets/kpi-saldo', { headers }).then(r => {
+        console.log('📊 KPI Saldo response:', r.status, r.statusText);
         return r.json();
       })
     ]);
 
-    console.log('📊 KPIs recibidos:', { total, entregados, enProceso, cancelados });
+    console.log('📊 KPIs recibidos:', { total, gasto, limite, saldo });
 
+    // Actualizar valores con formato
     document.getElementById('kpi-total-tickets').textContent = total.total ?? 0;
-    document.getElementById('kpi-tickets-entregados').textContent = entregados.total ?? 0;
-    document.getElementById('kpi-tickets-proceso').textContent = enProceso.total ?? 0;
-    document.getElementById('kpi-tickets-cancelados').textContent = cancelados.total ?? 0;
+    document.getElementById('kpi-gasto-total').textContent = formatearNumero(gasto.total);
+    document.getElementById('kpi-limite-gasto').textContent = formatearNumero(limite.total);
+    document.getElementById('kpi-saldo-disponible').textContent = formatearNumero(saldo.total);
   } catch (e) {
     console.error('❌ Error cargando KPIs:', e);
     document.getElementById('kpi-total-tickets').textContent = 0;
-    document.getElementById('kpi-tickets-entregados').textContent = 0;
-    document.getElementById('kpi-tickets-proceso').textContent = 0;
-    document.getElementById('kpi-tickets-cancelados').textContent = 0;
+    document.getElementById('kpi-gasto-total').textContent = '0';
+    document.getElementById('kpi-limite-gasto').textContent = '0';
+    document.getElementById('kpi-saldo-disponible').textContent = '0';
   }
 }
 

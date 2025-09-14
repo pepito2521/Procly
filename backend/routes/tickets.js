@@ -11,7 +11,10 @@ const {
     kpiTotalTicketsUsuario,
     kpiTicketsEntregadosUsuario,
     kpiTicketsEnProcesoUsuario,
-    kpiTicketsCanceladosUsuario
+    kpiTicketsCanceladosUsuario,
+    kpiGastoTotalUsuario,
+    kpiLimiteGastoUsuario,
+    kpiSaldoDisponibleUsuario
 } = require('../controllers/ticketsController');
 
 router.use(requireAuth);
@@ -21,6 +24,9 @@ router.get('/kpi-total', kpiTotalTicketsUsuario);
 router.get('/kpi-entregados', kpiTicketsEntregadosUsuario);
 router.get('/kpi-en-proceso', kpiTicketsEnProcesoUsuario);
 router.get('/kpi-cancelados', kpiTicketsCanceladosUsuario);
+router.get('/kpi-gasto', kpiGastoTotalUsuario);
+router.get('/kpi-limite', kpiLimiteGastoUsuario);
+router.get('/kpi-saldo', kpiSaldoDisponibleUsuario);
 
 // RUTAS TICKETS
 router.get('/direcciones', obtenerDirecciones);
