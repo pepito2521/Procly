@@ -58,12 +58,12 @@ async function cargarKPIsYTabla() {
   ocultarLoader();
 }
 
-// Función para formatear números en formato argentino
-function formatearNumero(numero) {
+// Función para formatear números en formato argentino con ARS
+function formatearNumeroARS(numero) {
   if (numero == null || numero === undefined || numero === 0) {
-    return '0';
+    return '0 ARS';
   }
-  return Number(numero).toLocaleString('es-AR').replace(/,/g, '.');
+  return `${Math.round(numero).toLocaleString('es-AR').replace(/,/g, '.')} ARS`;
 }
 
 async function cargarKPIs() {
@@ -100,15 +100,15 @@ async function cargarKPIs() {
 
     // Actualizar valores con formato
     document.getElementById('kpi-total-tickets').textContent = total.total ?? 0;
-    document.getElementById('kpi-gasto-total').textContent = formatearNumero(gasto.total);
-    document.getElementById('kpi-limite-gasto').textContent = formatearNumero(limite.total);
-    document.getElementById('kpi-saldo-disponible').textContent = formatearNumero(saldo.total);
+    document.getElementById('kpi-gasto-total').textContent = formatearNumeroARS(gasto.total);
+    document.getElementById('kpi-limite-gasto').textContent = formatearNumeroARS(limite.total);
+    document.getElementById('kpi-saldo-disponible').textContent = formatearNumeroARS(saldo.total);
   } catch (e) {
     console.error('❌ Error cargando KPIs:', e);
     document.getElementById('kpi-total-tickets').textContent = 0;
-    document.getElementById('kpi-gasto-total').textContent = '0';
-    document.getElementById('kpi-limite-gasto').textContent = '0';
-    document.getElementById('kpi-saldo-disponible').textContent = '0';
+    document.getElementById('kpi-gasto-total').textContent = '0 ARS';
+    document.getElementById('kpi-limite-gasto').textContent = '0 ARS';
+    document.getElementById('kpi-saldo-disponible').textContent = '0 ARS';
   }
 }
 
