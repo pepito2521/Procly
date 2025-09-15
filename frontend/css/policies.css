@@ -8,8 +8,8 @@
     justify-content: center;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     position: relative;
-    overflow: hidden;
-    padding: 0;
+    overflow: visible;
+    padding: 2rem 0;
 }
 
 .hero-section::before {
@@ -58,6 +58,9 @@
 .content-section {
     padding: 4rem 0;
     background: #f9fafb;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .policies-content {
@@ -69,6 +72,9 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     line-height: 1.6;
     color: #374151;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .policies-content h1 {
