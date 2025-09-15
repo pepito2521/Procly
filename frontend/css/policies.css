@@ -2,13 +2,14 @@
 
 /* HERO SECTION */
 .hero-section {
-    min-height: 100vh;
+    min-height: calc(100vh - 64px);
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     position: relative;
     overflow: hidden;
+    padding: 0;
 }
 
 .hero-section::before {
@@ -34,21 +35,21 @@
     width: 120px;
     height: 120px;
     margin: 0 auto 2rem;
-    color: rgb(209, 213, 219);
+    color: #508991;
     opacity: 0.8;
 }
 
 .hero-title {
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--gray-900);
+    color: #111827;
     margin-bottom: 1rem;
     line-height: 1.2;
 }
 
 .hero-description {
     font-size: 1.25rem;
-    color: var(--gray-600);
+    color: #6b7280;
     margin-bottom: 0;
     line-height: 1.6;
 }
@@ -67,19 +68,19 @@
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     line-height: 1.6;
-    color: var(--gray-700);
+    color: #374151;
 }
 
 .policies-content h1 {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--gray-900);
+    color: #111827;
     margin-bottom: 1rem;
     text-align: center;
 }
 
 .last-updated {
-    color: var(--gray-600);
+    color: #6b7280;
     font-style: italic;
     margin-bottom: 2rem;
     text-align: center;
@@ -88,17 +89,17 @@
 .policies-content h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--gray-900);
+    color: #111827;
     margin-top: 2rem;
     margin-bottom: 1rem;
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid #508991;
     padding-bottom: 0.5rem;
 }
 
 .policies-content h3 {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--gray-800);
+    color: #1f2937;
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
 }
@@ -118,12 +119,12 @@
 }
 
 .policies-content strong {
-    color: var(--gray-900);
+    color: #111827;
     font-weight: 600;
 }
 
 .policies-content a {
-    color: var(--primary-color);
+    color: #508991;
     text-decoration: none;
     font-weight: 500;
 }
@@ -144,7 +145,7 @@
 .table-of-contents h3 {
     margin-top: 0;
     margin-bottom: 1rem;
-    color: var(--gray-900);
+    color: #111827;
 }
 
 .table-of-contents ul {
@@ -157,12 +158,12 @@
 }
 
 .table-of-contents a {
-    color: var(--gray-700);
+    color: #374151;
     text-decoration: none;
 }
 
 .table-of-contents a:hover {
-    color: var(--primary-color);
+    color: #508991;
     text-decoration: underline;
 }
 
@@ -177,7 +178,7 @@
 
 .contact-info h3 {
     margin-top: 0;
-    color: var(--gray-900);
+    color: #111827;
 }
 
 .contact-info p {
@@ -185,7 +186,7 @@
 }
 
 .contact-info a {
-    color: var(--primary-color);
+    color: #508991;
     font-weight: 500;
 }
 
