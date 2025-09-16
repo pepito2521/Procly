@@ -423,25 +423,3 @@ async function cargarPopupEliminarDireccion(idDireccion) {
     };
   }
 }
-
-// Función para recargar datos después de cambios
-async function recargarDatosDirecciones() {
-  try {
-    // Mostrar spinner
-    const spinner = document.querySelector('.glass-loader');
-    if (spinner) spinner.style.display = 'flex';
-    
-    // Recargar la tabla completa
-    await cargarDireccionesTemplate();
-    
-    // Ocultar spinner
-    if (spinner) spinner.style.display = 'none';
-    
-    console.log('✅ Datos de direcciones recargados correctamente');
-  } catch (error) {
-    console.error('❌ Error al recargar datos de direcciones:', error);
-    // Ocultar spinner en caso de error
-    const spinner = document.querySelector('.glass-loader');
-    if (spinner) spinner.style.display = 'none';
-  }
-}

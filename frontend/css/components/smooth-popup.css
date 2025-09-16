@@ -1,0 +1,50 @@
+/* SMOOTH POPUP - Efectos suaves simples para pop-ups */
+
+/* Animación de entrada del pop-up */
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Animación de salida del pop-up */
+@keyframes popupFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+}
+
+/* Aplicar animación de entrada al pop-up */
+.glass-loader {
+  animation: popupFadeIn 0.3s ease-out;
+}
+
+/* Clase para animación de salida */
+.glass-loader.fade-out {
+  animation: popupFadeOut 0.3s ease-out;
+}
+
+/* Mejorar la transición del contenido del pop-up */
+.pop-up-contenido {
+  transition: transform 0.3s ease-out;
+}
+
+/* Efecto hover sutil en el botón */
+#btnAgregarDireccion {
+  transition: all 0.2s ease;
+}
+
+#btnAgregarDireccion:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(80, 137, 145, 0.3);
+}
