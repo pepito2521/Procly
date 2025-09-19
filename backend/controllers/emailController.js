@@ -3,7 +3,8 @@ const {
   sendTicketCreatedEmail, 
   sendStatusChangeEmail, 
   sendAdminNotificationEmail,
-  sendPartnerRecommendedEmail
+  sendPartnerRecommendedEmail,
+  sendNewUserNotificationEmail
 } = require('../utils/emailService');
 
 // Enviar email cuando se crea un ticket
@@ -131,6 +132,26 @@ const enviarEmailPartnerRecomendado = async (partnerData, userEmail, userName) =
   }
 };
 
+// Enviar notificación al admin cuando se registra un nuevo usuario
+const enviarNotificacionNuevoUsuario = async (userData) => {
+  try {
+    const adminEmail = process.env.ADMIN_EMAIL;
+    
+    // Solo enviar email al admin si está configurado
+    if (!adminEmail) {
+      console.log('📧 Email de admin no configurado - saltando notificación de nuevo usuario');
+      return { success: true, skipped: true };
+    }
+    
+    await sendNewUserNotificationEmail(adminEmail, userData);
+    console.log('✅ Email de notificación de nuevo usuario enviado al admin:', adminEmail);
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Error enviando email de notificación de nuevo usuario:', error);
+    return { success: false, error: error.message };
+  }
+};
+
 // Obtener estadísticas de emails enviados (placeholder para futuras implementaciones)
 const obtenerEstadisticasEmails = async () => {
   // En el futuro, podrías guardar logs de emails en la base de datos
@@ -146,6 +167,7 @@ module.exports = {
   enviarEmailCambioEstado,
   enviarNotificacionAdmin,
   enviarEmailPartnerRecomendado,
+  enviarNotificacionNuevoUsuario,
   manejarEmailTicketCreado,
   probarSistemaEmails,
   obtenerEstadisticasEmails

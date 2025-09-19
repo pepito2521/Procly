@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { supabase, supabaseService } = require('../config/supabase');
+const { enviarNotificacionNuevoUsuario } = require('../controllers/emailController');
 
 // 1. SIGNUP
 function delay(ms) {
@@ -39,6 +40,21 @@ router.post('/signup', async (req, res) => {
 
   if (profileError) {
     return res.status(500).json({ error: `Error al crear perfil de usuario: ${profileError.message}` });
+  }
+
+  // PASO 3: Enviar notificación al admin (no bloquea el registro si falla)
+  try {
+    const userData = {
+      nombre: nombre,
+      email: email,
+      created_at: new Date().toISOString()
+    };
+    
+    await enviarNotificacionNuevoUsuario(userData);
+    console.log('✅ Notificación de nuevo usuario enviada al admin');
+  } catch (emailError) {
+    console.error('⚠️ Error enviando notificación de nuevo usuario (no crítico):', emailError);
+    // No fallar el registro por error de email
   }
   
   return res.status(201).json({ message: 'Usuario y perfil creados exitosamente' });

@@ -190,10 +190,47 @@ async function sendPartnerRecommendedEmail(userEmail, partnerData, userName) {
   }
 }
 
+// Enviar email de notificación de nuevo usuario al admin
+async function sendNewUserNotificationEmail(adminEmail, userData) {
+  if (!isEmailConfigured || !transporter) {
+    console.log('📧 Email no enviado - configuración incompleta');
+    return null;
+  }
+
+  try {
+    const template = await loadEmailTemplate('notificacion_nuevo_usuario');
+    const html = replaceTemplateVariables(template, {
+      nombreUsuario: userData.nombre || 'Usuario',
+      emailUsuario: userData.email,
+      fechaRegistro: userData.created_at ? new Date(userData.created_at).toLocaleDateString('es-ES', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }) : new Date().toLocaleDateString('es-ES')
+    });
+
+    const mailOptions = {
+      from: emailConfig.EMAIL_FROM,
+      to: adminEmail,
+      subject: `Nuevo Usuario Registrado - ${userData.nombre || userData.email} | Procly`,
+      html: html
+    };
+
+    const result = await transporter.sendMail(mailOptions);
+    console.log('✅ Email de notificación de nuevo usuario enviado:', result.messageId);
+    return result;
+  } catch (error) {
+    console.error('❌ Error enviando email de notificación de nuevo usuario:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   sendTicketCreatedEmail,
   sendStatusChangeEmail,
   sendAdminNotificationEmail,
   sendPartnerRecommendedEmail,
+  sendNewUserNotificationEmail,
   isEmailConfigured
 }; 

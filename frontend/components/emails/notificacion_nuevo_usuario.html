@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificación de Nuevo Usuario - Procly</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f7f7f7; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #f7f7f7; padding: 20px 0;">
+        <!-- Header con logo -->
+        <div style="background-color: #f7f7f7; padding: 20px 0; text-align: center;">
+            <img 
+                src="https://www.procly.net/assets/logo/logo_light.png" 
+                alt="PROCLY Logo" 
+                style="max-width: 240px; height: auto;" />
+        </div>
+
+        <!-- Contenido principal -->
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 40px 20px; text-align: center; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h1 style="font-size: 26px; font-weight: 600; color: #333; margin-bottom: 20px;">¡Nuevo Usuario Registrado!</h1>
+            
+            <!-- Notification Icon -->
+            <div style="text-align: center; margin-bottom: 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#10b981" viewBox="0 0 256 256" style="width: 48px; height: 48px;">
+                    <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,8.27,8.27,0,0,1-3.12-.62,8.66,8.66,0,0,1-4.88-4.88A8,8,0,0,1,128,152a8,8,0,0,1,8,8Zm-8-88a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V96A8,8,0,0,1,136,88Z"></path>
+                </svg>
+            </div>
+
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">Un nuevo usuario se ha registrado en la plataforma Procly.</p>
+
+            <!-- Información del Usuario -->
+            <div style="background: #f8fafc; border-radius: 8px; padding: 20px; margin: 20px 0; border-left: 4px solid #10b981; text-align: left;">
+                <h3 style="margin: 0 0 15px 0; color: #1f2937; font-size: 18px;">👤 Detalles del Usuario</h3>
+                <div style="display: flex; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: #6b7280; min-width: 120px;">Nombre:</span>
+                    <span style="color: #1f2937;">{{ nombreUsuario }}</span>
+                </div>
+                <div style="display: flex; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: #6b7280; min-width: 120px;">Email:</span>
+                    <span style="color: #1f2937;">{{ emailUsuario }}</span>
+                </div>
+                <div style="display: flex; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: #6b7280; min-width: 120px;">Fecha de Registro:</span>
+                    <span style="color: #1f2937;">{{ fechaRegistro }}</span>
+                </div>
+                <div style="display: flex; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: #6b7280; min-width: 120px;">Estado:</span>
+                    <span style="color: #10b981; font-weight: 600;">Activo</span>
+                </div>
+            </div>
+
+            <!-- Información Adicional -->
+            <div style="background: #f0f9ff; border-radius: 8px; padding: 20px; margin: 20px 0; border-left: 4px solid #3b82f6; text-align: left;">
+                <h3 style="margin: 0 0 10px 0; color: #1e40af; font-size: 16px;">ℹ️ Información Adicional</h3>
+                <p style="margin: 0; color: #1e40af;">El usuario ya puede comenzar a crear tickets y utilizar todas las funcionalidades de la plataforma.</p>
+            </div>
+
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">Podés gestionar este usuario desde tu panel de administración.</p>
+
+            <!-- Botón CTA -->
+            <div style="text-align: center;">
+                <a href="https://www.procly.net/app/admin/administrador.html" style="background: linear-gradient(135deg, #508991 0%, #70a9b1 100%); color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 500; display: inline-block; margin: 20px 0; transition: background-color 0.3s ease;">
+                    Ver en Panel de Admin
+                </a>
+            </div>
+
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">¡Mantente al día con las notificaciones!</p>
+
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px; line-height: 1.5;">Saludos cordiales,<br><strong>El sistema de Procly</strong></p>
+        </div>
+
+        <!-- Footer -->
+        <div style="max-width: 600px; margin: 0 auto; background: #f8fafc; color: #6b7280; text-align: center; padding: 20px; border-radius: 0 0 8px 8px; font-size: 14px;">
+            <p style="margin: 0;">Este email fue enviado desde <a href="https://www.procly.net" style="color: #508991; text-decoration: none;">Procly</a></p>
+            <p style="margin: 5px 0 0 0; font-size: 12px; color: #ccc;">Notificación automática del sistema</p>
+        </div>
+    </div>
+</body>
+</html>
