@@ -116,7 +116,7 @@ async function cargarUsuariosTemplate() {
             const row = document.createElement("tr");
             row.setAttribute('data-id', u.profile_id);
             const gastoAcumulado = u.gasto_total !== null && u.gasto_total !== undefined ? `${Number(u.gasto_total).toLocaleString('es-AR').replace(/,/g, '.')} ARS` : '-';
-            const limiteHtml = (u.limite_gasto && !isNaN(u.limite_gasto))
+            const limiteHtml = (u.limite_gasto !== null && u.limite_gasto !== undefined && !isNaN(u.limite_gasto))
                 ? `${Number(u.limite_gasto).toLocaleString('es-AR').replace(/,/g, '.')} ARS`
                 : '<span class="sin-limite">Sin Límite</span>';
             const saldo = u.saldo !== null && u.saldo !== undefined ? `${Number(u.saldo).toLocaleString('es-AR').replace(/,/g, '.')} ARS` : '-';
@@ -314,8 +314,8 @@ async function cargarPopupLimite(idUsuario) {
       const input = document.getElementById('input-limite');
       const valorSinSeparadores = input.value.replace(/\./g, '');
       const limite = Number(valorSinSeparadores);
-      if (!limite || limite <= 0) {
-        alert('Por favor, ingresa un límite válido mayor a 0');
+      if (isNaN(limite) || limite < 0) {
+        alert('Por favor, ingresa un límite válido mayor o igual a 0');
         return;
       }
       
@@ -393,7 +393,7 @@ async function actualizarDatosUsuario(profileId, nuevoLimite = null, nuevoEstado
       if (nuevoLimite !== null) {
         const tdLimite = filaUsuario.querySelector('td:nth-child(3)');
         if (tdLimite) {
-          tdLimite.innerHTML = nuevoLimite > 0 
+          tdLimite.innerHTML = nuevoLimite !== null && nuevoLimite !== undefined && !isNaN(nuevoLimite)
             ? `${Number(nuevoLimite).toLocaleString('es-AR').replace(/,/g, '.')} ARS` 
             : '<span class="sin-limite">Sin Límite</span>';
         }
