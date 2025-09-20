@@ -491,7 +491,7 @@ const formatearPrecioARS = (precio) => {
     
             // Cálculo de saldo
             let saldo = null;
-            if (u.limite_gasto !== null && u.limite_gasto !== undefined && !isNaN(u.limite_gasto)) {
+            if (u.limite_gasto !== null && u.limite_gasto !== undefined && !isNaN(u.limite_gasto) && u.limite_gasto > 0) {
                 saldo = u.limite_gasto - gasto;
             }
 
