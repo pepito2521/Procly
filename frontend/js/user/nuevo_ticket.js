@@ -903,40 +903,39 @@ export function initNuevoTicket() {
     const codigoElement = document.getElementById('popup-codigo-ticket');
     const copiarBtn = document.getElementById('popup-copiar-codigo');
     
-    // Asegurar que los estilos universales se apliquen correctamente
-    popup.style.cssText = `
-      position: fixed !important;
-      top: 0 !important;
-      left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      background: rgba(255, 255, 255, 0.1) !important;
-      backdrop-filter: blur(8px) !important;
-      -webkit-backdrop-filter: blur(8px) !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      z-index: 10000 !important;
-    `;
-    
-    // Asegurar que el contenido del pop-up tenga el estilo correcto
-    const popupContenido = popup.querySelector('.pop-up-contenido');
-    if (popupContenido) {
-      popupContenido.style.cssText = `
-        background: white !important;
-        padding: 32px !important;
-        border-radius: 16px !important;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
-        width: 100% !important;
-        max-width: 500px !important;
-        margin: 0 20px !important;
-        position: relative !important;
-        z-index: 10001 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-      `;
+    // Aplicar estilos inmediatamente después de insertar el HTML
+    if (popup) {
+      // Estilos del contenedor principal (efecto glass)
+      popup.style.position = 'fixed';
+      popup.style.top = '0';
+      popup.style.left = '0';
+      popup.style.width = '100%';
+      popup.style.height = '100%';
+      popup.style.background = 'rgba(255, 255, 255, 0.1)';
+      popup.style.backdropFilter = 'blur(8px)';
+      popup.style.webkitBackdropFilter = 'blur(8px)';
+      popup.style.display = 'flex';
+      popup.style.alignItems = 'center';
+      popup.style.justifyContent = 'center';
+      popup.style.zIndex = '10000';
+      
+      // Estilos del contenido del pop-up
+      const popupContenido = popup.querySelector('.pop-up-contenido');
+      if (popupContenido) {
+        popupContenido.style.background = 'white';
+        popupContenido.style.padding = '32px';
+        popupContenido.style.borderRadius = '16px';
+        popupContenido.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2)';
+        popupContenido.style.width = '100%';
+        popupContenido.style.maxWidth = '500px';
+        popupContenido.style.margin = '0 20px';
+        popupContenido.style.position = 'relative';
+        popupContenido.style.zIndex = '10001';
+        popupContenido.style.display = 'flex';
+        popupContenido.style.flexDirection = 'column';
+        popupContenido.style.gap = '12px';
+        popupContenido.style.border = '1px solid rgba(255, 255, 255, 0.3)';
+      }
     }
     
     // Configurar el código del ticket
