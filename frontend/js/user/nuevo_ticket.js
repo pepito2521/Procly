@@ -6,7 +6,6 @@ export function initNuevoTicket() {
   let prevBtn;
   let currentStep = 0;
   let categoriaSeleccionada = '';
-  let step4Fijo = false;
 
   const steps = document.querySelectorAll(".form-step");
   progressBar = document.getElementById("progressBar");
@@ -196,9 +195,6 @@ export function initNuevoTicket() {
 
   //PROGRESS BAR
   function showStep(index) {
-    if (step4Fijo && index !== steps.length - 1) {
-      return;
-    }
     steps.forEach((step, i) => {
       step.style.display = i === index ? "block" : "none";
       step.classList.remove("slide-in");
@@ -211,7 +207,7 @@ export function initNuevoTicket() {
     updateProgress(index);
     currentStep = index;
 
-    const hidePrevOnSteps = [0, steps.length - 1];
+    const hidePrevOnSteps = [0]; // Solo ocultar en el primer paso
 
     if (prevBtn) {
       if (hidePrevOnSteps.includes(index)) {
@@ -219,12 +215,6 @@ export function initNuevoTicket() {
       } else {
         prevBtn.classList.remove("hidden");
       }
-    }
-  
-    if (index === steps.length - 1) {
-      progressBarContainer.style.setProperty('display', 'none', 'important');
-    } else {
-      progressBarContainer.style.display = "flex";
     }
 
     // Cargar direcciones cuando se muestre el step 3 (presupuesto y datos de entrega)
@@ -237,12 +227,11 @@ export function initNuevoTicket() {
         actualizarMensajeFechaMinima();
       }, 100);
     }
-
   }
 
   function updateProgress(step) {
-    // Ahora tenemos 4 steps: 0, 1, 2, 3 (confirmación)
-    const percentage = (step / 3) * 100;
+    // Ahora tenemos 3 steps: 0, 1, 2 (sin confirmación)
+    const percentage = (step / 2) * 100;
     if (progressBar) {
       progressBar.style.width = `${percentage}%`;
     }
@@ -265,7 +254,7 @@ export function initNuevoTicket() {
         }
       }
       
-      if (currentStep < steps.length - 1) {
+      if (currentStep < 2) { // Solo 3 steps: 0, 1, 2
         currentStep++;
         showStep(currentStep);
       }
@@ -353,9 +342,9 @@ export function initNuevoTicket() {
           day: 'numeric'
         });
         mostrarError(fechaInput, `La fecha debe ser al menos 5 días hábiles desde hoy (${fechaMinimaFormateada})`);
-        isValid = false;
-      } else {
-        removerError(fechaInput);
+      isValid = false;
+    } else {
+      removerError(fechaInput);
       }
     }
     
@@ -676,45 +665,45 @@ export function initNuevoTicket() {
     `;
   
     try {
-      await setSupabaseAuthToken(token);
+    await setSupabaseAuthToken(token);
   
       // Get file from the new file upload system
       const archivo = window.selectedFile;
-      let archivoUrl = null;
+    let archivoUrl = null;
   
-      if (archivo && archivo.size > 0) {
-        const nombreLimpio = archivo.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\.-]/g, '');
-        const nombreArchivo = `${Date.now()}_${nombreLimpio}`;
+    if (archivo && archivo.size > 0) {
+      const nombreLimpio = archivo.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\.-]/g, '');
+      const nombreArchivo = `${Date.now()}_${nombreLimpio}`;
   
-        const { data, error } = await supabase.storage
-          .from('adjuntos-ticket')
-          .upload(nombreArchivo, archivo);
+      const { data, error } = await supabase.storage
+        .from('adjuntos-ticket')
+        .upload(nombreArchivo, archivo);
   
-        if (error) {
-          console.error('❌ Error al subir archivo:', error);
-          alert('Error al subir el archivo adjunto.');
+      if (error) {
+        console.error('❌ Error al subir archivo:', error);
+        alert('Error al subir el archivo adjunto.');
           // Restaurar estado del botón
           crearTicketBtn.innerHTML = estadoOriginal;
           crearTicketBtn.disabled = false;
-          return;
-        }
-  
-        archivoUrl = data.path;
+        return;
       }
   
-      const presupuestoRaw = formData.get('presupuesto');
-      const presupuestoNumerico = presupuestoRaw ? Number(presupuestoRaw.replace(/\./g, '')) : null;
+      archivoUrl = data.path;
+    }
   
-      const body = {
-        categoria: categoriaSeleccionada,
-        nombre: formData.get('nombre'),
-        descripcion: formData.get('descripcion'),
-        presupuesto: presupuestoNumerico,
-        limite: formData.get('limite'),
-        direccion_id: formData.get('direccion_entrega'),
-        fecha_entrega: formData.get('fecha_entrega'),
-        archivo_url: archivoUrl
-      };
+    const presupuestoRaw = formData.get('presupuesto');
+    const presupuestoNumerico = presupuestoRaw ? Number(presupuestoRaw.replace(/\./g, '')) : null;
+  
+    const body = {
+      categoria: categoriaSeleccionada,
+      nombre: formData.get('nombre'),
+      descripcion: formData.get('descripcion'),
+      presupuesto: presupuestoNumerico,
+      limite: formData.get('limite'),
+      direccion_id: formData.get('direccion_entrega'),
+      fecha_entrega: formData.get('fecha_entrega'),
+      archivo_url: archivoUrl
+    };
   
       const res = await fetch('https://www.procly.net/tickets', {
         method: 'POST',
@@ -726,24 +715,24 @@ export function initNuevoTicket() {
       });
   
       const data = await res.json();
-  
+
       if (res.ok) {
         // ✅ TICKET CREADO EXITOSAMENTE
         console.log('✅ Ticket creado exitosamente:', data);
         
-        // Mostrar mensaje de éxito
+        // Mostrar mensaje de éxito temporal
         mostrarMensajeExito();
         
         // Clear file selection on successful submission
         clearFileSelection();
         
-        // SOLO AHORA pasar al step 4 de confirmación
-        step4Fijo = true;
-        currentStep++;
-        showStep(currentStep);
-        mostrarConfirmacion(data.codigo_ticket);
+        // Mostrar pop-up de confirmación
+        mostrarPopUpConfirmacion(data.codigo_ticket);
         
-        // Restaurar el botón después de pasar al step 4
+        // Reset del formulario
+        resetearFormulario();
+        
+        // Restaurar el botón
         crearTicketBtn.innerHTML = estadoOriginal;
         crearTicketBtn.disabled = false;
         
@@ -905,63 +894,90 @@ export function initNuevoTicket() {
     }, 3000);
   }
 
-  // MENSAJE CONDIFRMACION: CODIGO TICKET
-  function mostrarConfirmacion(codigoTicket) {
-    const textoCodigo = document.getElementById("codigoTicketTexto");
-    textoCodigo.textContent = codigoTicket;
-
-    const copiarIcono = document.getElementById("copiarIcono");
-    copiarIcono.dataset.codigo = codigoTicket;
-    copiarIcono.classList.remove("copiado");
-
-    lottie.loadAnimation({
-      container: document.getElementById('success-animation'),
-      renderer: 'svg',
-      loop: false,
-      autoplay: true,
-      path: '/assets/lottie/success-check.json'
-    });    
+  // POP-UP DE CONFIRMACIÓN
+  function mostrarPopUpConfirmacion(codigoTicket) {
+    const popup = document.getElementById('pop-up-confirmacion-ticket');
+    const codigoElement = document.getElementById('popup-codigo-ticket');
+    const copiarBtn = document.getElementById('popup-copiar-codigo');
+    
+    // Mostrar el pop-up
+    popup.style.display = 'flex';
+    
+    // Configurar el código del ticket
+    codigoElement.textContent = codigoTicket;
+    copiarBtn.dataset.codigo = codigoTicket;
+    copiarBtn.classList.remove('copiado');
+    
+    // Configurar event listeners
+    configurarPopUpConfirmacion();
   }
 
-  // Al final, delega el click para "Ver mis tickets"
-  document.getElementById('verMisTicketsBtn')?.addEventListener('click', () => {
-    document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
-  });
-
-  // Si necesitas exponer copiar código:
-  window.copiarCodigoTicket = function () {
-    const icono = document.getElementById("copiarIcono");
-    const codigo = icono.dataset.codigo;
-
-    if (icono.classList.contains("copiado")) return;
-
-    navigator.clipboard.writeText(codigo).then(() => {
-      icono.innerHTML = `
-        <!-- Icono copiado -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#3E8914" viewBox="0 0 256 256">
-          <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
-        </svg>
-      `;
-      icono.classList.add("copiado");
-      icono.style.pointerEvents = "none";
-    }).catch(err => {
-      console.error("Error al copiar:", err);
+  function configurarPopUpConfirmacion() {
+    const popup = document.getElementById('pop-up-confirmacion-ticket');
+    const cerrarBtn = document.getElementById('cerrar-confirmacion');
+    const verTicketsBtn = document.getElementById('ver-mis-tickets');
+    const copiarBtn = document.getElementById('popup-copiar-codigo');
+    
+    // Cerrar pop-up
+    cerrarBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
     });
-  };
+    
+    // Ver mis tickets
+    verTicketsBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+      document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
+    });
+    
+    // Copiar código
+    copiarBtn.addEventListener('click', () => {
+      const codigo = copiarBtn.dataset.codigo;
+      if (copiarBtn.classList.contains('copiado')) return;
+      
+      navigator.clipboard.writeText(codigo).then(() => {
+        copiarBtn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
+          </svg>
+        `;
+        copiarBtn.classList.add('copiado');
+        copiarBtn.style.pointerEvents = 'none';
+      }).catch(err => {
+        console.error('Error al copiar:', err);
+      });
+    });
+    
+    // Cerrar con click fuera del pop-up
+    popup.addEventListener('click', (e) => {
+      if (e.target === popup) {
+        popup.style.display = 'none';
+      }
+    });
+  }
 
-  const form = document.getElementById('multiStepForm');
-  form.addEventListener('reset', () => {
-    console.log("⚠️ Formulario reseteado");
-  });
+  // RESET DEL FORMULARIO
+  function resetearFormulario() {
+    // Reset del formulario
+    document.getElementById('multiStepForm').reset();
+    
+    // Reset de variables
+    categoriaSeleccionada = '';
+    currentStep = 0;
+    
+    // Reset de la UI
+    document.querySelectorAll('.categoria-card').forEach(card => {
+      card.classList.remove('selected');
+    });
+    
+    // Reset del progress bar
+    updateProgress(0);
+    
+    // Volver al primer step
+    showStep(0);
+    
+    // Reset del file upload
+    clearFileSelection();
+  }
 
-  document.addEventListener('input', (e) => {
-    console.log("Evento input global:", e.target);
-  });
-  document.addEventListener('change', (e) => {
-    console.log("Evento change global:", e.target);
-  });
 
-  document.addEventListener('visibilitychange', () => {
-    console.log("⚠️ Cambió la visibilidad del documento:", document.visibilityState);
-  });
 }
