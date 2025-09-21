@@ -1,4 +1,5 @@
 import { supabase, setSupabaseAuthToken } from '../supabaseClient.js';
+import { mostrarLoader, ocultarLoader } from '/js/components/loader.js';
 
 export function initNuevoTicket() {
   // MULTISTEP FORM
@@ -656,13 +657,8 @@ export function initNuevoTicket() {
       return;
     }
   
-    // Mostrar estado de carga en el botón
-    const estadoOriginal = crearTicketBtn.innerHTML;
-    crearTicketBtn.disabled = true;
-    crearTicketBtn.innerHTML = `
-      <span class="spinner-small"></span>
-      Creando ticket...
-    `;
+    // Mostrar loader en lugar de cambiar el botón
+    await mostrarLoader();
   
     try {
     await setSupabaseAuthToken(token);
@@ -682,9 +678,7 @@ export function initNuevoTicket() {
       if (error) {
         console.error('❌ Error al subir archivo:', error);
         alert('Error al subir el archivo adjunto.');
-          // Restaurar estado del botón
-          crearTicketBtn.innerHTML = estadoOriginal;
-          crearTicketBtn.disabled = false;
+          ocultarLoader();
         return;
       }
   
@@ -726,29 +720,24 @@ export function initNuevoTicket() {
         // Clear file selection on successful submission
         clearFileSelection();
         
+        // Ocultar loader
+        ocultarLoader();
+        
         // Mostrar pop-up de confirmación
-        mostrarPopUpConfirmacion(data.codigo_ticket);
+        await mostrarPopUpConfirmacion(data.codigo_ticket);
         
         // Reset del formulario
         resetearFormulario();
         
-        // Restaurar el botón
-        crearTicketBtn.innerHTML = estadoOriginal;
-        crearTicketBtn.disabled = false;
-        
       } else {
         console.error('❌ Error al crear el ticket:', data.error);
         alert('❌ Error al crear el ticket: ' + data.error);
-        // Restaurar estado del botón en caso de error
-        crearTicketBtn.innerHTML = estadoOriginal;
-        crearTicketBtn.disabled = false;
+        ocultarLoader();
       }
     } catch (err) {
       console.error('⚠️ Error al enviar el ticket:', err);
       alert('Error de red al crear el ticket');
-      // Restaurar estado del botón en caso de error
-      crearTicketBtn.innerHTML = estadoOriginal;
-      crearTicketBtn.disabled = false;
+      ocultarLoader();
     }
   });
   
@@ -895,7 +884,21 @@ export function initNuevoTicket() {
   }
 
   // POP-UP DE CONFIRMACIÓN
-  function mostrarPopUpConfirmacion(codigoTicket) {
+  async function mostrarPopUpConfirmacion(codigoTicket) {
+    // Cargar el pop-up dinámicamente
+    const response = await fetch('/components/pop-up-confirmacion-ticket.html');
+    const popupHTML = await response.text();
+    
+    // Crear un contenedor temporal para el pop-up
+    let popupContainer = document.getElementById('popup-confirmacion-container');
+    if (!popupContainer) {
+      popupContainer = document.createElement('div');
+      popupContainer.id = 'popup-confirmacion-container';
+      document.body.appendChild(popupContainer);
+    }
+    
+    popupContainer.innerHTML = popupHTML;
+    
     const popup = document.getElementById('pop-up-confirmacion-ticket');
     const codigoElement = document.getElementById('popup-codigo-ticket');
     const copiarBtn = document.getElementById('popup-copiar-codigo');
@@ -921,28 +924,38 @@ export function initNuevoTicket() {
     // Cerrar pop-up
     cerrarBtn.addEventListener('click', () => {
       popup.style.display = 'none';
+      // Limpiar el contenedor del pop-up
+      const popupContainer = document.getElementById('popup-confirmacion-container');
+      if (popupContainer) {
+        popupContainer.remove();
+      }
     });
     
     // Ver mis tickets
     verTicketsBtn.addEventListener('click', () => {
       popup.style.display = 'none';
+      // Limpiar el contenedor del pop-up
+      const popupContainer = document.getElementById('popup-confirmacion-container');
+      if (popupContainer) {
+        popupContainer.remove();
+      }
       document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
     });
-    
+
     // Copiar código
     copiarBtn.addEventListener('click', () => {
       const codigo = copiarBtn.dataset.codigo;
       if (copiarBtn.classList.contains('copiado')) return;
-      
-      navigator.clipboard.writeText(codigo).then(() => {
+
+    navigator.clipboard.writeText(codigo).then(() => {
         copiarBtn.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-            <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
-          </svg>
-        `;
+          <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
+        </svg>
+      `;
         copiarBtn.classList.add('copiado');
         copiarBtn.style.pointerEvents = 'none';
-      }).catch(err => {
+    }).catch(err => {
         console.error('Error al copiar:', err);
       });
     });
@@ -951,6 +964,11 @@ export function initNuevoTicket() {
     popup.addEventListener('click', (e) => {
       if (e.target === popup) {
         popup.style.display = 'none';
+        // Limpiar el contenedor del pop-up
+        const popupContainer = document.getElementById('popup-confirmacion-container');
+        if (popupContainer) {
+          popupContainer.remove();
+        }
       }
     });
   }
