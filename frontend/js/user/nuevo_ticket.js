@@ -884,70 +884,21 @@ export function initNuevoTicket() {
   }
 
   // POP-UP DE CONFIRMACIÓN
-  async function mostrarPopUpConfirmacion(codigoTicket) {
-    // Cargar el pop-up dinámicamente
-    const response = await fetch('/components/pop-up-confirmacion-ticket.html');
-    const popupHTML = await response.text();
-    
-    // Crear un contenedor temporal para el pop-up
-    let popupContainer = document.getElementById('popup-confirmacion-container');
-    if (!popupContainer) {
-      popupContainer = document.createElement('div');
-      popupContainer.id = 'popup-confirmacion-container';
-      document.body.appendChild(popupContainer);
-    }
-    
-    popupContainer.innerHTML = popupHTML;
-    
+  function mostrarPopUpConfirmacion(codigoTicket) {
     const popup = document.getElementById('pop-up-confirmacion-ticket');
     const codigoElement = document.getElementById('popup-codigo-ticket');
     const copiarBtn = document.getElementById('popup-copiar-codigo');
     
-    // Aplicar estilos inmediatamente después de insertar el HTML
-    if (popup) {
-      // Estilos del contenedor principal (efecto glass)
-      popup.style.position = 'fixed';
-      popup.style.top = '0';
-      popup.style.left = '0';
-      popup.style.width = '100%';
-      popup.style.height = '100%';
-      popup.style.background = 'rgba(255, 255, 255, 0.1)';
-      popup.style.backdropFilter = 'blur(8px)';
-      popup.style.webkitBackdropFilter = 'blur(8px)';
-      popup.style.display = 'flex';
-      popup.style.alignItems = 'center';
-      popup.style.justifyContent = 'center';
-      popup.style.zIndex = '10000';
-      
-      // Estilos del contenido del pop-up
-      const popupContenido = popup.querySelector('.pop-up-contenido');
-      if (popupContenido) {
-        popupContenido.style.background = 'white';
-        popupContenido.style.padding = '32px';
-        popupContenido.style.borderRadius = '16px';
-        popupContenido.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2)';
-        popupContenido.style.width = '100%';
-        popupContenido.style.maxWidth = '500px';
-        popupContenido.style.margin = '0 20px';
-        popupContenido.style.position = 'relative';
-        popupContenido.style.zIndex = '10001';
-        popupContenido.style.display = 'flex';
-        popupContenido.style.flexDirection = 'column';
-        popupContenido.style.gap = '12px';
-        popupContenido.style.border = '1px solid rgba(255, 255, 255, 0.3)';
-      }
-    }
+    // Mostrar el pop-up (los estilos universales ya están aplicados)
+    popup.style.display = 'flex';
     
     // Configurar el código del ticket
     codigoElement.textContent = codigoTicket;
     copiarBtn.dataset.codigo = codigoTicket;
     copiarBtn.classList.remove('copiado');
     
-    // Pequeño delay para asegurar que el DOM se renderice
-    setTimeout(() => {
-      // Configurar event listeners
-      configurarPopUpConfirmacion();
-    }, 100);
+    // Configurar event listeners
+    configurarPopUpConfirmacion();
   }
 
   function configurarPopUpConfirmacion() {
@@ -959,30 +910,20 @@ export function initNuevoTicket() {
     // Cerrar pop-up
     cerrarBtn.addEventListener('click', () => {
       popup.style.display = 'none';
-      // Limpiar el contenedor del pop-up
-      const popupContainer = document.getElementById('popup-confirmacion-container');
-      if (popupContainer) {
-        popupContainer.remove();
-      }
     });
     
     // Ver mis tickets
     verTicketsBtn.addEventListener('click', () => {
       popup.style.display = 'none';
-      // Limpiar el contenedor del pop-up
-      const popupContainer = document.getElementById('popup-confirmacion-container');
-      if (popupContainer) {
-        popupContainer.remove();
-      }
-    document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
-  });
+      document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
+    });
 
     // Copiar código
     copiarBtn.addEventListener('click', () => {
       const codigo = copiarBtn.dataset.codigo;
       if (copiarBtn.classList.contains('copiado')) return;
 
-    navigator.clipboard.writeText(codigo).then(() => {
+      navigator.clipboard.writeText(codigo).then(() => {
         copiarBtn.innerHTML = `
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
           <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
@@ -990,7 +931,7 @@ export function initNuevoTicket() {
       `;
         copiarBtn.classList.add('copiado');
         copiarBtn.style.pointerEvents = 'none';
-    }).catch(err => {
+      }).catch(err => {
         console.error('Error al copiar:', err);
       });
     });
@@ -999,11 +940,6 @@ export function initNuevoTicket() {
     popup.addEventListener('click', (e) => {
       if (e.target === popup) {
         popup.style.display = 'none';
-        // Limpiar el contenedor del pop-up
-        const popupContainer = document.getElementById('popup-confirmacion-container');
-        if (popupContainer) {
-          popupContainer.remove();
-        }
       }
     });
   }

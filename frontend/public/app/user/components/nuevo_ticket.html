@@ -100,12 +100,43 @@
         </button>
       </div>
     </section>
-
-
-    
   </form>
-
 </main>
-
+<!-- Pop-up de confirmación de ticket -->
+<div id="pop-up-confirmacion-ticket" class="popup-overlay" style="display: none;" aria-modal="true" role="dialog">
+  <div class="pop-up-contenido">
+    <!-- Header con icono de éxito -->
+    <div class="popup-confirmacion-header">
+      <div class="popup-confirmacion-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="#10b981" viewBox="0 0 256 256">
+          <path d="M229.66,74.34l-112,112a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L112,164.69,218.34,58.34a8,8,0,0,1,11.32,11.32Z"></path>
+        </svg>
+      </div>
+      <div class="popup-confirmacion-title-section">
+        <h2>¡Ticket creado exitosamente!</h2>
+        <p>Tu ticket ha sido enviado correctamente</p>
+      </div>
+    </div>
+    
+    <!-- Código del ticket -->
+    <div class="popup-ticket-code">
+      <div class="ticket-code-label">Código del ticket:</div>
+      <div class="ticket-code-value">
+        <span id="popup-codigo-ticket">...</span>
+        <button type="button" id="popup-copiar-codigo" class="copiar-btn" title="Copiar código">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Botones de acción -->
+    <div class="pop-up-btns-row">
+      <button type="button" class="btn-gris" id="cerrar-confirmacion">Cerrar</button>
+      <button type="button" id="ver-mis-tickets" class="btn-verde">Ver mis tickets</button>
+    </div>
+  </div>
+</div>
 
 <script type="module" src="/js/user/nuevo_ticket.js"></script>
