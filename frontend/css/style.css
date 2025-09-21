@@ -256,7 +256,8 @@ text-decoration: none;
 .popup-overlay,
 .modal-overlay,
 [class*="popup"],
-[class*="modal"] {
+[class*="modal"],
+#pop-up-confirmacion-ticket {
   position: fixed;
   top: 0;
   left: 0;
@@ -264,6 +265,7 @@ text-decoration: none;
   height: 100%;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
