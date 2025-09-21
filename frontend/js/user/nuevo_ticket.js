@@ -903,8 +903,41 @@ export function initNuevoTicket() {
     const codigoElement = document.getElementById('popup-codigo-ticket');
     const copiarBtn = document.getElementById('popup-copiar-codigo');
     
-    // Mostrar el pop-up (los estilos universales ya están aplicados)
-    popup.style.display = 'flex';
+    // Asegurar que los estilos universales se apliquen correctamente
+    popup.style.cssText = `
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: rgba(255, 255, 255, 0.1) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 10000 !important;
+    `;
+    
+    // Asegurar que el contenido del pop-up tenga el estilo correcto
+    const popupContenido = popup.querySelector('.pop-up-contenido');
+    if (popupContenido) {
+      popupContenido.style.cssText = `
+        background: white !important;
+        padding: 32px !important;
+        border-radius: 16px !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+        width: 100% !important;
+        max-width: 500px !important;
+        margin: 0 20px !important;
+        position: relative !important;
+        z-index: 10001 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      `;
+    }
     
     // Configurar el código del ticket
     codigoElement.textContent = codigoTicket;
@@ -942,8 +975,8 @@ export function initNuevoTicket() {
       if (popupContainer) {
         popupContainer.remove();
       }
-      document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
-    });
+    document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
+  });
 
     // Copiar código
     copiarBtn.addEventListener('click', () => {
