@@ -1159,22 +1159,7 @@ input[type="number"] {
   }
 }
 
-/* ===== ESTILOS PARA POP-UP DE CONFIRMACIÓN ===== */
-#pop-up-confirmacion-ticket {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-}
-
+/* ===== ESTILOS ESPECÍFICOS PARA POP-UP DE CONFIRMACIÓN ===== */
 .popup-confirmacion-header {
   display: flex;
   align-items: center;

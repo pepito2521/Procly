@@ -903,7 +903,7 @@ export function initNuevoTicket() {
     const codigoElement = document.getElementById('popup-codigo-ticket');
     const copiarBtn = document.getElementById('popup-copiar-codigo');
     
-    // Mostrar el pop-up
+    // Mostrar el pop-up (los estilos universales ya están aplicados)
     popup.style.display = 'flex';
     
     // Configurar el código del ticket
@@ -911,8 +911,11 @@ export function initNuevoTicket() {
     copiarBtn.dataset.codigo = codigoTicket;
     copiarBtn.classList.remove('copiado');
     
-    // Configurar event listeners
-    configurarPopUpConfirmacion();
+    // Pequeño delay para asegurar que el DOM se renderice
+    setTimeout(() => {
+      // Configurar event listeners
+      configurarPopUpConfirmacion();
+    }, 100);
   }
 
   function configurarPopUpConfirmacion() {
