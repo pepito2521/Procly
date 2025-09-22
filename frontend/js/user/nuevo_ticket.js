@@ -714,20 +714,22 @@ export function initNuevoTicket() {
         // ✅ TICKET CREADO EXITOSAMENTE
         console.log('✅ Ticket creado exitosamente:', data);
         
-        // Mostrar mensaje de éxito temporal
-        mostrarMensajeExito();
-        
         // Clear file selection on successful submission
         clearFileSelection();
         
         // Ocultar loader
         ocultarLoader();
         
-        // Mostrar pop-up de confirmación
-        await mostrarPopUpConfirmacion(data.codigo_ticket);
+        // Mostrar mensaje de éxito con código del ticket
+        mostrarMensajeExitoConCodigo(data.codigo_ticket);
         
         // Reset del formulario
         resetearFormulario();
+        
+        // Redirigir a Mis Tickets después de 2 segundos
+        setTimeout(() => {
+          document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
+        }, 2000);
         
       } else {
         console.error('❌ Error al crear el ticket:', data.error);
@@ -849,8 +851,8 @@ export function initNuevoTicket() {
     fileUploadArea.classList.remove('drag-over');
   }
 
-  // Función para mostrar mensaje de éxito temporal
-  function mostrarMensajeExito() {
+  // Función para mostrar mensaje de éxito con código del ticket
+  function mostrarMensajeExitoConCodigo(codigoTicket) {
     // Crear mensaje de éxito temporal
     const mensaje = document.createElement('div');
     mensaje.style.cssText = `
@@ -859,90 +861,60 @@ export function initNuevoTicket() {
       right: 20px;
       background: #10b981;
       color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       z-index: 10000;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
+      max-width: 400px;
+      animation: slideInRight 0.3s ease-out;
     `;
     mensaje.innerHTML = `
-      <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
-          <path d="M229.66,74.34l-112,112a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L112,164.69,218.34,58.34a8,8,0,0,1,11.32,11.32Z"></path>
-        </svg>
-        ¡Ticket creado exitosamente!
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+            <path d="M229.66,74.34l-112,112a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L112,164.69,218.34,58.34a8,8,0,0,1,11.32,11.32Z"></path>
+          </svg>
+          <span style="font-size: 1.1rem; font-weight: 600;">¡Ticket creado exitosamente!</span>
+        </div>
+        <div style="background: rgba(255, 255, 255, 0.2); padding: 0.75rem; border-radius: 8px; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 1rem; font-weight: 600; text-align: center;">
+          Código: ${codigoTicket}
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.9; text-align: center;">
+          Redirigiendo a Mis Tickets...
+        </div>
       </div>
     `;
     
+    // Agregar animación CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
     document.body.appendChild(mensaje);
     
-    // Remover después de 3 segundos
+    // Remover después de 4 segundos
     setTimeout(() => {
-      mensaje.remove();
-    }, 3000);
+      mensaje.style.animation = 'slideInRight 0.3s ease-out reverse';
+      setTimeout(() => {
+        mensaje.remove();
+        style.remove();
+      }, 300);
+    }, 4000);
   }
 
-  // POP-UP DE CONFIRMACIÓN
-  function mostrarPopUpConfirmacion(codigoTicket) {
-    const popup = document.getElementById('pop-up-confirmacion-ticket');
-    const codigoElement = document.getElementById('popup-codigo-ticket');
-    const copiarBtn = document.getElementById('popup-copiar-codigo');
-    
-    // Mostrar el pop-up (los estilos universales ya están aplicados)
-    popup.style.display = 'flex';
-    
-    // Configurar el código del ticket
-    codigoElement.textContent = codigoTicket;
-    copiarBtn.dataset.codigo = codigoTicket;
-    copiarBtn.classList.remove('copiado');
-    
-    // Configurar event listeners
-    configurarPopUpConfirmacion();
-  }
-
-  function configurarPopUpConfirmacion() {
-    const popup = document.getElementById('pop-up-confirmacion-ticket');
-    const cerrarBtn = document.getElementById('cerrar-confirmacion');
-    const verTicketsBtn = document.getElementById('ver-mis-tickets');
-    const copiarBtn = document.getElementById('popup-copiar-codigo');
-    
-    // Cerrar pop-up
-    cerrarBtn.addEventListener('click', () => {
-      popup.style.display = 'none';
-    });
-    
-    // Ver mis tickets
-    verTicketsBtn.addEventListener('click', () => {
-      popup.style.display = 'none';
-      document.querySelector('.nav-item[data-section="mis_tickets"]')?.click();
-    });
-
-    // Copiar código
-    copiarBtn.addEventListener('click', () => {
-      const codigo = copiarBtn.dataset.codigo;
-      if (copiarBtn.classList.contains('copiado')) return;
-
-      navigator.clipboard.writeText(codigo).then(() => {
-        copiarBtn.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
-          <path d="M149.61,85.71l-89.6,88a8,8,0,0,1-11.22,0L10.39,136a8,8,0,1,1,11.22-11.41L54.4,156.79l84-82.5a8,8,0,1,1,11.22,11.42Zm96.1-11.32a8,8,0,0,0-11.32-.1l-84,82.5-18.83-18.5a8,8,0,0,0-11.21,11.42l24.43,24a8,8,0,0,0,11.22,0l89.6-88A8,8,0,0,0,245.71,74.39Z"></path>
-        </svg>
-      `;
-        copiarBtn.classList.add('copiado');
-        copiarBtn.style.pointerEvents = 'none';
-      }).catch(err => {
-        console.error('Error al copiar:', err);
-      });
-    });
-    
-    // Cerrar con click fuera del pop-up
-    popup.addEventListener('click', (e) => {
-      if (e.target === popup) {
-        popup.style.display = 'none';
-      }
-    });
-  }
 
   // RESET DEL FORMULARIO
   function resetearFormulario() {
