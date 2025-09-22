@@ -1171,7 +1171,7 @@ input[type="number"] {
   background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
-  display: none !important; /* Oculto por defecto */
+  display: none !important;
   align-items: center !important;
   justify-content: center !important;
   z-index: 10000 !important;
@@ -1197,15 +1197,16 @@ input[type="number"] {
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
 }
 
-/* Header del pop-up */
-#pop-up-confirmacion-ticket .popup-confirmacion-header {
+/* HEADER - Estilos más directos */
+.popup-confirmacion-header {
   display: flex !important;
   align-items: center !important;
   gap: 1rem !important;
   margin-bottom: 1.5rem !important;
+  width: 100% !important;
 }
 
-#pop-up-confirmacion-ticket .popup-confirmacion-icon {
+.popup-confirmacion-icon {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1216,42 +1217,51 @@ input[type="number"] {
   flex-shrink: 0 !important;
 }
 
-#pop-up-confirmacion-ticket .popup-confirmacion-title-section h2 {
+.popup-confirmacion-title-section {
+  flex: 1 !important;
+}
+
+.popup-confirmacion-title-section h2 {
   margin: 0 0 0.5rem 0 !important;
   font-size: 1.5rem !important;
   font-weight: 600 !important;
   color: #111827 !important;
+  line-height: 1.2 !important;
 }
 
-#pop-up-confirmacion-ticket .popup-confirmacion-title-section p {
+.popup-confirmacion-title-section p {
   margin: 0 !important;
   color: #6b7280 !important;
   font-size: 1rem !important;
+  line-height: 1.4 !important;
 }
 
-/* Código del ticket */
-#pop-up-confirmacion-ticket .popup-ticket-code {
+/* CÓDIGO DEL TICKET */
+.popup-ticket-code {
   background: #f9fafb !important;
   border: 1px solid #e5e7eb !important;
   border-radius: 8px !important;
   padding: 1rem !important;
   margin-bottom: 1.5rem !important;
+  width: 100% !important;
 }
 
-#pop-up-confirmacion-ticket .ticket-code-label {
+.ticket-code-label {
   font-size: 0.875rem !important;
   font-weight: 500 !important;
   color: #374151 !important;
   margin-bottom: 0.5rem !important;
+  display: block !important;
 }
 
-#pop-up-confirmacion-ticket .ticket-code-value {
+.ticket-code-value {
   display: flex !important;
   align-items: center !important;
   gap: 0.75rem !important;
+  width: 100% !important;
 }
 
-#pop-up-confirmacion-ticket #popup-codigo-ticket {
+#popup-codigo-ticket {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
   font-size: 1.125rem !important;
   font-weight: 600 !important;
@@ -1261,9 +1271,10 @@ input[type="number"] {
   border-radius: 6px !important;
   border: 1px solid #d1d5db !important;
   flex: 1 !important;
+  min-width: 0 !important;
 }
 
-#pop-up-confirmacion-ticket .popup-ticket-code .copiar-btn {
+.popup-ticket-code .copiar-btn {
   margin: 0 !important;
   padding: 0.5rem !important;
   background-color: #508991 !important;
@@ -1277,34 +1288,64 @@ input[type="number"] {
   justify-content: center !important;
   min-width: 40px !important;
   height: 40px !important;
+  flex-shrink: 0 !important;
 }
 
-#pop-up-confirmacion-ticket .popup-ticket-code .copiar-btn:hover {
+.popup-ticket-code .copiar-btn:hover {
   background-color: #4a7d85 !important;
   border-color: #4a7d85 !important;
   transform: scale(1.05) !important;
 }
 
-#pop-up-confirmacion-ticket .popup-ticket-code .copiar-btn.copiado {
+.popup-ticket-code .copiar-btn.copiado {
   background-color: #10b981 !important;
   border-color: #10b981 !important;
 }
 
-#pop-up-confirmacion-ticket .popup-ticket-code .copiar-btn svg {
+.popup-ticket-code .copiar-btn svg {
   width: 16px !important;
   height: 16px !important;
 }
 
-/* Botones de acción */
-#pop-up-confirmacion-ticket .pop-up-btns-row {
+/* BOTONES DE ACCIÓN */
+.pop-up-btns-row {
   display: flex !important;
   gap: 12px !important;
   justify-content: center !important;
+  width: 100% !important;
+  margin-top: 0.5rem !important;
 }
 
-#pop-up-confirmacion-ticket .pop-up-btns-row button {
+.pop-up-btns-row button {
   flex: 1 1 0 !important;
   min-width: 130px !important;
   max-width: 200px !important;
   white-space: nowrap !important;
+  height: 40px !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.pop-up-btns-row .btn-gris {
+  background-color: #6b7280 !important;
+  color: white !important;
+  border: 1px solid #6b7280 !important;
+}
+
+.pop-up-btns-row .btn-gris:hover {
+  background-color: #4b5563 !important;
+  border-color: #4b5563 !important;
+}
+
+.pop-up-btns-row .btn-verde {
+  background: linear-gradient(135deg, #508991 0%, #70a9b1 100%) !important;
+  color: white !important;
+  border: 1px solid #508991 !important;
+}
+
+.pop-up-btns-row .btn-verde:hover {
+  background: linear-gradient(135deg, #4a7d85 0%, #669aa2 100%) !important;
+  border-color: #4a7d85 !important;
 }
